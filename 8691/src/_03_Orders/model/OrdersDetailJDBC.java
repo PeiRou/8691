@@ -12,8 +12,8 @@ import _03_Orders.model.OrdersDetailBean;
 import _03_Orders.model.OrdersTotalBean;
 
 public class OrdersDetailJDBC {
-	private static final String URL = "jdbc:sqlserver://l1r87zexza.database.windows.net:1433;database=DB02";
-	private static final String USERNAME = "staebooksuser@l1r87zexza";
+	private static final String URL = "jdbc:sqlserver://raab1str2m.database.windows.net:1433;database=DB02";
+	private static final String USERNAME = "eeit83team05@raab1str2m";
 	private static final String PASSWORD = "Sa123456";
 
 	public static void main(String[] args) {
