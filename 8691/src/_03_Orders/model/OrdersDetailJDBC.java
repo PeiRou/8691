@@ -199,10 +199,11 @@ private static final String SELECT = "select * from Orders_detail where Orders_d
 	private static final String UPDATE = "update Orders_detail set Orders_ID=?, Food_ID=?, Drink_name=?, Food_count=?, Food_original_price=?, Note=? where orders_detail_UID=?";
 
 	
-	public boolean update(String orders_ID, int food_ID, String drink_name, int food_count,
+	public OrdersDetailBean update(String orders_ID, int food_ID, String drink_name, int food_count,
 			int food_original_price, String note, String orders_detail_UID) {
 		Connection conn = null;
 		PreparedStatement psStrUpd = null;
+		OrdersDetailBean result = null;
 		try {
 			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			psStrUpd = conn.prepareStatement(UPDATE);
@@ -217,8 +218,7 @@ private static final String SELECT = "select * from Orders_detail where Orders_d
 
 			int i = psStrUpd.executeUpdate();
 			if (i == 1) {
-				System.out.println("UPDATE Success!");
-				// return true;
+				System.out.println("UPDATE Success!");				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -238,7 +238,7 @@ private static final String SELECT = "select * from Orders_detail where Orders_d
 				}
 			}
 		}
-		return false;
+		return result;
 	}
 	
 	
