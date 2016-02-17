@@ -16,15 +16,15 @@ import _04_Member.model.MemberDAO;
 
 
 public class memberDAOjdbc implements MemberDAO {
-	private static final String URL = "jdbc:sqlserver://localhost:1433;database=DB007";
-	private static final String USERNAME = "sa";
-	private static final String PASSWORD = "1111";
+	private static final String URL = "jdbc:sqlserver://l1r87zexza.database.windows.net:1433;database=DB02";
+	private static final String USERNAME = "staebooksuser@l1r87zexza";
+	private static final String PASSWORD = "Sa123456";
 	
 	public static void main(String[] args){
 		MemberDAO dao = new memberDAOjdbc();
 //		select
-//	    memberVO beanSelect = dao.select("0");
-//		System.out.println(beanSelect);
+	    MemberBean beanSelect = dao.select("0");
+		System.out.println(beanSelect);
 
 		//select all
 //		List<memberVO> SelectAll = dao.select();
@@ -37,7 +37,7 @@ public class memberDAOjdbc implements MemberDAO {
 //		System.out.println(beanIns);
 		
 //      update
-//		memberVO update = dao.update("name","acc_email","pwd",
+//		MemberBean update = dao.update("name","acc_email","pwd",
 //				"member_photo",true,"tel","GUAR_CT",
 //				"GUAR_AR","NB_CODE","GUAR_NO",(""),
 //				"cel", new java.util.Date(), "11");

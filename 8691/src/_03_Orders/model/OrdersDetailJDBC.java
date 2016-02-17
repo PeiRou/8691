@@ -21,8 +21,8 @@ public class OrdersDetailJDBC {
 		OrdersDetailJDBC dao = new OrdersDetailJDBC();
 		
 		//select  OK
-//		OrdersDetailBean bean = dao.select("1A01E09E-EDBB-4740-8A40-2996A98F4237");
-//		System.out.println(bean);
+		OrdersDetailBean bean = dao.select("1A01E09E-EDBB-4740-8A40-2996A98F4237");
+		System.out.println(bean);
 		
 		//select all  OK
 //		List<OrdersDetailBean> beans = dao.select();
