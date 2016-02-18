@@ -1,28 +1,41 @@
 package _03_Orders.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 import _03_Orders.model.OrdersDetailBean;
-import _03_Orders.model.OrdersTotalBean;
+
 
 public class OrdersDetailJDBC {
-	private static final String URL = "jdbc:sqlserver://raab1str2m.database.windows.net:1433;database=DB02";
-	private static final String USERNAME = "eeit83team05@raab1str2m";
-	private static final String PASSWORD = "Sa123456";
+//	private static final String URL = "jdbc:sqlserver://raab1str2m.database.windows.net:1433;database=DB02";
+//	private static final String USERNAME = "eeit83team05@raab1str2m";
+//	private static final String PASSWORD = "Sa123456";
+	
+	private DataSource dataSource = null;
+	public OrdersDetailJDBC() {
+		try {
+			Context ctx = new InitialContext();
+			dataSource = (DataSource) ctx.lookup("java:comp/env/8691");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static void main(String[] args) {
 		String RD = UUID.randomUUID().toString();
 		OrdersDetailJDBC dao = new OrdersDetailJDBC();
 		
 		//select  OK
-		OrdersDetailBean bean = dao.select("1A01E09E-EDBB-4740-8A40-2996A98F4237");
-		System.out.println(bean);
+//		OrdersDetailBean bean = dao.select("1A01E09E-EDBB-4740-8A40-2996A98F4237");
+//		System.out.println(bean);
 		
 		//select all  OK
 //		List<OrdersDetailBean> beans = dao.select();
@@ -52,7 +65,8 @@ private static final String SELECT = "select * from Orders_detail where Orders_d
 		ResultSet rset = null;
 
 		try {
-			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(SELECT);
 
 			stmt.setString(1, Orders_detail_UID);
@@ -107,7 +121,8 @@ private static final String SELECT = "select * from Orders_detail where Orders_d
 		ResultSet rset = null;
 
 		try {
-			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(SELECT_ALL);
 			rset = stmt.executeQuery();
 
@@ -159,7 +174,8 @@ private static final String SELECT = "select * from Orders_detail where Orders_d
 		PreparedStatement stmt = null;
 
 		try {
-			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(INSERT);
 			stmt.setString(1, bean.getOrders_detail_UID());
 			stmt.setString(2, bean.getOrders_ID());			
@@ -199,12 +215,14 @@ private static final String SELECT = "select * from Orders_detail where Orders_d
 	private static final String UPDATE = "update Orders_detail set Orders_ID=?, Food_ID=?, Drink_name=?, Food_count=?, Food_original_price=?, Note=? where orders_detail_UID=?";
 
 	
-	public boolean update(String orders_ID, int food_ID, String drink_name, int food_count,
+	public OrdersDetailBean update(String orders_ID, int food_ID, String drink_name, int food_count,
 			int food_original_price, String note, String orders_detail_UID) {
 		Connection conn = null;
 		PreparedStatement psStrUpd = null;
+		OrdersDetailBean result = null;
 		try {
-			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			conn = dataSource.getConnection();
 			psStrUpd = conn.prepareStatement(UPDATE);
 			psStrUpd.setString(1, orders_ID);
 			psStrUpd.setInt(2, food_ID);
@@ -217,8 +235,7 @@ private static final String SELECT = "select * from Orders_detail where Orders_d
 
 			int i = psStrUpd.executeUpdate();
 			if (i == 1) {
-				System.out.println("UPDATE Success!");
-				// return true;
+				System.out.println("UPDATE Success!");				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -238,7 +255,7 @@ private static final String SELECT = "select * from Orders_detail where Orders_d
 				}
 			}
 		}
-		return false;
+		return result;
 	}
 	
 	
@@ -249,7 +266,8 @@ private static final String SELECT = "select * from Orders_detail where Orders_d
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			conn = DriverManager.getConnection(URL,USERNAME,PASSWORD);
+			//conn = DriverManager.getConnection(URL,USERNAME,PASSWORD);
+			conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(DELETE);			
 			stmt.setString(1, Orders_detail_UID);
 			int i = stmt.executeUpdate();

@@ -1,5 +1,9 @@
 #
+<<<<<<< HEAD
 #Wed Feb 17 20:17:51 CST 2016
+=======
+#Wed Feb 17 15:33:11 CST 2016
+>>>>>>> branch 'master' of https://github.com/eeit83team05/8691.git
 org.eclipse.jdt.core.compiler.debug.localVariable=generate
 org.eclipse.jdt.core.compiler.compliance=1.8
 org.eclipse.jdt.core.compiler.codegen.unusedLocal=preserve

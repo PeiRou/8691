@@ -1,4 +1,4 @@
-package _04_Member.controller;
+package _04_Member.model;
 
 import java.sql.Blob;
 import java.sql.Connection;
@@ -8,9 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import _04_Member.model.MemberBean;
-import _04_Member.model.MemberDAO;
 
 
 

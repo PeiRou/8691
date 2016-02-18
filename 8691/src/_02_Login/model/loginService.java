@@ -1,7 +1,7 @@
 package _02_Login.model;
 
-import _04_Member.controller.memberDAOjdbc;
 import _04_Member.model.MemberBean;
+import _04_Member.model.memberDAOjdbc;
 
 public class loginService {
 	

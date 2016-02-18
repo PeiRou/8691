@@ -64,7 +64,7 @@ public class OrdersDetailBean {
 		Note = note;
 	}
 	public OrdersDetailBean() {
-		super();
+		
 		// TODO Auto-generated constructor stub
 	}
 	@Override
