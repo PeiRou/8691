@@ -8,7 +8,7 @@ public class OrdersDetailService {
 	private OrdersDetailJDBC ordersDetaiDao = new OrdersDetailJDBC();
 	public List<OrdersDetailBean> select(OrdersDetailBean bean) {
 		List<OrdersDetailBean> result = null;
-		if(bean!=null && bean.getFood_ID()!=0) {
+		if(bean!=null && bean.getFood_ID()!=0) {//此地方需要INT型態，故選擇Food_ID
 			OrdersDetailBean temp = ordersDetaiDao.select(bean.getOrders_ID());
 			if(temp!=null) {
 				result = new ArrayList<OrdersDetailBean>();

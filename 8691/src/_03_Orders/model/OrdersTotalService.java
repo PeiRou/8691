@@ -8,7 +8,7 @@ public class OrdersTotalService {
 	private OrdersTotalJDBC ordersTotalDao = new OrdersTotalJDBC();
 	public List<OrdersTotalBean> select(OrdersTotalBean bean) {
 		List<OrdersTotalBean> result = null;
-		if(bean!=null && bean.getFood_price()!=0) {  //Food_price為INT型態，此地方必須要判斷INT型態
+		if(bean!=null && bean.getFood_price()!=0) {//此地方必須要INT型態，故選Food_price
 			OrdersTotalBean temp = ordersTotalDao.select(bean.getOrders_total_UID());
 			if(temp!=null) {
 				result = new ArrayList<OrdersTotalBean>();
@@ -29,9 +29,10 @@ public class OrdersTotalService {
 	public OrdersTotalBean update(OrdersTotalBean bean) {
 		OrdersTotalBean result = null;
 		if(bean!=null) {
-			result = ordersTotalDao.update(bean.getOrders_ID(), bean.getFood_ID(),
-					bean.getDrink_name(), bean.getFood_count(), bean.getFood_original_price(),
-					bean.getNote(), bean.getOrders_detail_UID());
+			result = ordersTotalDao.update(bean.getOrders_total_UID(), bean.getMember_UID(),
+					bean.getStatus(), bean.getName(), bean.getCel(), bean.getGUAR_CT(), bean.getGUAR_AR(),
+					bean.getGUAR_ROAD(), bean.getGUAR_NO(), bean.getPay_metho(), bean.getInsdate(),
+					bean.getShip_price(),bean.getFood_price(),bean.getTotal_amount(), bean.getOrders_ID());
 		}
 		return result;
 	}
@@ -45,7 +46,7 @@ public class OrdersTotalService {
 		return false;
 	}
 	public static void main(String[] args) {
-		OrdersDetailService service = new OrdersDetailService();
+		OrdersTotalService service = new OrdersTotalService();
 		List<OrdersTotalBean> beans = service.select(null);
 		System.out.println("beans="+beans);
 	}

@@ -9,12 +9,28 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import _03_Orders.model.OrdersTotalBean;
 
 public class OrdersTotalJDBC {
-	private static final String URL = "jdbc:sqlserver://raab1str2m.database.windows.net:1433;database=DB02";
-	private static final String USERNAME = "eeit83team05@raab1str2m";
-	private static final String PASSWORD = "Sa123456";
+//	private static final String URL = "jdbc:sqlserver://raab1str2m.database.windows.net:1433;database=DB02";
+//	private static final String USERNAME = "eeit83team05@raab1str2m";
+//	private static final String PASSWORD = "Sa123456";
+	
+	private DataSource dataSource = null;
+	public OrdersTotalJDBC() {
+		try {
+			Context ctx = new InitialContext();
+			dataSource = (DataSource) ctx.lookup("java:comp/env/8691");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static void main(String[] args) {
 		String RD = UUID.randomUUID().toString();
@@ -53,7 +69,8 @@ public class OrdersTotalJDBC {
 		ResultSet rset = null;
 
 		try {
-			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(SELECT);
 
 			stmt.setString(1, Orders_total_UID);
@@ -115,7 +132,8 @@ public class OrdersTotalJDBC {
 		ResultSet rset = null;
 
 		try {
-			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(SELECT_ALL);
 			rset = stmt.executeQuery();
 
@@ -174,7 +192,8 @@ public class OrdersTotalJDBC {
 		PreparedStatement stmt = null;
 
 		try {
-			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(INSERT);
 			stmt.setString(1, bean.getOrders_total_UID());
 			stmt.setString(2, bean.getMember_UID());
@@ -227,13 +246,15 @@ public class OrdersTotalJDBC {
 
 	private static final String UPDATE = "update Orders_total set Orders_total_UID=?, Member_UID=?, status=?, name=?, cel=?, GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?, pay_metho=? ,insdate=?, ship_price=?, food_price=?, total_amount=? where Orders_ID=?";
 
-	public boolean update(String orders_total_UID, String member_UID, String status, String name, String cel,
+	public OrdersTotalBean update(String orders_total_UID, String member_UID, String status, String name, String cel,
 			String gUAR_CT, String gUAR_AR, String gUAR_ROAD, String gUAR_NO, String pay_metho, Date insdate,
 			int ship_price, int food_price, int total_amount, String orders_ID) {
 		Connection conn = null;
 		PreparedStatement psStrUpd = null;
+		OrdersTotalBean result = null;
 		try {
-			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			conn = dataSource.getConnection();
 			psStrUpd = conn.prepareStatement(UPDATE);
 			psStrUpd.setString(1, orders_total_UID);
 			psStrUpd.setString(2, member_UID);
@@ -259,8 +280,7 @@ public class OrdersTotalJDBC {
 
 			int i = psStrUpd.executeUpdate();
 			if (i == 1) {
-				System.out.println("UPDATE Success!");
-				// return true;
+				System.out.println("UPDATE Success!");				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -280,7 +300,7 @@ public class OrdersTotalJDBC {
 				}
 			}
 		}
-		return false;
+		return result;
 	}
 
 	private static final String DELETE = "delete from Orders_total where Orders_total_UID=?";
@@ -289,7 +309,8 @@ public class OrdersTotalJDBC {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(DELETE);
 			stmt.setString(1, Orders_total_UID);
 			int i = stmt.executeUpdate();
