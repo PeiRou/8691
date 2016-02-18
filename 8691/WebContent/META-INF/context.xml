@@ -2,7 +2,7 @@
 <Context>
 	<Resource name="8691" auth="Container" type="javax.sql.DataSource"
                maxTotal="100" maxIdle="30" maxWaitMillis="10000"
-               username="staebooksuser@l1r87zexza" password="Sa123456"
+               username="eeit83team05@raab1str2m" password="Sa123456"
                driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-               url="jdbc:sqlserver://l1r87zexza.database.windows.net:1433;database=DB02"/>
+               url="jdbc:sqlserver://raab1str2m.database.windows.net:1433;database=DB02"/>
 </Context>

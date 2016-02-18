@@ -8,7 +8,7 @@ public class OrdersTotalService {
 	private OrdersTotalJDBC ordersTotalDao = new OrdersTotalJDBC();
 	public List<OrdersTotalBean> select(OrdersTotalBean bean) {
 		List<OrdersTotalBean> result = null;
-		if(bean!=null && bean.getFood_price()!=0) {//此地方必須要INT型態，故選Food_price
+		if(bean!=null && bean.getOrders_total_UID().length()!=0) {
 			OrdersTotalBean temp = ordersTotalDao.select(bean.getOrders_total_UID());
 			if(temp!=null) {
 				result = new ArrayList<OrdersTotalBean>();
