@@ -2,6 +2,7 @@ package _06_Seller.model;
 
 import java.sql.Blob;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -45,15 +46,15 @@ public class SellerPartnerJDBC {
 //			 System.out.println(beans);
 
 			// update OK
-//			 SellerPartnerBean beanupdate = dao.update("456","玖壹壹","00000000","anal@fuxx.com","analanal",null,"0222227890","A","200","中出村","69號52樓","上原亞依","0912345678","2","1","1","1", new java.util.Date(), "7EE65F76-B9B4-429C-B4A2-E831BC7CDF1C");
+//			 SellerPartnerBean beanupdate = dao.update("456","玖壹壹","00000000","anal@fuxx.com","analanal",null,"0222227890","A","200","100","69號52樓","上原亞依","0912345678","2","1","1","1", new java.util.Date(), "7EE65F76-B9B4-429C-B4A2-E831BC7CDF1C");
 //			 System.out.println(beanupdate);
 
 			// insert OK
-//			SellerPartnerBean beanIns = new SellerPartnerBean(RD, "456","玖壹壹","00000000","anal@fuxx.com","analanal",null,"0222227890","A","200","中出村","69號1樓","波多野結依","0912345678","2","1","1","1", new java.util.Date());
+//			SellerPartnerBean beanIns = new SellerPartnerBean(RD, "456","玖壹壹","00000000","lib@911.com","911991",null,"0222227890","A","200","100","1002","波多野結依","0912345678","2","1","1","1", new java.util.Date());
 //			dao.insert(beanIns);
 
 			// delete  OK
-//			 int beanDel = dao.delete("8FA6215B-4CEA-46CC-B8D2-AFB364CE1221");
+//			 int beanDel = dao.delete("7EE65F76-B9B4-429C-B4A2-E831BC7CDF1C");
 //			 System.out.println(beanDel);
 		}
 
@@ -85,7 +86,7 @@ public class SellerPartnerJDBC {
 					result.setTel(rset.getString("tel"));
 					result.setGUAR_CT(rset.getString("GUAR_CT"));
 					result.setGUAR_AR(rset.getString("GUAR_AR"));
-					result.setGUAR_AR_name(rset.getString("GUAR_AR_name"));
+					result.setGUAR_ROAD(rset.getString("GUAR_ROAD"));
 					result.setGUAR_NO(rset.getString("GUAR_NO"));
 					result.setCon_name(rset.getString("Con_name"));					
 					result.setCon_cel(rset.getString("Con_cel"));
@@ -153,7 +154,7 @@ public class SellerPartnerJDBC {
 					result.setTel(rset.getString("tel"));
 					result.setGUAR_CT(rset.getString("GUAR_CT"));
 					result.setGUAR_AR(rset.getString("GUAR_AR"));
-					result.setGUAR_AR_name(rset.getString("GUAR_AR_name"));
+					result.setGUAR_ROAD(rset.getString("GUAR_ROAD"));
 					result.setGUAR_NO(rset.getString("GUAR_NO"));
 					result.setCon_name(rset.getString("Con_name"));					
 					result.setCon_cel(rset.getString("Con_cel"));
@@ -192,7 +193,7 @@ public class SellerPartnerJDBC {
 			return items;
 		}
 
-		private static final String INSERT = "insert into Seller_partner (Seller_partner_UID, Seller_ID, name, FEIN, acc_email, psd, Seller_photo, tel, GUAR_CT, GUAR_AR, GUAR_AR_name, GUAR_NO, Con_name, Con_cel, receipts_metho, Seller_status, IS_Food_Staple, IS_Food_Drink, insdate) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?)";
+		private static final String INSERT = "insert into Seller_partner (Seller_partner_UID, Seller_ID, name, FEIN, acc_email, psd, Seller_photo, tel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, Con_name, Con_cel, receipts_metho, Seller_status, IS_Food_Staple, IS_Food_Drink, insdate) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?)";
 
 		public SellerPartnerBean insert(SellerPartnerBean bean) {
 			SellerPartnerBean result = null;
@@ -213,7 +214,7 @@ public class SellerPartnerJDBC {
 				stmt.setString(8, bean.getTel());
 				stmt.setString(9, bean.getGUAR_CT());
 				stmt.setString(10, bean.getGUAR_AR());
-				stmt.setString(11, bean.getGUAR_AR_name());
+				stmt.setString(11, bean.getGUAR_ROAD());
 				stmt.setString(12, bean.getGUAR_NO());
 				stmt.setString(13, bean.getCon_name());
 				stmt.setString(14, bean.getCon_cel());
@@ -256,10 +257,10 @@ public class SellerPartnerJDBC {
 			return result;
 		}
 
-		private static final String UPDATE = "update Seller_partner set Seller_ID=?, name=?, FEIN=?, acc_email=?, psd=?, Seller_photo=?, tel=?, GUAR_CT=?, GUAR_AR=?, GUAR_AR_name=?, GUAR_NO=?, Con_name=?, Con_cel=?, receipts_metho=?, Seller_status=?, IS_Food_Staple=?, IS_Food_Drink=?, insdate=? where Seller_partner_UID=?";
+		private static final String UPDATE = "update Seller_partner set Seller_ID=?, name=?, FEIN=?, acc_email=?, psd=?, Seller_photo=?, tel=?, GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?, Con_name=?, Con_cel=?, receipts_metho=?, Seller_status=?, IS_Food_Staple=?, IS_Food_Drink=?, insdate=? where Seller_partner_UID=?";
 
 		public SellerPartnerBean update(String Seller_ID, String name, String FEIN, String acc_email,
-				String psd, Blob Seller_photo, String tel, String GUAR_CT, String GUAR_AR, String GUAR_AR_name,
+				String psd, Blob Seller_photo, String tel, String GUAR_CT, String GUAR_AR, String GUAR_ROAD,
 				String GUAR_NO, String Con_name, String Con_cel, String receipts_metho, String Seller_status,
 				String IS_Food_Staple, String IS_Food_Drink, Date insdate, String Seller_partner_UID) {
 			Connection conn = null;
@@ -278,7 +279,7 @@ public class SellerPartnerJDBC {
 				psStrUpd.setString(7, tel);
 				psStrUpd.setString(8, GUAR_CT);
 				psStrUpd.setString(9, GUAR_AR);
-				psStrUpd.setString(10, GUAR_AR_name);
+				psStrUpd.setString(10, GUAR_ROAD);
 				psStrUpd.setString(11, GUAR_NO);
 				psStrUpd.setString(12, Con_name);
 				psStrUpd.setString(13, Con_cel);

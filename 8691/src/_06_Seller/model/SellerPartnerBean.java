@@ -15,7 +15,7 @@ public class SellerPartnerBean {
 	private 	String	tel;
 	private 	String	GUAR_CT;
 	private 	String	GUAR_AR;
-	private 	String	GUAR_AR_name;
+	private 	String	GUAR_ROAD;
 	private 	String	GUAR_NO;
 	private 	String	Con_name;
 	private 	String	Con_cel;
@@ -24,6 +24,7 @@ public class SellerPartnerBean {
 	private 	String	IS_Food_Staple;
 	private 	String	IS_Food_Drink;
 	private 	java.util.Date	insdate;
+	
 	
 	public String getSeller_partner_UID() {
 		return Seller_partner_UID;
@@ -85,11 +86,11 @@ public class SellerPartnerBean {
 	public void setGUAR_AR(String gUAR_AR) {
 		GUAR_AR = gUAR_AR;
 	}
-	public String getGUAR_AR_name() {
-		return GUAR_AR_name;
+	public String getGUAR_ROAD() {
+		return GUAR_ROAD;
 	}
-	public void setGUAR_AR_name(String gUAR_AR_name) {
-		GUAR_AR_name = gUAR_AR_name;
+	public void setGUAR_ROAD(String gUAR_ROAD) {
+		GUAR_ROAD = gUAR_ROAD;
 	}
 	public String getGUAR_NO() {
 		return GUAR_NO;
@@ -140,7 +141,7 @@ public class SellerPartnerBean {
 		this.insdate = insdate;
 	}
 	public SellerPartnerBean(String Seller_partner_UID, String Seller_ID, String name, String FEIN, String acc_email,
-			String psd, Blob Seller_photo, String tel, String GUAR_CT, String GUAR_AR, String GUAR_AR_name,
+			String psd, Blob Seller_photo, String tel, String GUAR_CT, String GUAR_AR, String GUAR_ROAD,
 			String GUAR_NO, String Con_name, String Con_cel, String receipts_metho, String Seller_status,
 			String IS_Food_Staple, String IS_Food_Drink, Date insdate) {
 		super();		
@@ -153,7 +154,7 @@ public class SellerPartnerBean {
 		this.tel = tel;
 		this.GUAR_CT = GUAR_CT;
 		this.GUAR_AR = GUAR_AR;
-		this.GUAR_AR_name = GUAR_AR_name;
+		this.GUAR_ROAD = GUAR_ROAD;
 		this.GUAR_NO = GUAR_NO;
 		this.Con_name = Con_name;
 		this.Con_cel = Con_cel;
@@ -172,11 +173,14 @@ public class SellerPartnerBean {
 	public String toString() {
 		return "SellerPartnerBean [Seller_partner_UID=" + Seller_partner_UID + ", Seller_ID=" + Seller_ID + ", name="
 				+ name + ", FEIN=" + FEIN + ", acc_email=" + acc_email + ", psd=" + psd + ", Seller_photo="
-				+ Seller_photo + ", tel=" + tel + ", GUAR_CT=" + GUAR_CT + ", GUAR_AR=" + GUAR_AR + ", GUAR_AR_name="
-				+ GUAR_AR_name + ", GUAR_NO=" + GUAR_NO + ", Con_name=" + Con_name + ", Con_cel=" + Con_cel
+				+ Seller_photo + ", tel=" + tel + ", GUAR_CT=" + GUAR_CT + ", GUAR_AR=" + GUAR_AR + ", GUAR_ROAD="
+				+ GUAR_ROAD + ", GUAR_NO=" + GUAR_NO + ", Con_name=" + Con_name + ", Con_cel=" + Con_cel
 				+ ", receipts_metho=" + receipts_metho + ", Seller_status=" + Seller_status + ", IS_Food_Staple="
 				+ IS_Food_Staple + ", IS_Food_Drink=" + IS_Food_Drink + ", insdate=" + insdate + "]";
 	}
+	
+	
+	
 	
 	
 	
