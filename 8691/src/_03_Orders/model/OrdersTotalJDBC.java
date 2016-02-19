@@ -46,7 +46,7 @@ public class OrdersTotalJDBC {
 //		 System.out.println(beans);
 
 		// update OK
-//		 boolean beanupdate = dao.update(RD, "01657CF4-B140-4718-9C7E-0C8BAB1A4D76", "1", "鳴人", "0912345269", "A", "105", "2000",
+//		 OrdersTotalBean beanupdate = dao.update(RD, "01657CF4-B140-4718-9C7E-0C8BAB1A4D76", "1", "鳴人", "0912345269", "A", "105", "2000",
 //					"307號12樓", "0", new java.util.Date(), 300, 200, 500, "2016010002");
 //		 System.out.println(beanupdate);
 
