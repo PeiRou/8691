@@ -3,13 +3,13 @@ package _05_Forum.model;
 import java.util.Date;
 
 public class ForumBean {
+	private	String	Forum_UID;
 	private	String	Orders_total_UID;
 	private	String	Member_UID;
 	private	int ratting;
 	private	String comment;
 	private java.util.Date insdate;
 	
-	private	String	Forum_UID;
 	public String getForum_UID() {
 		return Forum_UID;
 	}
@@ -47,15 +47,16 @@ public class ForumBean {
 		this.insdate = insdate;
 	}
 	
-	public ForumBean(String orders_total_UID, String member_UID, int ratting, String comment, Date insdate,
-			String forum_UID) {
+	public ForumBean(String Forum_UID, String Orders_total_UID, String Member_UID, 
+			int ratting, String comment, Date insdate) {
 		super();
-		Orders_total_UID = orders_total_UID;
-		Member_UID = member_UID;
+		this.Forum_UID = Forum_UID;
+		this.Orders_total_UID = Orders_total_UID;
+		this.Member_UID = Member_UID;
 		this.ratting = ratting;
 		this.comment = comment;
 		this.insdate = insdate;
-		Forum_UID = forum_UID;
+		
 	}
 	public ForumBean() {
 		super();
@@ -63,8 +64,8 @@ public class ForumBean {
 	
 	@Override
 	public String toString() {
-		return "ForumBean [Orders_total_UID=" + Orders_total_UID + ", Member_UID=" + Member_UID + ", ratting=" + ratting
-				+ ", comment=" + comment + ", insdate=" + insdate + ", Forum_UID=" + Forum_UID + "]";
+		return "ForumBean [Forum_UID=" + Forum_UID + ", Orders_total_UID=" + Orders_total_UID + ", Member_UID=" + Member_UID + ", ratting=" + ratting
+				+ ", comment=" + comment + ", insdate=" + insdate + "]";
 	}
 	
 	
