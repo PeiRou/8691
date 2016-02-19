@@ -2,6 +2,7 @@ package _06_Seller.controller;
 
 import java.io.*;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,11 +12,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import _06_Seller.model.SellerVisitorBean;
+import javax.servlet.http.HttpSession;
 
-@WebServlet("/SellerVisitorServlet")
+import _06_Seller.model.SellerVisitorBean;
+import _06_Seller.model.SellerVisitorService;
+
+@WebServlet("/page/visitor.controller")
 public class SellerVisitorServlet extends HttpServlet {
-	private SellerVisitorServlet mmo = new SellerVisitorServlet();
+	private static SimpleDateFormat mma = new SimpleDateFormat("yyyy-MM-dd");
+	private SellerVisitorService mmo = new SellerVisitorService();
 	@Override
 	protected void doGet(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
@@ -77,8 +82,16 @@ public class SellerVisitorServlet extends HttpServlet {
 				
 				java.util.Date insdate = null;
 				if(temp4!=null && temp4.length()!=0) {
-					insdate = mmo.parse(temp4);
-				}
+					try {
+						insdate = mma.parse(temp4);
+					} catch (Exception e) {
+						
+						e.printStackTrace();
+						error.put("insdate", "insdate must be a Date with yyyy-MM-dd");
+					}
+			
+					}
+				
 				
 //驗證資料
 				
@@ -139,17 +152,17 @@ public class SellerVisitorServlet extends HttpServlet {
 				SellerVisitorBean bean = new SellerVisitorBean(FEIN,name, acc_email, psd, null,tel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, email2,Con_name,Con_cel, null,IS_check, IS_cooperation, insdate);
 				
 		//根據model執行結果顯示view
-//				if(bean==null) {
-//					error.put("password", "Login failed, please try again");
-//					request.getRequestDispatcher(
-//							"/secure/login.jsp").forward(request, response);
-//				} else {
-//					HttpSession session = request.getSession();
-//					session.setAttribute("user", bean);
-		//
-//					String path = request.getContextPath();
-//					response.sendRedirect(path+"/index.jsp");
-//				}
+				if(bean==null) {
+					error.put("password", "Login failed, please try again");
+					request.getRequestDispatcher(
+							"/page/login.jsp").forward(request, response);
+				} else {
+					HttpSession session = request.getSession();
+					session.setAttribute("user", bean);
+		
+					String path = request.getContextPath();
+					response.sendRedirect(path+"/index.jsp");
+				}
 			}
 		private Date parse(String temp4) {
 		return null;
