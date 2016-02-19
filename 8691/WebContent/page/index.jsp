@@ -14,6 +14,8 @@
 
 <h3><a href="<c:url value="/page/login.jsp" />">Login</a></h3>
 <h3><a href="<c:url value="/page/register.jsp" />">Register</a></h3>
+<h3><a href="<c:url value="/page/visitor.jsp" />">店家訪客</a></h3>
+
 
 </body>
 </html>

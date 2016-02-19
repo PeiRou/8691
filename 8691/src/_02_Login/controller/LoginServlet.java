@@ -36,18 +36,19 @@ public class LoginServlet extends HttpServlet {
 		if(psd==null || psd.trim().length()==0) {
 			error.put("psd", "Please enter password to login");
 		}
-		
+		//有錯誤
 		if(error!=null && !error.isEmpty()){
 			request.getRequestDispatcher(
 					"/page/login.jsp").forward(request, response);
 			return;
 		}
-//呼叫model
-		MemberBean bean = MemberService.login(acc_email, psd);
+//呼叫model(loginservice 的 login method)
+		loginService ls = new loginService();
+		MemberBean bean = ls.login(acc_email, psd);
 		
-//根據model執行結果顯示view
+//根據model顯示view
 		if(bean==null) {
-			error.put("password", "Login failed, please try again");
+			error.put("loginfail", "Login failed, please try again");
 			request.getRequestDispatcher(
 					"/page/login.jsp").forward(request, response);
 		} else {

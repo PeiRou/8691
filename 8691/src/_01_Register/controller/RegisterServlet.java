@@ -48,14 +48,24 @@ public class RegisterServlet extends HttpServlet {
 		if(acc_email==null || acc_email.trim().length()==0) {
 			error.put("acc_email", "Please enter acc_email to register");
 		}
+		
+//		byte[] temppsd = null;
+//		if (psd != null && psd.trim().length() > 0) {
+//			try {
+//				byte[] bytes = psd.getBytes();
+//				temppsd = byte[].getBytes(psd);
+//			} catch (NumberFormatException e) {
+//				error.put("weight","擃?甈???詨?);
+//			}
+//		}
 		if(psd==null || psd.trim().length()==0) {
-			error.put("psd", "Please enter PSD to register");
+			error.put("psd", "Please enter password to register");
 		}
 		if(gender==null || gender.trim().length()==0) {
 			error.put("gender", "Please enter gender to register");
 		}
 		if(tel==null || tel.trim().length()==0) {
-			error.put("tel", "Please enter tel to register");
+			error.put("tel", "Please enter phone number to register");
 		}
 		if(GUAR_CT==null || GUAR_CT.trim().length()==0) {
 			error.put("GUAR_CT", "Please enter GUAR_CT to register");
@@ -86,7 +96,7 @@ public class RegisterServlet extends HttpServlet {
 		
 		if (error.isEmpty()) {
 			RequestDispatcher rd = request
-					.getRequestDispatcher("/secure/login.jsp");
+					.getRequestDispatcher("/page/login.jsp");
 			rd.forward(request, response);
 			return;
 		}

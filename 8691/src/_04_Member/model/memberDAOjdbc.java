@@ -1,31 +1,41 @@
 package _04_Member.model;
 
-import java.sql.Blob;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import javax.sql.DataSource;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
-
+import _04_Member.model.MemberBean;
+import _04_Member.model.MemberDAO;
 
 public class memberDAOjdbc implements MemberDAO {
-	private static final String URL = "jdbc:sqlserver://l1r87zexza.database.windows.net:1433;database=DB02";
-	private static final String USERNAME = "staebooksuser@l1r87zexza";
-	private static final String PASSWORD = "Sa123456";
+//	private static final String URL = "jdbc:sqlserver://l1r87zexza.database.windows.net:1433;database=DB02";
+//	private static final String USERNAME = "staebooksuser@l1r87zexza";
+//	private static final String PASSWORD = "Sa123456";
 	
+	DataSource ds=null;
+	public memberDAOjdbc(){
+	try {
+		Context context = new InitialContext();
+		ds = (DataSource) context.lookup("java:comp/env/jdbc/8691");
+	} catch (NamingException e) {
+		e.printStackTrace();
+	 }
+	}
 	public static void main(String[] args){
 		MemberDAO dao = new memberDAOjdbc();
-//		select
-	    MemberBean beanSelect = dao.select("0");
-		System.out.println(beanSelect);
+	//	select
+	 //   MemberBean beanSelect = dao.select("0");
+	//	System.out.println(beanSelect);}
 
 		//select all
-//		List<memberVO> SelectAll = dao.select();
-//		System.out.println(SelectAll);
+		List<MemberBean> SelectAll = dao.select();
+		System.out.println(SelectAll);}
 		
 //      insert
 //	    MemberBean beanIns = new MemberBean(
@@ -43,15 +53,18 @@ public class memberDAOjdbc implements MemberDAO {
 //      delete	
 //		int beanDel = dao.delete("11");
 //		System.out.println(beanDel);
-	}
+//	}
 	private static final String SELECT_BY_ID = "select * from member where member_id=?";
 	
 	@Override
 	public MemberBean select(String Member_ID) {
+		Connection conn = null;
 		MemberBean result = null;
 		ResultSet rset = null;
-		try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-				PreparedStatement pstmt = conn.prepareStatement(SELECT_BY_ID);) {
+		PreparedStatement pstmt = null;
+		try {
+            conn = ds.getConnection();	
+			pstmt = conn.prepareStatement(SELECT_BY_ID); {
 			pstmt.setString(1, Member_ID);
 			rset = pstmt.executeQuery();
 			if (rset.next()) {
@@ -59,7 +72,7 @@ public class memberDAOjdbc implements MemberDAO {
 				result.setMember_ID(rset.getString("Member_ID"));
 				result.setName(rset.getString("name"));
 				result.setAcc_email(rset.getString("acc_email"));
-				result.setPsd(rset.getString("pwd"));
+				result.setPsd(rset.getString("psd"));
 				result.setMember_photo(rset.getBlob("member_photo"));
 				result.setGender(rset.getString("gender"));
 				result.setTel(rset.getString("tel"));
@@ -69,36 +82,47 @@ public class memberDAOjdbc implements MemberDAO {
 				result.setGUAR_NO(rset.getString("GUAR_NO"));
 				result.setEmail2(rset.getString("Email2"));
 				result.setCel(rset.getString("Cel"));
-				result.setInsdate(rset.getDate("insdate"));
-				
-				
+				result.setInsdate(rset.getDate("insdate"));}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if (rset != null)
+			if (rset != null) {
 				try {
 					rset.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return result;
 	}
-	
 	
 	private static final String SELECT_ALL = "select * from Member";
 	@Override
 	public List<MemberBean> select() {		
 		List<MemberBean> items = new ArrayList<MemberBean>();
 		MemberBean result = null;
-
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rset = null;
 		
 		try {
-			conn = DriverManager.getConnection(URL,USERNAME,PASSWORD);
+			conn = ds.getConnection();
 			stmt = conn.prepareStatement(SELECT_ALL);
 			rset = stmt.executeQuery();
 
@@ -107,7 +131,7 @@ public class memberDAOjdbc implements MemberDAO {
 				result.setMember_ID(rset.getString("Member_ID"));
 				result.setName(rset.getString("name"));
 				result.setAcc_email(rset.getString("acc_email"));
-				result.setPsd(rset.getString("pwd"));
+				result.setPsd(rset.getString("psd"));
 				result.setMember_photo(rset.getBlob("Member_photo"));
 				result.setGender(rset.getString("gender"));
 				result.setTel(rset.getString("tel"));
@@ -172,7 +196,8 @@ public MemberBean update(
 		Connection conn = null;
 		PreparedStatement psStrUpd = null;
 		try {
-			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			conn = ds.getConnection();
+			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			psStrUpd = conn.prepareStatement(UPDATE);
 			
 			psStrUpd.setString(1, name);
@@ -229,7 +254,8 @@ public MemberBean update(
 		Connection conn = null;
 		PreparedStatement psStrUpd = null;
 		try {
-			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			conn = ds.getConnection();
 			psStrUpd = conn.prepareStatement(INSERT);
 			psStrUpd.setString(1, bean.getMember_ID());
 			psStrUpd.setString(2, bean.getName());
@@ -284,7 +310,8 @@ public MemberBean update(
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
-			conn = DriverManager.getConnection(URL,USERNAME,PASSWORD);
+			//conn = DriverManager.getConnection(URL,USERNAME,PASSWORD);
+			conn = ds.getConnection();
 			stmt = conn.prepareStatement(DELETE);
 			stmt.setString(1, Member_ID);
 			int i = stmt.executeUpdate();
