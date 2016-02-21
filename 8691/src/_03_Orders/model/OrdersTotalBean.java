@@ -24,20 +24,20 @@ public class OrdersTotalBean {
 	public String getOrders_total_UID() {
 		return Orders_total_UID;
 	}
-	public void setOrders_total_UID(String orders_total_UID) {
-		Orders_total_UID = orders_total_UID;
+	public void setOrders_total_UID(String Orders_total_UID) {
+		this.Orders_total_UID = Orders_total_UID;
 	}
 	public String getMember_UID() {
 		return Member_UID;
 	}
-	public void setMember_UID(String member_UID) {
-		Member_UID = member_UID;
+	public void setMember_UID(String Member_UID) {
+		this.Member_UID = Member_UID;
 	}
 	public String getOrders_ID() {
 		return Orders_ID;
 	}
-	public void setOrders_ID(String orders_ID) {
-		Orders_ID = orders_ID;
+	public void setOrders_ID(String Orders_ID) {
+		this.Orders_ID = Orders_ID;
 	}
 	public String getStatus() {
 		return status;
@@ -60,26 +60,26 @@ public class OrdersTotalBean {
 	public String getGUAR_CT() {
 		return GUAR_CT;
 	}
-	public void setGUAR_CT(String gUAR_CT) {
-		GUAR_CT = gUAR_CT;
+	public void setGUAR_CT(String GUAR_CT) {
+		this.GUAR_CT = GUAR_CT;
 	}
 	public String getGUAR_AR() {
 		return GUAR_AR;
 	}
-	public void setGUAR_AR(String gUAR_AR) {
-		GUAR_AR = gUAR_AR;
+	public void setGUAR_AR(String GUAR_AR) {
+		this.GUAR_AR = GUAR_AR;
 	}
 	public String getGUAR_ROAD() {
 		return GUAR_ROAD;
 	}
-	public void setGUAR_ROAD(String gUAR_ROAD) {
-		GUAR_ROAD = gUAR_ROAD;
+	public void setGUAR_ROAD(String GUAR_ROAD) {
+		this.GUAR_ROAD = GUAR_ROAD;
 	}
 	public String getGUAR_NO() {
 		return GUAR_NO;
 	}
-	public void setGUAR_NO(String gUAR_NO) {
-		GUAR_NO = gUAR_NO;
+	public void setGUAR_NO(String GUAR_NO) {
+		this.GUAR_NO = GUAR_NO;
 	}
 	public String getPay_metho() {
 		return pay_metho;
@@ -111,20 +111,20 @@ public class OrdersTotalBean {
 	public void setTotal_amount(int total_amount) {
 		this.total_amount = total_amount;
 	}
-	public OrdersTotalBean(String orders_total_UID, String member_UID, String orders_ID, String status, String name,
-			String cel, String gUAR_CT, String gUAR_AR, String gUAR_ROAD, String gUAR_NO, String pay_metho,
+	public OrdersTotalBean(String Orders_total_UID, String Member_UID, String Orders_ID, String status, String name,
+			String cel, String GUAR_CT, String GUAR_AR, String GUAR_ROAD, String GUAR_NO, String pay_metho,
 			Date insdate, int ship_price, int food_price, int total_amount) {
 		super();
-		Orders_total_UID = orders_total_UID;
-		Member_UID = member_UID;
-		Orders_ID = orders_ID;
+		this.Orders_total_UID = Orders_total_UID;
+		this.Member_UID = Member_UID;
+		this.Orders_ID = Orders_ID;
 		this.status = status;
 		this.name = name;
 		this.cel = cel;
-		GUAR_CT = gUAR_CT;
-		GUAR_AR = gUAR_AR;
-		GUAR_ROAD = gUAR_ROAD;
-		GUAR_NO = gUAR_NO;
+		this.GUAR_CT = GUAR_CT;
+		this.GUAR_AR = GUAR_AR;
+		this.GUAR_ROAD = GUAR_ROAD;
+		this.GUAR_NO = GUAR_NO;
 		this.pay_metho = pay_metho;
 		this.insdate = insdate;
 		this.ship_price = ship_price;
