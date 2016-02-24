@@ -37,9 +37,9 @@ public class OrdersTotalJDBC {
 		OrdersTotalJDBC dao = new OrdersTotalJDBC();
 
 		// select
-		// OrdersTotalBean bean =
-		// dao.select("01657CF4-B140-4718-9C7E-0C8BAB1A4D76");
-		// System.out.println(bean);
+//		 OrdersTotalBean bean =
+//		 dao.select("2016010003");
+//		 System.out.println(bean);
 
 		// select all OK
 //		 List<OrdersTotalBean> beans = dao.select();
@@ -60,9 +60,9 @@ public class OrdersTotalJDBC {
 		// System.out.println(beanDel);
 	}
 
-	private static final String SELECT = "select * from Orders_total where Orders_total_UID=?";
+	private static final String SELECT = "select * from Orders_total where Orders_ID=?";
 
-	public OrdersTotalBean select(String Orders_total_UID) {
+	public OrdersTotalBean select(String Orders_ID) {
 		OrdersTotalBean result = null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -73,7 +73,7 @@ public class OrdersTotalJDBC {
 			conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(SELECT);
 
-			stmt.setString(1, Orders_total_UID);
+			stmt.setString(1, Orders_ID);
 			rset = stmt.executeQuery();
 			if (rset.next()) {
 				result = new OrdersTotalBean();
@@ -184,159 +184,159 @@ public class OrdersTotalJDBC {
 		return items;
 	}
 
-	private static final String INSERT = "insert into Orders_total (Orders_total_UID, Member_UID, Orders_ID, status, name, cel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, pay_metho, insdate, ship_price, food_price, total_amount) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-	public OrdersTotalBean insert(OrdersTotalBean bean) {
-		OrdersTotalBean result = null;
-		Connection conn = null;
-		PreparedStatement stmt = null;
-
-		try {
-			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-			conn = dataSource.getConnection();
-			stmt = conn.prepareStatement(INSERT);
-			stmt.setString(1, bean.getOrders_total_UID());
-			stmt.setString(2, bean.getMember_UID());
-			stmt.setString(3, bean.getOrders_ID());
-			stmt.setString(4, bean.getStatus());
-			stmt.setString(5, bean.getName());
-			stmt.setString(6, bean.getCel());
-			stmt.setString(7, bean.getGUAR_CT());
-			stmt.setString(8, bean.getGUAR_AR());
-			stmt.setString(9, bean.getGUAR_ROAD());
-			stmt.setString(10, bean.getGUAR_NO());
-			stmt.setString(11, bean.getPay_metho());
-			java.util.Date insdate = bean.getInsdate();
-			if (insdate != null) {
-				long time = insdate.getTime();
-				stmt.setDate(12, new java.sql.Date(time));
-			} else {
-				stmt.setDate(12, null);
-			}
-			stmt.setInt(13, bean.getShip_price());
-			stmt.setInt(14, bean.getFood_price());
-			stmt.setInt(15, bean.getTotal_amount());
-
-			int i = stmt.executeUpdate();
-
-			if (i == 1) {
-				System.out.println("INSERT Success!");
-				// return result;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (stmt != null) {
-				try {
-					stmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return result;
-	}
-
-	private static final String UPDATE = "update Orders_total set Orders_total_UID=?, Member_UID=?, status=?, name=?, cel=?, GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?, pay_metho=? ,insdate=?, ship_price=?, food_price=?, total_amount=? where Orders_ID=?";
-
-	public OrdersTotalBean update(String orders_total_UID, String member_UID, String status, String name, String cel,
-			String gUAR_CT, String gUAR_AR, String gUAR_ROAD, String gUAR_NO, String pay_metho, Date insdate,
-			int ship_price, int food_price, int total_amount, String orders_ID) {
-		Connection conn = null;
-		PreparedStatement psStrUpd = null;
-		OrdersTotalBean result = null;
-		try {
-			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-			conn = dataSource.getConnection();
-			psStrUpd = conn.prepareStatement(UPDATE);
-			psStrUpd.setString(1, orders_total_UID);
-			psStrUpd.setString(2, member_UID);
-			psStrUpd.setString(3, status);
-			psStrUpd.setString(4, name);
-			psStrUpd.setString(5, cel);
-			psStrUpd.setString(6, gUAR_CT);
-			psStrUpd.setString(7, gUAR_AR);
-			psStrUpd.setString(8, gUAR_ROAD);
-			psStrUpd.setString(9, gUAR_NO);
-			psStrUpd.setString(10, pay_metho);
-
-			if (insdate != null) {
-				long time = insdate.getTime();
-				psStrUpd.setDate(11, new java.sql.Date(time));
-			} else {
-				psStrUpd.setDate(11, null);
-			}
-			psStrUpd.setInt(12, ship_price);
-			psStrUpd.setInt(13, food_price);
-			psStrUpd.setInt(14, total_amount);
-			psStrUpd.setString(15, orders_ID);
-
-			int i = psStrUpd.executeUpdate();
-			if (i == 1) {
-				System.out.println("UPDATE Success!");				
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (psStrUpd != null) {
-				try {
-					psStrUpd.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return result;
-	}
-
-	private static final String DELETE = "delete from Orders_total where Orders_total_UID=?";
-
-	public int delete(String Orders_total_UID) {
-		Connection conn = null;
-		PreparedStatement stmt = null;
-		try {
-			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-			conn = dataSource.getConnection();
-			stmt = conn.prepareStatement(DELETE);
-			stmt.setString(1, Orders_total_UID);
-			int i = stmt.executeUpdate();
-			if (i == 1) {
-				System.out.println("DELETE Success!");
-				// return 1;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (stmt != null) {
-				try {
-					stmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return 0;
-	}
+//	private static final String INSERT = "insert into Orders_total (Orders_total_UID, Member_UID, Orders_ID, status, name, cel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, pay_metho, insdate, ship_price, food_price, total_amount) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+//
+//	public OrdersTotalBean insert(OrdersTotalBean bean) {
+//		OrdersTotalBean result = null;
+//		Connection conn = null;
+//		PreparedStatement stmt = null;
+//
+//		try {
+//			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+//			conn = dataSource.getConnection();
+//			stmt = conn.prepareStatement(INSERT);
+//			stmt.setString(1, bean.getOrders_total_UID());
+//			stmt.setString(2, bean.getMember_UID());
+//			stmt.setString(3, bean.getOrders_ID());
+//			stmt.setString(4, bean.getStatus());
+//			stmt.setString(5, bean.getName());
+//			stmt.setString(6, bean.getCel());
+//			stmt.setString(7, bean.getGUAR_CT());
+//			stmt.setString(8, bean.getGUAR_AR());
+//			stmt.setString(9, bean.getGUAR_ROAD());
+//			stmt.setString(10, bean.getGUAR_NO());
+//			stmt.setString(11, bean.getPay_metho());
+//			java.util.Date insdate = bean.getInsdate();
+//			if (insdate != null) {
+//				long time = insdate.getTime();
+//				stmt.setDate(12, new java.sql.Date(time));
+//			} else {
+//				stmt.setDate(12, null);
+//			}
+//			stmt.setInt(13, bean.getShip_price());
+//			stmt.setInt(14, bean.getFood_price());
+//			stmt.setInt(15, bean.getTotal_amount());
+//
+//			int i = stmt.executeUpdate();
+//
+//			if (i == 1) {
+//				System.out.println("INSERT Success!");
+//				// return result;
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			if (stmt != null) {
+//				try {
+//					stmt.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			if (conn != null) {
+//				try {
+//					conn.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
+//		return result;
+//	}
+//
+//	private static final String UPDATE = "update Orders_total set Orders_total_UID=?, Member_UID=?, status=?, name=?, cel=?, GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?, pay_metho=? ,insdate=?, ship_price=?, food_price=?, total_amount=? where Orders_ID=?";
+//
+//	public OrdersTotalBean update(String orders_total_UID, String member_UID, String status, String name, String cel,
+//			String gUAR_CT, String gUAR_AR, String gUAR_ROAD, String gUAR_NO, String pay_metho, Date insdate,
+//			int ship_price, int food_price, int total_amount, String orders_ID) {
+//		Connection conn = null;
+//		PreparedStatement psStrUpd = null;
+//		OrdersTotalBean result = null;
+//		try {
+//			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+//			conn = dataSource.getConnection();
+//			psStrUpd = conn.prepareStatement(UPDATE);
+//			psStrUpd.setString(1, orders_total_UID);
+//			psStrUpd.setString(2, member_UID);
+//			psStrUpd.setString(3, status);
+//			psStrUpd.setString(4, name);
+//			psStrUpd.setString(5, cel);
+//			psStrUpd.setString(6, gUAR_CT);
+//			psStrUpd.setString(7, gUAR_AR);
+//			psStrUpd.setString(8, gUAR_ROAD);
+//			psStrUpd.setString(9, gUAR_NO);
+//			psStrUpd.setString(10, pay_metho);
+//
+//			if (insdate != null) {
+//				long time = insdate.getTime();
+//				psStrUpd.setDate(11, new java.sql.Date(time));
+//			} else {
+//				psStrUpd.setDate(11, null);
+//			}
+//			psStrUpd.setInt(12, ship_price);
+//			psStrUpd.setInt(13, food_price);
+//			psStrUpd.setInt(14, total_amount);
+//			psStrUpd.setString(15, orders_ID);
+//
+//			int i = psStrUpd.executeUpdate();
+//			if (i == 1) {
+//				System.out.println("UPDATE Success!");				
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			if (psStrUpd != null) {
+//				try {
+//					psStrUpd.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			if (conn != null) {
+//				try {
+//					conn.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
+//		return result;
+//	}
+//
+//	private static final String DELETE = "delete from Orders_total where Orders_total_UID=?";
+//
+//	public int delete(String Orders_total_UID) {
+//		Connection conn = null;
+//		PreparedStatement stmt = null;
+//		try {
+//			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+//			conn = dataSource.getConnection();
+//			stmt = conn.prepareStatement(DELETE);
+//			stmt.setString(1, Orders_total_UID);
+//			int i = stmt.executeUpdate();
+//			if (i == 1) {
+//				System.out.println("DELETE Success!");
+//				// return 1;
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			if (stmt != null) {
+//				try {
+//					stmt.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			if (conn != null) {
+//				try {
+//					conn.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
+//		return 0;
+//	}
 
 }

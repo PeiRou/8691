@@ -11,8 +11,8 @@ public class SellerPartnerService {
 	private SellerPartnerJDBC sellerPartnerDao = new SellerPartnerJDBC();
 	public List<SellerPartnerBean> select(SellerPartnerBean bean) {
 		List<SellerPartnerBean> result = null;
-		if(bean!=null && bean.getSeller_partner_UID().length()!=0) {
-			SellerPartnerBean temp = sellerPartnerDao.select(bean.getSeller_partner_UID());
+		if(bean!=null && bean.getAccount_UID().length()!=0) {
+			SellerPartnerBean temp = sellerPartnerDao.select(bean.getAccount_UID());
 			if(temp!=null) {
 				result = new ArrayList<SellerPartnerBean>();
 				result.add(temp);
@@ -37,13 +37,13 @@ public class SellerPartnerService {
 					bean.getTel(), bean.getGUAR_CT(),bean.getGUAR_AR(),bean.getGUAR_ROAD(),
 					bean.getGUAR_NO(), bean.getCon_name(), bean.getCon_cel(), bean.getReceipts_metho(),
 					bean.getSeller_status(), bean.getIS_Food_Staple(), bean.getIS_Food_Drink(),
-					bean.getInsdate(), bean.getSeller_partner_UID());
+					bean.getInsdate(), bean.getAccount_UID());
 		}
 		return result;
 	}
 	public boolean delete(SellerPartnerBean bean) {
 		if(bean!=null) {
-			int i = sellerPartnerDao.delete(bean.getSeller_partner_UID());
+			int i = sellerPartnerDao.delete(bean.getAccount_UID());
 			if(i==1) {
 				return true;
 			}

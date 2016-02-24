@@ -58,9 +58,9 @@ public class SellerPartnerJDBC {
 //			 System.out.println(beanDel);
 		}
 
-		private static final String SELECT = "select * from Seller_partner where Seller_partner_UID=?";
+		private static final String SELECT = "select * from Seller_partner where Account_UID=?";
 
-		public SellerPartnerBean select(String Seller_partner_UID) {
+		public SellerPartnerBean select(String Account_UID) {
 			SellerPartnerBean result = null;
 			Connection conn = null;
 			PreparedStatement stmt = null;
@@ -71,15 +71,14 @@ public class SellerPartnerJDBC {
 				conn = dataSource.getConnection();
 				stmt = conn.prepareStatement(SELECT);
 
-				stmt.setString(1, Seller_partner_UID);
+				stmt.setString(1, Account_UID);
 				rset = stmt.executeQuery();
 				if (rset.next()) {
 					result = new SellerPartnerBean();
-					result.setSeller_partner_UID(rset.getString("Seller_partner_UID"));
+					result.setAccount_UID(rset.getString("Account_UID"));
 					result.setSeller_ID(rset.getString("Seller_ID"));
-					result.setName(rset.getString("Name"));
-					result.setFEIN(rset.getString("FEIN"));
 					result.setName(rset.getString("name"));
+					result.setFEIN(rset.getString("FEIN"));
 					result.setAcc_email(rset.getString("acc_email"));
 					result.setPsd(rset.getString("psd"));
 					result.setSeller_photo(rset.getBlob("Seller_photo"));
@@ -143,11 +142,10 @@ public class SellerPartnerJDBC {
 				while (rset.next()) {
 					result = new SellerPartnerBean();
 					result = new SellerPartnerBean();
-					result.setSeller_partner_UID(rset.getString("Seller_partner_UID"));
+					result.setAccount_UID(rset.getString("Account_UID"));
 					result.setSeller_ID(rset.getString("Seller_ID"));
-					result.setName(rset.getString("Name"));
-					result.setFEIN(rset.getString("FEIN"));
 					result.setName(rset.getString("name"));
+					result.setFEIN(rset.getString("FEIN"));
 					result.setAcc_email(rset.getString("acc_email"));
 					result.setPsd(rset.getString("psd"));
 					result.setSeller_photo(rset.getBlob("Seller_photo"));
@@ -193,7 +191,7 @@ public class SellerPartnerJDBC {
 			return items;
 		}
 
-		private static final String INSERT = "insert into Seller_partner (Seller_partner_UID, Seller_ID, name, FEIN, acc_email, psd, Seller_photo, tel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, Con_name, Con_cel, receipts_metho, Seller_status, IS_Food_Staple, IS_Food_Drink, insdate) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?)";
+		private static final String INSERT = "insert into Seller_partner (Account_UID, Seller_ID, name, FEIN, acc_email, psd, Seller_photo, tel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, Con_name, Con_cel, receipts_metho, Seller_status, IS_Food_Staple, IS_Food_Drink, insdate) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?)";
 
 		public SellerPartnerBean insert(SellerPartnerBean bean) {
 			SellerPartnerBean result = null;
@@ -204,7 +202,7 @@ public class SellerPartnerJDBC {
 				//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 				conn = dataSource.getConnection();
 				stmt = conn.prepareStatement(INSERT);
-				stmt.setString(1, bean.getSeller_partner_UID());
+				stmt.setString(1, bean.getAccount_UID());
 				stmt.setString(2, bean.getSeller_ID());
 				stmt.setString(3, bean.getName());
 				stmt.setString(4, bean.getFEIN());
@@ -257,12 +255,12 @@ public class SellerPartnerJDBC {
 			return result;
 		}
 
-		private static final String UPDATE = "update Seller_partner set Seller_ID=?, name=?, FEIN=?, acc_email=?, psd=?, Seller_photo=?, tel=?, GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?, Con_name=?, Con_cel=?, receipts_metho=?, Seller_status=?, IS_Food_Staple=?, IS_Food_Drink=?, insdate=? where Seller_partner_UID=?";
+		private static final String UPDATE = "update Seller_partner set Seller_ID=?, name=?, FEIN=?, acc_email=?, psd=?, Seller_photo=?, tel=?, GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?, Con_name=?, Con_cel=?, receipts_metho=?, Seller_status=?, IS_Food_Staple=?, IS_Food_Drink=?, insdate=? where Account_UID=?";
 
 		public SellerPartnerBean update(String Seller_ID, String name, String FEIN, String acc_email,
 				String psd, Blob Seller_photo, String tel, String GUAR_CT, String GUAR_AR, String GUAR_ROAD,
 				String GUAR_NO, String Con_name, String Con_cel, String receipts_metho, String Seller_status,
-				String IS_Food_Staple, String IS_Food_Drink, Date insdate, String Seller_partner_UID) {
+				String IS_Food_Staple, String IS_Food_Drink, Date insdate, String Account_UID) {
 			Connection conn = null;
 			PreparedStatement psStrUpd = null;
 			SellerPartnerBean result = null;
@@ -293,7 +291,7 @@ public class SellerPartnerJDBC {
 				} else {
 					psStrUpd.setDate(18, null);
 				}
-				psStrUpd.setString(19, Seller_partner_UID);	
+				psStrUpd.setString(19, Account_UID);	
 
 				int i = psStrUpd.executeUpdate();
 				if (i == 1) {
@@ -320,16 +318,16 @@ public class SellerPartnerJDBC {
 			return result;
 		}
 
-		private static final String DELETE = "delete from Seller_partner where Seller_partner_UID=?";
+		private static final String DELETE = "delete from Seller_partner where Account_UID=?";
 
-		public int delete(String Seller_partner_UID) {
+		public int delete(String Account_UID) {
 			Connection conn = null;
 			PreparedStatement stmt = null;
 			try {
 				//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 				conn = dataSource.getConnection();
 				stmt = conn.prepareStatement(DELETE);
-				stmt.setString(1, Seller_partner_UID);
+				stmt.setString(1, Account_UID);
 				int i = stmt.executeUpdate();
 				if (i == 1) {
 					System.out.println("DELETE Success!");
