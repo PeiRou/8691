@@ -22,7 +22,7 @@ public class memberDAOjdbc implements MemberDAO {
 	public memberDAOjdbc(){
 	try {
 		Context context = new InitialContext();
-		ds = (DataSource) context.lookup("java:comp/env/jdbc/8691");
+		ds = (DataSource) context.lookup("java:comp/env/8691");
 	} catch (NamingException e) {
 		e.printStackTrace();
 	 }

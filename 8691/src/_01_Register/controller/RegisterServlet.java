@@ -11,13 +11,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import _01_Register.model.RegisterService;
 import _04_Member.model.MemberBean;
 
 @WebServlet(urlPatterns={"/page/register.controller"})
 
 
 public class RegisterServlet extends HttpServlet {
-	private RegisterServlet mmo = new RegisterServlet();
+	private RegisterService mmo = new RegisterService();
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
