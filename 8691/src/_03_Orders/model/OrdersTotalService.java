@@ -8,8 +8,8 @@ public class OrdersTotalService {
 	private OrdersTotalJDBC ordersTotalDao = new OrdersTotalJDBC();
 	public List<OrdersTotalBean> select(OrdersTotalBean bean) {
 		List<OrdersTotalBean> result = null;
-		if(bean!=null && bean.getOrders_ID().length()!=0) {
-			OrdersTotalBean temp = ordersTotalDao.select(bean.getOrders_ID());
+		if(bean!=null && bean.getOrdersID()!=0) {
+			OrdersTotalBean temp = ordersTotalDao.select(bean.getOrdersID());
 			if(temp!=null) {
 				result = new ArrayList<OrdersTotalBean>();
 				result.add(temp);
