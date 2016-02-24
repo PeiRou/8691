@@ -4,10 +4,11 @@ import java.sql.Blob;
 import java.util.Date;
 
 public class SellerVisitorBean {
-	public SellerVisitorBean(String FEIN, String name, String acc_email, String psd, Blob Seller_photo,
+	public SellerVisitorBean(String Account_UID,String FEIN, String name, String acc_email, String psd, Blob Seller_photo,
 			String tel, String GUAR_CT, String GUAR_AR, String GUAR_ROAD, String GUAR_NO,String email2, 
 			String Con_name, String Con_cel,String receipts_metho, boolean IS_check, boolean IS_cooperation, Date insdate) {
 		
+		this.Account_UID = Account_UID;
 		this.FEIN=FEIN;
 		this.name=name;
 		this.acc_email=acc_email;
@@ -26,7 +27,7 @@ public class SellerVisitorBean {
 		this.IS_cooperation=IS_cooperation;
 		this.insdate=insdate;
 	}
-	
+	private 	String	Account_UID;
 	private		String	FEIN;
 	private		String	name;
 	private		String	acc_email;
@@ -45,10 +46,13 @@ public class SellerVisitorBean {
 	private		boolean	IS_cooperation;
 	private		java.util.Date	insdate;
 	
-	public SellerVisitorBean(){
-		
+	
+	public String getAccount_UID() {
+		return Account_UID;
 	}
-
+	public void setAccount_UID(String account_UID) {
+		Account_UID = account_UID;
+	}
 	public String getFEIN() {
 		return FEIN;
 	}
@@ -184,10 +188,13 @@ public class SellerVisitorBean {
 	public void setInsdate(java.util.Date insdate) {
 		this.insdate = insdate;
 	}
-
+	public SellerVisitorBean() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	@Override
 	public String toString() {
-		return "Seller_visitorBean [FEIN=" + FEIN + ", name=" + name + ", acc_email=" + acc_email + ", psd=" + psd
+		return "Seller_visitorBean [account_UID=" + Account_UID + ", FEIN=" + FEIN + ", name=" + name + ", acc_email=" + acc_email + ", psd=" + psd
 				+ ", Seller_photo=" + Seller_photo + ", tel=" + tel + ", GUAR_CT=" + GUAR_CT + ", GUAR_AR=" + GUAR_AR
 				+ ", GUAR_ROAD=" + GUAR_ROAD + ", GUAR_NO=" + GUAR_NO + ", email2=" + email2 + ", Con_name=" + Con_name
 				+ ", Con_cel=" + Con_cel + ", receipts_metho=" + receipts_metho + ", IS_check=" + IS_check

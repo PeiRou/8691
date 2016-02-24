@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 public class SellerPartnerBean {
-	private 	String	Seller_partner_UID;
+	private 	String	Account_UID;
 	private 	String	Seller_ID;
 	private 	String	name;
 	private 	String	FEIN;
@@ -20,17 +20,17 @@ public class SellerPartnerBean {
 	private 	String	Con_name;
 	private 	String	Con_cel;
 	private 	String	receipts_metho;
-	private 	String	Seller_status;
-	private 	String	IS_Food_Staple;
-	private 	String	IS_Food_Drink;
+	private 	boolean	Seller_status;
+	private 	boolean	IS_Food_Staple;
+	private 	boolean	IS_Food_Drink;
 	private 	java.util.Date	insdate;
 	
 	
-	public String getSeller_partner_UID() {
-		return Seller_partner_UID;
+	public String getAccount_UID() {
+		return Account_UID;
 	}
-	public void setSeller_partner_UID(String seller_partner_UID) {
-		Seller_partner_UID = seller_partner_UID;
+	public void setAccount_UID(String account_UID) {
+		Account_UID = account_UID;
 	}
 	public String getSeller_ID() {
 		return Seller_ID;
@@ -116,22 +116,22 @@ public class SellerPartnerBean {
 	public void setReceipts_metho(String receipts_metho) {
 		this.receipts_metho = receipts_metho;
 	}
-	public String getSeller_status() {
+	public boolean getSeller_status() {
 		return Seller_status;
 	}
-	public void setSeller_status(String seller_status) {
+	public void setSeller_status(boolean seller_status) {
 		Seller_status = seller_status;
 	}
-	public String getIS_Food_Staple() {
+	public boolean getIS_Food_Staple() {
 		return IS_Food_Staple;
 	}
-	public void setIS_Food_Staple(String iS_Food_Staple) {
+	public void setIS_Food_Staple(boolean iS_Food_Staple) {
 		IS_Food_Staple = iS_Food_Staple;
 	}
-	public String getIS_Food_Drink() {
+	public boolean getIS_Food_Drink() {
 		return IS_Food_Drink;
 	}
-	public void setIS_Food_Drink(String iS_Food_Drink) {
+	public void setIS_Food_Drink(boolean iS_Food_Drink) {
 		IS_Food_Drink = iS_Food_Drink;
 	}
 	public java.util.Date getInsdate() {
@@ -140,10 +140,10 @@ public class SellerPartnerBean {
 	public void setInsdate(java.util.Date insdate) {
 		this.insdate = insdate;
 	}
-	public SellerPartnerBean(String Seller_partner_UID, String Seller_ID, String name, String FEIN, String acc_email,
+	public SellerPartnerBean(String Account_UID, String Seller_ID, String name, String FEIN, String acc_email,
 			String psd, Blob Seller_photo, String tel, String GUAR_CT, String GUAR_AR, String GUAR_ROAD,
-			String GUAR_NO, String Con_name, String Con_cel, String receipts_metho, String Seller_status,
-			String IS_Food_Staple, String IS_Food_Drink, Date insdate) {
+			String GUAR_NO, String Con_name, String Con_cel, String receipts_metho, boolean Seller_status,
+			boolean IS_Food_Staple, boolean IS_Food_Drink, Date insdate) {
 		super();		
 		this.Seller_ID = Seller_ID;
 		this.name = name;
@@ -163,7 +163,7 @@ public class SellerPartnerBean {
 		this.IS_Food_Staple = IS_Food_Staple;
 		this.IS_Food_Drink = IS_Food_Drink;
 		this.insdate = insdate;
-		this.Seller_partner_UID = Seller_partner_UID;
+		this.Account_UID = Account_UID;
 	}
 	public SellerPartnerBean() {
 		super();
@@ -171,7 +171,7 @@ public class SellerPartnerBean {
 	}
 	@Override
 	public String toString() {
-		return "SellerPartnerBean [Seller_partner_UID=" + Seller_partner_UID + ", Seller_ID=" + Seller_ID + ", name="
+		return "SellerPartnerBean [account_UID=" + Account_UID + ", Seller_ID=" + Seller_ID + ", name="
 				+ name + ", FEIN=" + FEIN + ", acc_email=" + acc_email + ", psd=" + psd + ", Seller_photo="
 				+ Seller_photo + ", tel=" + tel + ", GUAR_CT=" + GUAR_CT + ", GUAR_AR=" + GUAR_AR + ", GUAR_ROAD="
 				+ GUAR_ROAD + ", GUAR_NO=" + GUAR_NO + ", Con_name=" + Con_name + ", Con_cel=" + Con_cel
