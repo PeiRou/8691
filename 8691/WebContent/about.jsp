@@ -73,36 +73,94 @@
             <div class="box">
                 <div class="col-lg-12">
                     <hr>
-                    <h2 class="intro-text text-center">About
-                        <strong>business casual</strong>
+                    <h2 class="intro-text text-center">
+                        <strong>八方雲集</strong>
                     </h2>
                     <hr>
                 </div>
                 <div class="col-md-6">
-                    <img class="img-responsive img-border-left" src="img/slide-2.jpg" alt="">
+                    <img class="img-responsive img-border-left" src="img/intro-pic.jpg" alt="">
                 </div>
                 <div class="col-md-6">
-                    <p>This is a great place to introduce your company or project and describe what you do.</p>
-                    <p>Lid est laborum dolo rumes fugats untras. Etharums ser quidem rerum facilis dolores nemis omnis fugats vitaes nemo minima rerums unsers sadips amets.</p>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                    <p>八方雲集創立於1998年6月，目前共擁有連鎖加盟分店七百餘家。我們一直秉持著企業良心，堅持以最新鮮、衛生、優良的產品，提供給廣大的消費者，歷經長時間的考驗，贏得市場極佳的口碑，為各加盟店創造優渥的利潤。</p>
+                    <p>「只要肯努力，水餃也能變元寶」，這是必須流汗吃苦的行業，雖無暴利，但絕對足以溫飽。八方雲集鍋貼水餃專賣店以最誠摯踏實的態度穩健經營，我們以提攜中年失業及貧困者再創生機為志業，儘量壓低創業加盟門檻，並提供質優味美的產品，使加盟主能改善生活，讓廣大弱勢族群能有再出發的機會。</p>
+                    <p>八方雲集擁有獨特而美味的產品，使公司經營的版圖從區域性擴展到全台灣，更於2008年進入香港市場，2014年已於中國正式登場，未來將以多元化的食品發展為目標，期望成為華人美食舞台上最耀眼的明星，迎接更美好的企業願景！</p>
                 </div>
                 <div class="clearfix"></div>
             </div>
         </div>
+        
+        <div class="row">
+            <div class="box">
+                <div class="col-lg-12">
+                    <hr>
+                    <h2 class="intro-text text-center">
+                        <strong>5o嵐</strong>
+                    </h2>
+                    <hr>
+                </div>
+                <div class="col-md-6">
+                    <img class="img-responsive img-border-left" src="img/50lan.jpg" alt="">
+                </div>
+                <div class="col-md-6">
+                    <p>5o嵐商標屬於五十嵐企業有限公司，自１９９４年始於台南德興路路邊的一個小攤子，三年後，我們有了第一間標準店新孝店。而後，遇到一群同樣對茶飲有熱情的親朋好友加入，由新嵐有限公司２０００年於高雄成立高雄總店，然後陸續在２００２年由雅嵐有限公司在台中、２００３年由深耕茶業有限公司在台北、２００５年由春嵐有限公司在桃竹分別成立各區總店。這些年來我們只致力在台灣耕耘，並堅持只賣茶飲，用精選茶葉，搭配好的原料，新鮮現調每一杯茶飲。感謝每一位支持5o嵐的客人一直以來對我們的愛護，我們將更努力，希望能提供更好的商品與服務給每一位客人。</p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="box">
+                <div class="col-lg-12">
+                    <hr>
+                    <h2 class="intro-text text-center">
+                        <strong>5o嵐</strong>
+                    </h2>
+                    <hr>
+                </div>
+                <div class="col-md-6">
+                    <img class="img-responsive img-border-left" src="img/50lan.jpg" alt="">
+                </div>
+                <div class="col-md-6">
+                    <p>5o嵐商標屬於五十嵐企業有限公司，自１９９４年始於台南德興路路邊的一個小攤子，三年後，我們有了第一間標準店新孝店。而後，遇到一群同樣對茶飲有熱情的親朋好友加入，由新嵐有限公司２０００年於高雄成立高雄總店，然後陸續在２００２年由雅嵐有限公司在台中、２００３年由深耕茶業有限公司在台北、２００５年由春嵐有限公司在桃竹分別成立各區總店。這些年來我們只致力在台灣耕耘，並堅持只賣茶飲，用精選茶葉，搭配好的原料，新鮮現調每一杯茶飲。感謝每一位支持5o嵐的客人一直以來對我們的愛護，我們將更努力，希望能提供更好的商品與服務給每一位客人。</p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="box">
+                <div class="col-lg-12">
+                    <hr>
+                    <h2 class="intro-text text-center">
+                        <strong>5o嵐</strong>
+                    </h2>
+                    <hr>
+                </div>
+                <div class="col-md-6">
+                    <img class="img-responsive img-border-left" src="img/50lan.jpg" alt="">
+                </div>
+                <div class="col-md-6">
+                    <p>5o嵐商標屬於五十嵐企業有限公司，自１９９４年始於台南德興路路邊的一個小攤子，三年後，我們有了第一間標準店新孝店。而後，遇到一群同樣對茶飲有熱情的親朋好友加入，由新嵐有限公司２０００年於高雄成立高雄總店，然後陸續在２００２年由雅嵐有限公司在台中、２００３年由深耕茶業有限公司在台北、２００５年由春嵐有限公司在桃竹分別成立各區總店。這些年來我們只致力在台灣耕耘，並堅持只賣茶飲，用精選茶葉，搭配好的原料，新鮮現調每一杯茶飲。感謝每一位支持5o嵐的客人一直以來對我們的愛護，我們將更努力，希望能提供更好的商品與服務給每一位客人。</p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        
 
         <div class="row">
             <div class="box">
                 <div class="col-lg-12">
                     <hr>
-                    <h2 class="intro-text text-center">Our
-                        <strong>Team</strong>
+                    <h2 class="intro-text text-center">
+                        <strong>熱門商品</strong>
                     </h2>
                     <hr>
                 </div>
                 <div class="col-sm-4 text-center">
-                    <img class="img-responsive" src="http://placehold.it/750x450" alt="">
-                    <h3>John Smith
-                        <small>Job Title</small>
+                    <img class="img-responsive" src="img/top1.jpg" alt="">
+                    <h3>CoCo都可
+                        <small>紅藜拿鐵</small>
                     </h3>
                 </div>
                 <div class="col-sm-4 text-center">
