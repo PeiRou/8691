@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<h3>Select Product Table Result : ${fn:length(select)} row(s) selected</h3>
+<%-- <h3>Select Product Table Result : ${fn:length(select)} row(s) selected</h3> --%>
 <c:if test="${not empty select}">
 <table>
 	<thead>
@@ -29,18 +29,18 @@
 	</thead>
 	<tbody>
 	<c:forEach var="bean" items="${select}">
-		<c:url value="/_03_Orders/OrdersTotal.jsp" var="path">
-			<c:param name="Orders_ID" value="${bean.Orders_ID}" />
-			<c:param name="name" value="${bean.name}" />
-			<c:param name="cel" value="${bean.cel}" />
-			<c:param name="GUAR_CT" value="${bean.GUAR_CT}" />
-			<c:param name="GUAR_AR" value="${bean.GUAR_AR}" />
-			<c:param name="GUAR_ROAD" value="${bean.GUAR_ROAD}" />
-			<c:param name="GUAR_NO" value="${bean.GUAR_NO}" />
-			<c:param name="pay_metho" value="${bean.pay_metho}" />
-		</c:url>
+<%-- 		<c:url value="/_03_Orders/OrdersTotal.jsp" var="path"> --%>
+<%-- 			<c:param name="Orders_ID" value="${bean.Orders_ID}" /> --%>
+<%-- 			<c:param name="name" value="${bean.name}" /> --%>
+<%-- 			<c:param name="cel" value="${bean.cel}" /> --%>
+<%-- 			<c:param name="GUAR_CT" value="${bean.GUAR_CT}" /> --%>
+<%-- 			<c:param name="GUAR_AR" value="${bean.GUAR_AR}" /> --%>
+<%-- 			<c:param name="GUAR_ROAD" value="${bean.GUAR_ROAD}" /> --%>
+<%-- 			<c:param name="GUAR_NO" value="${bean.GUAR_NO}" /> --%>
+<%-- 			<c:param name="pay_metho" value="${bean.pay_metho}" /> --%>
+<%-- 		</c:url> --%>
 	<tr>
-		<td><a href="${path}">${bean.Orders_ID}</a></td>
+		<td>${bean.ordersID}</td>
 		<td>${bean.name}</td>
 		<td>${bean.cel}</td>
 		<td>${bean.GUAR_CT}</td>

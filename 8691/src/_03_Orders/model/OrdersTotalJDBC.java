@@ -60,9 +60,9 @@ public class OrdersTotalJDBC {
 		// System.out.println(beanDel);
 	}
 
-	private static final String SELECT = "select * from Orders_total where Orders_ID=?";
+	private static final String SELECT = "select * from Orders_total where ordersID=?";
 
-	public OrdersTotalBean select(String Orders_ID) {
+	public OrdersTotalBean select(int ordersID) {
 		OrdersTotalBean result = null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -73,13 +73,13 @@ public class OrdersTotalJDBC {
 			conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(SELECT);
 
-			stmt.setString(1, Orders_ID);
+			stmt.setInt(1, ordersID);
 			rset = stmt.executeQuery();
 			if (rset.next()) {
 				result = new OrdersTotalBean();
 				result.setOrders_total_UID(rset.getString("Orders_total_UID"));
-				result.setMember_UID(rset.getString("Member_UID"));
-				result.setOrders_ID(rset.getString("Orders_ID"));
+				result.setAccount_UID(rset.getString("account_UID"));
+				result.setOrdersID(rset.getInt("ordersID"));
 				result.setStatus(rset.getString("status"));
 				result.setName(rset.getString("name"));
 				result.setCel(rset.getString("cel"));
@@ -121,7 +121,7 @@ public class OrdersTotalJDBC {
 		return result;
 	}
 
-	private static final String SELECT_ALL = "select * from Orders_total";
+	private static final String SELECT_ALL = "select * from Orders_total order by ordersID ASC";
 
 	public List<OrdersTotalBean> select() {
 		List<OrdersTotalBean> items = new ArrayList<OrdersTotalBean>();
@@ -140,8 +140,8 @@ public class OrdersTotalJDBC {
 			while (rset.next()) {
 				result = new OrdersTotalBean();
 				result.setOrders_total_UID(rset.getString("Orders_total_UID"));
-				result.setMember_UID(rset.getString("Member_UID"));
-				result.setOrders_ID(rset.getString("Orders_ID"));
+				result.setAccount_UID(rset.getString("account_UID"));
+				result.setOrdersID(rset.getInt("ordersID"));
 				result.setStatus(rset.getString("status"));
 				result.setName(rset.getString("name"));
 				result.setCel(rset.getString("cel"));
@@ -184,7 +184,7 @@ public class OrdersTotalJDBC {
 		return items;
 	}
 
-//	private static final String INSERT = "insert into Orders_total (Orders_total_UID, Member_UID, Orders_ID, status, name, cel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, pay_metho, insdate, ship_price, food_price, total_amount) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+//	private static final String INSERT = "insert into Orders_total (Orders_total_UID, account_UID, Orders_ID, status, name, cel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, pay_metho, insdate, ship_price, food_price, total_amount) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 //
 //	public OrdersTotalBean insert(OrdersTotalBean bean) {
 //		OrdersTotalBean result = null;
@@ -196,8 +196,8 @@ public class OrdersTotalJDBC {
 //			conn = dataSource.getConnection();
 //			stmt = conn.prepareStatement(INSERT);
 //			stmt.setString(1, bean.getOrders_total_UID());
-//			stmt.setString(2, bean.getMember_UID());
-//			stmt.setString(3, bean.getOrders_ID());
+//			stmt.setString(2, bean.getAccount_UID());
+//			stmt.setInt(3, bean.getOrdersID());
 //			stmt.setString(4, bean.getStatus());
 //			stmt.setString(5, bean.getName());
 //			stmt.setString(6, bean.getCel());
@@ -243,7 +243,7 @@ public class OrdersTotalJDBC {
 //		}
 //		return result;
 //	}
-//
+
 //	private static final String UPDATE = "update Orders_total set Orders_total_UID=?, Member_UID=?, status=?, name=?, cel=?, GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?, pay_metho=? ,insdate=?, ship_price=?, food_price=?, total_amount=? where Orders_ID=?";
 //
 //	public OrdersTotalBean update(String orders_total_UID, String member_UID, String status, String name, String cel,

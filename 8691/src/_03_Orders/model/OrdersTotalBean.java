@@ -5,8 +5,8 @@ import java.util.Date;
 public class OrdersTotalBean {
 
 	private	String	Orders_total_UID;  
-	private	String	Member_UID;
-	private	String	Orders_ID;
+	private	String	account_UID;
+	private	int	ordersID;
 	private	String	status;
 	private	String	name;
 	private	String	cel;
@@ -19,25 +19,23 @@ public class OrdersTotalBean {
 	private	int	ship_price;
 	private	int	food_price;
 	private	int	total_amount;
-	
-	
 	public String getOrders_total_UID() {
 		return Orders_total_UID;
 	}
-	public void setOrders_total_UID(String Orders_total_UID) {
-		this.Orders_total_UID = Orders_total_UID;
+	public void setOrders_total_UID(String orders_total_UID) {
+		Orders_total_UID = orders_total_UID;
 	}
-	public String getMember_UID() {
-		return Member_UID;
+	public String getAccount_UID() {
+		return account_UID;
 	}
-	public void setMember_UID(String Member_UID) {
-		this.Member_UID = Member_UID;
+	public void setAccount_UID(String account_UID) {
+		this.account_UID = account_UID;
 	}
-	public String getOrders_ID() {
-		return Orders_ID;
+	public int getOrdersID() {
+		return ordersID;
 	}
-	public void setOrders_ID(String Orders_ID) {
-		this.Orders_ID = Orders_ID;
+	public void setOrdersID(int ordersID) {
+		this.ordersID = ordersID;
 	}
 	public String getStatus() {
 		return status;
@@ -60,26 +58,26 @@ public class OrdersTotalBean {
 	public String getGUAR_CT() {
 		return GUAR_CT;
 	}
-	public void setGUAR_CT(String GUAR_CT) {
-		this.GUAR_CT = GUAR_CT;
+	public void setGUAR_CT(String gUAR_CT) {
+		GUAR_CT = gUAR_CT;
 	}
 	public String getGUAR_AR() {
 		return GUAR_AR;
 	}
-	public void setGUAR_AR(String GUAR_AR) {
-		this.GUAR_AR = GUAR_AR;
+	public void setGUAR_AR(String gUAR_AR) {
+		GUAR_AR = gUAR_AR;
 	}
 	public String getGUAR_ROAD() {
 		return GUAR_ROAD;
 	}
-	public void setGUAR_ROAD(String GUAR_ROAD) {
-		this.GUAR_ROAD = GUAR_ROAD;
+	public void setGUAR_ROAD(String gUAR_ROAD) {
+		GUAR_ROAD = gUAR_ROAD;
 	}
 	public String getGUAR_NO() {
 		return GUAR_NO;
 	}
-	public void setGUAR_NO(String GUAR_NO) {
-		this.GUAR_NO = GUAR_NO;
+	public void setGUAR_NO(String gUAR_NO) {
+		GUAR_NO = gUAR_NO;
 	}
 	public String getPay_metho() {
 		return pay_metho;
@@ -111,20 +109,20 @@ public class OrdersTotalBean {
 	public void setTotal_amount(int total_amount) {
 		this.total_amount = total_amount;
 	}
-	public OrdersTotalBean(String Orders_total_UID, String Member_UID, String Orders_ID, String status, String name,
-			String cel, String GUAR_CT, String GUAR_AR, String GUAR_ROAD, String GUAR_NO, String pay_metho,
+	public OrdersTotalBean(String orders_total_UID, String account_UID, int ordersID, String status, String name,
+			String cel, String gUAR_CT, String gUAR_AR, String gUAR_ROAD, String gUAR_NO, String pay_metho,
 			Date insdate, int ship_price, int food_price, int total_amount) {
 		super();
-		this.Orders_total_UID = Orders_total_UID;
-		this.Member_UID = Member_UID;
-		this.Orders_ID = Orders_ID;
+		Orders_total_UID = orders_total_UID;
+		this.account_UID = account_UID;
+		this.ordersID = ordersID;
 		this.status = status;
 		this.name = name;
 		this.cel = cel;
-		this.GUAR_CT = GUAR_CT;
-		this.GUAR_AR = GUAR_AR;
-		this.GUAR_ROAD = GUAR_ROAD;
-		this.GUAR_NO = GUAR_NO;
+		GUAR_CT = gUAR_CT;
+		GUAR_AR = gUAR_AR;
+		GUAR_ROAD = gUAR_ROAD;
+		GUAR_NO = gUAR_NO;
 		this.pay_metho = pay_metho;
 		this.insdate = insdate;
 		this.ship_price = ship_price;
@@ -137,14 +135,13 @@ public class OrdersTotalBean {
 	}
 	@Override
 	public String toString() {
-		return "OrdersTotalBean [Orders_total_UID=" + Orders_total_UID + ", Member_UID=" + Member_UID + ", Orders_ID="
-				+ Orders_ID + ", status=" + status + ", name=" + name + ", cel=" + cel + ", GUAR_CT=" + GUAR_CT
+		return "OrdersTotalBean [Orders_total_UID=" + Orders_total_UID + ", account_UID=" + account_UID + ", ordersID="
+				+ ordersID + ", status=" + status + ", name=" + name + ", cel=" + cel + ", GUAR_CT=" + GUAR_CT
 				+ ", GUAR_AR=" + GUAR_AR + ", GUAR_ROAD=" + GUAR_ROAD + ", GUAR_NO=" + GUAR_NO + ", pay_metho="
 				+ pay_metho + ", insdate=" + insdate + ", ship_price=" + ship_price + ", food_price=" + food_price
 				+ ", total_amount=" + total_amount + "]";
 	}
-
 	
-
+	
 	
 }

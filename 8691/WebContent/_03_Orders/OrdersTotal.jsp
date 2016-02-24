@@ -26,12 +26,12 @@ function clearForm() {
 
 <h3>訂單資訊</h3>
 
-<form action="<c:url value="/_03_Orders/OrdersTotalServlet" />" method="post">
+<form action="<c:url value='/_03_Orders/OrdersTotalServlet' />" method="post">
 <table>
 	<tr>
 		<td>訂單編號 : </td>
-		<td><input type="text" name="Orders_ID" value="${param.Orders_ID}"></td>
-		<td>${error.Orders_ID}</td>
+		<td><input type="text" name="ordersID" value="${param.ordersID}"></td>
+		<td>${error.ordersID}</td>
 	</tr>
 	<tr>
 		<td>訂購人姓名 : </td>
@@ -101,7 +101,7 @@ function clearForm() {
 <c:if test="${not empty insert}">
 <h3>Insert Product Table Success</h3>
 <table border="1">
-	<tr><td>訂單編號 :</td><td>${insert.Orders_ID}</td></tr>
+	<tr><td>訂單編號 :</td><td>${insert.ordersID}</td></tr>
 	<tr><td>訂購人姓名 :</td><td>${insert.name}</td></tr>
 	<tr><td>訂購人手機 :</td><td>${insert.cel}</td></tr>
 	<tr><td>住址(縣/市) :</td><td>${insert.GUAR_CT}</td></tr>
@@ -116,7 +116,7 @@ function clearForm() {
 <c:if test="${not empty update}">
 <h3>Update Product Table Success</h3>
 <table border="1">
-	<tr><td>訂單編號 :</td><td>${update.Orders_ID}</td></tr>
+	<tr><td>訂單編號 :</td><td>${update.ordersID}</td></tr>
 	<tr><td>訂購人姓名 :</td><td>${update.name}</td></tr>
 	<tr><td>訂購人手機 :</td><td>${update.cel}</td></tr>
 	<tr><td>住址(縣/市) :</td><td>${update.GUAR_CT}</td></tr>

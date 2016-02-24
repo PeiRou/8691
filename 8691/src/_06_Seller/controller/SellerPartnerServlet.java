@@ -15,24 +15,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import _03_Orders.model.OrdersTotalBean;
-import _06_Seller.model.SellerVisitorBean;
-import _06_Seller.model.SellerVisitorService;
+import _06_Seller.model.SellerPartnerBean;
+import _06_Seller.model.SellerPartnerService;
 
-@WebServlet("/page/visitor.controller")
-public class SellerVisitorServlet extends HttpServlet {
+@WebServlet("/page/partner.controller")
+public class SellerPartnerServlet extends HttpServlet {
 	private static SimpleDateFormat mma = new SimpleDateFormat("yyyy-MM-dd");
-	private SellerVisitorService sellerVisitorService = new SellerVisitorService();
+	private SellerPartnerService sellerPartnerService = new SellerPartnerService();
 	@Override
 	protected void doGet(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
-//	System.out.println("!");
+	
 		request.setCharacterEncoding("UTF-8");
 		
 		//接收資料
 		String Account_UID =request.getParameter("Account_UID");
-		String FEIN = request.getParameter("FEIN");
+		String Seller_ID =request.getParameter("Seller_ID");
 		String name = request.getParameter("name");
+		String FEIN = request.getParameter("FEIN");
 		String acc_email = request.getParameter("acc_email");
 		String psd = request.getParameter("psd");
 		String temp1 = request.getParameter("Seller_photo");
@@ -41,13 +41,13 @@ public class SellerVisitorServlet extends HttpServlet {
 		String GUAR_AR = request.getParameter("GUAR_AR");
 		String GUAR_ROAD = request.getParameter("GUAR_ROAD");
 		String GUAR_NO = request.getParameter("GUAR_NO");
-		String email2 = request.getParameter("email2");
 		String Con_name = request.getParameter("Con_name");
 		String Con_cel= request.getParameter("Con_cel");
-		String receipts_metho= request.getParameter("receipts_metho");
-		String temp2= request.getParameter("IS_check");
-		String temp3= request.getParameter("IS_cooperation");
-		String temp4 = request.getParameter("insdate");
+		String receipts_metho= request.getParameter("receipts_metho");	
+		String temp2= request.getParameter("Seller_status");
+		String temp3= request.getParameter("IS_Food_Staple");
+		String temp4= request.getParameter("IS_Food_Drink");
+		String temp5 = request.getParameter("insdate");
 		String prodaction = request.getParameter("prodaction");
 		
 		//轉換資料
@@ -64,30 +64,40 @@ public class SellerVisitorServlet extends HttpServlet {
 //						error.put("Seller_photo", "Id must be an integer");
 //					}
 //				}
-				Boolean IS_check = null;
+				Boolean Seller_status = null;
 				if(temp2!=null && temp2.length()!=0) {
 					try {
-						IS_check = Boolean.parseBoolean(temp2);
+						Seller_status = Boolean.parseBoolean(temp2);
 					} catch (NumberFormatException e) {
 						e.printStackTrace();
-						error.put("IS_check", "IS_check must true or flase");
+						error.put("Seller_status", "Seller_status must true or flase");
 					}
 				}
 				
-				Boolean IS_cooperation = null;
+				Boolean IS_Food_Staple = null;
 				if(temp3!=null && temp3.length()!=0) {
 					try {
-						IS_cooperation = Boolean.parseBoolean(temp3);
+						IS_Food_Staple = Boolean.parseBoolean(temp3);
 					} catch (NumberFormatException e) {
 						e.printStackTrace();
-						error.put("IS_cooperation", "IS_check must true or flase");
+						error.put("IS_Food_Staple", "IS_Food_Staple must true or flase");
+					}
+				}
+				
+				Boolean IS_Food_Drink = null;
+				if(temp4!=null && temp4.length()!=0) {
+					try {
+						IS_Food_Drink = Boolean.parseBoolean(temp4);
+					} catch (NumberFormatException e) {
+						e.printStackTrace();
+						error.put("IS_Food_Drink", "IS_Food_Drink must true or flase");
 					}
 				}
 				
 				java.util.Date insdate = null;
-				if(temp4!=null && temp4.length()!=0) {
+				if(temp5!=null && temp5.length()!=0) {
 					try {
-						insdate = mma.parse(temp4);
+						insdate = mma.parse(temp5);
 					} catch (Exception e) {
 						
 						e.printStackTrace();
@@ -95,6 +105,8 @@ public class SellerVisitorServlet extends HttpServlet {
 					}
 			
 					}
+				
+
 				
 				if(name==null || name.trim().length()==0) {
 					error.put("name", "Please enter name to register");
@@ -121,9 +133,6 @@ public class SellerVisitorServlet extends HttpServlet {
 				if(GUAR_NO==null || GUAR_NO.trim().length()==0) {
 					error.put("GUAR_NO", "Please enter GUAR_NO to register");
 				}
-				if(email2==null || email2.trim().length()==0) {
-					error.put("email2", "Please enter email2 to register");
-				}
 				if(Con_name==null || Con_name.trim().length()==0) {
 					error.put("Con_name", "Please enter Con_name to register");
 				}
@@ -133,7 +142,7 @@ public class SellerVisitorServlet extends HttpServlet {
 				
 				if(error!=null && !error.isEmpty()){
 					request.getRequestDispatcher(
-							"/page/visitor.jsp").forward(request, response);
+							"/page/partner.jsp").forward(request, response);
 					return;
 				}
 				
@@ -145,14 +154,15 @@ public class SellerVisitorServlet extends HttpServlet {
 				}
 				if(error!=null && !error.isEmpty()){
 					request.getRequestDispatcher(
-							"/page/visitor.jsp").forward(request, response);
+							"/page/partner.jsp").forward(request, response);
 					return;
 				}		
 		//呼叫model
-				SellerVisitorBean bean = new SellerVisitorBean();
+				SellerPartnerBean bean = new SellerPartnerBean();
 				bean.setAccount_UID("Account_UID");
-				bean.setFEIN("FEIN");
+				bean.setSeller_ID("Seller_ID");
 				bean.setName("name");
+				bean.setFEIN("FEIN");
 				bean.setAcc_email("acc_email");
 				bean.setPsd("psd");
 //				bean.setSeller_photo("Seller_photo");
@@ -161,20 +171,20 @@ public class SellerVisitorServlet extends HttpServlet {
 				bean.setGUAR_AR("GUAR_AR");
 				bean.setGUAR_ROAD("GUAR_ROAD");
 				bean.setGUAR_NO("GUAR_NO");				
-				bean.setEmail2("email2");
 				bean.setCon_name("Con_name");					
 				bean.setCon_cel("Con_cel");
 				bean.setReceipts_metho("receipts_metho");				
-				bean.setIS_check(IS_check);
-				bean.setIS_cooperation(IS_cooperation);
+				bean.setSeller_status(Seller_status);
+				bean.setIS_Food_Staple(IS_Food_Staple);
+				bean.setIS_Food_Drink(IS_Food_Drink);
 				bean.setInsdate(insdate);
 				
 		//根據model執行結果顯示view
 				if("Select".equals(prodaction)) {
-					List<SellerVisitorBean> result = sellerVisitorService.select(bean);
+					List<SellerPartnerBean> result = sellerPartnerService.select(bean);
 					request.setAttribute("select", result);
 					request.getRequestDispatcher(
-							"/page/visitor.jsp").forward(request, response);
+							"/page/partner.jsp").forward(request, response);
 //				if(bean==null) {
 //					error.put("password", "Login failed, please try again");
 //					request.getRequestDispatcher(
@@ -190,7 +200,7 @@ public class SellerVisitorServlet extends HttpServlet {
 	}
 	
 	
-		private Date parse(String temp4) {
+		private Date parse(String temp5) {
 		return null;
 	}
 			@Override

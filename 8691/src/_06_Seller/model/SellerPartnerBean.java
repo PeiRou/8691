@@ -20,9 +20,9 @@ public class SellerPartnerBean {
 	private 	String	Con_name;
 	private 	String	Con_cel;
 	private 	String	receipts_metho;
-	private 	String	Seller_status;
-	private 	String	IS_Food_Staple;
-	private 	String	IS_Food_Drink;
+	private 	boolean	Seller_status;
+	private 	boolean	IS_Food_Staple;
+	private 	boolean	IS_Food_Drink;
 	private 	java.util.Date	insdate;
 	
 	
@@ -116,22 +116,22 @@ public class SellerPartnerBean {
 	public void setReceipts_metho(String receipts_metho) {
 		this.receipts_metho = receipts_metho;
 	}
-	public String getSeller_status() {
+	public boolean getSeller_status() {
 		return Seller_status;
 	}
-	public void setSeller_status(String seller_status) {
+	public void setSeller_status(boolean seller_status) {
 		Seller_status = seller_status;
 	}
-	public String getIS_Food_Staple() {
+	public boolean getIS_Food_Staple() {
 		return IS_Food_Staple;
 	}
-	public void setIS_Food_Staple(String iS_Food_Staple) {
+	public void setIS_Food_Staple(boolean iS_Food_Staple) {
 		IS_Food_Staple = iS_Food_Staple;
 	}
-	public String getIS_Food_Drink() {
+	public boolean getIS_Food_Drink() {
 		return IS_Food_Drink;
 	}
-	public void setIS_Food_Drink(String iS_Food_Drink) {
+	public void setIS_Food_Drink(boolean iS_Food_Drink) {
 		IS_Food_Drink = iS_Food_Drink;
 	}
 	public java.util.Date getInsdate() {
@@ -142,8 +142,8 @@ public class SellerPartnerBean {
 	}
 	public SellerPartnerBean(String Account_UID, String Seller_ID, String name, String FEIN, String acc_email,
 			String psd, Blob Seller_photo, String tel, String GUAR_CT, String GUAR_AR, String GUAR_ROAD,
-			String GUAR_NO, String Con_name, String Con_cel, String receipts_metho, String Seller_status,
-			String IS_Food_Staple, String IS_Food_Drink, Date insdate) {
+			String GUAR_NO, String Con_name, String Con_cel, String receipts_metho, boolean Seller_status,
+			boolean IS_Food_Staple, boolean IS_Food_Drink, Date insdate) {
 		super();		
 		this.Seller_ID = Seller_ID;
 		this.name = name;

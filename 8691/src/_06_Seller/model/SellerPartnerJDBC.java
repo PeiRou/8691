@@ -90,9 +90,9 @@ public class SellerPartnerJDBC {
 					result.setCon_name(rset.getString("Con_name"));					
 					result.setCon_cel(rset.getString("Con_cel"));
 					result.setReceipts_metho(rset.getString("receipts_metho"));
-					result.setSeller_status(rset.getString("Seller_status"));
-					result.setIS_Food_Staple(rset.getString("IS_Food_Staple"));					
-					result.setIS_Food_Drink(rset.getString("IS_Food_Drink"));
+					result.setSeller_status(rset.getBoolean("Seller_status"));
+					result.setIS_Food_Staple(rset.getBoolean("IS_Food_Staple"));					
+					result.setIS_Food_Drink(rset.getBoolean("IS_Food_Drink"));
 					result.setInsdate(rset.getDate("insdate"));
 				}
 			} catch (SQLException e) {
@@ -141,7 +141,6 @@ public class SellerPartnerJDBC {
 
 				while (rset.next()) {
 					result = new SellerPartnerBean();
-					result = new SellerPartnerBean();
 					result.setAccount_UID(rset.getString("Account_UID"));
 					result.setSeller_ID(rset.getString("Seller_ID"));
 					result.setName(rset.getString("name"));
@@ -157,9 +156,9 @@ public class SellerPartnerJDBC {
 					result.setCon_name(rset.getString("Con_name"));					
 					result.setCon_cel(rset.getString("Con_cel"));
 					result.setReceipts_metho(rset.getString("receipts_metho"));
-					result.setSeller_status(rset.getString("Seller_status"));
-					result.setIS_Food_Staple(rset.getString("IS_Food_Staple"));					
-					result.setIS_Food_Drink(rset.getString("IS_Food_Drink"));
+					result.setSeller_status(rset.getBoolean("Seller_status"));
+					result.setIS_Food_Staple(rset.getBoolean("IS_Food_Staple"));					
+					result.setIS_Food_Drink(rset.getBoolean("IS_Food_Drink"));
 					result.setInsdate(rset.getDate("insdate"));
 					items.add(result);
 				}
@@ -217,9 +216,9 @@ public class SellerPartnerJDBC {
 				stmt.setString(13, bean.getCon_name());
 				stmt.setString(14, bean.getCon_cel());
 				stmt.setString(15, bean.getReceipts_metho());
-				stmt.setString(16, bean.getSeller_status());
-				stmt.setString(17, bean.getIS_Food_Staple());
-				stmt.setString(18, bean.getIS_Food_Drink());
+				stmt.setBoolean(16, bean.getSeller_status());
+				stmt.setBoolean(17, bean.getIS_Food_Staple());
+				stmt.setBoolean(18, bean.getIS_Food_Drink());
 				java.util.Date insdate = bean.getInsdate();
 				if (insdate != null) {
 					long time = insdate.getTime();
@@ -259,8 +258,8 @@ public class SellerPartnerJDBC {
 
 		public SellerPartnerBean update(String Seller_ID, String name, String FEIN, String acc_email,
 				String psd, Blob Seller_photo, String tel, String GUAR_CT, String GUAR_AR, String GUAR_ROAD,
-				String GUAR_NO, String Con_name, String Con_cel, String receipts_metho, String Seller_status,
-				String IS_Food_Staple, String IS_Food_Drink, Date insdate, String Account_UID) {
+				String GUAR_NO, String Con_name, String Con_cel, String receipts_metho, boolean Seller_status,
+				boolean IS_Food_Staple, boolean IS_Food_Drink, Date insdate, String Account_UID) {
 			Connection conn = null;
 			PreparedStatement psStrUpd = null;
 			SellerPartnerBean result = null;
@@ -282,9 +281,9 @@ public class SellerPartnerJDBC {
 				psStrUpd.setString(12, Con_name);
 				psStrUpd.setString(13, Con_cel);
 				psStrUpd.setString(14, receipts_metho);
-				psStrUpd.setString(15, Seller_status);
-				psStrUpd.setString(16, IS_Food_Staple);
-				psStrUpd.setString(17, IS_Food_Drink);							
+				psStrUpd.setBoolean(15, Seller_status);
+				psStrUpd.setBoolean(16, IS_Food_Staple);
+				psStrUpd.setBoolean(17, IS_Food_Drink);							
 				if (insdate != null) {
 					long time = insdate.getTime();
 					psStrUpd.setDate(18, new java.sql.Date(time));
