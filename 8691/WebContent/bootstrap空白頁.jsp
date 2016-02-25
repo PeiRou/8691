@@ -24,50 +24,7 @@
     
 </head>
 <body>
-<div class="brand">Business Casual</div>
-    <div class="address-bar">3481 Melrose Place | Beverly Hills, CA 90210 | 123.456.7890</div>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="container">           
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>               
-                <a class="navbar-brand" href="index.jsp">Business Casual</a>
-            </div>           
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                     <li>
-                        <a href="<%= request.getContextPath() %>/index.jsp">Home</a>
-                    </li>
-                    <li>
-                        <a href="<%= request.getContextPath() %>/_07_Shops/Shops.jsp">Shops</a>
-                    </li>
-                    <li>
-                        <a href="<%= request.getContextPath() %>/_08_Products/Products.jsp">products</a>
-                    </li>
-                    <li>
-                        <a href="<%= request.getContextPath() %>/_04_Members/Members.jsp">Members</a>
-                    </li>
-                    <li>
-                        <a href="<%= request.getContextPath() %>/_03_Orders/Orders.jsp">Orders</a>
-                    </li>
-                    <li>
-                        <a href="<%= request.getContextPath() %>/_05_Forum/Forum.jsp">Forum</a>
-                    </li>
-                    <li>
-                        <a href="<%= request.getContextPath() %>/_02_Login/Login.jsp">login</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-    </nav>
-
+<jsp:include page="/fragment/top.jsp" />
 	<div class="container">
 		<div class="row">
 			<div class="box">		

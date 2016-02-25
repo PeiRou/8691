@@ -21,7 +21,7 @@ import _04_Member.model.MemberBean;
 
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private RegisterServlet mmo = new RegisterServlet();
+	//private RegisterServlet mmo = new RegisterServlet();
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {

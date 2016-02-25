@@ -45,7 +45,7 @@
 						</h2>
 						<h5 class="intro-text text-center">${error.acc_email}</h5>
 						<h2 class="intro-text text-center">
-							密碼 :<input type="text" name="psd" value="${param.psd}">
+							密碼 :<input type="password" name="psd" value="${param.psd}">
 						</h2>
 						<h5 class="intro-text text-center">${error.psd}</h5>
 

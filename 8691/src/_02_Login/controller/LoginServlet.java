@@ -15,7 +15,7 @@ import _00_Account.model.AccountBean;
 import _02_Login.model.loginService;
 
 @WebServlet(
-		urlPatterns={"/page/login.controller"}
+		urlPatterns={"/_02_Login/login.controller"}
 )
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet {
 		//有錯誤
 		if(error!=null && !error.isEmpty()){
 			request.getRequestDispatcher(
-					"/page/login.jsp").forward(request, response);
+					"/_02_Login/Login.jsp").forward(request, response);
 			return;
 		}
 //呼叫model
@@ -51,7 +51,7 @@ public class LoginServlet extends HttpServlet {
 		if(bean==null) {
 			error.put("loginfail", "登入失敗");
 			request.getRequestDispatcher(
-					"/page/login.jsp").forward(request, response);
+					"/_02_Login/Login.jsp").forward(request, response);
 		} else {
 			HttpSession session = request.getSession();
 			session.setAttribute("LoginOK", bean.getAccount_UID());
@@ -59,7 +59,7 @@ public class LoginServlet extends HttpServlet {
 
 			
 			String path = request.getContextPath();
-			response.sendRedirect(path+"/page/index.jsp");
+			response.sendRedirect(path+"/index.jsp");
 		}
 	}
 	@Override
