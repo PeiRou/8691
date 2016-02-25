@@ -15,7 +15,7 @@ import _04_Member.model.MemberBean;
 import _02_Login.model.loginService;
 
 @WebServlet(
-		urlPatterns={"/page/login.controller"}
+		urlPatterns={"/_02_Login/login.controller"}
 )
 public class LoginServlet extends HttpServlet {
 	private loginService MemberService = new loginService();
