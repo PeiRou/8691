@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="http://maps.google.com/maps/api/js?sensor=false&language=zh_TW" type="text/javascript"></script>
+<!-- <script src="http://maps.google.com/maps/api/js?sensor=false&language=zh_TW" type="text/javascript"></script> -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.20&sensor=false"></script>
 <title>Insert title here</title>
 </head>
 <body>

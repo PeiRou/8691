@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
 		//有錯誤
 		if(error!=null && !error.isEmpty()){
 			request.getRequestDispatcher(
-					"/page/login.jsp").forward(request, response);
+					"/_02_Login/Login.jsp").forward(request, response);
 			return;
 		}
 //呼叫model(loginservice 的 login method)
@@ -50,13 +50,13 @@ public class LoginServlet extends HttpServlet {
 		if(bean==null) {
 			error.put("loginfail", "Login failed, please try again");
 			request.getRequestDispatcher(
-					"/page/login.jsp").forward(request, response);
+					"/_02_Login/Login.jsp").forward(request, response);
 		} else {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", bean);
 
 			String path = request.getContextPath();
-			response.sendRedirect(path+"/page/index.jsp");
+			response.sendRedirect(path+"/index.jsp");
 		}
 	}
 	@Override
