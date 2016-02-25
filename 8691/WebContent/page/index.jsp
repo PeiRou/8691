@@ -10,12 +10,13 @@
 </head>
 <body>
 <fmt:setBundle basename="Message" var="bundle" />
-<h3><fmt:message key="index.welcome" bundle="${bundle}" /> ${user.email}</h3>
+<h3><fmt:message key="index.welcome" bundle="${bundle}" /> ${user.RoleID}</h3>
 
 <h3><a href="<c:url value="/page/login.jsp" />">Login</a></h3>
-<h3><a href="<c:url value="/page/register.jsp" />">Register</a></h3>
-<h3><a href="<c:url value="/page/visitor.jsp" />">店家訪客</a></h3>
-<h3><a href="<c:url value="/page/partner.jsp" />">店家會員</a></h3>
+<h3><a href="<c:url value="/page/register.jsp" />">會員註冊</a></h3>
+<h3><a href="<c:url value="/page/visitor.jsp" />">店家註冊(訪客)</a></h3>
+<h3><a href="<c:url value="/page/logout.jsp"  />">登出</a></h3>
+<h3><a href="<c:url value="index.jsp" /> ">回首頁</a></h3>
 
 </body>
 </html>

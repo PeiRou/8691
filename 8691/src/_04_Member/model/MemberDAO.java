@@ -10,10 +10,9 @@ public interface MemberDAO {
 	List<MemberBean> select();
 
 	MemberBean update(
+			//String member_ID,
 			String name,
-			String acc_email,
-			String psd,
-			Blob Member_photo,
+			Blob member_photo,
 			String gender,
 			String tel,
 			String GUAR_CT,
@@ -23,10 +22,10 @@ public interface MemberDAO {
 			String email2,
 			String cel,
 			java.util.Date insdate,
-			String Member_ID);
+			String account_UID);
 
 	MemberBean insert(MemberBean bean);
 
-	int delete(String Member_ID);
+	int delete(String acc_email);
 
 }

@@ -11,18 +11,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import _04_Member.model.MemberBean;
+import _00_Account.model.AccountBean;
 import _02_Login.model.loginService;
 
 @WebServlet(
-		urlPatterns={"/_02_Login/login.controller"}
+		urlPatterns={"/page/login.controller"}
 )
 public class LoginServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 	private loginService MemberService = new loginService();
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-//接收資料
+
+		//接收資料
 		String acc_email = request.getParameter("acc_email");
 		String psd = request.getParameter("psd");
 		
@@ -31,32 +33,33 @@ public class LoginServlet extends HttpServlet {
 		request.setAttribute("error", error);
 
 		if(acc_email==null || acc_email.trim().length()==0) {
-			error.put("acc_email", "Please enter email to login");
+			error.put("acc_email", "請輸入您的e-mail登入");
 		}
 		if(psd==null || psd.trim().length()==0) {
-			error.put("psd", "Please enter password to login");
+			error.put("psd", "請輸入您的密碼登入");
 		}
 		//有錯誤
 		if(error!=null && !error.isEmpty()){
 			request.getRequestDispatcher(
-					"/_02_Login/Login.jsp").forward(request, response);
+					"/page/login.jsp").forward(request, response);
 			return;
 		}
-//呼叫model(loginservice 的 login method)
-		loginService ls = new loginService();
-		MemberBean bean = ls.login(acc_email, psd);
+//呼叫model
+		AccountBean bean = MemberService.login(acc_email, psd);
 		
 //根據model顯示view
 		if(bean==null) {
-			error.put("loginfail", "Login failed, please try again");
+			error.put("loginfail", "登入失敗");
 			request.getRequestDispatcher(
-					"/_02_Login/Login.jsp").forward(request, response);
+					"/page/login.jsp").forward(request, response);
 		} else {
 			HttpSession session = request.getSession();
-			session.setAttribute("user", bean);
+			session.setAttribute("LoginOK", bean.getAccount_UID());
+			session.setAttribute("RoleID", bean.getRole_ID());
 
+			
 			String path = request.getContextPath();
-			response.sendRedirect(path+"/index.jsp");
+			response.sendRedirect(path+"/page/index.jsp");
 		}
 	}
 	@Override
