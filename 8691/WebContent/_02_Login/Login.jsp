@@ -39,10 +39,12 @@
 					帳號 :<input type="text" name="acc_email"	value="${param.acc_email}"></h2>
 					<h5 class="intro-text text-center">${error.acc_email}</h5>
 					<h2 class="intro-text text-center">
-					密碼 :<input type="text" name="psd" value="${param.psd}"></h2>
+					密碼 :<input type="password" name="psd" value="${param.psd}"></h2>
 					<h5 class="intro-text text-center">${error.psd}</h5>	
-                    
-                    <input class="btn btn-primary" type="submit" value="登入">
+                    <div class="checkbox">
+			          	<label><input type="checkbox"> Remember me</label>
+			        </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="btn btn-primary" type="submit" value="登入">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <input class="btn btn-primary" type="button" value="註冊" onclick="location.href='<%= request.getContextPath() %>/_01_Register/Register.jsp'">                     
                 </form>
 				</div>				
