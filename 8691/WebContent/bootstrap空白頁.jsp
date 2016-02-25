@@ -12,10 +12,10 @@
     <title>About - Business Casual - Start Bootstrap Theme</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../css/business-casual.css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/css/business-casual.css" rel="stylesheet">
 
     <!-- Fonts -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
@@ -42,25 +42,25 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                      <li>
-                        <a href="../index.jsp">Home</a>
+                        <a href="<%= request.getContextPath() %>/index.jsp">Home</a>
                     </li>
                     <li>
-                        <a href="../_07_Shops/Shops.jsp">Shops</a>
+                        <a href="<%= request.getContextPath() %>/_07_Shops/Shops.jsp">Shops</a>
                     </li>
                     <li>
-                        <a href="../_08_Products/Products.jsp">products</a>
+                        <a href="<%= request.getContextPath() %>/_08_Products/Products.jsp">products</a>
                     </li>
                     <li>
-                        <a href="../_04_Members/Members.jsp">Members</a>
+                        <a href="<%= request.getContextPath() %>/_04_Members/Members.jsp">Members</a>
                     </li>
                     <li>
-                        <a href="../_03_Orders/Orders.jsp">Orders</a>
+                        <a href="<%= request.getContextPath() %>/_03_Orders/Orders.jsp">Orders</a>
                     </li>
                     <li>
-                        <a href="../_05_Forum/Forum.jsp">Forum</a>
+                        <a href="<%= request.getContextPath() %>/_05_Forum/Forum.jsp">Forum</a>
                     </li>
                     <li>
-                        <a href="../_02_Login/Login.jsp">login</a>
+                        <a href="<%= request.getContextPath() %>/_02_Login/Login.jsp">login</a>
                     </li>
                 </ul>
             </div>
@@ -93,9 +93,9 @@
     </footer>
 
     <!-- jQuery -->
-    <script src="../js/jquery.js"></script>
+    <script src="<%= request.getContextPath() %>/js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../js/bootstrap.min.js"></script>
+    <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -12,10 +12,10 @@
     <title>About - Business Casual - Start Bootstrap Theme</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../css/business-casual.css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/css/business-casual.css" rel="stylesheet">
 
     <!-- Fonts -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
@@ -51,7 +51,7 @@
 
 						<input class="btn btn-primary" type="submit" value="登入"> <input
 							class="btn btn-primary" type="button" value="註冊"
-							onclick="location.href='../_01_Register/Register.jsp'">
+							onclick="location.href='<%= request.getContextPath() %>/_01_Register/Register.jsp'">
 					</form>
 				</div>
 			</div>
@@ -73,9 +73,9 @@
     </footer>
 
     <!-- jQuery -->
-    <script src="../js/jquery.js"></script>
+    <script src="<%= request.getContextPath() %>/js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../js/bootstrap.min.js"></script>
+    <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
 </body>
 </html>
