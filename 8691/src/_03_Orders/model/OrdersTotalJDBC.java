@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -184,17 +185,17 @@ public class OrdersTotalJDBC {
 		return items;
 	}
 
-	private static final String INSERT = "insert into Orders_total (Orders_total_UID, account_UID, status, name, cel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, pay_metho, insdate, ship_price, food_price, total_amount) values (NEWID(), NEWID(), 0, ?, ?, ?, ?, ?, ?, ?, getdate(), ?, ?, ?)";
+	private static final String INSERT = "insert into Orders_total (Orders_total_UID, account_UID, status, name, cel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, pay_metho, insdate, ship_price, food_price, total_amount) OUTPUT INSERTED.ordersID values (NEWID(), NEWID(), 0, ?, ?, ?, ?, ?, ?, ?, getdate(), ?, ?, ?)";
 
 	public OrdersTotalBean insert(OrdersTotalBean bean) {
 		OrdersTotalBean result = null;
 		Connection conn = null;
-		PreparedStatement stmt = null;
+		PreparedStatement stmt = null;		 
 
 		try {
 			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			conn = dataSource.getConnection();
-			stmt = conn.prepareStatement(INSERT);
+			stmt = conn.prepareStatement(INSERT,Statement.RETURN_GENERATED_KEYS);
 //			stmt.setString(1, bean.getOrders_total_UID());   
 //			stmt.setString(2, bean.getAccount_UID());
 //			
@@ -222,13 +223,13 @@ public class OrdersTotalJDBC {
 //			stmt.setString(2, bean.getAccount_UID());         測試用先塞NEWID()
 //			stmt.setInt(3, bean.getOrdersID());               流水號不塞資料  
 //			stmt.setString(4, bean.getStatus());		               預設狀態0
-			stmt.setString(5, bean.getName());
-			stmt.setString(6, bean.getCel());
-			stmt.setString(7, bean.getGUAR_CT());
-			stmt.setString(8, bean.getGUAR_AR());
-			stmt.setString(9, bean.getGUAR_ROAD());
-			stmt.setString(10, bean.getGUAR_NO());
-			stmt.setString(11, bean.getPay_metho());
+			stmt.setString(1, bean.getName());
+			stmt.setString(2, bean.getCel());
+			stmt.setString(3, bean.getGUAR_CT());
+			stmt.setString(4, bean.getGUAR_AR());
+			stmt.setString(5, bean.getGUAR_ROAD());
+			stmt.setString(6, bean.getGUAR_NO());
+			stmt.setString(7, bean.getPay_metho());
 //			java.util.Date insdate = bean.getInsdate();
 //			if (insdate != null) {
 //				long time = insdate.getTime();
@@ -236,15 +237,16 @@ public class OrdersTotalJDBC {
 //			} else {
 //				stmt.setDate(12, null);
 //			}
-			stmt.setInt(13, bean.getShip_price());
-			stmt.setInt(14, bean.getFood_price());
-			stmt.setInt(15, bean.getTotal_amount());
+			stmt.setInt(8, bean.getShip_price());
+			stmt.setInt(9, bean.getFood_price());
+			stmt.setInt(10, bean.getTotal_amount());
 
-			int i = stmt.executeUpdate();
-
-			if (i == 1) {
-				System.out.println("INSERT Success!");
-				// return result;
+			stmt.execute();
+			ResultSet rs = stmt.getGeneratedKeys();
+			if (rs.next()) {
+				System.out.println("INSERT Success!");				
+				bean.setOrdersID(rs.getInt(1));
+				result = bean;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

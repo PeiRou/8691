@@ -17,14 +17,17 @@ import _01_Register.model.RegisterServiceToAccount;
 import _01_Register.model.RegisterServiceToMember;
 import _04_Member.model.MemberBean;
 
-@WebServlet(urlPatterns={"/page/register.controller"})
+@WebServlet(urlPatterns={"/register.controller"})
 
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	//private RegisterServlet mmo = new RegisterServlet();
+
+	private RegisterServiceToMember RegisterServiceToMember = new RegisterServiceToMember();
+	private RegisterServiceToAccount RegisterServiceToAccount = new RegisterServiceToAccount();
+
 	@Override
 	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {		
+			HttpServletResponse response) throws ServletException, IOException {
 		//接收資料
 		String name = request.getParameter("name");
 		String acc_email = request.getParameter("acc_email");
@@ -46,17 +49,8 @@ public class RegisterServlet extends HttpServlet {
 			error.put("name", "請輸入您的姓名");
 		}
 		if(acc_email==null || acc_email.trim().length()==0) {
-			error.put("acc_email", "請輸入您的e-mail");
+			error.put("acc_email", "請輸入您111的e-mail");
 		}
-//		byte[] temppsd = null;
-//		if (psd != null && psd.trim().length() > 0) {
-//			try {
-//				byte[] bytes = psd.getBytes();
-//				temppsd = byte[].getBytes(psd);
-//			} catch (NumberFormatException e) {
-//				error.put("weight","擃?甈???詨?);
-//			}
-//		}
 		if(psd==null || psd.trim().length()==0) {
 			error.put("psd", "請輸入您的密碼");
 		}
@@ -84,20 +78,7 @@ public class RegisterServlet extends HttpServlet {
 		if(cel==null || cel.trim().length()==0) {
 			error.put("cel", "請輸入您的手機號碼");
 		}
-		Timestamp insdate = new Timestamp(System.currentTimeMillis());
-			
-		//有錯誤
-		if (!error.isEmpty()) {
-			RequestDispatcher rd = request.getRequestDispatcher("/_01_Register/Register.jsp");
-			rd.forward(request, response);
-			return;
-		}
-		//沒錯誤
-		if (error.isEmpty()) {
-			RequestDispatcher rd = request.getRequestDispatcher("/_01_Register/RegisterOK_toLogin.jsp");
-			rd.forward(request, response);
-			return;
-		}
+		Timestamp insdate = new Timestamp(System.currentTimeMillis());	
 		
 //呼叫model
 		MemberBean bean = new MemberBean();
@@ -115,14 +96,27 @@ public class RegisterServlet extends HttpServlet {
 		AccountBean bean1 = new AccountBean();
 		bean1.setAcc_email(acc_email);
 		bean1.setPsd(psd);
+		bean1.setRole_ID("201");
 		
 //根據model執行結果顯示view
-		RegisterServiceToMember rs = new RegisterServiceToMember();
-		RegisterServiceToAccount rs1 = new RegisterServiceToAccount();
-		MemberBean result = rs.insertMember(bean);
-		AccountBean result1 = rs1.insertAccount(bean1);
+//		RegisterServiceToMember rs = new RegisterServiceToMember();
+//		RegisterServiceToAccount rs1 = new RegisterServiceToAccount();
+		MemberBean result = RegisterServiceToMember.insertMember(bean);
+		AccountBean result1 = RegisterServiceToAccount.insertAccount(bean1);
 		if(result==null&&result1==null) {
 			error.put("action", "Insert failed");
+		}
+		// 有錯誤
+		if (!error.isEmpty()) {
+			RequestDispatcher rd = request.getRequestDispatcher("/_01_Register/Register.jsp");
+			rd.forward(request, response);
+			return;
+		}
+		// 沒錯誤
+		if (error.isEmpty()) {
+			RequestDispatcher rd = request.getRequestDispatcher("/_01_Register/RegisterOK_toLogin.jsp");
+			rd.forward(request, response);
+			return;
 		}
 	}
 	@Override

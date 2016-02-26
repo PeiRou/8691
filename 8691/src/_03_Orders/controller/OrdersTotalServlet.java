@@ -74,15 +74,15 @@ public class OrdersTotalServlet extends HttpServlet {
 //				  error.put("pay_metho", "付款方式為必填");				
 //			}
 			
-			int ordersID = 0;
-			if(temp0!=null && temp0.length()!=0) {
-				try {
-					ordersID = Integer.parseInt(temp0);
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-					error.put("ordersID", "OrdersID must be an number");
-				}
-			}
+//		int ordersID = 0;
+//		if (temp0 != null && temp0.length() != 0) {
+//			try {
+//				ordersID = Integer.parseInt(temp0);
+//			} catch (NumberFormatException e) {
+//				e.printStackTrace();
+//				error.put("ordersID", "OrdersID must be an number");
+//			}
+//		}
 			
 			
 			java.util.Date insdate = null;
@@ -141,7 +141,7 @@ public class OrdersTotalServlet extends HttpServlet {
 			OrdersTotalBean bean = new OrdersTotalBean();	
 			bean.setOrders_total_UID(Orders_total_UID);
 			bean.setAccount_UID(account_UID);
-			bean.setOrdersID(ordersID);			
+			//bean.setOrdersID(ordersID);			
 			bean.setStatus(status);
 			bean.setName(name);
 			bean.setCel(cel);

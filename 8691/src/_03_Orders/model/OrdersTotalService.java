@@ -23,8 +23,9 @@ public class OrdersTotalService {
 		OrdersTotalBean result = null;
 		if(bean!=null) {
 			result = ordersTotalDao.insert(bean);
+			return result;
 		}
-		return result;
+		return null;
 	}
 //	public OrdersTotalBean update(OrdersTotalBean bean) {
 //		OrdersTotalBean result = null;

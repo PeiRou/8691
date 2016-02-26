@@ -29,11 +29,11 @@ function clearForm() {
 
 <form action="<c:url value='/_03_Orders/OrdersTotalServlet' />" method="post">
 <table>
-	<tr>
-		<td>訂單編號 : </td>
-		<td><input type="text" name="ordersID" value="${param.ordersID}"></td>
-		<td>${error.ordersID}</td>
-	</tr>
+<!-- 	<tr> -->
+<!-- 		<td>訂單編號 : </td> -->
+<%-- 		<td><input type="text" name="ordersID" value="${param.ordersID}"></td> --%>
+<%-- 		<td>${error.ordersID}</td> --%>
+<!-- 	</tr> -->
 	<tr>
 		<td>訂購人姓名 : </td>
 		<td><input type="text" name="name" value="${param.name}"></td>
@@ -69,6 +69,7 @@ function clearForm() {
 		<td>付款方式 : </td>
 		<td>	
 		<select name="pay_metho" value="${param.pay_metho}">
+		<option value="">請選擇</option>
         <option value="0">貨到付款</option>
         <option value="1">信用卡</option></select>
         </td>
