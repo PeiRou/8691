@@ -33,21 +33,29 @@
 
 	<form name="Visitor"
 		action="<c:url value='/page/visitor.controller' />" method="post">
-
 		<table>
 			<tr>
 				<td>輸入您的統一編號 :</td>
 				<td><input type="text" name="FEIN" value="${param.FEIN}"></td>
 				<td></td>
 			</tr>
-		
 			<tr>
 				<td>輸入您的店家名稱 :</td>
 				<td><input type="text" name="name" value="${param.name}"></td>
 				<td>${error.name}</td>
 			</tr>
-			</table>
-			<table>
+			<tr>
+				<td>輸入您的帳號 或 email :</td>
+				<td><input type="text" name="acc_email" value="${param.acc_email}"></td>
+				<td>${error.acc_email}</td>
+			</tr>
+			<tr>
+				<td>輸入您的密碼 :</td>
+				<td><input type="text" name="psd" value="${param.psd}"></td>
+				<td>${error.psd}</td>
+			</tr>
+			
+			
 		     <tr height='36'>
 		    <td>輸入您的店家圖片:</td>
 <!-- 		        <td width="45" align="center" class="title_font">圖片</td> -->
@@ -55,8 +63,8 @@
 		            <input style="background:#FFFFFF" class='InputClass'  type="file" 
 		            name="uploadFile" size="40" />    
 		    </tr>
-			</table>
-			<table>
+			
+
 			<tr>
 				<td>輸入您的連絡市話  :</td>
 				<td><input type="text" name="phone" value="${param.tel}"></td>
@@ -90,11 +98,10 @@
 				<td><input type="text" name="GUAR_NO" value="${param.GUAR_NO}"></td>
 				<td>${error.GUAR_NO}</td>
 			</tr>
-			
 			<tr>
 				<td>輸入聯絡人姓名 :</td>
-				<td><input type="text" name="Con_name" value="${param.name}"></td>
-				<td>${error.name}</td>
+				<td><input type="text" name="Con_name" value="${param.Con_name}"></td>
+				<td>${error.Con_name}</td>
 			</tr>
 			<tr>
 				<td>輸入連絡人手機 :</td>

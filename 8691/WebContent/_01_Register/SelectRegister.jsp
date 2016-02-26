@@ -32,7 +32,7 @@
 							
 					
 <%-- 					<button type="button" class="btn btn-success" onclick="location.href='<%= request.getContextPath() %>/_01_Register/Register.jsp'">註冊為一般會員</button><br> --%>
-					<a href="<%= request.getContextPath() %>/_01_Register/Register.jsp"><img src="<%= request.getContextPath() %>/img/member.jpg" border="0" ></a>
+					<a href="<%= request.getContextPath() %>/_01_Register/Register.jsp"><img src="<%= request.getContextPath() %>/img/member.jpg" border="0" ></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				
 <%-- 					<button type="button" class="btn btn-info" onclick="location.href='<%= request.getContextPath() %>/_06_Seller/SellerVisitor.jsp'">註冊為店家</button> --%>
 					<a href="<%= request.getContextPath() %>/_06_Seller/SellerVisitor.jsp"><img src="<%= request.getContextPath() %>/img/sellerpartner.jpg" border="0" ></a>			

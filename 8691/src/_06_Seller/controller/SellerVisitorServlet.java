@@ -2,12 +2,15 @@ package _06_Seller.controller;
 
 import java.io.*;
 import java.sql.Blob;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,25 +18,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import _00_Account.model.AccountBean;
+import _01_Register.model.RegisterServiceToAccount;
 import _03_Orders.model.OrdersTotalBean;
 import _06_Seller.model.SellerVisitorBean;
 import _06_Seller.model.SellerVisitorService;
 
 @WebServlet("/page/visitor.controller")
 public class SellerVisitorServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
 	private static SimpleDateFormat mma = new SimpleDateFormat("yyyy-MM-dd");
 	private SellerVisitorService sellerVisitorService = new SellerVisitorService();
+	private RegisterServiceToAccount registerServiceToAccount = new RegisterServiceToAccount();
 	@Override
 	protected void doGet(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 //	System.out.println("!");
-		request.setCharacterEncoding("UTF-8");
-		
+				
 		//接收資料
 		String Account_UID =request.getParameter("Account_UID");
 		String FEIN = request.getParameter("FEIN");
 		String name = request.getParameter("name");
-		
+		String acc_email = request.getParameter("acc_email");
+		String psd = request.getParameter("psd");
 		String temp1 = request.getParameter("Seller_photo");
 		String tel = request.getParameter("tel");
 		String GUAR_CT = request.getParameter("GUAR_CT");

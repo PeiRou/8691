@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,26 +17,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import _00_Account.model.AccountBean;
+import _01_Register.model.RegisterServiceToAccount;
 import _06_Seller.model.SellerPartnerBean;
 import _06_Seller.model.SellerPartnerService;
 
 @WebServlet("/page/partner.controller")
 public class SellerPartnerServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
 	private static SimpleDateFormat mma = new SimpleDateFormat("yyyy-MM-dd");
 	private SellerPartnerService sellerPartnerService = new SellerPartnerService();
+	private RegisterServiceToAccount registerServiceToAccount = new RegisterServiceToAccount();
 	@Override
 	protected void doGet(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 	
-		request.setCharacterEncoding("UTF-8");
+
 		
 		//接收資料
 		String Account_UID =request.getParameter("Account_UID");
 //		String Seller_ID =request.getParameter("Seller_ID");
 		String name = request.getParameter("name");
 		String FEIN = request.getParameter("FEIN");
-//		String acc_email = request.getParameter("acc_email");
-//		String psd = request.getParameter("psd");
+		String acc_email = request.getParameter("acc_email");
+		String psd = request.getParameter("psd");
 		String temp1 = request.getParameter("Seller_photo");
 		String tel = request.getParameter("tel");
 		String GUAR_CT = request.getParameter("GUAR_CT");
@@ -136,22 +143,25 @@ public class SellerPartnerServlet extends HttpServlet {
 				
 				if(error!=null && !error.isEmpty()){
 					request.getRequestDispatcher(
-							"/page/partner.jsp").forward(request, response);
+							"/_06_Seller/SellerPartner.jsp").forward(request, response);
 					return;
 				}
 				
 		//驗證資料				
-				if("Insert".equals(prodaction) || "Update".equals(prodaction) || "Delete".equals(prodaction)) {
-					if(name==null) {
-						error.put("name", "Please enter Id for "+prodaction);
-					}
-				}
-				if(error!=null && !error.isEmpty()){
-					request.getRequestDispatcher(
-							"/page/partner.jsp").forward(request, response);
+//				if("Insert".equals(prodaction) || "Update".equals(prodaction) || "Delete".equals(prodaction)) {
+		//有錯誤
+				if (!error.isEmpty()) {
+					RequestDispatcher rd = request.getRequestDispatcher("/_06_Seller/SellerPartner.jsp");
+					rd.forward(request, response);
 					return;
-				}		
-		//呼叫model
+				}
+		//沒錯誤
+				if (error.isEmpty()) {
+					RequestDispatcher rd = request.getRequestDispatcher("/_06_Seller/SellerPartner.jsp");
+					rd.forward(request, response);
+					return;
+				}
+//呼叫model
 				SellerPartnerBean bean = new SellerPartnerBean();
 				bean.setAccount_UID("Account_UID");
 
@@ -172,12 +182,19 @@ public class SellerPartnerServlet extends HttpServlet {
 				bean.setLowest_price(Lowest_price);
 				bean.setInsdate(insdate);
 				
-		//根據model執行結果顯示view
-				if("Select".equals(prodaction)) {
-					List<SellerPartnerBean> result = sellerPartnerService.select(bean);
-					request.setAttribute("select", result);
-					request.getRequestDispatcher(
-							"/page/partner.jsp").forward(request, response);
+				AccountBean bean1 = new AccountBean();
+				bean1.setAcc_email("acc_email");
+				bean1.setPsd("psd");
+				
+//根據model執行結果顯示view
+//				if("Select".equals(prodaction)) {
+//					List<SellerPartnerBean> result = sellerPartnerService.select(bean);
+//					request.setAttribute("select", result);
+//					request.getRequestDispatcher(
+//							"/_06_Seller/SellerPartner.jsp").forward(request, response);
+				SellerPartnerBean result = sellerPartnerService.insert(bean);
+				AccountBean result1 = registerServiceToAccount.insertAccount(bean1);
+				
 //				if(bean==null) {
 //					error.put("password", "Login failed, please try again");
 //					request.getRequestDispatcher(
@@ -190,7 +207,6 @@ public class SellerPartnerServlet extends HttpServlet {
 //					response.sendRedirect(path+"/index.jsp");
 //				}
 			}
-	}
 	
 	
 		private Date parse(String temp5) {

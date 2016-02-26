@@ -58,9 +58,15 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("RoleID", bean.getRole_ID());
 
 			
-			String path = request.getContextPath();
-			response.sendRedirect(path+"/index.jsp");
-		}
+//			String dest = (String)session.getAttribute("dest");
+//			if(dest!=null && dest.length()!=0){
+//				session.removeAttribute("dest");
+//				response.sendRedirect(dest);
+//			}else{			
+					String path = request.getContextPath();
+					response.sendRedirect(path+"/index.jsp");
+//			}
+		}		
 	}
 	@Override
 	protected void doPost(HttpServletRequest req,

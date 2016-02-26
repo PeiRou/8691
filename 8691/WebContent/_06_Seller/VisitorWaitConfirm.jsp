@@ -29,10 +29,10 @@
 		<div class="row">
 			<div class="box">		
 				<div class="col-lg-12 text-center">
-					<form action="<c:url value="/MemberServlet" />" method="post" >
-					<h2>親愛的會員您好</h2>
-					
-					</form>
+				<h2>恭喜您註冊成功，請等待管理員審核！</h2><br>
+				<button type="button" class="btn btn-info" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">回首頁</button><br>
+
+
 				</div>
 			</div>			
 		</div>
