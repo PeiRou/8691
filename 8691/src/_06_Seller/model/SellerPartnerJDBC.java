@@ -18,19 +18,19 @@ import _06_Seller.model.SellerPartnerBean;
 
 
 public class SellerPartnerJDBC {
-//		private static final String URL = "jdbc:sqlserver://raab1str2m.database.windows.net:1433;database=DB02";
-//		private static final String USERNAME = "eeit83team05@raab1str2m";
-//		private static final String PASSWORD = "Sa123456";
+		private static final String URL = "jdbc:sqlserver://raab1str2m.database.windows.net:1433;database=DB02";
+		private static final String USERNAME = "eeit83team05@raab1str2m";
+		private static final String PASSWORD = "Sa123456";
 		
-		private DataSource dataSource = null;
-		public SellerPartnerJDBC() {
-			try {
-				Context ctx = new InitialContext();
-				dataSource = (DataSource) ctx.lookup("java:comp/env/8691");
-			} catch (NamingException e) {
-				e.printStackTrace();
-			}
-		}
+//		private DataSource dataSource = null;
+//		public SellerPartnerJDBC() {
+//			try {
+//				Context ctx = new InitialContext();
+//				dataSource = (DataSource) ctx.lookup("java:comp/env/8691");
+//			} catch (NamingException e) {
+//				e.printStackTrace();
+//			}
+//		}
 
 		public static void main(String[] args) {
 			String RD = UUID.randomUUID().toString();
@@ -38,7 +38,7 @@ public class SellerPartnerJDBC {
 
 			// select
 //			 SellerPartnerBean bean =
-//			 dao.select("E73B3D1B-90DA-4688-8B53-708C7B8CC6F9");
+//			 dao.select("919329A4-38F9-4041-AD11-8E2C68320DEF");
 //			 System.out.println(bean);
 
 			// select all OK
@@ -46,15 +46,15 @@ public class SellerPartnerJDBC {
 //			 System.out.println(beans);
 
 			// update OK
-//			 SellerPartnerBean beanupdate = dao.update("456","玖壹壹","00000000","anal@fuxx.com","analanal",null,"0222227890","A","200","100","69號52樓","上原亞依","0912345678","2","1","1","1", new java.util.Date(), "7EE65F76-B9B4-429C-B4A2-E831BC7CDF1C");
+//			 SellerPartnerBean beanupdate = dao.update("玖壹壹","00000000",null,"0204227890","A","200","100","69號52樓","上原亞依","0912345678","3",true,50000,50000, new java.util.Date(), "CD14F61B-9046-4C1D-8E1C-3A83D4880FD4");
 //			 System.out.println(beanupdate);
 
 			// insert OK
-//			SellerPartnerBean beanIns = new SellerPartnerBean(RD, "456","玖壹壹","00000000","lib@911.com","911991",null,"0222227890","A","200","100","1002","波多野結依","0912345678","2","1","1","1", new java.util.Date());
+//			SellerPartnerBean beanIns = new SellerPartnerBean(RD,"玖壹壹","00000000",null,"0222227890","A","200","100","1002","波多野結依","0912345678","3",true,10000,10000, new java.util.Date());
 //			dao.insert(beanIns);
 
 			// delete  OK
-//			 int beanDel = dao.delete("7EE65F76-B9B4-429C-B4A2-E831BC7CDF1C");
+//			 int beanDel = dao.delete("CD14F61B-9046-4C1D-8E1C-3A83D4880FD4");
 //			 System.out.println(beanDel);
 		}
 
@@ -67,8 +67,8 @@ public class SellerPartnerJDBC {
 			ResultSet rset = null;
 
 			try {
-				//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-				conn = dataSource.getConnection();
+				conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+//				conn = dataSource.getConnection();
 				stmt = conn.prepareStatement(SELECT);
 
 				stmt.setString(1, Account_UID);
@@ -76,11 +76,11 @@ public class SellerPartnerJDBC {
 				if (rset.next()) {
 					result = new SellerPartnerBean();
 					result.setAccount_UID(rset.getString("Account_UID"));
-					result.setSeller_ID(rset.getString("Seller_ID"));
+//					result.setSeller_ID(rset.getString("Seller_ID"));
 					result.setName(rset.getString("name"));
 					result.setFEIN(rset.getString("FEIN"));
-					result.setAcc_email(rset.getString("acc_email"));
-					result.setPsd(rset.getString("psd"));
+//					result.setAcc_email(rset.getString("acc_email"));
+//					result.setPsd(rset.getString("psd"));
 					result.setSeller_photo(rset.getBlob("Seller_photo"));
 					result.setTel(rset.getString("tel"));
 					result.setGUAR_CT(rset.getString("GUAR_CT"));
@@ -91,8 +91,8 @@ public class SellerPartnerJDBC {
 					result.setCon_cel(rset.getString("Con_cel"));
 					result.setReceipts_metho(rset.getString("receipts_metho"));
 					result.setSeller_status(rset.getBoolean("Seller_status"));
-					result.setIS_Food_Staple(rset.getBoolean("IS_Food_Staple"));					
-					result.setIS_Food_Drink(rset.getBoolean("IS_Food_Drink"));
+					result.setShip_price(rset.getInt("ship_price"));					
+					result.setLowest_price(rset.getInt("lowest_price"));
 					result.setInsdate(rset.getDate("insdate"));
 				}
 			} catch (SQLException e) {
@@ -134,19 +134,19 @@ public class SellerPartnerJDBC {
 			ResultSet rset = null;
 
 			try {
-				//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-				conn = dataSource.getConnection();
+				conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+//				conn = dataSource.getConnection();
 				stmt = conn.prepareStatement(SELECT_ALL);
 				rset = stmt.executeQuery();
 
 				while (rset.next()) {
 					result = new SellerPartnerBean();
 					result.setAccount_UID(rset.getString("Account_UID"));
-					result.setSeller_ID(rset.getString("Seller_ID"));
+//					result.setSeller_ID(rset.getString("Seller_ID"));
 					result.setName(rset.getString("name"));
 					result.setFEIN(rset.getString("FEIN"));
-					result.setAcc_email(rset.getString("acc_email"));
-					result.setPsd(rset.getString("psd"));
+//					result.setAcc_email(rset.getString("acc_email"));
+//					result.setPsd(rset.getString("psd"));
 					result.setSeller_photo(rset.getBlob("Seller_photo"));
 					result.setTel(rset.getString("tel"));
 					result.setGUAR_CT(rset.getString("GUAR_CT"));
@@ -157,8 +157,8 @@ public class SellerPartnerJDBC {
 					result.setCon_cel(rset.getString("Con_cel"));
 					result.setReceipts_metho(rset.getString("receipts_metho"));
 					result.setSeller_status(rset.getBoolean("Seller_status"));
-					result.setIS_Food_Staple(rset.getBoolean("IS_Food_Staple"));					
-					result.setIS_Food_Drink(rset.getBoolean("IS_Food_Drink"));
+					result.setShip_price(rset.getInt("Ship_price"));					
+					result.setLowest_price(rset.getInt("Lowest_price"));
 					result.setInsdate(rset.getDate("insdate"));
 					items.add(result);
 				}
@@ -190,7 +190,7 @@ public class SellerPartnerJDBC {
 			return items;
 		}
 
-		private static final String INSERT = "insert into Seller_partner (Account_UID, Seller_ID, name, FEIN, acc_email, psd, Seller_photo, tel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, Con_name, Con_cel, receipts_metho, Seller_status, IS_Food_Staple, IS_Food_Drink, insdate) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?)";
+		private static final String INSERT = "insert into Seller_partner (Account_UID, name, FEIN, Seller_photo, tel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, Con_name, Con_cel, receipts_metho, Seller_status, Ship_price, Lowest_price, insdate) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		public SellerPartnerBean insert(SellerPartnerBean bean) {
 			SellerPartnerBean result = null;
@@ -198,33 +198,33 @@ public class SellerPartnerJDBC {
 			PreparedStatement stmt = null;
 
 			try {
-				//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-				conn = dataSource.getConnection();
+				conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+//				conn = dataSource.getConnection();
 				stmt = conn.prepareStatement(INSERT);
 				stmt.setString(1, bean.getAccount_UID());
-				stmt.setString(2, bean.getSeller_ID());
-				stmt.setString(3, bean.getName());
-				stmt.setString(4, bean.getFEIN());
-				stmt.setString(5, bean.getAcc_email());
-				stmt.setString(6, bean.getPsd());
-				stmt.setBlob(7, bean.getSeller_photo());
-				stmt.setString(8, bean.getTel());
-				stmt.setString(9, bean.getGUAR_CT());
-				stmt.setString(10, bean.getGUAR_AR());
-				stmt.setString(11, bean.getGUAR_ROAD());
-				stmt.setString(12, bean.getGUAR_NO());
-				stmt.setString(13, bean.getCon_name());
-				stmt.setString(14, bean.getCon_cel());
-				stmt.setString(15, bean.getReceipts_metho());
-				stmt.setBoolean(16, bean.getSeller_status());
-				stmt.setBoolean(17, bean.getIS_Food_Staple());
-				stmt.setBoolean(18, bean.getIS_Food_Drink());
+//				stmt.setString(2, bean.getSeller_ID());
+				stmt.setString(2, bean.getName());
+				stmt.setString(3, bean.getFEIN());
+//				stmt.setString(5, bean.getAcc_email());
+//				stmt.setString(6, bean.getPsd());
+				stmt.setBlob  (4, bean.getSeller_photo());
+				stmt.setString(5, bean.getTel());
+				stmt.setString(6, bean.getGUAR_CT());
+				stmt.setString(7, bean.getGUAR_AR());
+				stmt.setString(8, bean.getGUAR_ROAD());
+				stmt.setString(9, bean.getGUAR_NO());
+				stmt.setString(10, bean.getCon_name());
+				stmt.setString(11, bean.getCon_cel());
+				stmt.setString(12, bean.getReceipts_metho());
+				stmt.setBoolean(13, bean.isSeller_status());
+				stmt.setInt(14, bean.getShip_price());
+				stmt.setInt(15, bean.getLowest_price());
 				java.util.Date insdate = bean.getInsdate();
 				if (insdate != null) {
 					long time = insdate.getTime();
-					stmt.setDate(19, new java.sql.Date(time));
+					stmt.setDate(16, new java.sql.Date(time));
 				} else {
-					stmt.setDate(19, null);
+					stmt.setDate(16, null);
 				}
 
 				int i = stmt.executeUpdate();
@@ -254,43 +254,42 @@ public class SellerPartnerJDBC {
 			return result;
 		}
 
-		private static final String UPDATE = "update Seller_partner set Seller_ID=?, name=?, FEIN=?, acc_email=?, psd=?, Seller_photo=?, tel=?, GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?, Con_name=?, Con_cel=?, receipts_metho=?, Seller_status=?, IS_Food_Staple=?, IS_Food_Drink=?, insdate=? where Account_UID=?";
+		private static final String UPDATE = "update Seller_partner set name=?, FEIN=?, Seller_photo=?, tel=?, GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?, Con_name=?, Con_cel=?, receipts_metho=?, Seller_status=?, Ship_price=?, Lowest_price=?, insdate=? where Account_UID=?";
 
-		public SellerPartnerBean update(String Seller_ID, String name, String FEIN, String acc_email,
-				String psd, Blob Seller_photo, String tel, String GUAR_CT, String GUAR_AR, String GUAR_ROAD,
+		public SellerPartnerBean update(String name, String FEIN, Blob Seller_photo, String tel, String GUAR_CT, String GUAR_AR, String GUAR_ROAD,
 				String GUAR_NO, String Con_name, String Con_cel, String receipts_metho, boolean Seller_status,
-				boolean IS_Food_Staple, boolean IS_Food_Drink, Date insdate, String Account_UID) {
+				int Ship_price, int Lowest_price, Date insdate, String Account_UID) {
 			Connection conn = null;
 			PreparedStatement psStrUpd = null;
 			SellerPartnerBean result = null;
 			try {
-				//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-				conn = dataSource.getConnection();
+				conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+//				conn = dataSource.getConnection();
 				psStrUpd = conn.prepareStatement(UPDATE);
-				psStrUpd.setString(1, Seller_ID);
-				psStrUpd.setString(2, name);
-				psStrUpd.setString(3, FEIN);
-				psStrUpd.setString(4, acc_email);
-				psStrUpd.setString(5, psd);
-				psStrUpd.setBlob(6, Seller_photo);
-				psStrUpd.setString(7, tel);
-				psStrUpd.setString(8, GUAR_CT);
-				psStrUpd.setString(9, GUAR_AR);
-				psStrUpd.setString(10, GUAR_ROAD);
-				psStrUpd.setString(11, GUAR_NO);
-				psStrUpd.setString(12, Con_name);
-				psStrUpd.setString(13, Con_cel);
-				psStrUpd.setString(14, receipts_metho);
-				psStrUpd.setBoolean(15, Seller_status);
-				psStrUpd.setBoolean(16, IS_Food_Staple);
-				psStrUpd.setBoolean(17, IS_Food_Drink);							
+//				psStrUpd.setString(1, Seller_ID);
+				psStrUpd.setString(1, name);
+				psStrUpd.setString(2, FEIN);
+//				psStrUpd.setString(4, acc_email);
+//				psStrUpd.setString(5, psd);
+				psStrUpd.setBlob  (3, Seller_photo);
+				psStrUpd.setString(4, tel);
+				psStrUpd.setString(5, GUAR_CT);
+				psStrUpd.setString(6, GUAR_AR);
+				psStrUpd.setString(7, GUAR_ROAD);
+				psStrUpd.setString(8, GUAR_NO);
+				psStrUpd.setString(9, Con_name);
+				psStrUpd.setString(10, Con_cel);
+				psStrUpd.setString(11, receipts_metho);
+				psStrUpd.setBoolean(12, Seller_status);
+				psStrUpd.setInt(13, Ship_price);
+				psStrUpd.setInt(14, Lowest_price);							
 				if (insdate != null) {
 					long time = insdate.getTime();
-					psStrUpd.setDate(18, new java.sql.Date(time));
+					psStrUpd.setDate(15, new java.sql.Date(time));
 				} else {
-					psStrUpd.setDate(18, null);
+					psStrUpd.setDate(15, null);
 				}
-				psStrUpd.setString(19, Account_UID);	
+				psStrUpd.setString(16, Account_UID);	
 
 				int i = psStrUpd.executeUpdate();
 				if (i == 1) {
@@ -323,8 +322,8 @@ public class SellerPartnerJDBC {
 			Connection conn = null;
 			PreparedStatement stmt = null;
 			try {
-				//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-				conn = dataSource.getConnection();
+				conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+//				conn = dataSource.getConnection();
 				stmt = conn.prepareStatement(DELETE);
 				stmt.setString(1, Account_UID);
 				int i = stmt.executeUpdate();

@@ -30,11 +30,11 @@ public class SellerPartnerServlet extends HttpServlet {
 		
 		//接收資料
 		String Account_UID =request.getParameter("Account_UID");
-		String Seller_ID =request.getParameter("Seller_ID");
+//		String Seller_ID =request.getParameter("Seller_ID");
 		String name = request.getParameter("name");
 		String FEIN = request.getParameter("FEIN");
-		String acc_email = request.getParameter("acc_email");
-		String psd = request.getParameter("psd");
+//		String acc_email = request.getParameter("acc_email");
+//		String psd = request.getParameter("psd");
 		String temp1 = request.getParameter("Seller_photo");
 		String tel = request.getParameter("tel");
 		String GUAR_CT = request.getParameter("GUAR_CT");
@@ -45,8 +45,8 @@ public class SellerPartnerServlet extends HttpServlet {
 		String Con_cel= request.getParameter("Con_cel");
 		String receipts_metho= request.getParameter("receipts_metho");	
 		String temp2= request.getParameter("Seller_status");
-		String temp3= request.getParameter("IS_Food_Staple");
-		String temp4= request.getParameter("IS_Food_Drink");
+		String temp3= request.getParameter("Ship_price");
+		String temp4= request.getParameter("Lowest_price");
 		String temp5 = request.getParameter("insdate");
 		String prodaction = request.getParameter("prodaction");
 		
@@ -74,23 +74,23 @@ public class SellerPartnerServlet extends HttpServlet {
 					}
 				}
 				
-				Boolean IS_Food_Staple = null;
+				int Ship_price = 0;
 				if(temp3!=null && temp3.length()!=0) {
 					try {
-						IS_Food_Staple = Boolean.parseBoolean(temp3);
+						Ship_price = Integer.parseInt(temp3);
 					} catch (NumberFormatException e) {
 						e.printStackTrace();
-						error.put("IS_Food_Staple", "IS_Food_Staple must true or flase");
+						error.put("Ship_price", "Ship_price must true or flase");
 					}
 				}
 				
-				Boolean IS_Food_Drink = null;
+				int Lowest_price = 0;
 				if(temp4!=null && temp4.length()!=0) {
 					try {
-						IS_Food_Drink = Boolean.parseBoolean(temp4);
+						Lowest_price = Integer.parseInt(temp4);
 					} catch (NumberFormatException e) {
 						e.printStackTrace();
-						error.put("IS_Food_Drink", "IS_Food_Drink must true or flase");
+						error.put("Lowest_price", "Lowest_price must true or flase");
 					}
 				}
 				
@@ -110,12 +110,6 @@ public class SellerPartnerServlet extends HttpServlet {
 				
 				if(name==null || name.trim().length()==0) {
 					error.put("name", "Please enter name to register");
-				}
-				if(acc_email==null || acc_email.trim().length()==0) {
-					error.put("acc_email", "Please enter acc_email to register");
-				}
-				if(psd==null || psd.trim().length()==0) {
-					error.put("psd", "Please enter password to login");
 				}
 				
 				if(tel==null || tel.trim().length()==0) {
@@ -160,12 +154,11 @@ public class SellerPartnerServlet extends HttpServlet {
 		//呼叫model
 				SellerPartnerBean bean = new SellerPartnerBean();
 				bean.setAccount_UID("Account_UID");
-				bean.setSeller_ID("Seller_ID");
+
 				bean.setName("name");
 				bean.setFEIN("FEIN");
-				bean.setAcc_email("acc_email");
-				bean.setPsd("psd");
-//				bean.setSeller_photo("Seller_photo");
+
+//傳圖片有問題先註解	bean.setSeller_photo("Seller_photo");
 				bean.setTel("tel");
 				bean.setGUAR_CT("GUAR_CT");
 				bean.setGUAR_AR("GUAR_AR");
@@ -175,8 +168,8 @@ public class SellerPartnerServlet extends HttpServlet {
 				bean.setCon_cel("Con_cel");
 				bean.setReceipts_metho("receipts_metho");				
 				bean.setSeller_status(Seller_status);
-				bean.setIS_Food_Staple(IS_Food_Staple);
-				bean.setIS_Food_Drink(IS_Food_Drink);
+				bean.setShip_price(Ship_price);
+				bean.setLowest_price(Lowest_price);
 				bean.setInsdate(insdate);
 				
 		//根據model執行結果顯示view

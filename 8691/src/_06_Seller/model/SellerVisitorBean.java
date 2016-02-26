@@ -4,15 +4,15 @@ import java.sql.Blob;
 import java.util.Date;
 
 public class SellerVisitorBean {
-	public SellerVisitorBean(String Account_UID,String FEIN, String name, String acc_email, String psd, Blob Seller_photo,
+	public SellerVisitorBean(String Account_UID,String FEIN, String name,Blob Seller_photo,
 			String tel, String GUAR_CT, String GUAR_AR, String GUAR_ROAD, String GUAR_NO,String email2, 
 			String Con_name, String Con_cel,String receipts_metho, boolean IS_check, boolean IS_cooperation, Date insdate) {
 		
 		this.Account_UID = Account_UID;
 		this.FEIN=FEIN;
 		this.name=name;
-		this.acc_email=acc_email;
-		this.psd=psd;
+//		this.acc_email=acc_email;
+//		this.psd=psd;
 		this.Seller_photo=Seller_photo;
 		this.tel=tel;
 		this.GUAR_CT=GUAR_CT;
@@ -30,8 +30,8 @@ public class SellerVisitorBean {
 	private 	String	Account_UID;
 	private		String	FEIN;
 	private		String	name;
-	private		String	acc_email;
-	private		String	psd;
+//	private		String	acc_email;
+//	private		String	psd;
 	private		Blob	Seller_photo;
 	private		String	tel;
 	private		String	GUAR_CT;
@@ -69,21 +69,21 @@ public class SellerVisitorBean {
 		this.name = name;
 	}
 
-	public String getAcc_email() {
-		return acc_email;
-	}
-
-	public void setAcc_email(String acc_email) {
-		this.acc_email = acc_email;
-	}
-
-	public String getPsd() {
-		return psd;
-	}
-
-	public void setPsd(String psd) {
-		this.psd = psd;
-	}
+//	public String getAcc_email() {
+//		return acc_email;
+//	}
+//
+//	public void setAcc_email(String acc_email) {
+//		this.acc_email = acc_email;
+//	}
+//
+//	public String getPsd() {
+//		return psd;
+//	}
+//
+//	public void setPsd(String psd) {
+//		this.psd = psd;
+//	}
 
 	public Blob getSeller_photo() {
 		return Seller_photo;
@@ -194,8 +194,7 @@ public class SellerVisitorBean {
 	}
 	@Override
 	public String toString() {
-		return "Seller_visitorBean [account_UID=" + Account_UID + ", FEIN=" + FEIN + ", name=" + name + ", acc_email=" + acc_email + ", psd=" + psd
-				+ ", Seller_photo=" + Seller_photo + ", tel=" + tel + ", GUAR_CT=" + GUAR_CT + ", GUAR_AR=" + GUAR_AR
+		return "Seller_visitorBean [account_UID=" + Account_UID + ", FEIN=" + FEIN + ", name=" + name + ",Seller_photo=" + Seller_photo + ", tel=" + tel + ", GUAR_CT=" + GUAR_CT + ", GUAR_AR=" + GUAR_AR
 				+ ", GUAR_ROAD=" + GUAR_ROAD + ", GUAR_NO=" + GUAR_NO + ", email2=" + email2 + ", Con_name=" + Con_name
 				+ ", Con_cel=" + Con_cel + ", receipts_metho=" + receipts_metho + ", IS_check=" + IS_check
 				+ ", IS_cooperation=" + IS_cooperation + ", insdate=" + insdate + "]";

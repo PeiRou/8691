@@ -31,8 +31,7 @@ public class SellerVisitorService {
 	public SellerVisitorBean update(SellerVisitorBean bean) {
 		SellerVisitorBean result = null;
 		if(bean!=null) {
-			result = sellerVisitorDao.update(bean.getFEIN(),bean.getName(), bean.getAcc_email(),
-					bean.getPsd(), bean.getSeller_photo(), bean.getTel(),
+			result = sellerVisitorDao.update(bean.getFEIN(),bean.getName(),bean.getSeller_photo(), bean.getTel(),
 					bean.getGUAR_CT(), bean.getGUAR_AR(),bean.getGUAR_ROAD(),bean.getGUAR_NO(),
 					bean.getEmail2(), bean.getCon_name(), bean.getCon_cel(), bean.getReceipts_metho(),
 					bean.isIS_check(), bean.isIS_cooperation(), bean.getInsdate(),bean.getAccount_UID() );

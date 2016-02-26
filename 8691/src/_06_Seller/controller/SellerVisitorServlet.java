@@ -33,8 +33,7 @@ public class SellerVisitorServlet extends HttpServlet {
 		String Account_UID =request.getParameter("Account_UID");
 		String FEIN = request.getParameter("FEIN");
 		String name = request.getParameter("name");
-		String acc_email = request.getParameter("acc_email");
-		String psd = request.getParameter("psd");
+		
 		String temp1 = request.getParameter("Seller_photo");
 		String tel = request.getParameter("tel");
 		String GUAR_CT = request.getParameter("GUAR_CT");
@@ -98,14 +97,7 @@ public class SellerVisitorServlet extends HttpServlet {
 				
 				if(name==null || name.trim().length()==0) {
 					error.put("name", "Please enter name to register");
-				}
-				if(acc_email==null || acc_email.trim().length()==0) {
-					error.put("acc_email", "Please enter acc_email to register");
-				}
-				if(psd==null || psd.trim().length()==0) {
-					error.put("psd", "Please enter password to login");
-				}
-				
+				}				
 				if(tel==null || tel.trim().length()==0) {
 					error.put("tel", "Please enter tel to register");
 				}
@@ -153,9 +145,8 @@ public class SellerVisitorServlet extends HttpServlet {
 				bean.setAccount_UID("Account_UID");
 				bean.setFEIN("FEIN");
 				bean.setName("name");
-				bean.setAcc_email("acc_email");
-				bean.setPsd("psd");
-//				bean.setSeller_photo("Seller_photo");
+
+//傳圖片有問題先註解	bean.setSeller_photo("Seller_photo");
 				bean.setTel("tel");
 				bean.setGUAR_CT("GUAR_CT");
 				bean.setGUAR_AR("GUAR_AR");

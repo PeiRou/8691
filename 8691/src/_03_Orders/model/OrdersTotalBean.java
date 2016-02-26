@@ -109,13 +109,13 @@ public class OrdersTotalBean {
 	public void setTotal_amount(int total_amount) {
 		this.total_amount = total_amount;
 	}
-	public OrdersTotalBean(String orders_total_UID, String account_UID, int ordersID, String status, String name,
+	public OrdersTotalBean(String orders_total_UID, String account_UID, String status, String name,
 			String cel, String gUAR_CT, String gUAR_AR, String gUAR_ROAD, String gUAR_NO, String pay_metho,
 			Date insdate, int ship_price, int food_price, int total_amount) {
 		super();
 		Orders_total_UID = orders_total_UID;
 		this.account_UID = account_UID;
-		this.ordersID = ordersID;
+		//this.ordersID = ordersID;
 		this.status = status;
 		this.name = name;
 		this.cel = cel;

@@ -35,54 +35,102 @@
 			<div class="box">
 				<div class="col-md-6">
 				<form name="Register" action="<c:url value='/page/register.controller' />" method="post">
-		<table>
+<table>
 			<tr>
-				<td>Enter your name :</td>
+				<td>請輸入您的名字 :</td>
 				<td><input type="text" name="name" value="${param.name}"></td>
-				<td></td>
+				<td>${error.name}</td>
 			</tr>
 			<tr>
-				<td>Enter your email/Account :</td>
+				<td>請輸入您的E-mail, 此E-mail將成為您的帳號 :</td>
 				<td><input type="text" name="acc_email"
 					value="${param.acc_email}"></td>
-				<td></td>
+				<td>${error.acc_email}</td>
 			</tr>
 			<tr>
-				<td>Enter your password :</td>
+				<td>請設定您的密碼 :</td>
 				<td><input type="text" name="psd" value="${param.psd}"></td>
-				<td></td>
+				<td>${error.psd}</td>
 			</tr>
 			<tr>
-				<td>Set your gender :</td>
+				<td>請輸入您的性別 :</td>
 				<td><select name="gender" size="1" value="${param.gender}">
-						<option value="" selected>請選擇</option>
-						<option value="male">男♂</option>
-						<option value="female">女♀</option>
+						<option value="男">男</option>
+						<option value="女"selected>女</option>
 				</select></td>
 				<td></td>
 			</tr>
 
 			<tr>
-				<td>Enter your home-phone number :</td>
-				<td><input type="text" name="phone" value="${param.phone}"></td>
-				<td></td>
+				<td>請輸入您的家用電話號碼 :</td>
+				<td><input type="text" name="tel" value="${param.phone}"></td>
+				<td>${error.tel}</td>
 			</tr>
 			<tr>
-				<td>Enter your cell-phone number :</td>
-				<td><input type="text" name="cellphone"
-					value="${param.cellphone}"></td>
+				<td>請輸入您的家用手機號碼 :</td>
+				<td><input type="text" name="cel"
+					value="${param.cel}"></td>
+				<td>${error.cel}</td>
+			</tr>
+		
+			<tr>
+				<td>請輸入您住的縣市 :</td>
+				<td><select name="GUAR_CT" size="1" value="${param.GUAR_CT}">
+						                        <option value="A">臺北市</option>
+											    <option value="B">臺中市 </option>
+												<option value="C">基隆市</option>
+											    <option value="D">臺南市</option>
+												<option value="E">高雄市</option>
+												<option value="F">新北市</option>
+												<option value="G">宜蘭縣</option>
+												<option value="H">桃園市</option>
+												<option value="I">嘉義市</option>
+												<option value="J">新竹縣</option>
+												<option value="K">苗栗縣</option>
+												<option value="L">南投縣</option>
+												<option value="M">彰化縣</option>
+												<option value="N">新竹市</option>
+												<option value="O">雲林縣</option>
+												<option value="P">嘉義縣</option>
+												<option value="Q">屏東縣</option>
+												<option value="R">花蓮縣</option>
+												<option value="S">臺東縣</option>
+												<option value="T">金門縣</option>
+												<option value="U">澎湖縣</option>
+												<option value="V">連江縣</option>
+						
+				</select></td>
 				<td></td>
 			</tr>
+			
 			<tr>
-				<td>Enter your Address :</td>
-				<td><input type="text" name="acc_email"
-					value="${param.acc_email}"></td>
+				<td>請輸入您住的區域 :</td>
+					<td><select id="select1">
+					<option value="" selected>Please Select</option>
+					</select></td>
 				<td></td>
 			</tr>
+			
 			<tr>
-				<td>Enter your backup email :</td>
+				<td>請輸入您住的路名 :</td>
+				<td><input id="keyword" type="text" value=""> <input id="textval" type="text" style="display:none"></td>
+			</tr>
+	
+			<tr>
+				<td></td>
+				<td id="tb"></td>
+			</tr>
+			
+			<tr>
+				<td>請完成輸入您的地址 :</td>
+				<td><input type="text" name="GUAR_NO" value="${param.GUAR_NO}"></td>
+				<td>${error.GUAR_NO}</td>
+			</tr>
+						
+			<tr>
+				<td>請輸入您的備用E-mail :</td>
 				<td><input type="text" name="email2" value="${param.email2}"></td>
-				<td></td>
+				<td>${error.email2}</td>
 			</tr>
 			<tr>
 
@@ -93,9 +141,75 @@
 	</div>
 	</div>			
 	</div>
-
 	</div>
 	<!-- /.container -->
+
+<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+<script>
+$(function(){
+	   $.ajax({
+		  'type':'get',
+		  'url':'<%= request.getContextPath() %>/XMLServlet8691',
+		  'data':{},
+		  'dataType':'xml',
+		  'success':function(data){
+			$(data).find("Category").each(function(){
+				var categoryId = $(this).children("GUAR_AR").text();
+				var categoryName = $(this).children("GUAR_AR_name").text();
+				var opt = $("<option></option>").val(categoryId).text(categoryName);
+				$('#select1').append(opt);
+			})
+		  }
+	   });
+	   $('#tb').empty();
+});
+
+	 $('#select1').change(function(){
+		 if($('#keyword').val() ==''){
+			 $('#tb').empty();
+		 }
+		 else{
+			 LoadRoads();
+		 }
+	   });
+
+	 $('#keyword').keyup(function(){
+		 if($('#keyword').val() ==''){
+			 $('#tb').empty();
+		 }
+		 else{
+			 LoadRoads();
+		 }
+	   });
+	   
+	   function LoadRoads(){
+		   $('#tb').empty();
+		   $.getJSON('<%= request.getContextPath() %>/GetRoad',
+				   	{'GUAR_AR':$('#select1').val(), 
+			   		 'keyword':$('#keyword').val()},
+			function(datas){
+			   			$.each(datas,function(index,road){
+			   				var celltext = $('<input type=text class="txt" style="display:none">').val(road.GUAR_ROAD);
+			   				var cellGUAR_ROAD_name = $('<label class="txt1"></label>').text(road.GUAR_ROAD_name);
+			   				var cell1 = $("<td></td>").append(celltext).append(cellGUAR_ROAD_name);
+			   				//var cell1 = $("<td></td>").text(road.GUAR_ROAD_name);
+							var row = $("<tr></tr>").append([cell1])
+							                        .mouseover(function(){
+							                        	$(this).css('color', 'red');
+							                        })
+							                        .mouseout(function(){
+							                        	$(this).css('color', 'black');
+							                        })
+							                        .click(function(){
+							                        	$('#textval').val($(this).children().children(".txt").val());
+							                        	$('#keyword').val($(this).children().children(".txt1").text());
+							                        	$('#tb').empty();
+							                        });
+							$('#tb').append(row);
+						});
+			});
+	   };
+</script>
 
     <footer>
         <div class="container">

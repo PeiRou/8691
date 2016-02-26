@@ -32,11 +32,10 @@ public class SellerPartnerService {
 	public SellerPartnerBean update(SellerPartnerBean bean) {
 		SellerPartnerBean result = null;
 		if(bean!=null) {
-			result = sellerPartnerDao.update(bean.getSeller_ID(), bean.getName(), bean.getFEIN(),
-					bean.getAcc_email(), bean.getPsd(), bean.getSeller_photo(),
-					bean.getTel(), bean.getGUAR_CT(),bean.getGUAR_AR(),bean.getGUAR_ROAD(),
+			result = sellerPartnerDao.update(bean.getName(), bean.getFEIN(),
+					bean.getSeller_photo(),bean.getTel(), bean.getGUAR_CT(),bean.getGUAR_AR(),bean.getGUAR_ROAD(),
 					bean.getGUAR_NO(), bean.getCon_name(), bean.getCon_cel(), bean.getReceipts_metho(),
-					bean.getSeller_status(), bean.getIS_Food_Staple(), bean.getIS_Food_Drink(),
+					bean.isSeller_status(), bean.getShip_price(), bean.getLowest_price(),
 					bean.getInsdate(), bean.getAccount_UID());
 		}
 		return result;
