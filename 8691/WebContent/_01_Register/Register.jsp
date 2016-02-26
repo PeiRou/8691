@@ -50,14 +50,15 @@
 			</tr>
 			<tr>
 				<td>請設定您的密碼 :</td>
-				<td><input type="text" name="psd" value="${param.psd}"></td>
+				<td><input type="password" name="psd" value="${param.psd}"></td>
 				<td>${error.psd}</td>
 			</tr>
 			<tr>
 				<td>請輸入您的性別 :</td>
 				<td><select name="gender" size="1" value="${param.gender}">
-						<option value="男">男</option>
-						<option value="女"selected>女</option>
+						<option value="" selected>請選擇</option>
+						<option value="男">男♂</option>
+						<option value="女">女♀</option>
 				</select></td>
 				<td></td>
 			</tr>
@@ -77,6 +78,7 @@
 			<tr>
 				<td>請輸入您住的縣市 :</td>
 				<td><select name="GUAR_CT" size="1" value="${param.GUAR_CT}">
+												<option value="" selected>請選擇</option>
 						                        <option value="A">臺北市</option>
 											    <option value="B">臺中市 </option>
 												<option value="C">基隆市</option>
@@ -107,7 +109,7 @@
 			<tr>
 				<td>請輸入您住的區域 :</td>
 					<td><select id="select1">
-					<option value="" selected>Please Select</option>
+					<option value="" selected>請選擇</option>
 					</select></td>
 				<td></td>
 			</tr>

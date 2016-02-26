@@ -24,8 +24,7 @@ public class RegisterServlet extends HttpServlet {
 	//private RegisterServlet mmo = new RegisterServlet();
 	@Override
 	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/xml;charset=UTF-8");
+			HttpServletResponse response) throws ServletException, IOException {		
 		//接收資料
 		String name = request.getParameter("name");
 		String acc_email = request.getParameter("acc_email");
@@ -95,7 +94,7 @@ public class RegisterServlet extends HttpServlet {
 		}
 		//沒錯誤
 		if (error.isEmpty()) {
-			RequestDispatcher rd = request.getRequestDispatcher("/page/login.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/_01_Register/RegisterOK_toLogin.jsp");
 			rd.forward(request, response);
 			return;
 		}
