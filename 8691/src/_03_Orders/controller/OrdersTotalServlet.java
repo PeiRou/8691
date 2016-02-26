@@ -77,7 +77,7 @@ public class OrdersTotalServlet extends HttpServlet {
 			int ordersID = 0;
 			if(temp0!=null && temp0.length()!=0) {
 				try {
-					ordersID = Integer.parseInt(temp2);
+					ordersID = Integer.parseInt(temp0);
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
 					error.put("ordersID", "OrdersID must be an number");
