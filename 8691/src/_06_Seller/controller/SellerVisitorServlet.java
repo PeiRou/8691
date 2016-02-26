@@ -2,12 +2,15 @@ package _06_Seller.controller;
 
 import java.io.*;
 import java.sql.Blob;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,25 +18,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import _00_Account.model.AccountBean;
+import _01_Register.model.RegisterServiceToAccount;
 import _03_Orders.model.OrdersTotalBean;
 import _06_Seller.model.SellerVisitorBean;
 import _06_Seller.model.SellerVisitorService;
 
 @WebServlet("/page/visitor.controller")
 public class SellerVisitorServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
 	private static SimpleDateFormat mma = new SimpleDateFormat("yyyy-MM-dd");
 	private SellerVisitorService sellerVisitorService = new SellerVisitorService();
+	private RegisterServiceToAccount registerServiceToAccount = new RegisterServiceToAccount();
 	@Override
 	protected void doGet(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 //	System.out.println("!");
-		request.setCharacterEncoding("UTF-8");
-		
+				
 		//接收資料
 		String Account_UID =request.getParameter("Account_UID");
 		String FEIN = request.getParameter("FEIN");
 		String name = request.getParameter("name");
-		
+		String acc_email = request.getParameter("acc_email");
+		String psd = request.getParameter("psd");
 		String temp1 = request.getParameter("Seller_photo");
 		String tel = request.getParameter("tel");
 		String GUAR_CT = request.getParameter("GUAR_CT");
@@ -96,56 +104,70 @@ public class SellerVisitorServlet extends HttpServlet {
 					}
 				
 				if(name==null || name.trim().length()==0) {
-					error.put("name", "Please enter name to register");
-				}				
+					error.put("name", "請輸入您的店家名稱!");
+				}	
+				if(acc_email==null || acc_email.trim().length()==0) {
+					error.put("acc_email", "請輸入您的帳號 或 email");
+				}	
+				if(psd==null || psd.trim().length()==0) {
+					error.put("psd", "請輸入您的密碼!");
+				}	
 				if(tel==null || tel.trim().length()==0) {
-					error.put("tel", "Please enter tel to register");
+					error.put("tel", "請輸入您的連絡市話 !");
 				}
 				if(GUAR_CT==null || GUAR_CT.trim().length()==0) {
-					error.put("GUAR_CT", "Please enter GUAR_CT to register");
+					error.put("GUAR_CT", "請輸入您的住址(縣/市)");
 				}
 				if(GUAR_AR==null || GUAR_AR.trim().length()==0) {
-					error.put("GUAR_AR", "Please enter GUAR_AR to register");
+					error.put("GUAR_AR", "請輸入您的住址(區/鄉/鎮/市)");
 				}
 				if(GUAR_ROAD==null || GUAR_ROAD.trim().length()==0) {
-					error.put("GUAR_ROAD", "Please enter GUAR_ROAD to register");
+					error.put("GUAR_ROAD", "請輸入您的住址(路/街/巷)");
 				}
 				if(GUAR_NO==null || GUAR_NO.trim().length()==0) {
-					error.put("GUAR_NO", "Please enter GUAR_NO to register");
+					error.put("GUAR_NO", "請輸入您的住址(號) ");
 				}
 				if(email2==null || email2.trim().length()==0) {
-					error.put("email2", "Please enter email2 to register");
+					error.put("email2", "請輸入您的備用e-mail!");
 				}
 				if(Con_name==null || Con_name.trim().length()==0) {
-					error.put("Con_name", "Please enter Con_name to register");
+					error.put("Con_name", "請輸入您的聯絡人姓名!");
 				}
 				if(Con_cel==null || Con_cel.trim().length()==0) {
-					error.put("Con_cel", "Please enter Con_cel to register");
+					error.put("Con_cel", "請輸入您的輸入連絡人手機 !");
 				}
+				
+				
 				
 				if(error!=null && !error.isEmpty()){
 					request.getRequestDispatcher(
-							"/page/visitor.jsp").forward(request, response);
+							"/_06_Seller/SellerVisitor.jsp").forward(request, response);
 					return;
 				}
+				
 				
 		//驗證資料				
-				if("Insert".equals(prodaction) || "Update".equals(prodaction) || "Delete".equals(prodaction)) {
-					if(name==null) {
-						error.put("name", "Please enter Id for "+prodaction);
-					}
-				}
-				if(error!=null && !error.isEmpty()){
-					request.getRequestDispatcher(
-							"/page/visitor.jsp").forward(request, response);
+//按鈕				if("Insert".equals(prodaction) || "Update".equals(prodaction) || "Delete".equals(prodaction)) {
+			
+				//有錯誤
+				if (!error.isEmpty()) {
+					RequestDispatcher rd = request.getRequestDispatcher("/_06_Seller/SellerVisitor.jsp");
+					rd.forward(request, response);
 					return;
-				}		
-		//呼叫model
+				}
+				//沒錯誤
+				if (error.isEmpty()) {
+					RequestDispatcher rd = request.getRequestDispatcher("/_06_Seller/SellerPartner.jsp");
+					rd.forward(request, response);
+					return;
+				}
+				
+				
+//呼叫model
 				SellerVisitorBean bean = new SellerVisitorBean();
 				bean.setAccount_UID("Account_UID");
 				bean.setFEIN("FEIN");
 				bean.setName("name");
-
 //傳圖片有問題先註解	bean.setSeller_photo("Seller_photo");
 				bean.setTel("tel");
 				bean.setGUAR_CT("GUAR_CT");
@@ -160,12 +182,24 @@ public class SellerVisitorServlet extends HttpServlet {
 				bean.setIS_cooperation(IS_cooperation);
 				bean.setInsdate(insdate);
 				
-		//根據model執行結果顯示view
-				if("Select".equals(prodaction)) {
-					List<SellerVisitorBean> result = sellerVisitorService.select(bean);
-					request.setAttribute("select", result);
-					request.getRequestDispatcher(
-							"/page/visitor.jsp").forward(request, response);
+				AccountBean bean1 = new AccountBean();
+				bean1.setAcc_email("acc_email");
+				bean1.setPsd("psd");
+				
+				
+//根據model執行結果顯示view
+//				if("Select".equals(prodaction)) {
+//					List<SellerVisitorBean> result = sellerVisitorService.select(bean);
+//					request.setAttribute("select", result);
+//					request.getRequestDispatcher(
+//							"/_06_Seller/SellerVisitor.jsp").forward(request, response);
+				
+				
+				
+				SellerVisitorBean result = sellerVisitorService.insert(bean);
+				AccountBean result1 = registerServiceToAccount.insertAccount(bean1);
+				
+				
 //				if(bean==null) {
 //					error.put("password", "Login failed, please try again");
 //					request.getRequestDispatcher(
@@ -178,7 +212,7 @@ public class SellerVisitorServlet extends HttpServlet {
 //					response.sendRedirect(path+"/index.jsp");
 //				}
 			}
-	}
+	
 	
 	
 		private Date parse(String temp4) {

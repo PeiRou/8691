@@ -27,7 +27,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="<%= request.getContextPath() %>/index.jsp">Home</a>
+                        <a href="<%= request.getContextPath() %>/index.jsp">首頁</a>
                     </li>
                     <li>
                         <a href="<%= request.getContextPath() %>/_07_Shops/Shops.jsp">店家</a>

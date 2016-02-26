@@ -29,6 +29,9 @@
     <![endif]-->
 </head>
 <body>
+<c:if test="${ ! empty sessionScope.timeOut }" > <!-- 表示使用逾時，重新登入 -->
+   <c:set var="msg" value="<font color='red'>${sessionScope.timeOut}</font>" />
+</c:if>
 <jsp:include page="/fragment/top.jsp" />
 	<div class="container">
 		<div class="row">
