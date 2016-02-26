@@ -13,6 +13,6 @@ public interface AccountDAO {
 				//java.util.Date insdate,
 			String acc_email);
 
-	AccountBean insert(AccountBean bean);
+	String insert(AccountBean bean);
 
 	}

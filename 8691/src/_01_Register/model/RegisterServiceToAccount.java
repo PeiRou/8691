@@ -7,8 +7,8 @@ import _00_Account.model.AccountDAOjdbc;
 public class RegisterServiceToAccount {
 
 	private AccountDAO accountDao = new AccountDAOjdbc();
-	public AccountBean insertAccount(AccountBean bean1) {
-		AccountBean result = null;
+	public String insertAccount(AccountBean bean1) {
+		String result = null;
 		
 		if(bean1!=null) {
 			result = accountDao.insert(bean1);
