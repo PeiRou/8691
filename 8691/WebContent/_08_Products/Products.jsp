@@ -28,14 +28,50 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="box">		
-				<div class="col-lg-12 text-center">
-				
-<!--內容放這!! 	內容放這!!	內容放這!!	內容放這!! -->
-<!-- <div class="box">  box為白色區塊包住 -->
-
+			<div class="box">
+				<div class="col-lg-3 text-left">
+					<div class="input-group">
+						<input type="text" class="form-control"> <span
+							class="input-group-btn">
+							<button class="btn btn-default" type="button">Go!</button>
+						</span>
+					</div>
+					<div class="btn-group">
+						<button class="btn btn-default btn-lg dropdown-toggle"
+							type="button" data-toggle="dropdown" aria-expanded="false">
+							分類搜尋 <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#">評價</a></li>
+							<li><a href="#">最低消費</a></li>
+							<li><a href="#">運費</a></li>
+							<li class="divider"></li>
+							<li><a href="#">Separated link</a></li>
+						</ul>
+					</div>					
 				</div>
-			</div>			
+				<div class="col-md-2">
+					<table class="table table-bordered">
+						<tr>
+							<td>123</td>
+							<td>123</td>
+						</tr>
+					</table>
+				</div>
+				<div class="col-md-7">
+					<table class="table table-bordered">
+						<tr>
+							<td>123</td>
+							<td>123</td>
+						</tr>
+						<tr>
+							<td>123</td>
+							<td>123</td>
+						</tr>
+					</table>
+				</div>
+
+			</div>
 		</div>
 	</div>
 	<!-- /.container -->
@@ -55,5 +91,8 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+	$('.dropdown-toggle').dropdown();
+	</script>
 </body>
 </html>
