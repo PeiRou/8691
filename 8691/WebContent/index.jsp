@@ -12,9 +12,8 @@
     <title>Welcome to 8691</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="<%= request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
+    <link href="<%= request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
     <link href="<%= request.getContextPath() %>/css/business-casual.css" rel="stylesheet">
 
     <!-- Fonts -->
