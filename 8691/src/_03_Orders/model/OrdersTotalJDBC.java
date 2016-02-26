@@ -184,7 +184,7 @@ public class OrdersTotalJDBC {
 		return items;
 	}
 
-	private static final String INSERT = "insert into Orders_total (Orders_total_UID, account_UID, status, name, cel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, pay_metho, insdate, ship_price, food_price, total_amount) values (NEWID(), NEWID(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String INSERT = "insert into Orders_total (Orders_total_UID, account_UID, status, name, cel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, pay_metho, insdate, ship_price, food_price, total_amount) values (NEWID(), NEWID(), 0, ?, ?, ?, ?, ?, ?, ?, getdate(), ?, ?, ?)";
 
 	public OrdersTotalBean insert(OrdersTotalBean bean) {
 		OrdersTotalBean result = null;
@@ -221,7 +221,7 @@ public class OrdersTotalJDBC {
 //			stmt.setString(1, bean.getOrders_total_UID());    測試用先塞NEWID()
 //			stmt.setString(2, bean.getAccount_UID());         測試用先塞NEWID()
 //			stmt.setInt(3, bean.getOrdersID());               流水號不塞資料  
-			stmt.setString(4, bean.getStatus());
+//			stmt.setString(4, bean.getStatus());		               預設狀態0
 			stmt.setString(5, bean.getName());
 			stmt.setString(6, bean.getCel());
 			stmt.setString(7, bean.getGUAR_CT());
@@ -229,13 +229,13 @@ public class OrdersTotalJDBC {
 			stmt.setString(9, bean.getGUAR_ROAD());
 			stmt.setString(10, bean.getGUAR_NO());
 			stmt.setString(11, bean.getPay_metho());
-			java.util.Date insdate = bean.getInsdate();
-			if (insdate != null) {
-				long time = insdate.getTime();
-				stmt.setDate(12, new java.sql.Date(time));
-			} else {
-				stmt.setDate(12, null);
-			}
+//			java.util.Date insdate = bean.getInsdate();
+//			if (insdate != null) {
+//				long time = insdate.getTime();
+//				stmt.setDate(12, new java.sql.Date(time));
+//			} else {
+//				stmt.setDate(12, null);
+//			}
 			stmt.setInt(13, bean.getShip_price());
 			stmt.setInt(14, bean.getFood_price());
 			stmt.setInt(15, bean.getTotal_amount());

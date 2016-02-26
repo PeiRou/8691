@@ -74,6 +74,21 @@ function clearForm() {
         </td>
 		<td>${error.pay_metho}</td>
 	</tr>
+		<tr>
+		<td>測試用自己輸入(運費): </td>
+		<td><input type="text" name="ship_price" value="${param.ship_price}"></td>
+		<td>${error.ship_price}</td>
+	</tr>
+		<tr>
+		<td>測試用自己輸入(食物價格): </td>
+		<td><input type="text" name="food_price" value="${param.food_price}"></td>
+		<td>${error.food_price}</td>
+	</tr>
+		<tr>
+		<td>測試用自己輸入(總金額): </td>
+		<td><input type="text" name="total_amount" value="${param.total_amount}"></td>
+		<td>${error.total_amount}</td>
+	</tr>
 	
 
 	

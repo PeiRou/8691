@@ -19,13 +19,13 @@ public class OrdersTotalService {
 		}
 		return result;
 	}
-//	public OrdersTotalBean insert(OrdersTotalBean bean) {
-//		OrdersTotalBean result = null;
-//		if(bean!=null) {
-//			result = ordersTotalDao.insert(bean);
-//		}
-//		return result;
-//	}
+	public OrdersTotalBean insert(OrdersTotalBean bean) {
+		OrdersTotalBean result = null;
+		if(bean!=null) {
+			result = ordersTotalDao.insert(bean);
+		}
+		return result;
+	}
 //	public OrdersTotalBean update(OrdersTotalBean bean) {
 //		OrdersTotalBean result = null;
 //		if(bean!=null) {

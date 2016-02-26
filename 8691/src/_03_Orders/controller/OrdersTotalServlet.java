@@ -127,8 +127,8 @@ public class OrdersTotalServlet extends HttpServlet {
 			
 	//驗證資料
 			if("Insert".equals(orderaction) || "Update".equals(orderaction) || "Delete".equals(orderaction)) {
-				if(ordersID==0) {
-					error.put("ordersID", "Please enter ordersID for "+orderaction);
+				if(cel.length()==0) {
+					error.put("cel", "Please enter PhoneNumber for "+orderaction);
 				}
 			}
 			if(error!=null && !error.isEmpty()){
@@ -163,15 +163,15 @@ public class OrdersTotalServlet extends HttpServlet {
 				request.setAttribute("select", result);
 				request.getRequestDispatcher(
 						"/_03_Orders/OrdersTotalDisplay.jsp").forward(request, response);
-//			} else if("Insert".equals(orderaction)) {
-//				OrdersTotalBean result = ordersTotalService.insert(bean);
-//				if(result==null) {
-//					error.put("action", "Insert failed");
-//				} else {
-//					request.setAttribute("insert", result);
-//				}
-//				request.getRequestDispatcher(
-//						"/_03_Orders/OrdersTotal.jsp").forward(request, response);
+			} else if("Insert".equals(orderaction)) {
+				OrdersTotalBean result = ordersTotalService.insert(bean);
+				if(result==null) {
+					error.put("action", "Insert failed");
+				} else {
+					request.setAttribute("insert", result);
+				}
+				request.getRequestDispatcher(
+						"/_03_Orders/OrdersTotal.jsp").forward(request, response);
 //			} else if("Update".equals(orderaction)) {
 //				OrdersTotalBean result = ordersTotalService.update(bean);
 //				if(result==null) {
