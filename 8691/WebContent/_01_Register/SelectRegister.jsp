@@ -21,37 +21,26 @@
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    
 </head>
 <body>
 <jsp:include page="/fragment/top.jsp" />
 	<div class="container">
 		<div class="row">
-			<div class="box">
+			<div class="box">		
 				<div class="col-lg-12 text-center">
-				<form action="<c:url value="/_02_Login/login.controller" />" method="post" >
-					<h2 class="intro-text text-center">					
-					帳號 :<input type="text" name="acc_email"	value="${param.acc_email}"></h2>
-					<h5 class="intro-text text-center">${error.acc_email}</h5>
-					<h2 class="intro-text text-center">
-					密碼 :<input type="password" name="psd" value="${param.psd}"></h2>
-					<h5 class="intro-text text-center" class="red">${error.psd}${error.loginfail}</h5>
-<%-- 					<h5 class="intro-text text-center">${error.loginfail}</h5> --%>
-                    <div class="checkbox">
-			          	<label><input type="checkbox"> Remember me</label>
-			        </div>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="btn btn-primary" type="submit" value="登入">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input class="btn btn-primary" type="button" value="註冊" onclick="location.href='<%= request.getContextPath() %>/_01_Register/SelectRegister.jsp'">                     
-                </form>
-				</div>				
-			</div>
-		</div>
+							
+					
+<%-- 					<button type="button" class="btn btn-success" onclick="location.href='<%= request.getContextPath() %>/_01_Register/Register.jsp'">註冊為一般會員</button><br> --%>
+					<a href="<%= request.getContextPath() %>/_01_Register/Register.jsp"><img src="<%= request.getContextPath() %>/img/member.jpg" border="0" ></a>
+				
+<%-- 					<button type="button" class="btn btn-info" onclick="location.href='<%= request.getContextPath() %>/_06_Seller/SellerVisitor.jsp'">註冊為店家</button> --%>
+					<a href="<%= request.getContextPath() %>/_06_Seller/SellerVisitor.jsp"><img src="<%= request.getContextPath() %>/img/sellerpartner.jpg" border="0" ></a>			
+					
 
+				</div>
+			</div>			
+		</div>
 	</div>
 	<!-- /.container -->
 
@@ -59,7 +48,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <p>Copyright &copy; Your Website 2014</p>
+                    <p>Copyright &copy; Your Website 2016</p>
                 </div>
             </div>
         </div>

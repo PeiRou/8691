@@ -35,6 +35,7 @@
 			<div class="box">
 				<div class="col-md-6">
 				<form name="Register" action="<c:url value='/page/register.controller' />" method="post">
+<h2>註冊為一般會員</h2>
 <table>
 			<tr>
 				<td>請輸入您的名字 :</td>

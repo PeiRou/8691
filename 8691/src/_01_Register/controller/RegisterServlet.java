@@ -25,7 +25,7 @@ public class RegisterServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		
+		response.setContentType("text/xml;charset=UTF-8");
 		//接收資料
 		String name = request.getParameter("name");
 		String acc_email = request.getParameter("acc_email");
@@ -89,7 +89,7 @@ public class RegisterServlet extends HttpServlet {
 			
 		//有錯誤
 		if (!error.isEmpty()) {
-			RequestDispatcher rd = request.getRequestDispatcher("/page/register.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/_01_Register/Register.jsp");
 			rd.forward(request, response);
 			return;
 		}

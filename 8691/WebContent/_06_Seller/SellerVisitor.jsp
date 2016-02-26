@@ -29,7 +29,7 @@
 		<div class="row">
 			<div class="box">		
 				<div class="col-lg-12 text-center">
-					<h1>店家訪客</h1>
+					<h1>註冊為店家</h1>
 
 	<form name="Visitor"
 		action="<c:url value='/page/visitor.controller' />" method="post">

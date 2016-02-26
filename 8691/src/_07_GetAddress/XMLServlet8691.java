@@ -43,7 +43,7 @@ public class XMLServlet8691 extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("hahah");		
+		//System.out.println("hahah");		
 		response.setContentType("text/xml;charset=UTF-8");
 				PrintWriter out = response.getWriter();
 					
