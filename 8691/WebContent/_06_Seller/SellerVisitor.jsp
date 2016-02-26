@@ -123,7 +123,7 @@
 				
 			
 			<tr>
-				<td align="right"><input type="submit" value="註冊"></td>
+				<td align="right"><input class="btn btn-primary" type="submit" value="註冊"></td>
 			</tr>
 		</table>
 	</form>

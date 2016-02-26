@@ -153,7 +153,7 @@ public class SellerVisitorServlet extends HttpServlet {
 				}
 				//沒錯誤
 				if (error.isEmpty()) {
-					RequestDispatcher rd = request.getRequestDispatcher("/_06_Seller/SellerPartner.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("/_06_Seller/RegisterOK_toLogin.jsp");
 					rd.forward(request, response);
 					return;
 				}
