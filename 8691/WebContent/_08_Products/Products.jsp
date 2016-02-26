@@ -54,7 +54,7 @@
 					<table class="table table-bordered">
 						<tr>
 							<td>123</td>
-							<td>123</td>
+							<td></td>
 						</tr>
 					</table>
 				</div>
