@@ -80,30 +80,37 @@ public class RegisterServlet extends HttpServlet {
 		}
 		Timestamp insdate = new Timestamp(System.currentTimeMillis());	
 		
-//呼叫model
-		MemberBean bean = new MemberBean();
-		bean.setName(name);
-		bean.setGender(gender);
-		bean.setTel(tel);
-		bean.setGUAR_CT(GUAR_CT);
-		bean.setGUAR_AR(GUAR_AR);
-		bean.setGUAR_ROAD(GUAR_ROAD);
-		bean.setGUAR_NO(GUAR_NO);
-		bean.setEmail2(email2);
-		bean.setCel(cel);
-		bean.setInsdate(insdate);
-		
+
 		AccountBean bean1 = new AccountBean();
 		bean1.setAcc_email(acc_email);
 		bean1.setPsd(psd);
 		bean1.setRole_ID("201");
 		
+		String result1 = RegisterServiceToAccount.insertAccount(bean1);
+		MemberBean bean = null;
+//呼叫model
+		if (result1 != null || result1.isEmpty()) {
+			bean = new MemberBean();
+			bean.setName(name);
+			bean.setGender(gender);
+			bean.setTel(tel);
+			bean.setGUAR_CT(GUAR_CT);
+			bean.setGUAR_AR(GUAR_AR);
+			bean.setGUAR_ROAD(GUAR_ROAD);
+			bean.setGUAR_NO(GUAR_NO);
+			bean.setEmail2(email2);
+			bean.setCel(cel);
+			bean.setInsdate(insdate);
+		}else{
+			error.put("UUID", "恭喜您中了大獎!!");
+		}
+		
+		
 //根據model執行結果顯示view
 //		RegisterServiceToMember rs = new RegisterServiceToMember();
 //		RegisterServiceToAccount rs1 = new RegisterServiceToAccount();
 		MemberBean result = RegisterServiceToMember.insertMember(bean);
-		AccountBean result1 = RegisterServiceToAccount.insertAccount(bean1);
-		if(result==null&&result1==null) {
+		if(result==null) {
 			error.put("action", "Insert failed");
 		}
 		// 有錯誤
