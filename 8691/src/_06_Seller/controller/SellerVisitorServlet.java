@@ -103,7 +103,7 @@ public class SellerVisitorServlet extends HttpServlet {
 					error.put("name", "請輸入您的店家名稱!");
 				}	
 				if(acc_email==null || acc_email.trim().length()==0) {
-					error.put("acc_email", "請輸入您的帳號 或 email");
+					error.put("acc_email", "請輸入您的帳號 或 email!");
 				}	
 				if(psd==null || psd.trim().length()==0) {
 					error.put("psd", "請輸入您的密碼!");
@@ -121,10 +121,10 @@ public class SellerVisitorServlet extends HttpServlet {
 					error.put("GUAR_ROAD", "請輸入您的住址(路/街/巷)");
 				}
 				if(GUAR_NO==null || GUAR_NO.trim().length()==0) {
-					error.put("GUAR_NO", "請輸入您的住址(號) ");
+					error.put("GUAR_NO", "請輸入您的住址(號)");
 				}
 				if(email2==null || email2.trim().length()==0) {
-					error.put("email2", "請輸入您的備用e-mail!");
+					error.put("email2", "請輸入您的備用email!");
 				}
 				if(Con_name==null || Con_name.trim().length()==0) {
 					error.put("Con_name", "請輸入您的聯絡人姓名!");

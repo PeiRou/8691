@@ -116,29 +116,29 @@ public class SellerPartnerServlet extends HttpServlet {
 
 				
 				if(name==null || name.trim().length()==0) {
-					error.put("name", "Please enter name to register");
+					error.put("name", "請輸入您的店家名稱!");
 				}
 				
 				if(tel==null || tel.trim().length()==0) {
-					error.put("tel", "Please enter tel to register");
+					error.put("tel", "請輸入您的連絡市話 !");
 				}
 				if(GUAR_CT==null || GUAR_CT.trim().length()==0) {
-					error.put("GUAR_CT", "Please enter GUAR_CT to register");
+					error.put("GUAR_CT", "請輸入您的住址(縣/市)");
 				}
 				if(GUAR_AR==null || GUAR_AR.trim().length()==0) {
-					error.put("GUAR_AR", "Please enter GUAR_AR to register");
+					error.put("GUAR_AR", "請輸入您的住址(區/鄉/鎮/市)");
 				}
 				if(GUAR_ROAD==null || GUAR_ROAD.trim().length()==0) {
-					error.put("GUAR_ROAD", "Please enter GUAR_ROAD to register");
+					error.put("GUAR_ROAD", "請輸入您的住址(路/街/巷)");
 				}
 				if(GUAR_NO==null || GUAR_NO.trim().length()==0) {
-					error.put("GUAR_NO", "Please enter GUAR_NO to register");
+					error.put("GUAR_NO", "請輸入您的住址(號)");
 				}
 				if(Con_name==null || Con_name.trim().length()==0) {
-					error.put("Con_name", "Please enter Con_name to register");
+					error.put("Con_name", "請輸入您的聯絡人姓名!");
 				}
 				if(Con_cel==null || Con_cel.trim().length()==0) {
-					error.put("Con_cel", "Please enter Con_cel to register");
+					error.put("Con_cel", "請輸入您的輸入連絡人手機 !");
 				}
 				
 				if(error!=null && !error.isEmpty()){

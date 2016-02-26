@@ -71,8 +71,33 @@
 				<td>${error.tel}</td>
 			</tr>
 			<tr>
-				<td>住址(縣/市) : </td>
-				<td><input type="text" name="GUAR_CT" value="${param.GUAR_CT}"></td>
+				<td>請輸入您住的縣市 :</td>
+				<td><select name="GUAR_CT" size="1" value="${param.GUAR_CT}">
+												<option value="" selected>請選擇</option>
+						                        <option value="A">臺北市</option>
+											    <option value="B">臺中市 </option>
+												<option value="C">基隆市</option>
+											    <option value="D">臺南市</option>
+												<option value="E">高雄市</option>
+												<option value="F">新北市</option>
+												<option value="G">宜蘭縣</option>
+												<option value="H">桃園市</option>
+												<option value="I">嘉義市</option>
+												<option value="J">新竹縣</option>
+												<option value="K">苗栗縣</option>
+												<option value="L">南投縣</option>
+												<option value="M">彰化縣</option>
+												<option value="N">新竹市</option>
+												<option value="O">雲林縣</option>
+												<option value="P">嘉義縣</option>
+												<option value="Q">屏東縣</option>
+												<option value="R">花蓮縣</option>
+												<option value="S">臺東縣</option>
+												<option value="T">金門縣</option>
+												<option value="U">澎湖縣</option>
+												<option value="V">連江縣</option>
+						
+				</select></td>
 				<td>${error.GUAR_CT}</td>
 			</tr>
 			<tr>
@@ -82,7 +107,7 @@
 				<select id="select1" >
 				<option value="" selected>請選擇</option>
 				</select>
-				</td>
+				<td>${error.GUAR_AR}</td></td>
 			</tr>
 			<tr>
 				<td>住址(路/街/巷) : </td>
