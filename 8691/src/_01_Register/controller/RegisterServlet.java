@@ -89,7 +89,7 @@ public class RegisterServlet extends HttpServlet {
 		String result1 = RegisterServiceToAccount.insertAccount(bean1);
 		MemberBean bean = null;
 //呼叫model
-		if (result1 != null || result1.isEmpty()) {
+		if (result1 != null) {
 			bean = new MemberBean();
 			bean.setName(name);
 			bean.setGender(gender);
