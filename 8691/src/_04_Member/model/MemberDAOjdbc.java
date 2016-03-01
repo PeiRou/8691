@@ -29,7 +29,7 @@ public class MemberDAOjdbc implements MemberDAO {
 	}
 	
 	public static void main(String[] args){
-		//MemberDAOjdbc dao = new MemberDAOjdbc();
+		MemberDAOjdbc dao = new MemberDAOjdbc();
 		//select
 //	    MemberBean beanSelect = dao.select("87B6061E-4C34-4F1A-843F-032EC7D44125");
 //		System.out.println(beanSelect);
@@ -167,13 +167,14 @@ public class MemberDAOjdbc implements MemberDAO {
 	}
 				
 	private static final String UPDATE =
-			"update Member set name=?, member_photo=?, gender=?, tel=?, GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?, email2=?, cel=?, insdate=? where account_UID=?";
-
+			"update Member set name=?, gender=?, tel=?, GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?, email2=?, cel=? where account_UID=?";
+                                     //member_photo=?, 
+	
 @Override
 public MemberBean update(
 		//String member_ID,
 		String name,
-		Blob member_photo,
+		//Blob member_photo,
 		String gender,
 		String tel,
 		String GUAR_CT,
@@ -182,7 +183,6 @@ public MemberBean update(
 		String GUAR_NO,
 		String email2,
 		String cel,
-		java.util.Date insdate,
 		String account_UID)
 {
 	MemberBean result = null;
@@ -194,22 +194,22 @@ public MemberBean update(
 			psStrUpd = conn.prepareStatement(UPDATE);
 			//psStrUpd.setString(1, member_ID);
 			psStrUpd.setString(1, name);
-			psStrUpd.setBlob(2, member_photo);
-			psStrUpd.setString(3, gender);
-			psStrUpd.setString(4, tel);
-			psStrUpd.setString(5, GUAR_CT);
-			psStrUpd.setString(6, GUAR_AR);
-			psStrUpd.setString(7, GUAR_ROAD);
-			psStrUpd.setString(8, GUAR_NO);
-			psStrUpd.setString(9, email2);
-			psStrUpd.setString(10, cel);
-			if (insdate != null) {
-				long time = insdate.getTime();
-				psStrUpd.setDate(11, new java.sql.Date(time));
-			} else {
-				psStrUpd.setDate(11, null);
-			}
-			psStrUpd.setString(12, account_UID);
+			//psStrUpd.setBlob(2, member_photo);
+			psStrUpd.setString(2, gender);
+			psStrUpd.setString(3, tel);
+			psStrUpd.setString(4, GUAR_CT);
+			psStrUpd.setString(5, GUAR_AR);
+			psStrUpd.setString(6, GUAR_ROAD);
+			psStrUpd.setString(7, GUAR_NO);
+			psStrUpd.setString(8, email2);
+			psStrUpd.setString(9, cel);
+//			if (insdate != null) {
+//				long time = insdate.getTime();
+//				psStrUpd.setDate(11, new java.sql.Date(time));
+//			} else {
+//				psStrUpd.setDate(11, null);
+//			}
+			psStrUpd.setString(10, account_UID);
 			int i = psStrUpd.executeUpdate();
 			if(i==1){
 				System.out.println(result);

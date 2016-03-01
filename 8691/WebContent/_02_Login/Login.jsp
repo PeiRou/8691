@@ -57,6 +57,43 @@
 
 	</div>
 	<!-- /.container -->
+	<script>
+        window.onload = function () {
+            document.getElementById("emailinput").onblur = blur;
+            document.getElementById("pwdinput").onblur = blur2;            
+        }
+        
+        function blur() {
+            if (document.getElementById("emailinput").value == "") {
+                document.getElementById("emailsp").innerHTML = "<img src='../image/error.jpg' />不可空白";
+            }
+            else if (document.getElementById("emailinput").value != "") {
+                chkname();          
+            }
+        }
+
+        function chkname() {
+            var thename = document.getElementById("emailinput").value;
+
+            var namere = /^[\u4E00-\u9FA5]{2,}$/;
+
+            if (namere.test(thename)) {
+                document.getElementById("emailsp").innerHTML = "<img src='../image/right.png' />";
+                
+            }   
+             else {
+                document.getElementById("emailsp").innerHTML = "<img src='../image/error.jpg' />格式錯誤";
+               }
+        }        
+
+
+        function blur2() {
+            if (document.getElementById("pwdinput").value == "") {
+                document.getElementById("pwdsp").innerHTML = "<img src='../image/error.jpg' />不可空白";
+            }            
+        }
+        
+    </script>
 
     <footer>
         <div class="container">

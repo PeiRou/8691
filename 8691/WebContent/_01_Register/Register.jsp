@@ -41,12 +41,15 @@
 				<td>請輸入您的名字 :</td>
 				<td><input type="text" name="name" value="${param.name}"></td>
 				<td>${error.name}</td>
+<!-- 				<td><span id="idsp" style="color:red"></span><br/></td> -->
+<!-- 				<p>(不可空白，至少兩個字且必須為中文字)</p> -->
 			</tr>
 			<tr>
 				<td>請輸入您的E-mail, 此E-mail將成為您的帳號 :</td>
 				<td><input type="text" name="acc_email"
 					value="${param.acc_email}"></td>
 				<td>${error.acc_email}</td>
+				<td></td>
 			</tr>
 			<tr>
 				<td>請設定您的密碼 :</td>
@@ -147,72 +150,103 @@
 	</div>
 	<!-- /.container -->
 
-<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-<script>
-$(function(){
-	   $.ajax({
-		  'type':'get',
-		  'url':'<%= request.getContextPath() %>/XMLServlet8691',
-		  'data':{},
-		  'dataType':'xml',
-		  'success':function(data){
-			$(data).find("Category").each(function(){
-				var categoryId = $(this).children("GUAR_AR").text();
-				var categoryName = $(this).children("GUAR_AR_name").text();
-				var opt = $("<option></option>").val(categoryId).text(categoryName);
-				$('#select1').append(opt);
-			})
-		  }
-	   });
-	   $('#tb').empty();
-});
+		<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+		<script>
+		$(function(){
+			   $.ajax({
+				  'type':'get',
+				  'url':'<%= request.getContextPath() %>/XMLServlet8691',
+				  'data':{},
+				  'dataType':'xml',
+				  'success':function(data){
+					$(data).find("Category").each(function(){
+						var categoryId = $(this).children("GUAR_AR").text();
+						var categoryName = $(this).children("GUAR_AR_name").text();
+						var opt = $("<option></option>").val(categoryId).text(categoryName);
+						$('#select1').append(opt);
+					})
+				  }
+			   });
+			   $('#tb').empty();
+		});
+		
+			 $('#select1').change(function(){
+				 if($('#keyword').val() ==''){
+					 $('#tb').empty();
+				 }
+				 else{
+					 LoadRoads();
+				 }
+			   });
+		
+			 $('#keyword').keyup(function(){
+				 if($('#keyword').val() ==''){
+					 $('#tb').empty();
+				 }
+				 else{
+					 LoadRoads();
+				 }
+			   });
+			   
+			   function LoadRoads(){
+				   $('#tb').empty();
+				   $.getJSON('<%= request.getContextPath() %>/GetRoad',
+						   	{'GUAR_AR':$('#select1').val(), 
+					   		 'keyword':$('#keyword').val()},
+					function(datas){
+					   			$.each(datas,function(index,road){
+					   				var celltext = $('<input type=text class="txt" style="display:none">').val(road.GUAR_ROAD);
+					   				var cellGUAR_ROAD_name = $('<label class="txt1"></label>').text(road.GUAR_ROAD_name);
+					   				var cell1 = $("<td></td>").append(celltext).append(cellGUAR_ROAD_name);
+					   				//var cell1 = $("<td></td>").text(road.GUAR_ROAD_name);
+									var row = $("<tr></tr>").append([cell1])
+									                        .mouseover(function(){
+									                        	$(this).css('color', 'red');
+									                        })
+									                        .mouseout(function(){
+									                        	$(this).css('color', 'black');
+									                        })
+									                        .click(function(){
+									                        	$('#textval').val($(this).children().children(".txt").val());
+									                        	$('#keyword').val($(this).children().children(".txt1").text());
+									                        	$('#tb').empty();
+									                        });
+									$('#tb').append(row);
+								});
+					});
+			   };
+		</script>
 
-	 $('#select1').change(function(){
-		 if($('#keyword').val() ==''){
-			 $('#tb').empty();
-		 }
-		 else{
-			 LoadRoads();
-		 }
-	   });
-
-	 $('#keyword').keyup(function(){
-		 if($('#keyword').val() ==''){
-			 $('#tb').empty();
-		 }
-		 else{
-			 LoadRoads();
-		 }
-	   });
-	   
-	   function LoadRoads(){
-		   $('#tb').empty();
-		   $.getJSON('<%= request.getContextPath() %>/GetRoad',
-				   	{'GUAR_AR':$('#select1').val(), 
-			   		 'keyword':$('#keyword').val()},
-			function(datas){
-			   			$.each(datas,function(index,road){
-			   				var celltext = $('<input type=text class="txt" style="display:none">').val(road.GUAR_ROAD);
-			   				var cellGUAR_ROAD_name = $('<label class="txt1"></label>').text(road.GUAR_ROAD_name);
-			   				var cell1 = $("<td></td>").append(celltext).append(cellGUAR_ROAD_name);
-			   				//var cell1 = $("<td></td>").text(road.GUAR_ROAD_name);
-							var row = $("<tr></tr>").append([cell1])
-							                        .mouseover(function(){
-							                        	$(this).css('color', 'red');
-							                        })
-							                        .mouseout(function(){
-							                        	$(this).css('color', 'black');
-							                        })
-							                        .click(function(){
-							                        	$('#textval').val($(this).children().children(".txt").val());
-							                        	$('#keyword').val($(this).children().children(".txt1").text());
-							                        	$('#tb').empty();
-							                        });
-							$('#tb').append(row);
-						});
-			});
-	   };
-</script>
+ 		<script>
+		        window.onload = function () {
+		            document.getElementById("idinput").onblur = blur;
+		            document.getElementById("pwdinput").onblur = blur2;
+		            document.getElementById("dateinput").onblur = blur3;
+		        }
+		     
+		        function blur() {
+		            if (document.getElementById("idinput").value == "") {
+		                document.getElementById("idsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+		            }
+		            else if (document.getElementById("idinput").value != "") {
+		                chkname();          
+		            }
+		        }
+		
+		        function chkname() {
+		            var thename = document.getElementById("idinput").value;
+		
+		            var namere = /^[\u4E00-\u9FA5]{2,}$/;
+		
+		            if (namere.test(thename)) {
+		                document.getElementById("idsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/right.png' />";
+		                
+		            }   
+		             else {
+		                document.getElementById("idsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />格式錯誤";
+		               }
+		        }        
+        </script>
 
     <footer>
         <div class="container">

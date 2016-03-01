@@ -12,7 +12,7 @@ public interface MemberDAO {
 	MemberBean update(
 			//String member_ID,
 			String name,
-			Blob member_photo,
+			//Blob member_photo,
 			String gender,
 			String tel,
 			String GUAR_CT,
@@ -21,7 +21,7 @@ public interface MemberDAO {
 			String GUAR_NO,
 			String email2,
 			String cel,
-			java.util.Date insdate,
+			//java.util.Date insdate,
 			String account_UID);
 
 	MemberBean insert(MemberBean bean);
