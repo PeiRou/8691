@@ -305,7 +305,9 @@ public class OrdersTotalJDBC {
 
 			int i = psStrUpd.executeUpdate();
 			if (i == 1) {
-				System.out.println("UPDATE Success!");				
+				System.out.println("UPDATE Success!");
+				//result = this.select(orders_total_UID);
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -331,37 +333,15 @@ public class OrdersTotalJDBC {
 	private static final String DELETE = "delete from Orders_total where Orders_total_UID=?";
 
 	public int delete(String Orders_total_UID) {
-		Connection conn = null;
-		PreparedStatement stmt = null;
-		try {
-			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-			conn = dataSource.getConnection();
-			stmt = conn.prepareStatement(DELETE);
-			stmt.setString(1, Orders_total_UID);
-			int i = stmt.executeUpdate();
-			if (i == 1) {
-				System.out.println("DELETE Success!");
-				// return 1;
+		try(//Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+				Connection conn = dataSource.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(DELETE);) {
+				stmt.setString(1, Orders_total_UID);
+				return stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (stmt != null) {
-				try {
-					stmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
+			return 0;
 		}
-		return 0;
-	}
 
 }

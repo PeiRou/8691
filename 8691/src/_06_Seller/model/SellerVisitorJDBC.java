@@ -17,19 +17,19 @@ import javax.sql.DataSource;
 import _06_Seller.model.SellerVisitorBean;
 
 public class SellerVisitorJDBC {
-	private static final String URL = "jdbc:sqlserver://raab1str2m.database.windows.net:1433;database=DB02";
-	private static final String USERNAME = "eeit83team05@raab1str2m";
-	private static final String PASSWORD = "Sa123456";
+//	private static final String URL = "jdbc:sqlserver://raab1str2m.database.windows.net:1433;database=DB02";
+//	private static final String USERNAME = "eeit83team05@raab1str2m";
+//	private static final String PASSWORD = "Sa123456";
 	
-//	private DataSource dataSource = null;
-//	public SellerVisitorJDBC() {
-//		try {
-//			Context ctx = new InitialContext();
-//			dataSource = (DataSource) ctx.lookup("java:comp/env/8691");
-//		} catch (NamingException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	private DataSource dataSource = null;
+	public SellerVisitorJDBC() {
+		try {
+			Context ctx = new InitialContext();
+			dataSource = (DataSource) ctx.lookup("java:comp/env/8691");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static void main(String[] args) {
 		String RD = UUID.randomUUID().toString();
@@ -41,8 +41,8 @@ public class SellerVisitorJDBC {
 //		 System.out.println(bean);
 
 		// select all OK
-		 List<SellerVisitorBean> beans = dao.select();
-		 System.out.println(beans);
+//		 List<SellerVisitorBean> beans = dao.select();
+//		 System.out.println(beans);
 
 		// update OK
 //		 SellerVisitorBean beanupdate = dao.update("9999911","玖壹壹",null,"0222227911","A","200","1001","69號52樓","CCC2@hotmail.com","上原亞依","0912345678","1",false,false, new java.util.Date(),"A4EEC036-1A09-4CFF-80C7-68268BC1BC9F");
@@ -66,8 +66,8 @@ public class SellerVisitorJDBC {
 		ResultSet rset = null;
 
 		try {
-			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-//			conn = dataSource.getConnection();
+			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(SELECT);
 
 			stmt.setString(1, Account_UID);
@@ -132,8 +132,8 @@ public class SellerVisitorJDBC {
 		ResultSet rset = null;
 
 		try {
-			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-//			conn = dataSource.getConnection();
+			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(SELECT_ALL);
 			rset = stmt.executeQuery();
 
@@ -195,8 +195,8 @@ public class SellerVisitorJDBC {
 		PreparedStatement stmt = null;
 
 		try {
-			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-//			conn = dataSource.getConnection();
+			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(INSERT);
 			stmt.setString(1, bean.getAccount_UID());
 			stmt.setString(2, bean.getFEIN());
@@ -227,7 +227,7 @@ public class SellerVisitorJDBC {
 
 			if (i == 1) {
 				System.out.println("INSERT Success!");
-				// return result;
+				result = bean;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -258,8 +258,8 @@ public class SellerVisitorJDBC {
 		PreparedStatement psStrUpd = null;
 		SellerVisitorBean result = null;
 		try {
-			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-//			conn = dataSource.getConnection();
+			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			conn = dataSource.getConnection();
 			psStrUpd = conn.prepareStatement(UPDATE);			
 			psStrUpd.setString(1, FEIN);
 			psStrUpd.setString(2, name);
@@ -286,7 +286,8 @@ public class SellerVisitorJDBC {
 			
 			int i = psStrUpd.executeUpdate();
 			if (i == 1) {
-				System.out.println("UPDATE Success!");				
+				System.out.println("UPDATE Success!");
+				result = this.select(Account_UID);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -312,35 +313,14 @@ public class SellerVisitorJDBC {
 	private static final String DELETE = "delete from Seller_visitor where Account_UID=?";
 
 	public int delete(String Account_UID) {
-		Connection conn = null;
-		PreparedStatement stmt = null;
-		try {
-			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-//			conn = dataSource.getConnection();
-			stmt = conn.prepareStatement(DELETE);
-			stmt.setString(1, Account_UID);
-			int i = stmt.executeUpdate();
-			if (i == 1) {
-				System.out.println("DELETE Success!");
+		try(//Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+				Connection conn = dataSource.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(DELETE);) {
+				stmt.setString(1, Account_UID);
+				return stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (stmt != null) {
-				try {
-					stmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
+			return 0;
 		}
-		return 0;
-	}
 }

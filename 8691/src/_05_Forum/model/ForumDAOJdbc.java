@@ -18,19 +18,19 @@ import javax.sql.DataSource;
 import _03_Orders.model.OrdersTotalBean;
 
 public class ForumDAOJdbc {
-	private static final String URL = "jdbc:sqlserver://raab1str2m.database.windows.net:1433;database=DB02";
-	private static final String USERNAME = "eeit83team05@raab1str2m";
-	private static final String PASSWORD = "Sa123456";
+//	private static final String URL = "jdbc:sqlserver://raab1str2m.database.windows.net:1433;database=DB02";
+//	private static final String USERNAME = "eeit83team05@raab1str2m";
+//	private static final String PASSWORD = "Sa123456";
 	
-//	private DataSource dataSource = null;
-//	public ForumDAO() {
-//		try {
-//			Context ctx = new InitialContext();
-//			dataSource = (DataSource) ctx.lookup("java:comp/env/8691");
-//		} catch (NamingException e) {
-//			e.printStackTrace();
-//		}
-//	}
+	private DataSource dataSource = null;
+	public ForumDAOJdbc() {
+		try {
+			Context ctx = new InitialContext();
+			dataSource = (DataSource) ctx.lookup("java:comp/env/8691");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public static void main(String[] args) {
 		String RD = UUID.randomUUID().toString();
@@ -68,8 +68,8 @@ private static final String SELECT = "select * from Forum where Forum_UID=?";
 		ResultSet rset = null;
 
 		try {
-			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-			//conn = dataSource.getConnection();
+			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(SELECT);
 
 			stmt.setString(1, Forum_UID);
@@ -120,8 +120,8 @@ private static final String SELECT_ALL = "select * from Forum";
 		ResultSet rset = null;
 
 		try {
-			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-			//conn = dataSource.getConnection();
+			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(SELECT_ALL);
 			rset = stmt.executeQuery();
 
@@ -169,8 +169,8 @@ private static final String INSERT = "insert into Forum (Forum_UID, Orders_total
 		PreparedStatement stmt = null;
 
 		try {
-			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-			//conn = dataSource.getConnection();
+			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(INSERT);
 			stmt.setString(1, bean.getForum_UID());
 			stmt.setString(2, bean.getOrders_total_UID());			
@@ -188,7 +188,7 @@ private static final String INSERT = "insert into Forum (Forum_UID, Orders_total
 			int i = stmt.executeUpdate();
 			if (i == 1) {
 				System.out.println("INSERT Success!");
-				// return result;
+				result = bean;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -218,8 +218,8 @@ private static final String UPDATE = "update Forum set Forum_UID=?, Orders_total
 		PreparedStatement psStrUpd = null;
 		ForumBean result = null;
 		try {
-			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-			//conn = dataSource.getConnection();
+			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			conn = dataSource.getConnection();
 			psStrUpd = conn.prepareStatement(UPDATE);
 			psStrUpd.setString(1, Forum_UID);
 			psStrUpd.setString(2, Orders_total_UID);
@@ -236,6 +236,7 @@ private static final String UPDATE = "update Forum set Forum_UID=?, Orders_total
 			int i = psStrUpd.executeUpdate();
 			if (i == 1) {
 				System.out.println("UPDATE Success!");
+				result = this.select(Forum_UID);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -261,37 +262,14 @@ private static final String UPDATE = "update Forum set Forum_UID=?, Orders_total
 private static final String DELETE = "delete from Forum where Forum_UID=?";
 	
 	public int delete(String Forum_UID) {
-		Connection conn = null;
-		PreparedStatement stmt = null;
-		try {
-			conn = DriverManager.getConnection(URL,USERNAME,PASSWORD);
-			//conn = dataSource.getConnection();
-			stmt = conn.prepareStatement(DELETE);			
-			stmt.setString(1, Forum_UID);
-			int i = stmt.executeUpdate();
-			if(i==1){
-				System.out.println("DELETE Success!");
-				//return 1;
+		try(//Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+				Connection conn = dataSource.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(DELETE);) {
+				stmt.setString(1, Forum_UID);
+				return stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally{
-			if (stmt != null) {
-				try {
-					stmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				} 
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				} 
-			}
-		}
-		return 0;
-	}
-	
+			return 0;
+		}		
 }

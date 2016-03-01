@@ -49,7 +49,7 @@ public class RegisterServlet extends HttpServlet {
 			error.put("name", "請輸入您的姓名");
 		}
 		if(acc_email==null || acc_email.trim().length()==0) {
-			error.put("acc_email", "請輸入您111的e-mail");
+			error.put("acc_email", "請輸入您的e-mail");
 		}
 		if(psd==null || psd.trim().length()==0) {
 			error.put("psd", "請輸入您的密碼");
@@ -94,7 +94,7 @@ public class RegisterServlet extends HttpServlet {
 			bean.setName(name);
 			bean.setGender(gender);
 			bean.setTel(tel);
-			bean.setGUAR_CT(GUAR_CT);
+			bean.setGUAR_CT(GUAR_CT);			
 			bean.setGUAR_AR(GUAR_AR);
 			bean.setGUAR_ROAD(GUAR_ROAD);
 			bean.setGUAR_NO(GUAR_NO);
