@@ -188,8 +188,8 @@ private static final String SELECT = "select * from Orders_detail where Orders_d
 			int i = stmt.executeUpdate();
 
 			if (i == 1) {
-				System.out.println("INSERT Success!");
-				// return result;
+				System.out.println("INSERT Success!");				
+				return result;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -209,7 +209,7 @@ private static final String SELECT = "select * from Orders_detail where Orders_d
 				}
 			}
 		}
-		return result;
+		return null;
 	}
 
 	private static final String UPDATE = "update Orders_detail set Orders_ID=?, Food_ID=?, Drink_name=?, Food_count=?, Food_original_price=?, Note=? where orders_detail_UID=?";
@@ -235,7 +235,8 @@ private static final String SELECT = "select * from Orders_detail where Orders_d
 
 			int i = psStrUpd.executeUpdate();
 			if (i == 1) {
-				System.out.println("UPDATE Success!");				
+				System.out.println("UPDATE Success!");		
+				return result;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -255,7 +256,7 @@ private static final String SELECT = "select * from Orders_detail where Orders_d
 				}
 			}
 		}
-		return result;
+		return null;
 	}
 	
 	
@@ -273,7 +274,7 @@ private static final String SELECT = "select * from Orders_detail where Orders_d
 			int i = stmt.executeUpdate();
 			if(i==1){
 				System.out.println("DELETE Success!");
-				//return 1;
+				return 1;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
