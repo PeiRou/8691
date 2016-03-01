@@ -30,7 +30,7 @@
                         <a href="<%= request.getContextPath() %>/index.jsp">首頁</a>
                     </li>
                     <li>
-                        <a href="<%= request.getContextPath() %>/_07_Shops/Shops.jsp">店家</a>
+                        <a href="<%= request.getContextPath() %>/about.jsp">店家</a>
                     </li>
                     <li>
                         <a href="<%= request.getContextPath() %>/_08_Products/Products.jsp">我要訂餐</a>

@@ -306,8 +306,8 @@ public class OrdersTotalJDBC {
 			int i = psStrUpd.executeUpdate();
 			if (i == 1) {
 				System.out.println("UPDATE Success!");
-				//result = this.select(orders_total_UID);
-				
+				return result;
+				//result = this.select(orders_total_UID);				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

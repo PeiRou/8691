@@ -29,7 +29,7 @@ public class MemberDAOjdbc implements MemberDAO {
 	}
 	
 	public static void main(String[] args){
-		MemberDAOjdbc dao = new MemberDAOjdbc();
+		//MemberDAOjdbc dao = new MemberDAOjdbc();
 		//select
 //	    MemberBean beanSelect = dao.select("87B6061E-4C34-4F1A-843F-032EC7D44125");
 //		System.out.println(beanSelect);
@@ -168,8 +168,7 @@ public class MemberDAOjdbc implements MemberDAO {
 				
 	private static final String UPDATE =
 			"update Member set name=?, gender=?, tel=?, GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?, email2=?, cel=? where account_UID=?";
-                                     //member_photo=?, 
-	
+//member_photo=?, 
 @Override
 public MemberBean update(
 		//String member_ID,
@@ -183,6 +182,7 @@ public MemberBean update(
 		String GUAR_NO,
 		String email2,
 		String cel,
+		//java.util.Date insdate,
 		String account_UID)
 {
 	MemberBean result = null;
@@ -237,7 +237,7 @@ public MemberBean update(
 	}
 	
 	private static final String INSERT =
-			"insert into member (account_UID, member_ID, name, acc_email, psd, member_photo, gender, tel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, email2, cel, insdate) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			"insert into member (account_UID, member_ID, name, member_photo, gender, tel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, email2, cel, insdate) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	@Override
 	public MemberBean insert(MemberBean bean) {
@@ -265,10 +265,7 @@ public MemberBean update(
 			if (bean.getInsdate() != null) {
 				long time = bean.getInsdate().getTime();
 				psStrUpd.setDate(13, new java.sql.Date(time));
-			} else {
-				psStrUpd.setDate(13, null);
-			}
-			
+			} 
 			int i = psStrUpd.executeUpdate();
 			if(i==1){
 				result = select(bean.getAccount_UID());

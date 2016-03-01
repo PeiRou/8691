@@ -35,8 +35,8 @@
 			<div class="box">
 				<div class="col-md-12">
 				<form name="Register" action="<c:url value='/register.controller' />" method="post">
-<h2 class="text-center">註冊為一般會員</h2>
-<table class="table">
+			<h2 class="text-center">註冊為一般會員</h2>
+			<table class="table">
 			
 			<tr>
 				<td class="text-right">請輸入您的E-mail:</td>
@@ -109,7 +109,7 @@
 			
 			<tr>
 				<td class="text-right">請輸入您住的區域 :</td>
-					<td><select id="select1">
+					<td><select id="select1" name="GUAR_AR">
 					<option value="" selected>請選擇</option>
 					</select></td>
 				<td></td>
@@ -117,7 +117,7 @@
 			
 			<tr>
 				<td class="text-right">請輸入您住的路名 :</td>
-				<td><input id="keyword" type="text" value=""> <input id="textval" type="text" style="display:none"><span id="roadsp" style="color:red"></span></td>
+				<td><input id="keyword" type="text" value=""> <input id="textval" name="GUAR_ROAD" type="text" style="display:none"><span id="roadsp" style="color:red"></span></td>
 			</tr>
 	
 			<tr>

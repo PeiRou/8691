@@ -1,7 +1,6 @@
 package _01_Register.controller;
 
 import java.io.*;
-import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +27,7 @@ public class RegisterServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+
 		//接收資料
 		String name = request.getParameter("name");
 		String acc_email = request.getParameter("acc_email");
@@ -47,85 +47,100 @@ public class RegisterServlet extends HttpServlet {
 
 		if(name==null || name.trim().length()==0) {
 			error.put("name", "請輸入您的姓名");
-		}
+		}System.out.println(name);
+		
 		if(acc_email==null || acc_email.trim().length()==0) {
 			error.put("acc_email", "請輸入您的e-mail");
-		}
+		}System.out.println(acc_email);
+		
 		if(psd==null || psd.trim().length()==0) {
 			error.put("psd", "請輸入您的密碼");
-		}
+		}System.out.println(psd);
+		
 		if(gender==null || gender.trim().length()==0) {
 			error.put("gender", "請輸入您的性別");
-		}
+		}System.out.println(gender);
+		
 		if(tel==null || tel.trim().length()==0) {
 			error.put("tel", "請輸入您的電話號碼");
-		}
+		}System.out.println(tel);
+		
 		if(GUAR_CT==null || GUAR_CT.trim().length()==0) {
 			error.put("GUAR_CT", "請輸入您的地址");
-		}
+		}System.out.println(GUAR_CT);
+		
 		if(GUAR_AR==null || GUAR_AR.trim().length()==0) {
 			error.put("GUAR_AR", "請輸入您的地址");
-		}
+		}System.out.println(GUAR_AR);
+		
 		if(GUAR_ROAD==null || GUAR_ROAD.trim().length()==0) {
 			error.put("GUAR_ROAD", "請輸入您的地址");
-		}
+		}System.out.println(GUAR_ROAD);
+		
 		if(GUAR_NO==null || GUAR_NO.trim().length()==0) {
 			error.put("GUAR_NO", "請輸入您的地址");
-		}
+		}System.out.println(GUAR_NO);
+		
 		if(email2==null || email2.trim().length()==0) {
 			error.put("email2", "請輸入您的備用e-mail");
-		}
+		}System.out.println(email2);
+		
 		if(cel==null || cel.trim().length()==0) {
 			error.put("cel", "請輸入您的手機號碼");
-		}
-		Timestamp insdate = new Timestamp(System.currentTimeMillis());	
+		}System.out.println(cel);
 		
-
+		System.out.println("1");
+		//處理前面的資料驗證，有錯就先return
+		if (error!= null&&!error.isEmpty()) {
+			RequestDispatcher rd = request.getRequestDispatcher("/_01_Register/Register.jsp");
+			rd.forward(request, response);
+			return;
+		}
+		
+		System.out.println("2");
 		AccountBean bean1 = new AccountBean();
 		bean1.setAcc_email(acc_email);
 		bean1.setPsd(psd);
 		bean1.setRole_ID("201");
-		
-		String result1 = RegisterServiceToAccount.insertAccount(bean1);
-		MemberBean bean = null;
+		System.out.println("3");
+		String accresult = RegisterServiceToAccount.insertAccount(bean1);
+		System.out.println(accresult);
+		MemberBean bean = null;                      
 //呼叫model
-		if (result1 != null) {
+		if (accresult != null&& !accresult.isEmpty()) {
 			bean = new MemberBean();
+			bean.setAccount_UID(accresult);
 			bean.setName(name);
 			bean.setGender(gender);
 			bean.setTel(tel);
-			bean.setGUAR_CT(GUAR_CT);			
+			bean.setGUAR_CT(GUAR_CT);
 			bean.setGUAR_AR(GUAR_AR);
 			bean.setGUAR_ROAD(GUAR_ROAD);
 			bean.setGUAR_NO(GUAR_NO);
 			bean.setEmail2(email2);
 			bean.setCel(cel);
-			bean.setInsdate(insdate);
+			//bean.setInsdate(insdate);
 		}else{
 			error.put("UUID", "恭喜您中了大獎!!");
 		}
-		
-		
+		System.out.println("4");
 //根據model執行結果顯示view
 //		RegisterServiceToMember rs = new RegisterServiceToMember();
 //		RegisterServiceToAccount rs1 = new RegisterServiceToAccount();
-		MemberBean result = RegisterServiceToMember.insertMember(bean);
-		if(result==null) {
-			error.put("action", "Insert failed");
+		MemberBean Memresult = RegisterServiceToMember.insertMember(bean);
+		if(Memresult==null) {
+			error.put("action", "註冊失敗");
 		}
 		// 有錯誤
-		if (!error.isEmpty()) {
-			RequestDispatcher rd = request.getRequestDispatcher("/_01_Register/Register.jsp");
-			rd.forward(request, response);
-			return;
-		}
-		// 沒錯誤
-		if (error.isEmpty()) {
+		
+				
+		if (error== null&& error.isEmpty()){
 			RequestDispatcher rd = request.getRequestDispatcher("/_01_Register/RegisterOK_toLogin.jsp");
 			rd.forward(request, response);
-			return;
+			
+			}
 		}
-	}
+	
 	@Override
 	protected void doPost(HttpServletRequest req,
 			HttpServletResponse resp) throws ServletException, IOException {
