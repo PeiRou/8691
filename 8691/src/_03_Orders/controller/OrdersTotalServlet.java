@@ -172,15 +172,15 @@ public class OrdersTotalServlet extends HttpServlet {
 				}
 				request.getRequestDispatcher(
 						"/_03_Orders/OrdersTotal.jsp").forward(request, response);
-//			} else if("Update".equals(orderaction)) {
-//				OrdersTotalBean result = ordersTotalService.update(bean);
-//				if(result==null) {
-//					error.put("action", "Update failed");
-//				} else {
-//					request.setAttribute("update", result);
-//				}
-//				request.getRequestDispatcher(
-//						"/_03_Orders/OrdersTotal.jsp").forward(request, response);
+			} else if("Update".equals(orderaction)) {
+				OrdersTotalBean result = ordersTotalService.update(bean);
+				if(result==null) {
+					error.put("action", "Update failed");
+				} else {
+					request.setAttribute("update", result);
+				}
+				request.getRequestDispatcher(
+						"/_03_Orders/OrdersTotal.jsp").forward(request, response);
 //			} else if("Delete".equals(orderaction)) {
 //				boolean result = ordersTotalService.delete(bean);
 //				if(result) {

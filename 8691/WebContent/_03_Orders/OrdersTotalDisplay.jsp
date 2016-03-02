@@ -42,22 +42,28 @@
 							<th>住址(路/街/巷)</th>
 							<th>住址(號)</th>
 							<th>付款方式</th>
+							<th>運費</th>
+							<th>食物金額</th>
+							<th>總金額</th>
 						</tr>
 						</thead>
 						<tbody>
 						<c:forEach var="bean" items="${select}">
-					<%-- 		<c:url value="/_03_Orders/OrdersTotal.jsp" var="path"> --%>
-					<%-- 			<c:param name="Orders_ID" value="${bean.Orders_ID}" /> --%>
-					<%-- 			<c:param name="name" value="${bean.name}" /> --%>
-					<%-- 			<c:param name="cel" value="${bean.cel}" /> --%>
-					<%-- 			<c:param name="GUAR_CT" value="${bean.GUAR_CT}" /> --%>
-					<%-- 			<c:param name="GUAR_AR" value="${bean.GUAR_AR}" /> --%>
-					<%-- 			<c:param name="GUAR_ROAD" value="${bean.GUAR_ROAD}" /> --%>
-					<%-- 			<c:param name="GUAR_NO" value="${bean.GUAR_NO}" /> --%>
-					<%-- 			<c:param name="pay_metho" value="${bean.pay_metho}" /> --%>
-					<%-- 		</c:url> --%>
+							<c:url value="/_03_Orders/OrdersTotal.jsp" var="path">
+								<c:param name="ordersID" value="${bean.ordersID}" />
+								<c:param name="name" value="${bean.name}" />
+								<c:param name="cel" value="${bean.cel}" />
+								<c:param name="GUAR_CT" value="${bean.GUAR_CT}" />
+								<c:param name="GUAR_AR" value="${bean.GUAR_AR}" />
+								<c:param name="GUAR_ROAD" value="${bean.GUAR_ROAD}" />
+								<c:param name="GUAR_NO" value="${bean.GUAR_NO}" />
+								<c:param name="pay_metho" value="${bean.pay_metho}" />
+								<c:param name="ship_price" value="${bean.ship_price}" />
+								<c:param name="food_price" value="${bean.food_price}" />
+								<c:param name="total_amount" value="${bean.total_amount}" />
+							</c:url>
 						<tr>
-							<td>${bean.ordersID}</td>
+							<td><a href="${path}">${bean.ordersID}</a></td>
 							<td>${bean.name}</td>
 							<td>${bean.cel}</td>
 							<td>${bean.GUAR_CT}</td>
@@ -65,6 +71,9 @@
 							<td>${bean.GUAR_ROAD}</td>
 							<td>${bean.GUAR_NO}</td>
 							<td>${bean.pay_metho}</td>
+							<td>${bean.ship_price}</td>
+							<td>${bean.food_price}</td>
+							<td>${bean.total_amount}</td>
 						</tr>
 						</c:forEach>	
 						</tbody>

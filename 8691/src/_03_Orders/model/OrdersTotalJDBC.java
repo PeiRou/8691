@@ -330,13 +330,13 @@ public class OrdersTotalJDBC {
 		return result;
 	}
 
-	private static final String DELETE = "delete from Orders_total where Orders_total_UID=?";
+	private static final String DELETE = "delete from Orders_total where ordersID=?";
 
-	public int delete(String Orders_total_UID) {
+	public int delete(int ordersID) {
 		try(//Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 				Connection conn = dataSource.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(DELETE);) {
-				stmt.setString(1, Orders_total_UID);
+				stmt.setInt(1, ordersID);
 				return stmt.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();

@@ -43,11 +43,11 @@
 					
 					<form action="<c:url value='/_03_Orders/OrdersTotalServlet' />" method="post">
 					<table>
-					<!-- 	<tr> -->
-					<!-- 		<td>訂單編號 : </td> -->
-					<%-- 		<td><input type="text" name="ordersID" value="${param.ordersID}"></td> --%>
-					<%-- 		<td>${error.ordersID}</td> --%>
-					<!-- 	</tr> -->
+						<tr>
+							<td>訂單編號 : </td>
+							<td><input type="text" name="ordersID" value="${param.ordersID}"></td>
+							<td>${error.ordersID}</td>
+						</tr>
 						<tr>
 							<td>訂購人姓名 : </td>
 							<td><input type="text" name="name" value="${param.name}"></td>
@@ -95,7 +95,7 @@
 							<td>${error.ship_price}</td>
 						</tr>
 							<tr>
-							<td>測試用自己輸入(食物價格): </td>
+							<td>測試用自己輸入(食物金額): </td>
 							<td><input type="text" name="food_price" value="${param.food_price}"></td>
 							<td>${error.food_price}</td>
 						</tr>
@@ -140,6 +140,9 @@
 						<tr><td>住址(路/街/巷) :</td><td>${insert.GUAR_ROAD}</td></tr>
 						<tr><td>住址(號) :</td><td>${insert.GUAR_NO}</td></tr>
 						<tr><td>付款方式 :</td><td>${insert.pay_metho}</td></tr>
+						<tr><td>運費 :</td><td>${insert.ship_price}</td></tr>
+						<tr><td>食物金額 :</td><td>${insert.food_price}</td></tr>
+						<tr><td>總金額 :</td><td>${insert.total_amount}</td></tr>
 					</table>
 					<script type="text/javascript">clearForm();</script>
 					</c:if>
@@ -155,6 +158,9 @@
 						<tr><td>住址(路/街/巷) :</td><td>${update.GUAR_ROAD}</td></tr>
 						<tr><td>住址(號) :</td><td>${update.GUAR_NO}</td></tr>
 						<tr><td>付款方式 :</td><td>${update.pay_metho}</td></tr>
+						<tr><td>運費 :</td><td>${update.ship_price}</td></tr>
+						<tr><td>食物金額 :</td><td>${update.food_price}</td></tr>
+						<tr><td>總金額 :</td><td>${update.total_amount}</td></tr>
 					</table>
 					<script type="text/javascript">clearForm();</script>
 					</c:if>
