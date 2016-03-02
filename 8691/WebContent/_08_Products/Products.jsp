@@ -58,13 +58,12 @@
 				</div>
 				<div class="col-lg-9">
 					<table class="table">
-						<c:forEach var="i" begin="0" end="3">
+						<c:forEach var="bean" items="${select}">
 							<tr>
 								<td class="col-lg-3" rowspan="2"><img style="width: 100%"
 									src="<%=request.getContextPath()%>/image/store/50嵐.jpg"></td>
-								<td class="text-left">								
-										<c:out value="${i}"></c:out>
-									<h4>50嵐</h4>
+								<td class="text-left">		
+									<h4>${bean.Name}</h4>
 								</td>
 								<td>
 									
@@ -72,7 +71,8 @@
 							</tr>
 							<tr>
 								<td class="text-left">
-									<p>咖啡專賣飲料</p> <c:forEach var="j" begin="0" end="4"
+									<p>咖啡專賣飲料</p> 
+									<c:forEach var="j" begin="0" end="4"
 										varStatus="status">
 										<%--<c:when test="${j<=countstar}"> --%>
 										<c:choose>
@@ -94,15 +94,18 @@
 										</tr>
 										<tr>
 											<td>50分鐘</td>
-											<td>150元</td>
-											<td>250元</td>
+											<td>${bean.ShipPrice}元</td>
+											<td>${bean.LowestPrice}元</td>
 										</tr>
 									</table>
 									
 								</td>
 								
 								<td class="text-left">
-									<a class="btn btn-success" href="<%=request.getContextPath()%>/">瀏覽菜單</a>
+									<c:url value="/_07_Shops/Shops.controller" var="path">
+										<c:param name="AccountUID" value="${bean.AccountUID}" />
+									</c:url>
+									<a class="btn btn-success" href="${path}">瀏覽菜單</a>
 								</td>
 							</tr>
 						</c:forEach>

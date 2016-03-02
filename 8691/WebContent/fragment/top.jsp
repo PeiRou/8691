@@ -33,7 +33,8 @@
                         <a href="<%= request.getContextPath() %>/about.jsp">店家</a>
                     </li>
                     <li>
-                        <a href="<%= request.getContextPath() %>/_08_Products/Products.jsp">我要訂餐</a>
+                    <c:url value="/_08_Products/product.controller" var="path"></c:url>
+                        <a href="${path}">我要訂餐</a>
                     </li>
                     <li>
                         <a href="<%= request.getContextPath() %>/_04_Members/Members.jsp">會員中心</a>
