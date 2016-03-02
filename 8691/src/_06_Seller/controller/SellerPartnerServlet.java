@@ -36,7 +36,6 @@ public class SellerPartnerServlet extends HttpServlet {
 
 		// 接收資料
 		String Account_UID = request.getParameter("Account_UID");
-		// String Seller_ID =request.getParameter("Seller_ID");
 		String name = request.getParameter("name");
 		String FEIN = request.getParameter("FEIN");
 		String acc_email = request.getParameter("acc_email");
@@ -60,16 +59,6 @@ public class SellerPartnerServlet extends HttpServlet {
 		Map<String, String> error = new HashMap<String, String>();
 		request.setAttribute("error", error);
 
-		// 傳圖片有問題先註解 Blob Seller_photo = new Blob();
-		// if(temp1!=null && temp1.length()!=0) {
-		// try {
-		// Seller_photo = Blob.parseBlob(temp1);
-		//
-		// } catch (NumberFormatException e) {
-		// e.printStackTrace();
-		// error.put("Seller_photo", "Id must be an integer");
-		// }
-		// }
 		Boolean Seller_status = null;
 		if (temp2 != null && temp2.length() != 0) {
 			try {
@@ -149,13 +138,6 @@ public class SellerPartnerServlet extends HttpServlet {
 			rd.forward(request, response);
 			return;
 		}
-		// 沒錯誤
-		if (error.isEmpty()) {
-			RequestDispatcher rd = request
-					.getRequestDispatcher("/_06_Seller/SellerPartner.jsp");
-			rd.forward(request, response);
-			return;
-		}
 
 		// 呼叫model
 		// 要先能新增帳號到table
@@ -166,7 +148,7 @@ public class SellerPartnerServlet extends HttpServlet {
 
 		SellerPartnerBean bean = null;
 		//如果無法新增到帳號的table,則就不新增到店家的table裡
-		if (result1 != null || !result1.isEmpty()) {
+		if (result1 != null) {
 			bean = new SellerPartnerBean();
 			bean.setAccount_UID(result1);
 			bean.setName(name);
@@ -187,31 +169,18 @@ public class SellerPartnerServlet extends HttpServlet {
 		}else{
 			error.put("UUID", "恭喜您中大獎了!!");
 		}		
-
-		// 根據model執行結果顯示view
-		// if("Select".equals(prodaction)) {
-		// List<SellerPartnerBean> result = sellerPartnerService.select(bean);
-		// request.setAttribute("select", result);
-		// request.getRequestDispatcher(
-		// "/_06_Seller/SellerPartner.jsp").forward(request, response);
-		SellerPartnerBean result = sellerPartnerService.insert(bean);
-
-		// if(bean==null) {
-		// error.put("password", "Login failed, please try again");
-		// request.getRequestDispatcher(
-		// "/page/login.jsp").forward(request, response);
-		// } else {
-		// HttpSession session = request.getSession();
-		// session.setAttribute("user", bean);
-		//
-		// String path = request.getContextPath();
-		// response.sendRedirect(path+"/index.jsp");
-		// }
 		
+		SellerPartnerBean result = sellerPartnerService.insert(bean);
+	
 		//最後有error則回到原本填資料的頁面告訴使用者錯誤，然後重新操作
 		if (error != null && !error.isEmpty()) {
 			request.getRequestDispatcher("/_06_Seller/SellerPartner.jsp")
 					.forward(request, response);
+			return;
+		}else{
+			RequestDispatcher rd = request
+					.getRequestDispatcher("/_06_Seller/SellerPartner.jsp");
+			rd.forward(request, response);
 			return;
 		}
 	}

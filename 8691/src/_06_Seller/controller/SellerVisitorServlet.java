@@ -58,16 +58,6 @@ public class SellerVisitorServlet extends HttpServlet {
 		Map<String, String> error = new HashMap<String, String>();
 		request.setAttribute("error", error);
 
-		// 傳圖片有問題先註解 Blob Seller_photo = new Blob();
-		// if(temp1!=null && temp1.length()!=0) {
-		// try {
-		// Seller_photo = Blob.parseBlob(temp1);
-		//
-		// } catch (NumberFormatException e) {
-		// e.printStackTrace();
-		// error.put("Seller_photo", "Id must be an integer");
-		// }
-		// }
 		Boolean IS_check = null;
 		if (temp2 != null && temp2.length() != 0) {
 			try {
@@ -138,23 +128,12 @@ public class SellerVisitorServlet extends HttpServlet {
 			request.getRequestDispatcher("/_06_Seller/SellerVisitor.jsp")
 					.forward(request, response);
 			return;
-		}
-
-		// 驗證資料
-		// 按鈕 if("Insert".equals(prodaction) || "Update".equals(prodaction) ||
-		// "Delete".equals(prodaction)) {
+		}		
 
 		// 有錯誤
 		if (!error.isEmpty()) {
 			RequestDispatcher rd = request
 					.getRequestDispatcher("/_06_Seller/SellerVisitor.jsp");
-			rd.forward(request, response);
-			return;
-		}
-		// 沒錯誤
-		if (error.isEmpty()) {
-			RequestDispatcher rd = request
-					.getRequestDispatcher("/_06_Seller/RegisterOK_toLogin.jsp");
 			rd.forward(request, response);
 			return;
 		}
@@ -180,29 +159,21 @@ public class SellerVisitorServlet extends HttpServlet {
 
 		AccountBean bean1 = new AccountBean();
 		bean1.setAcc_email("acc_email");
-		bean1.setPsd("psd");
-
-		// 根據model執行結果顯示view
-		// if("Select".equals(prodaction)) {
-		// List<SellerVisitorBean> result = sellerVisitorService.select(bean);
-		// request.setAttribute("select", result);
-		// request.getRequestDispatcher(
-		// "/_06_Seller/SellerVisitor.jsp").forward(request, response);
+		bean1.setPsd("psd");		
 
 		SellerVisitorBean result = sellerVisitorService.insert(bean);
 		String result1 = registerServiceToAccount.insertAccount(bean1);
 
-		// if(bean==null) {
-		// error.put("password", "Login failed, please try again");
-		// request.getRequestDispatcher(
-		// "/page/login.jsp").forward(request, response);
-		// } else {
-		// HttpSession session = request.getSession();
-		// session.setAttribute("user", bean);
-		//
-		// String path = request.getContextPath();
-		// response.sendRedirect(path+"/index.jsp");
-		// }
+		if (error != null && !error.isEmpty()) {
+			request.getRequestDispatcher("/_06_Seller/SellerPartner.jsp")
+					.forward(request, response);
+			return;
+		}else{
+			RequestDispatcher rd = request
+					.getRequestDispatcher("/_06_Seller/SellerPartner.jsp");
+			rd.forward(request, response);
+			return;
+		}
 	}
 
 	private Date parse(String temp4) {
