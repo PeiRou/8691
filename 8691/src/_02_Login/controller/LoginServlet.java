@@ -20,6 +20,7 @@ import _02_Login.model.loginService;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private loginService MemberService = new loginService();
+	
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -40,8 +41,7 @@ public class LoginServlet extends HttpServlet {
 		}
 		//有錯誤
 		if(error!=null && !error.isEmpty()){
-			request.getRequestDispatcher(
-					"/_02_Login/Login.jsp").forward(request, response);
+			request.getRequestDispatcher("/_02_Login/Login.jsp").forward(request, response);
 			return;
 		}
 //呼叫model
@@ -50,8 +50,7 @@ public class LoginServlet extends HttpServlet {
 //根據model顯示view
 		if(bean==null) {
 			error.put("loginfail", "登入失敗");
-			request.getRequestDispatcher(
-					"/_02_Login/Login.jsp").forward(request, response);
+			request.getRequestDispatcher("/_02_Login/Login.jsp").forward(request, response);
 		} else {
 			HttpSession session = request.getSession();
 			session.setAttribute("LoginOK", bean.getAccount_UID());

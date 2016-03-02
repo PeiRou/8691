@@ -15,6 +15,7 @@ dependencies {						//宣告dependency library
 	compile 'net.sf.json-lib:json-lib:2.4'	
 	compile 'com.googlecode.json-simple:json-simple:1.1.1'
 	compile 'org.jdom:jdom2:2.0.5'
+	compile 'javax.mail:mail:1.4.7'
 		
 	
 }

@@ -9,17 +9,17 @@ import _06_Seller.model.SellerVisitorService;
 public class SellerVisitorService {
 	private SellerVisitorJDBC sellerVisitorDao = new SellerVisitorJDBC();
 	public List<SellerVisitorBean> select(SellerVisitorBean bean) {
-		List<SellerVisitorBean> result = null;
+		List<SellerVisitorBean> result1 = null;
 		if(bean!=null && bean.getFEIN().length()!=0) {
 			SellerVisitorBean temp = sellerVisitorDao.select(bean.getAccount_UID());
 			if(temp!=null) {
-				result = new ArrayList<SellerVisitorBean>();
-				result.add(temp);
+				result1 = new ArrayList<SellerVisitorBean>();
+				result1.add(temp);
 			}
 		} else {
-			result = sellerVisitorDao.select(); 
+			result1 = sellerVisitorDao.select(); 
 		}
-		return result;
+		return result1;
 	}
 	public SellerVisitorBean insert(SellerVisitorBean bean) {
 		SellerVisitorBean result = null;
@@ -47,9 +47,9 @@ public class SellerVisitorService {
 		}
 		return false;
 	}
-	public static void main(String[] args) {
-		SellerVisitorService service = new SellerVisitorService();
-		List<SellerVisitorBean> beans = service.select(null);
-		System.out.println("beans="+beans);
-	}
+//	public static void main(String[] args) {
+//		SellerVisitorService service = new SellerVisitorService();
+//		List<SellerVisitorBean> beans = service.select(null);
+//		System.out.println("beans="+beans);
+//	}
 }

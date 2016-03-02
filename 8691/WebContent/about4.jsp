@@ -118,23 +118,14 @@
                     </h2>
                     <hr>
                 </div>
-                <div class="col-sm-4 text-center">
-                    <img class="img-responsive" src="img/top1.jpg" alt="">
-                    <h3 id="">CoCo都可
-                        <small>紅藜拿鐵  $50</small>
-                    </h3>
+                <div id="div1" class="col-sm-4 text-center">
+
                 </div>
-                <div class="col-sm-4 text-center">
-                    <img class="img-responsive" src="http://placehold.it/750x450" alt="">
-                    <h3>John Smith
-                        <small>Job Title</small>
-                    </h3>
+                <div id="div2" class="col-sm-4 text-center">
+                    
                 </div>
-                <div class="col-sm-4 text-center">
-                    <img class="img-responsive" src="http://placehold.it/750x450" alt="">
-                    <h3>John Smith
-                        <small>Job Title</small>
-                    </h3>
+                <div id="div3" class="col-sm-4 text-center">
+
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -155,8 +146,77 @@
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
-
+	
+			   				
+	
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript">    
+    $(function(){
+       var imgnum = Math.floor(Math.random()*4)+1;
+ 	   $.ajax({
+ 		  'type':'get',
+ 		  'url':'GetProd',
+ 		  'data':{'index':imgnum},
+ 		  'dataType':'json',
+ 		  'success': function(data){
+ 			 $.each(data,function(index){
+ 	 			var mesg = JSON.parse(JSON.stringify(data[index].mesg));
+ 	 			var title = JSON.parse(JSON.stringify(data[index].title));
+ 	 			
+				var cellmsg = $('<small></small>').text(mesg);
+	   			var celltitle = $('<h3></h3>').text(title).append(cellmsg);
+	   			var cellimg = $('<img id="img1" class="img-responsive" src="/8691/_08_RandomAD/getImage?id=' + imgnum + '">');
+	   			$('#div1').append(cellimg);
+	   			$('#div1').append(celltitle);
+ 			 });
+ 		 }});
+    });   
+    
+    
+    $(function(){
+        var imgnum = Math.floor(Math.random()*4)+5;
+  	   $.ajax({
+  		  'type':'get',
+  		  'url':'GetProd',
+  		  'data':{'index':imgnum},
+  		  'dataType':'json',
+  		  'success': function(data){
+  			 $.each(data,function(index){
+  	 			var mesg = JSON.parse(JSON.stringify(data[index].mesg));
+  	 			var title = JSON.parse(JSON.stringify(data[index].title));
+  	 			
+ 				var cellmsg = $('<small></small>').text(mesg);
+ 	   			var celltitle = $('<h3></h3>').text(title).append(cellmsg);
+ 	   			var cellimg = $('<img id="img1" class="img-responsive" src="/8691/_08_RandomAD/getImage?id=' + imgnum + '">');
+ 	   			$('#div2').append(cellimg);
+ 	   			$('#div2').append(celltitle);
+  			 });
+  		 }});
+     });  
+    
+    
+    $(function(){
+        var imgnum = Math.floor(Math.random()*4)+9;
+  	   $.ajax({
+  		  'type':'get',
+  		  'url':'GetProd',
+  		  'data':{'index':imgnum},
+  		  'dataType':'json',
+  		  'success': function(data){
+  			 $.each(data,function(index){
+  	 			var mesg = JSON.parse(JSON.stringify(data[index].mesg));
+  	 			var title = JSON.parse(JSON.stringify(data[index].title));
+  	 			
+ 				var cellmsg = $('<small></small>').text(mesg);
+ 	   			var celltitle = $('<h3></h3>').text(title).append(cellmsg);
+ 	   			var cellimg = $('<img id="img1" class="img-responsive" src="/8691/_08_RandomAD/getImage?id=' + imgnum + '">');
+ 	   			$('#div3').append(cellimg);
+ 	   			$('#div3').append(celltitle);
+  			 });
+  		 }});
+     });  
+    
+    </script>
 </body>
 </html>

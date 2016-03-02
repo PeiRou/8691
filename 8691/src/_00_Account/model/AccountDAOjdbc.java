@@ -198,7 +198,7 @@ public AccountBean update(
 	
 
 	private static final String INSERT =
-			"insert into Account (acc_email, psd, role_ID) OUTPUT INSERTED.account_UID values (?, ?, ?)";
+			"insert into Account (account_UID, acc_email, psd, role_ID) OUTPUT INSERTED.account_UID values (newid(), ?, ?, ?)";
 
 	@Override
 	public String insert(AccountBean bean) {
@@ -206,22 +206,16 @@ public AccountBean update(
 		Connection conn = null;
 		PreparedStatement psStrUpd = null;
 		try {
-			// conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			conn = ds.getConnection();
-			psStrUpd = conn.prepareStatement(INSERT,
-					Statement.RETURN_GENERATED_KEYS);
+			psStrUpd = conn.prepareStatement(INSERT);
 			psStrUpd.setString(1, bean.getAcc_email());
 			psStrUpd.setString(2, bean.getPsd());
 			psStrUpd.setString(3, bean.getRole_ID());
-			// if (bean.getInsdate() != null) {
-			// long time = bean.getInsdate().getTime();
-			// psStrUpd.setDate(3, new java.sql.Date(time));
-			// }
-
 			psStrUpd.execute();
-			ResultSet rs = psStrUpd.getGeneratedKeys();
+			ResultSet rs = psStrUpd.getResultSet();
 			if (rs.next()) {
 				result = rs.getString(1);
+				//bean.setAccount_UID(result);
 				return result;
 			}
 		} catch (SQLException e) {
@@ -242,7 +236,7 @@ public AccountBean update(
 				}
 			}
 		}
-		return null;
+		return result;
 	}
 
 }

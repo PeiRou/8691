@@ -54,5 +54,12 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
+    
+    <form action="<c:url value='/TestMailServlet' />" method="post">
+    <input type="text" name="email" value="w1225hg@hotmail.com"/>
+   <input type="text" name="url" value="http://tw.yahoo.com/"/>
+   
+   <input type="submit"  value="test"/>
+    </form>
 </body>
 </html>

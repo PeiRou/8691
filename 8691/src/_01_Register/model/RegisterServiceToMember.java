@@ -6,12 +6,12 @@ import _04_Member.model.MemberDAOjdbc;
 
 public class RegisterServiceToMember{
 	
-	private MemberDAO memberDao = new MemberDAOjdbc();
-	public MemberBean insertMember(MemberBean bean) {
+	private MemberDAOjdbc memberDao = new MemberDAOjdbc();
+	public MemberBean insertMember(MemberBean bean1) {
 		MemberBean result = null;
 		
-		if(bean!=null) {
-			result = memberDao.insert(bean);
+		if(bean1!=null) {
+			result = memberDao.insert(bean1);
 		}
 		return result;
 	}

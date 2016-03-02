@@ -2,6 +2,7 @@ package _06_Seller.controller;
 
 import java.io.*;
 import java.sql.Blob;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,7 +27,6 @@ import _06_Seller.model.SellerPartnerService;
 public class SellerPartnerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private static SimpleDateFormat mma = new SimpleDateFormat("yyyy-MM-dd");
 	private SellerPartnerService sellerPartnerService = new SellerPartnerService();
 	private RegisterServiceToAccount registerServiceToAccount = new RegisterServiceToAccount();
 
@@ -89,17 +89,17 @@ public class SellerPartnerServlet extends HttpServlet {
 			}
 		}
 
-		java.util.Date insdate = null;
-		if (temp5 != null && temp5.length() != 0) {
-			try {
-				insdate = mma.parse(temp5);
-			} catch (Exception e) {
-
-				e.printStackTrace();
-				error.put("insdate", "insdate must be a Date with yyyy-MM-dd");
-			}
-
-		}
+//		java.util.Date insdate = null;
+//		if (temp5 != null && temp5.length() != 0) {
+//			try {
+//				insdate = mma.parse(temp5);
+//			} catch (Exception e) {
+//
+//				e.printStackTrace();
+//				error.put("insdate", "insdate must be a Date with yyyy-MM-dd");
+//			}
+//
+//		}
 
 		if (name == null || name.trim().length() == 0) {
 			error.put("name", "請輸入您的店家名稱!");
@@ -147,6 +147,8 @@ public class SellerPartnerServlet extends HttpServlet {
 		String result1 = registerServiceToAccount.insertAccount(bean1);
 
 		SellerPartnerBean bean = null;
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
 		//如果無法新增到帳號的table,則就不新增到店家的table裡
 		if (result1 != null) {
 			bean = new SellerPartnerBean();
@@ -165,7 +167,7 @@ public class SellerPartnerServlet extends HttpServlet {
 			bean.setSeller_status(Seller_status);
 			bean.setShip_price(Ship_price);
 			bean.setLowest_price(Lowest_price);
-			bean.setInsdate(insdate);
+			bean.setInsdate(dateFormat.format(date).toString());
 		}else{
 			error.put("UUID", "恭喜您中大獎了!!");
 		}		
@@ -185,9 +187,9 @@ public class SellerPartnerServlet extends HttpServlet {
 		}
 	}
 
-	private Date parse(String temp5) {
-		return null;
-	}
+//	private Date parse(String temp5) {
+//		return null;
+//	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)

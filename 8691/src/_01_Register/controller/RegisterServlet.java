@@ -1,6 +1,9 @@
 package _01_Register.controller;
 
 import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,7 +31,7 @@ public class RegisterServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		//接收資料
+		//接收資料		
 		String name = request.getParameter("name");
 		String acc_email = request.getParameter("acc_email");
 		String psd = request.getParameter("psd");
@@ -40,6 +43,7 @@ public class RegisterServlet extends HttpServlet {
 		String GUAR_NO = request.getParameter("GUAR_NO");
 		String email2 = request.getParameter("email2");
 		String cel = request.getParameter("cel");
+		
 		
 //驗證資料// 轉型態
 		Map<String, String> error = new HashMap<String, String>();
@@ -89,57 +93,63 @@ public class RegisterServlet extends HttpServlet {
 			error.put("cel", "請輸入您的手機號碼");
 		}System.out.println(cel);
 		
-		System.out.println("1");
 		//處理前面的資料驗證，有錯就先return
 		if (error!= null&&!error.isEmpty()) {
+			error.put("action", "註冊失敗");
 			RequestDispatcher rd = request.getRequestDispatcher("/_01_Register/Register.jsp");
-			rd.forward(request, response);
+			rd.forward(request, response);	
 			return;
 		}
+		AccountBean bean = new AccountBean();
+		bean.setAcc_email(acc_email);
+		bean.setPsd(psd);
+		bean.setRole_ID("201");
 		
-		System.out.println("2");
-		AccountBean bean1 = new AccountBean();
-		bean1.setAcc_email(acc_email);
-		bean1.setPsd(psd);
-		bean1.setRole_ID("201");
-		System.out.println("3");
-		String accresult = RegisterServiceToAccount.insertAccount(bean1);
-		System.out.println(accresult);
-		MemberBean bean = null;                      
+		String result = RegisterServiceToAccount.insertAccount(bean);
+		
+		System.out.println(result);
+		//System.out.println(bean);
+		
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
 //呼叫model
-		if (accresult != null&& !accresult.isEmpty()) {
-			bean = new MemberBean();
-			bean.setAccount_UID(accresult);
-			bean.setName(name);
-			bean.setGender(gender);
-			bean.setTel(tel);
-			bean.setGUAR_CT(GUAR_CT);
-			bean.setGUAR_AR(GUAR_AR);
-			bean.setGUAR_ROAD(GUAR_ROAD);
-			bean.setGUAR_NO(GUAR_NO);
-			bean.setEmail2(email2);
-			bean.setCel(cel);
-			//bean.setInsdate(insdate);
+		MemberBean bean1 = new MemberBean();
+		if (result != null) {
+			//bean1.setAccount_UID(bean.getAccount_UID());
+			bean1.setAccount_UID(result);
+			bean1.setName(name);
+			bean1.setGender(gender);
+			bean1.setTel(tel);
+			bean1.setGUAR_CT(GUAR_CT);
+			bean1.setGUAR_AR(GUAR_AR);
+			bean1.setGUAR_ROAD(GUAR_ROAD);
+			bean1.setGUAR_NO(GUAR_NO);
+			bean1.setEmail2(email2);
+			bean1.setCel(cel);
+			bean1.setInsdate(dateFormat.format(date).toString());
 		}else{
 			error.put("UUID", "恭喜您中了大獎!!");
 		}
-		System.out.println("4");
+								System.out.println("4");
+								System.out.println(bean1);
 //根據model執行結果顯示view
 //		RegisterServiceToMember rs = new RegisterServiceToMember();
 //		RegisterServiceToAccount rs1 = new RegisterServiceToAccount();
-		MemberBean Memresult = RegisterServiceToMember.insertMember(bean);
-		if(Memresult==null) {
-			error.put("action", "註冊失敗");
-		}
-		// 有錯誤
+		MemberBean result1 = RegisterServiceToMember.insertMember(bean1);
 		
-				
-		if (error== null&& error.isEmpty()){
-			RequestDispatcher rd = request.getRequestDispatcher("/_01_Register/RegisterOK_toLogin.jsp");
-			rd.forward(request, response);
-			
-			}
-		}
+		System.out.println("5");
+		
+		if(result1==null&&!error.isEmpty()) {
+			error.put("action", "註冊失敗了");}
+		// 沒有錯誤		
+		if (error!= null&&!error.isEmpty()) {
+			RequestDispatcher rd = request.getRequestDispatcher("/_01_Register/Register");
+			rd.forward(request, response);	
+		}else{RequestDispatcher rd = request.getRequestDispatcher("/_01_Register/RegisterOK_toLogin.jsp");
+		rd.forward(request, response);}
+	
+	}		
 	
 	@Override
 	protected void doPost(HttpServletRequest req,

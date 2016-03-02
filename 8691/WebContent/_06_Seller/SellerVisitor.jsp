@@ -49,6 +49,7 @@
 				<td><input type="text" name="acc_email" value="${param.acc_email}"></td>
 				<td>${error.acc_email}</td>
 			</tr>
+			
 			<tr>
 				<td>輸入您的密碼 :</td>
 				<td><input type="text" name="psd" value="${param.psd}"></td>
@@ -56,18 +57,18 @@
 			</tr>
 			
 			
-		     <tr height='36'>
+		   <!--   <tr height='36'>
 		    <td>輸入您的店家圖片:</td>
-<!-- 		        <td width="45" align="center" class="title_font">圖片</td> -->
+		        <td width="45" align="center" class="title_font">圖片</td> 
 		        <td colspan="3">
 		            <input style="background:#FFFFFF" class='InputClass'  type="file" 
 		            name="uploadFile" size="40" />    
-		    </tr>
+		    </tr>-->
 			
 
 			<tr>
 				<td>輸入您的連絡市話  :</td>
-				<td><input type="text" name="phone" value="${param.tel}"></td>
+				<td><input type="text" name="tel" value="${param.tel}"></td>
 				<td>${error.tel}</td>
 			</tr>
 			<tr>
@@ -104,7 +105,7 @@
 				<td>住址(區/鄉/鎮/市) : </td>
 				<td>
 <!-- 				<select name="GUAR_AR" ></select> -->
-				<select id="select1" >
+				<select id="select1" name="GUAR_AR">
 				<option value="" selected>請選擇</option>
 				</select>
 				<td>${error.GUAR_AR}</td></td>
@@ -112,7 +113,7 @@
 			<tr>
 				<td>住址(路/街/巷) : </td>
 <%-- 				<td><input type="text" name="GUAR_ROAD" value="${param.GUAR_ROAD}"></td> --%>
-                <td><input type="text" id="keyword"><input id="textval" type="text" style="display:none"><td>${error.GUAR_ROAD}</td></td>
+                <td><input type="text" id="keyword"><input id="textval" type="text" name="GUAR_ROAD" style="display:none"><td>${error.GUAR_ROAD}</td></td>
 			</tr>
 			<tr>
 			<td></td>
@@ -133,6 +134,12 @@
 				<td><input type="text" name="Con_cel"
 					value="${param.Con_cel}"></td>
 				<td>${error.Con_cel}</td>
+			</tr>
+			<tr>
+				<td>輸入備用EMAIL :</td>
+				<td><input type="text" name="email2"
+					value="${param.email2}"></td>
+				<td>${error.email2}</td>
 			</tr>
 				<tr>
 				<td>收款方式 : </td>

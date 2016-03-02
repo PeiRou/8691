@@ -1,5 +1,4 @@
 package _02_Login.model;
-
 import _00_Account.model.AccountBean;
 import _00_Account.model.AccountDAOjdbc;
 

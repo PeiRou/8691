@@ -33,8 +33,8 @@ public class SellerPartnerJDBC {
 		}
 
 		public static void main(String[] args) {
-			String RD = UUID.randomUUID().toString();
-			SellerPartnerJDBC dao = new SellerPartnerJDBC();
+//			String RD = UUID.randomUUID().toString();
+//			SellerPartnerJDBC dao = new SellerPartnerJDBC();
 
 			// select
 //			 SellerPartnerBean bean =
@@ -93,7 +93,7 @@ public class SellerPartnerJDBC {
 					result.setSeller_status(rset.getBoolean("Seller_status"));
 					result.setShip_price(rset.getInt("ship_price"));					
 					result.setLowest_price(rset.getInt("lowest_price"));
-					result.setInsdate(rset.getDate("insdate"));
+					result.setInsdate(rset.getString("insdate"));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -159,7 +159,7 @@ public class SellerPartnerJDBC {
 					result.setSeller_status(rset.getBoolean("Seller_status"));
 					result.setShip_price(rset.getInt("Ship_price"));					
 					result.setLowest_price(rset.getInt("Lowest_price"));
-					result.setInsdate(rset.getDate("insdate"));
+					result.setInsdate(rset.getString("insdate"));
 					items.add(result);
 				}
 			} catch (SQLException e) {
@@ -219,13 +219,15 @@ public class SellerPartnerJDBC {
 				stmt.setBoolean(13, bean.isSeller_status());
 				stmt.setInt(14, bean.getShip_price());
 				stmt.setInt(15, bean.getLowest_price());
-				java.util.Date insdate = bean.getInsdate();
-				if (insdate != null) {
-					long time = insdate.getTime();
-					stmt.setDate(16, new java.sql.Date(time));
-				} else {
-					stmt.setDate(16, null);
-				}
+				stmt.setString(16, bean.getInsdate());
+				
+//				java.util.Date insdate = bean.getInsdate();
+//				if (insdate != null) {
+//					long time = insdate.getTime();
+//					stmt.setDate(16, new java.sql.Date(time));
+//				} else {
+//					stmt.setDate(16, null);
+//				}
 
 				int i = stmt.executeUpdate();
 
@@ -258,7 +260,7 @@ public class SellerPartnerJDBC {
 
 		public SellerPartnerBean update(String name, String FEIN, Blob Seller_photo, String tel, String GUAR_CT, String GUAR_AR, String GUAR_ROAD,
 				String GUAR_NO, String Con_name, String Con_cel, String receipts_metho, boolean Seller_status,
-				int Ship_price, int Lowest_price, Date insdate, String Account_UID) {
+				int Ship_price, int Lowest_price, String insdate, String Account_UID) {
 			Connection conn = null;
 			PreparedStatement psStrUpd = null;
 			SellerPartnerBean result = null;
@@ -282,13 +284,15 @@ public class SellerPartnerJDBC {
 				psStrUpd.setString(11, receipts_metho);
 				psStrUpd.setBoolean(12, Seller_status);
 				psStrUpd.setInt(13, Ship_price);
-				psStrUpd.setInt(14, Lowest_price);							
-				if (insdate != null) {
-					long time = insdate.getTime();
-					psStrUpd.setDate(15, new java.sql.Date(time));
-				} else {
-					psStrUpd.setDate(15, null);
-				}
+				psStrUpd.setInt(14, Lowest_price);
+				psStrUpd.setString(15, insdate);
+				
+//				if (insdate != null) {
+//					long time = insdate.getTime();
+//					psStrUpd.setDate(15, new java.sql.Date(time));
+//				} else {
+//					psStrUpd.setDate(15, null);
+//				}
 				psStrUpd.setString(16, Account_UID);	
 
 				int i = psStrUpd.executeUpdate();

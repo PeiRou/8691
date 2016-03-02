@@ -20,7 +20,7 @@ public class SellerPartnerBean {
 	private 	boolean	Seller_status;
 	private 	int	    ship_price;
 	private 	int	    lowest_price;
-	private 	java.util.Date	insdate;
+	private 	String	insdate;
 	public String getAccount_UID() {
 		return Account_UID;
 	}
@@ -111,15 +111,15 @@ public class SellerPartnerBean {
 	public void setLowest_price(int lowest_price) {
 		this.lowest_price = lowest_price;
 	}
-	public java.util.Date getInsdate() {
+	public String getInsdate() {
 		return insdate;
 	}
-	public void setInsdate(java.util.Date insdate) {
+	public void setInsdate(String insdate) {
 		this.insdate = insdate;
 	}
 	public SellerPartnerBean(String account_UID, String name, String fEIN, Blob seller_photo, String tel,
 			String gUAR_CT, String gUAR_AR, String gUAR_ROAD, String gUAR_NO, String con_name, String con_cel,
-			String receipts_metho, boolean seller_status, int ship_price, int lowest_price, Date insdate) {
+			String receipts_metho, boolean seller_status, int ship_price, int lowest_price, String insdate) {
 		super();
 		Account_UID = account_UID;
 		this.name = name;
@@ -150,11 +150,5 @@ public class SellerPartnerBean {
 				+ ", receipts_metho=" + receipts_metho + ", Seller_status=" + Seller_status + ", ship_price="
 				+ ship_price + ", lowest_price=" + lowest_price + ", insdate=" + insdate + "]";
 	}
-	
-	
-	
-	
-	
-	
-	
+
 }
