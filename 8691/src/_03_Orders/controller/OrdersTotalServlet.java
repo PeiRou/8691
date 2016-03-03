@@ -19,32 +19,34 @@ import _03_Orders.model.OrdersTotalService;
 public class OrdersTotalServlet extends HttpServlet {
 	private static SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd");
 	private OrdersTotalService ordersTotalService = new OrdersTotalService();
-		@Override
-		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-	//接收資料
-			String Orders_total_UID = request.getParameter("Orders_total_UID");
-			String account_UID = request.getParameter("account_UID");
-			String temp0 = request.getParameter("ordersID");
-			String status = request.getParameter("status");
-			String name = request.getParameter("name");
-			String cel = request.getParameter("cel");
-			String GUAR_CT = request.getParameter("GUAR_CT");
-			String GUAR_AR = request.getParameter("GUAR_AR");
-			String GUAR_ROAD = request.getParameter("GUAR_ROAD");
-			String GUAR_NO = request.getParameter("GUAR_NO");
-			String pay_metho = request.getParameter("pay_metho");
-			String temp1 = request.getParameter("insdate");
-			String temp2 = request.getParameter("ship_price");
-			String temp3 = request.getParameter("food_price");
-			String temp4 = request.getParameter("total_amount");
-			String orderaction = request.getParameter("orderaction");
-			
-			
-	//轉換資料
-			Map<String, String> error = new HashMap<String, String>();
-			request.setAttribute("error", error);
-			
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		
+		//接收資料
+		String Orders_total_UID = request.getParameter("Orders_total_UID");
+		String account_UID = (String)request.getSession().getAttribute("LoginOK");
+				//request.getParameter("account_UID");
+		String temp0 = request.getParameter("ordersID");
+		String status = request.getParameter("status");
+		String name = request.getParameter("name");
+		String cel = request.getParameter("cel");
+		String GUAR_CT = request.getParameter("GUAR_CT");
+		String GUAR_AR = request.getParameter("GUAR_AR");
+		String GUAR_ROAD = request.getParameter("GUAR_ROAD");
+		String GUAR_NO = request.getParameter("GUAR_NO");
+		String pay_metho = request.getParameter("pay_metho");
+		String temp1 = request.getParameter("insdate");
+		String temp2 = request.getParameter("ship_price");
+		String temp3 = request.getParameter("food_price");
+		String temp4 = request.getParameter("total_amount");
+		String orderaction = request.getParameter("orderaction");
+
+
+		//轉換資料
+		Map<String, String> error = new HashMap<String, String>();
+		request.setAttribute("error", error);
+
 			
 //			if(name==null || name.length()==0) {				
 //				  error.put("name", "訂購人姓名為必填");				
@@ -74,15 +76,15 @@ public class OrdersTotalServlet extends HttpServlet {
 //				  error.put("pay_metho", "付款方式為必填");				
 //			}
 			
-//		int ordersID = 0;
-//		if (temp0 != null && temp0.length() != 0) {
-//			try {
-//				ordersID = Integer.parseInt(temp0);
-//			} catch (NumberFormatException e) {
-//				e.printStackTrace();
-//				error.put("ordersID", "OrdersID must be an number");
-//			}
-//		}
+		int ordersID = 0;
+		if (temp0 != null && temp0.length() != 0) {
+			try {
+				ordersID = Integer.parseInt(temp0);
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+				error.put("ordersID", "OrdersID must be an number");
+			}
+		}System.out.println(ordersID);
 			
 			
 			java.util.Date insdate = null;
@@ -93,7 +95,7 @@ public class OrdersTotalServlet extends HttpServlet {
 					e.printStackTrace();
 					error.put("insdate", "日期格式必須為 yyyy-MM-dd");
 				}
-			}
+			}System.out.println(insdate);
 
 			int ship_price = 0;
 			if(temp2!=null && temp2.length()!=0) {
@@ -103,7 +105,7 @@ public class OrdersTotalServlet extends HttpServlet {
 					e.printStackTrace();
 					error.put("ship_price", "Ship_price must be an number");
 				}
-			}
+			}System.out.println(ship_price);
 			
 			int food_price = 0;
 			if(temp3!=null && temp3.length()!=0) {
@@ -113,7 +115,7 @@ public class OrdersTotalServlet extends HttpServlet {
 					e.printStackTrace();
 					error.put("food_price", "Food_price must be a number");
 				}
-			}
+			}System.out.println(food_price);
 			
 			int total_amount = 0;
 			if(temp4!=null && temp4.length()!=0) {
@@ -123,7 +125,7 @@ public class OrdersTotalServlet extends HttpServlet {
 					e.printStackTrace();
 					error.put("total_amount", "Total_amount must be a number");
 				}
-			}
+			}System.out.println(total_amount);
 			
 	//驗證資料
 			if("Insert".equals(orderaction) || "Update".equals(orderaction) || "Delete".equals(orderaction)) {
@@ -141,7 +143,7 @@ public class OrdersTotalServlet extends HttpServlet {
 			OrdersTotalBean bean = new OrdersTotalBean();	
 			bean.setOrders_total_UID(Orders_total_UID);
 			bean.setAccount_UID(account_UID);
-			//bean.setOrdersID(ordersID);			
+			bean.setOrdersID(ordersID);			
 			bean.setStatus(status);
 			bean.setName(name);
 			bean.setCel(cel);

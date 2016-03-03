@@ -10,12 +10,14 @@ public class OrdersTotalService {
 		List<OrdersTotalBean> result = null;
 		if(bean!=null && bean.getOrdersID()!=0) {
 			OrdersTotalBean temp = ordersTotalDao.select(bean.getOrdersID());
+			System.out.println(bean);
 			if(temp!=null) {
 				result = new ArrayList<OrdersTotalBean>();
 				result.add(temp);
 			}
 		} else {
 			result = ordersTotalDao.select(); 
+			System.out.println(bean);
 		}
 		return result;
 	}
@@ -30,7 +32,7 @@ public class OrdersTotalService {
 	public OrdersTotalBean update(OrdersTotalBean bean) {
 		OrdersTotalBean result = null;
 		if(bean!=null) {
-			result = ordersTotalDao.update(bean.getAccount_UID(), //bean.getOrdersID() ,
+			result = ordersTotalDao.update(bean.getAccount_UID(), bean.getOrdersID() ,
 					bean.getStatus(), bean.getName(), bean.getCel(), bean.getGUAR_CT(), bean.getGUAR_AR(),
 					bean.getGUAR_ROAD(), bean.getGUAR_NO(), bean.getPay_metho(), bean.getInsdate(),
 					bean.getShip_price(),bean.getFood_price(),bean.getTotal_amount(), bean.getOrders_total_UID());

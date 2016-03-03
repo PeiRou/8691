@@ -269,39 +269,41 @@ public class OrdersTotalJDBC {
 		return result;
 	}
 
-	private static final String UPDATE = "update Orders_total set account_UID=?, status=?, name=?, cel=?, GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?, pay_metho=? ,insdate=?, ship_price=?, food_price=?, total_amount=? where Orders_total_UID=?";
+	private static final String UPDATE = "update Orders_total set account_UID=?, ordersID=?, status=?, name=?, cel=?, GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?, pay_metho=? ,insdate=?, ship_price=?, food_price=?, total_amount=? where Orders_total_UID=?";
 
-	public OrdersTotalBean update(String account_UID, String status, String name, String cel,
+	public OrdersTotalBean update(String account_UID, int ordersID,String status, String name, String cel,
 			String gUAR_CT, String gUAR_AR, String gUAR_ROAD, String gUAR_NO, String pay_metho, Date insdate,
 			int ship_price, int food_price, int total_amount, String orders_total_UID) {
 		Connection conn = null;
 		PreparedStatement psStrUpd = null;
 		OrdersTotalBean result = null;
+		
 		try {
 			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			conn = dataSource.getConnection();
 			psStrUpd = conn.prepareStatement(UPDATE);
 			
 			psStrUpd.setString(1, account_UID);
-			psStrUpd.setString(2, status);
-			psStrUpd.setString(3, name);
-			psStrUpd.setString(4, cel);
-			psStrUpd.setString(5, gUAR_CT);
-			psStrUpd.setString(6, gUAR_AR);
-			psStrUpd.setString(7, gUAR_ROAD);
-			psStrUpd.setString(8, gUAR_NO);
-			psStrUpd.setString(9, pay_metho);
+			psStrUpd.setInt(2, ordersID);
+			psStrUpd.setString(3, status);
+			psStrUpd.setString(4, name);
+			psStrUpd.setString(5, cel);
+			psStrUpd.setString(6, gUAR_CT);
+			psStrUpd.setString(7, gUAR_AR);
+			psStrUpd.setString(8, gUAR_ROAD);
+			psStrUpd.setString(9, gUAR_NO);
+			psStrUpd.setString(10, pay_metho);
 
 			if (insdate != null) {
 				long time = insdate.getTime();
-				psStrUpd.setDate(10, new java.sql.Date(time));
+				psStrUpd.setDate(11, new java.sql.Date(time));
 			} else {
-				psStrUpd.setDate(10, null);
+				psStrUpd.setDate(11, null);
 			}
-			psStrUpd.setInt(11, ship_price);
-			psStrUpd.setInt(12, food_price);
-			psStrUpd.setInt(13, total_amount);
-			psStrUpd.setString(14, orders_total_UID);
+			psStrUpd.setInt(12, ship_price);
+			psStrUpd.setInt(13, food_price);
+			psStrUpd.setInt(14, total_amount);
+			psStrUpd.setString(15, orders_total_UID);
 
 			int i = psStrUpd.executeUpdate();
 			if (i == 1) {

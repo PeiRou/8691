@@ -55,7 +55,7 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("LoginOK", bean.getAccount_UID());
 			session.setAttribute("RoleID", bean.getRole_ID());
-
+			request.setAttribute("", bean.getAccount_UID());
 			
 //			String dest = (String)session.getAttribute("dest");
 //			if(dest!=null && dest.length()!=0){

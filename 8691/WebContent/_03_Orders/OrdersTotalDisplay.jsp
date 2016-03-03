@@ -75,7 +75,7 @@
 							<td>${bean.food_price}</td>
 							<td>${bean.total_amount}</td>
 						</tr>
-						</c:forEach>	
+					</c:forEach>	
 						</tbody>
 					</table>
 					</c:if>
