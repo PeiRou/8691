@@ -30,18 +30,19 @@ public class _11_Foodjdbc {
 	private final String SELECT_BY_UID = "select * from Food where Account_UID=?";
 	public List select(String accountUID) throws JSONException {
 		List JSONObjectList = null;
+		ResultSet rset = null;
 		try(Connection conn = dataSource.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(SELECT_BY_UID);
 			) {
 			stmt.setString(1, accountUID);
-			ResultSet rset = stmt.executeQuery();
+			rset = stmt.executeQuery();
 		
 			JSONObjectList = new LinkedList();
 			while(rset.next()) {
 				JSONObject obj = new JSONObject();
-				obj.put("FoodID", rset.getString("Food_ID"));
 				obj.put("AccountUID", rset.getString("Account_UID"));
 				obj.put("ProdStatusClass1ID", rset.getInt("Prod_status_class1_ID"));
+				obj.put("FoodID", rset.getString("Food_ID"));
 				obj.put("FoodName", rset.getString("Food_name"));
 				if (rset.getString("Food_photo")!=null){
 					obj.put("FoodPhoto", rset.getString("Food_photo"));
@@ -50,7 +51,8 @@ public class _11_Foodjdbc {
 					obj.put("FoodPhoto", "");
 				}
 				System.out.println("Food_photo:"+rset.getString("Food_photo"));
-				List FoodStatusList = foodClassjdbc.select(rset.getString("Food_ID"));
+				obj.put("GroupClass3ID", rset.getString("Group_class3_ID"));
+				List FoodStatusList = foodClassjdbc.select(rset.getString("Group_class3_ID"));
 				if (FoodStatusList!=null){
 					obj.put("FoodStatus", FoodStatusList);
 				}
@@ -59,6 +61,14 @@ public class _11_Foodjdbc {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			if (rset != null) {
+				try {
+					rset.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return JSONObjectList;
 	}
