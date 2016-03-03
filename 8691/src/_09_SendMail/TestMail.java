@@ -15,10 +15,11 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.servlet.http.HttpServletRequest;
 
 
 public class TestMail {
- public static void sendmail(String email) {
+ public void sendmail(String email, HttpServletRequest request) {
   String host = "smtp.gmail.com";
   int port = 587;
   final String username = "eeit83team05@gmail.com";
@@ -48,7 +49,11 @@ public class TestMail {
    message.setSentDate(new java.util.Date()); 
 	  MimeBodyPart textPart = new MimeBodyPart();
 	   StringBuffer html = new StringBuffer();
-	   html.append("<a href='http://localhost:8080/8691/index.jsp'>按我回首頁</a>");
+	   String pathurl = "http://localhost:8080"+request.getContextPath()+"/index.jsp";
+
+	   String url = "<a href='"+pathurl+"'>按我回首頁</a>";
+	   html.append(url);
+//	   html.append("<a href='http://localhost:8080/8691/index.jsp'>按我回首頁</a>");
 	   html.append("此為系統自動發送之信件，請勿直接回覆！"); 
 	   html.append("8691管理團隊  敬上");
 	
@@ -95,7 +100,7 @@ private void sendTestmail(String string) {
 
 public static void main(String[] args){
 	  TestMail mail= new TestMail();
-		mail.sendmail("w1225hg@hotmail.com");
+		//mail.sendmail("w1225hg@hotmail.com");
 System.out.println("結束~");	
 }
 }

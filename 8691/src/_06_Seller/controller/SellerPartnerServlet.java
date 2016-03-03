@@ -100,32 +100,35 @@ public class SellerPartnerServlet extends HttpServlet {
 //			}
 //
 //		}
-
+		if (FEIN == null || FEIN.trim().length() == 0) {
+			error.put("FEIN", "請輸入您的統一編號!");
+		}System.out.println(FEIN);
 		if (name == null || name.trim().length() == 0) {
 			error.put("name", "請輸入您的店家名稱!");
-		}
+		}System.out.println(name);
 
 		if (tel == null || tel.trim().length() == 0) {
 			error.put("tel", "請輸入您的連絡市話 !");
-		}
+		}System.out.println(tel);
 		if (GUAR_CT == null || GUAR_CT.trim().length() == 0) {
 			error.put("GUAR_CT", "請輸入您的住址(縣/市)");
-		}
+		}System.out.println(GUAR_CT);
 		if (GUAR_AR == null || GUAR_AR.trim().length() == 0) {
 			error.put("GUAR_AR", "請輸入您的住址(區/鄉/鎮/市)");
-		}
+		}System.out.println(GUAR_AR);
 		if (GUAR_ROAD == null || GUAR_ROAD.trim().length() == 0) {
 			error.put("GUAR_ROAD", "請輸入您的住址(路/街/巷)");
-		}
+		}System.out.println(GUAR_ROAD);
 		if (GUAR_NO == null || GUAR_NO.trim().length() == 0) {
 			error.put("GUAR_NO", "請輸入您的住址(號)");
-		}
+		}System.out.println(GUAR_NO);
 		if (Con_name == null || Con_name.trim().length() == 0) {
 			error.put("Con_name", "請輸入您的聯絡人姓名!");
-		}
+		}System.out.println(Con_name);
 		if (Con_cel == null || Con_cel.trim().length() == 0) {
 			error.put("Con_cel", "請輸入您的輸入連絡人手機 !");
-		}
+		}System.out.println(Con_cel);
+		System.out.println("1");
 
 
 		// 驗證資料

@@ -16,6 +16,7 @@ import _00_Account.model.AccountBean;
 import _01_Register.model.RegisterServiceToAccount;
 import _06_Seller.model.SellerVisitorBean;
 import _06_Seller.model.SellerVisitorService;
+import _09_SendMail.TestMail;
 
 @WebServlet("/page/visitor.controller")
 public class SellerVisitorServlet extends HttpServlet {
@@ -48,6 +49,9 @@ public class SellerVisitorServlet extends HttpServlet {
 		String temp2 = request.getParameter("IS_check");
 		String temp3 = request.getParameter("IS_cooperation");
 		String prodaction = request.getParameter("prodaction");
+		
+		TestMail mail= new TestMail();
+		mail.sendmail(acc_email, request);
 
 		// 轉換資料
 		Map<String, String> error = new HashMap<String, String>();
@@ -75,6 +79,9 @@ public class SellerVisitorServlet extends HttpServlet {
 			System.out.println(temp3);
 		}
 		
+		if (FEIN == null || FEIN.trim().length() == 0) {
+			error.put("FEIN", "請輸入您的統一編號!");
+		}System.out.println(FEIN);
 		if (name == null || name.trim().length() == 0) {
 			error.put("name", "請輸入您的店家名稱!");
 		}System.out.println(name);

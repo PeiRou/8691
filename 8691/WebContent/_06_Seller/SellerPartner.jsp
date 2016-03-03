@@ -34,14 +34,14 @@
 	<form name="Visitor" action="<c:url value='/page/partner.controller' />" method="post">
 			<table>
 			<tr>
+				<td>輸入您的統一編號 :</td>
+				<td><input type="text" name="FEIN" value="${param.FEIN}"></td>
+				<td>${error.FEIN}</td>
+			</tr>
+			<tr>
 				<td>輸入您的店家名稱 :</td>
 				<td><input type="text" name="name" value="${param.name}"></td>
 				<td>${error.name}</td>
-			</tr>
-			<tr>
-				<td>輸入您的統一編號 :</td>
-				<td><input type="text" name="FEIN" value="${param.FEIN}"></td>
-				<td></td>
 			</tr>
 			
 

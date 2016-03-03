@@ -29,9 +29,18 @@
 		<div class="row">
 			<div class="box">		
 				<div class="col-lg-12 text-center">
-				<h2>恭喜您註冊成功，請等待管理員審核！</h2><br>
-				<button type="button" class="btn btn-info" onclick="location.href='<%= request.getContextPath() %>/index.jsp'">回首頁</button><br>
+				
+<!--內容放這!! 	內容放這!!	內容放這!!	內容放這!! -->
 
+						<h1>管理者介面</h1>
+						
+						
+
+
+
+
+
+<!-- <div class="box">  box為白色區塊包住 -->
 
 				</div>
 			</div>			
@@ -54,12 +63,5 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
-    
-    <!--寄出測試信  <form action="<c:url value='/TestMailServlet' />" method="post">
-    <input type="text" name="email" value="w1225hg@hotmail.com"/>
-   <input type="text" name="url" value="http://tw.yahoo.com/"/>
-   
-   <input type="submit"  value="test"/>
-    </form>-->
 </body>
 </html>
