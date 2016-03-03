@@ -84,7 +84,7 @@ public class OrdersTotalServlet extends HttpServlet {
 				e.printStackTrace();
 				error.put("ordersID", "OrdersID must be an number");
 			}
-		}System.out.println(ordersID);
+		}
 			
 			
 			java.util.Date insdate = null;
@@ -95,7 +95,7 @@ public class OrdersTotalServlet extends HttpServlet {
 					e.printStackTrace();
 					error.put("insdate", "日期格式必須為 yyyy-MM-dd");
 				}
-			}System.out.println(insdate);
+			}
 
 			int ship_price = 0;
 			if(temp2!=null && temp2.length()!=0) {
@@ -105,7 +105,7 @@ public class OrdersTotalServlet extends HttpServlet {
 					e.printStackTrace();
 					error.put("ship_price", "Ship_price must be an number");
 				}
-			}System.out.println(ship_price);
+			}
 			
 			int food_price = 0;
 			if(temp3!=null && temp3.length()!=0) {
@@ -115,7 +115,7 @@ public class OrdersTotalServlet extends HttpServlet {
 					e.printStackTrace();
 					error.put("food_price", "Food_price must be a number");
 				}
-			}System.out.println(food_price);
+			}
 			
 			int total_amount = 0;
 			if(temp4!=null && temp4.length()!=0) {
@@ -125,7 +125,7 @@ public class OrdersTotalServlet extends HttpServlet {
 					e.printStackTrace();
 					error.put("total_amount", "Total_amount must be a number");
 				}
-			}System.out.println(total_amount);
+			}
 			
 	//驗證資料
 			if("Insert".equals(orderaction) || "Update".equals(orderaction) || "Delete".equals(orderaction)) {

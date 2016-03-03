@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -61,9 +60,9 @@ public class OrdersTotalJDBC {
 		// System.out.println(beanDel);
 	}
 
-	private static final String SELECT = "select * from Orders_total where ordersID=?";
+	private static final String SELECT = "select * from Orders_total where account_UID=?";  //此處因登入後可抓到account_UID，故可以select自己的單(一般會員&店家皆是)
 
-	public OrdersTotalBean select(int ordersID) {
+	public OrdersTotalBean select(String account_UID) {
 		OrdersTotalBean result = null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -74,7 +73,7 @@ public class OrdersTotalJDBC {
 			conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(SELECT);
 
-			stmt.setInt(1, ordersID);
+			stmt.setString(1, account_UID);
 			rset = stmt.executeQuery();
 			if (rset.next()) {
 				result = new OrdersTotalBean();
@@ -185,12 +184,12 @@ public class OrdersTotalJDBC {
 		return items;
 	}
 
-	private static final String INSERT = "insert into Orders_total (Orders_total_UID, account_UID, status, name, cel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, pay_metho, insdate, ship_price, food_price, total_amount) OUTPUT INSERTED.ordersID values (NEWID(), NEWID(), 0, ?, ?, ?, ?, ?, ?, ?, getdate(), ?, ?, ?)";
+	private static final String INSERT = "insert into Orders_total (Orders_total_UID, account_UID, status, name, cel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, pay_metho, insdate, ship_price, food_price, total_amount) OUTPUT INSERTED.ordersID values (NEWID(), ?, 0, ?, ?, ?, ?, ?, ?, ?, getdate(), ?, ?, ?)";
 
 	public OrdersTotalBean insert(OrdersTotalBean bean) {
 		OrdersTotalBean result = null;
 		Connection conn = null;
-		PreparedStatement stmt = null;		 
+		PreparedStatement stmt = null;
 
 		try {
 			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
@@ -223,13 +222,14 @@ public class OrdersTotalJDBC {
 //			stmt.setString(2, bean.getAccount_UID());         測試用先塞NEWID()
 //			stmt.setInt(3, bean.getOrdersID());               流水號不塞資料  
 //			stmt.setString(4, bean.getStatus());		               預設狀態0
-			stmt.setString(1, bean.getName());
-			stmt.setString(2, bean.getCel());
-			stmt.setString(3, bean.getGUAR_CT());
-			stmt.setString(4, bean.getGUAR_AR());
-			stmt.setString(5, bean.getGUAR_ROAD());
-			stmt.setString(6, bean.getGUAR_NO());
-			stmt.setString(7, bean.getPay_metho());
+			stmt.setString(1, bean.getAccount_UID());
+			stmt.setString(2, bean.getName());
+			stmt.setString(3, bean.getCel());
+			stmt.setString(4, bean.getGUAR_CT());
+			stmt.setString(5, bean.getGUAR_AR());
+			stmt.setString(6, bean.getGUAR_ROAD());
+			stmt.setString(7, bean.getGUAR_NO());
+			stmt.setString(8, bean.getPay_metho());
 //			java.util.Date insdate = bean.getInsdate();
 //			if (insdate != null) {
 //				long time = insdate.getTime();
@@ -237,9 +237,9 @@ public class OrdersTotalJDBC {
 //			} else {
 //				stmt.setDate(12, null);
 //			}
-			stmt.setInt(8, bean.getShip_price());
-			stmt.setInt(9, bean.getFood_price());
-			stmt.setInt(10, bean.getTotal_amount());
+			stmt.setInt(9, bean.getShip_price());
+			stmt.setInt(10, bean.getFood_price());
+			stmt.setInt(11, bean.getTotal_amount());
 
 			stmt.execute();
 			ResultSet rs = stmt.getGeneratedKeys();
@@ -269,11 +269,13 @@ public class OrdersTotalJDBC {
 		return result;
 	}
 
-	private static final String UPDATE = "update Orders_total set account_UID=?, ordersID=?, status=?, name=?, cel=?, GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?, pay_metho=? ,insdate=?, ship_price=?, food_price=?, total_amount=? where Orders_total_UID=?";
+	private static final String UPDATE = "update Orders_total set status=?, name=?, cel=?, GUAR_CT=?, GUAR_AR=?, "
+			+ "GUAR_ROAD=?, GUAR_NO=?, pay_metho=? ,insdate=?, "
+			+ "ship_price=?, food_price=?, total_amount=? where ordersID=?";   //此處因ordersID為unique，故選為依據
 
-	public OrdersTotalBean update(String account_UID, int ordersID,String status, String name, String cel,
+	public OrdersTotalBean update(String status, String name, String cel,
 			String gUAR_CT, String gUAR_AR, String gUAR_ROAD, String gUAR_NO, String pay_metho, Date insdate,
-			int ship_price, int food_price, int total_amount, String orders_total_UID) {
+			int ship_price, int food_price, int total_amount, int ordersID) {
 		Connection conn = null;
 		PreparedStatement psStrUpd = null;
 		OrdersTotalBean result = null;
@@ -281,35 +283,32 @@ public class OrdersTotalJDBC {
 		try {
 			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			conn = dataSource.getConnection();
-			psStrUpd = conn.prepareStatement(UPDATE);
+			psStrUpd = conn.prepareStatement(UPDATE);						
 			
-			psStrUpd.setString(1, account_UID);
-			psStrUpd.setInt(2, ordersID);
-			psStrUpd.setString(3, status);
-			psStrUpd.setString(4, name);
-			psStrUpd.setString(5, cel);
-			psStrUpd.setString(6, gUAR_CT);
-			psStrUpd.setString(7, gUAR_AR);
-			psStrUpd.setString(8, gUAR_ROAD);
-			psStrUpd.setString(9, gUAR_NO);
-			psStrUpd.setString(10, pay_metho);
-
+			psStrUpd.setString(1, status);
+			psStrUpd.setString(2, name);
+			psStrUpd.setString(3, cel);
+			psStrUpd.setString(4, gUAR_CT);
+			psStrUpd.setString(5, gUAR_AR);
+			psStrUpd.setString(6, gUAR_ROAD);
+			psStrUpd.setString(7, gUAR_NO);
+			psStrUpd.setString(8, pay_metho);
 			if (insdate != null) {
 				long time = insdate.getTime();
-				psStrUpd.setDate(11, new java.sql.Date(time));
+				psStrUpd.setDate(9, new java.sql.Date(time));
 			} else {
-				psStrUpd.setDate(11, null);
+				psStrUpd.setDate(9, null);
 			}
-			psStrUpd.setInt(12, ship_price);
-			psStrUpd.setInt(13, food_price);
-			psStrUpd.setInt(14, total_amount);
-			psStrUpd.setString(15, orders_total_UID);
+			psStrUpd.setInt(10, ship_price);
+			psStrUpd.setInt(11, food_price);
+			psStrUpd.setInt(12, total_amount);
+			psStrUpd.setInt(13, ordersID);
 
 			int i = psStrUpd.executeUpdate();
 			if (i == 1) {
 				System.out.println("UPDATE Success!");
 				return result;
-				//result = this.select(orders_total_UID);				
+				//result = this.select(account_UID);				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
