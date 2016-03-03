@@ -21,7 +21,7 @@ import javax.sql.DataSource;
 
 import org.json.simple.JSONObject;
 @WebServlet(
-		urlPatterns={"/_08_Products/product.controller"}
+		urlPatterns={"/_08_GetStore/Store.controller"}
 		)
 public class _08_GetStoreServlet extends HttpServlet {
 
