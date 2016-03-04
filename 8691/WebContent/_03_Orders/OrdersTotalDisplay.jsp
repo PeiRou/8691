@@ -53,6 +53,7 @@
 								<c:param name="ordersID" value="${bean.ordersID}" />
 								<c:param name="name" value="${bean.name}" />
 								<c:param name="cel" value="${bean.cel}" />
+
 								<c:param name="GUAR_CT_name" value="${bean.GUAR_CT_name}" />
 								<c:param name="GUAR_AR_name" value="${bean.GUAR_AR_name}" />
 								<c:param name="GUAR_ROAD_name" value="${bean.GUAR_ROAD_name}" />
@@ -72,6 +73,7 @@
 							<td>${bean.GUAR_CT_name}</td>
 							<td>${bean.GUAR_AR_name}</td>
 							<td>${bean.GUAR_ROAD_name}</td>
+
 							<td>${bean.GUAR_CT}</td>
 							<td>${bean.GUAR_AR}</td>
 							<td>${bean.GUAR_ROAD}</td>

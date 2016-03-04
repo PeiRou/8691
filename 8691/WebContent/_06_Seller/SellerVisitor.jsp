@@ -52,7 +52,9 @@
 			
 			<tr>
 				<td>輸入您的密碼 :</td>
+
 				<td><input type="text" name="psd" value="${param.psd}" id="psdinput"><span id="psdsp" style="color:red"></span></td>
+
 				<td>${error.psd}</td>
 			</tr>
 			
@@ -254,6 +256,7 @@ $(function(){
 		            }
 		        }
 		        function chkFEIN() {
+<<<<<<< HEAD
 		        	var theFEIN = document.getElementById("FEINinput").value;
 		    		
 		            var FEINre = /^\d{8}$/;
@@ -316,6 +319,72 @@ $(function(){
 		            var thetel = document.getElementById("telinput").value;
 
 		            var telre = /[0-9]{2}\-[0-9]{7}/;
+=======
+		        	var chkFEIN = document.getElementById("FEINinput").value;
+		    		
+		            var FEINre = /^\d{8}$/;
+		
+		            if (FEINre.test(chkFEIN)) {
+		                document.getElementById("FEINsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/right.png' />";
+		                
+		            }   
+		             else {
+		                document.getElementById("FEINsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />格式錯誤";
+		               }
+		        } 
+		        
+		     
+		        function blur2() {
+		            if (document.getElementById("nameinput").value == "") {
+		            	document.getElementById("namesp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+		            }		            
+		        }
+		
+		        
+		        function blur3() {
+		            if (document.getElementById("acc_emailinput").value == "") {
+		                document.getElementById("acc_emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+		            }
+		            else if (document.getElementById("acc_emailinput").value != "") {
+		            	chkacc_email();          
+		            }
+		        }
+		        function chkacc_email() {
+		            var chkacc_email = document.getElementById("acc_emailinput").value;
+		
+		            var namere = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+		
+		            if (namere.test(chkacc_email)) {
+		                document.getElementById("acc_emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/right.png' />";
+		                
+		            }   
+		             else {
+		                document.getElementById("acc_emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />格式錯誤";
+		               }
+		        } 
+		        
+		        function blur4() {
+		            if (document.getElementById("psdinput").value == "") {
+		                document.getElementById("psdsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+		           
+		            }		            
+		        }
+		        
+		        
+		        function blur5() {
+		            if (document.getElementById("telinput").value == "") {
+		            	document.getElementById("teldsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+		            }
+		            else if (document.getElementById("telinput").value != "") {
+		                chktel();
+		            }
+		        }
+
+		        function chktel() {
+		            var thetel = document.getElementById("telinput").value;
+
+		            var telre = /^[02]{2}-[0-9]{8}$/;
+>>>>>>> branch 'master' of https://github.com/eeit83team05/8691.git
 
 		            if (telre.test(thetel)) {
 		            	document.getElementById("teldsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/right.png' />";

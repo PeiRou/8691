@@ -44,6 +44,7 @@ public class OrdersTotalServlet extends HttpServlet {
 		String temp3 = request.getParameter("food_price");
 		String temp4 = request.getParameter("total_amount");
 		String orderaction = request.getParameter("orderaction");
+
 		String GUAR_CT_name = request.getParameter("GUAR_CT_name");
 		String GUAR_AR_name = request.getParameter("GUAR_AR_name");
 		String GUAR_ROAD_name = request.getParameter("GUAR_ROAD_name");
@@ -177,8 +178,10 @@ public class OrdersTotalServlet extends HttpServlet {
 			if("Select".equals(orderaction)) {
 				List<OrdersTotalBean> result = ordersTotalService.select(bean);
 				request.setAttribute("select", result);
+
 //				List<OrdersTotalBean> result2 = ordersTotalService.select(beanAR);
 //				request.setAttribute("select2", result2);
+
 				System.out.println(result);
 				request.getRequestDispatcher(
 						"/_03_Orders/OrdersTotalDisplay.jsp").forward(request, response);

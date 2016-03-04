@@ -32,9 +32,11 @@
 			<div class="box">		
 				<div class="col-lg-12 text-center">
 					<form action="<c:url value="/MemberServlet" />" method="post" >
+
 						<h2>親愛的會員您好</h2>
 					<input class="btn btn-primary" type="button" value="點我看訂單" onclick="location.href='<%= request.getContextPath() %>/_03_Orders/OrdersTotal.jsp'"> 
 					<a href="<%= request.getContextPath() %>/_04_Members/InfoUpdate.jsp"><img src="<%= request.getContextPath() %>/img/sellerpartner.jpg" border="0" ></a>
+
 					
 					</form>
 				</div>
