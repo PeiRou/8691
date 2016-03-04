@@ -34,7 +34,7 @@
 
 						<h1>管理者介面</h1>
 						
-						
+<form action="<c:url value='/_06_Seller/SellerVisitorServlet' />" method="post">
 
 
 

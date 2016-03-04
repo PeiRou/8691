@@ -52,7 +52,7 @@
 			
 			<tr>
 				<td>輸入您的密碼 :</td>
-				<td><input type="text" name="psd" value="${param.psd}" id="psdinput"><span id="psdsp" style="color:red"></span></td>
+				<td><input type="password" name="psd" value="${param.psd}" id="psdinput"><span id="psdsp" style="color:red"></span></td>
 				<td>${error.psd}</td>
 			</tr>
 			
@@ -254,7 +254,7 @@ $(function(){
 		            }
 		        }
 		        function chkFEIN() {
-		        	var theFEIN = document.getElementById("FEINinput").value;
+		        	var chkFEIN = document.getElementById("FEINinput").value;
 		    		
 		            var FEINre = /^\d{8}$/;
 		
@@ -300,8 +300,10 @@ $(function(){
 		        function blur4() {
 		            if (document.getElementById("psdinput").value == "") {
 		                document.getElementById("psdsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+		           
 		            }		            
 		        }
+		        
 		        
 		        function blur5() {
 		            if (document.getElementById("telinput").value == "") {
@@ -315,7 +317,7 @@ $(function(){
 		        function chktel() {
 		            var thetel = document.getElementById("telinput").value;
 
-		            var telre = /[0-9]{2}\-[0-9]{7}/;
+		            var telre = /^[02]{2}-[0-9]{8}$/;
 
 		            if (telre.test(thetel)) {
 		            	document.getElementById("teldsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/right.png' />";

@@ -47,7 +47,7 @@
 			</tr>
 			<tr>
 				<td class="text-right">請設定您的密碼 :</td>
-				<td><input type="password" name="psd" value="${param.psd}" id="pwdinput"><span id="pwdsp" style="color:red"></span></td>
+				<td><input type="password" name="pwd" value="${param.psd}" id="pwdinput"><span id="pwdsp" style="color:red"></span></td>
 				<td>${error.psd}</td>
 			</tr>
 			<tr>
