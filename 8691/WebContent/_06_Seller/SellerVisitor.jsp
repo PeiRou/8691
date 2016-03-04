@@ -12,10 +12,10 @@
     <title>About - Business Casual - Start Bootstrap Theme</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="<%= request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="<%= request.getContextPath() %>/css/business-casual.css" rel="stylesheet">
+    <link href="<%=request.getContextPath() %>/css/business-casual.css" rel="stylesheet">
 
     <!-- Fonts -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
@@ -36,78 +36,110 @@
 		<table>
 			<tr>
 				<td>輸入您的統一編號 :</td>
-				<td><input type="text" name="FEIN" value="${param.FEIN}"></td>
-				<td></td>
+				<td><input type="text" name="FEIN" value="${param.FEIN}" id="FEINinput"><span id="FEINsp" style="color:red"></span></td>
+				<td>${error.FEIN}</td>
 			</tr>
 			<tr>
 				<td>輸入您的店家名稱 :</td>
-				<td><input type="text" name="name" value="${param.name}"></td>
+				<td><input type="text" name="name" value="${param.name}" id="nameinput"><span id="namesp" style="color:red"></span></td>
 				<td>${error.name}</td>
 			</tr>
 			<tr>
 				<td>輸入您的帳號 或 email :</td>
-				<td><input type="text" name="acc_email" value="${param.acc_email}"></td>
+				<td><input type="text" name="acc_email" value="${param.acc_email}" id="acc_emailinput"><span id="acc_emailsp" style="color:red"></span></td>
 				<td>${error.acc_email}</td>
 			</tr>
+			
 			<tr>
 				<td>輸入您的密碼 :</td>
-				<td><input type="text" name="psd" value="${param.psd}"></td>
+				<td><input type="text" name="psd" value="${param.psd}" id="psdinput"><span id="psdsp" style="color:red"></span></td>
 				<td>${error.psd}</td>
 			</tr>
 			
 			
-		     <tr height='36'>
+		   <!--   <tr height='36'>
 		    <td>輸入您的店家圖片:</td>
-<!-- 		        <td width="45" align="center" class="title_font">圖片</td> -->
+		        <td width="45" align="center" class="title_font">圖片</td> 
 		        <td colspan="3">
 		            <input style="background:#FFFFFF" class='InputClass'  type="file" 
 		            name="uploadFile" size="40" />    
-		    </tr>
+		    </tr>-->
 			
 
 			<tr>
 				<td>輸入您的連絡市話  :</td>
-				<td><input type="text" name="phone" value="${param.tel}"></td>
+				<td><input type="text" name="tel" value="${param.tel}" placeholder="Ex:02-23456789" id="telinput"><span id="teldsp" style="color:red"></span></td>
 				<td>${error.tel}</td>
 			</tr>
 			<tr>
-				<td>住址(縣/市) : </td>
-				<td><input type="text" name="GUAR_CT" value="${param.GUAR_CT}"></td>
+				<td>請輸入您住的縣市 :</td>
+				<td><select name="GUAR_CT" size="1" value="${param.GUAR_CT}">
+												<option value="" selected>請選擇</option>
+						                        <option value="A">臺北市</option>
+											    <option value="B">臺中市 </option>
+												<option value="C">基隆市</option>
+											    <option value="D">臺南市</option>
+												<option value="E">高雄市</option>
+												<option value="F">新北市</option>
+												<option value="G">宜蘭縣</option>
+												<option value="H">桃園市</option>
+												<option value="I">嘉義市</option>
+												<option value="J">新竹縣</option>
+												<option value="K">苗栗縣</option>
+												<option value="L">南投縣</option>
+												<option value="M">彰化縣</option>
+												<option value="N">新竹市</option>
+												<option value="O">雲林縣</option>
+												<option value="P">嘉義縣</option>
+												<option value="Q">屏東縣</option>
+												<option value="R">花蓮縣</option>
+												<option value="S">臺東縣</option>
+												<option value="T">金門縣</option>
+												<option value="U">澎湖縣</option>
+												<option value="V">連江縣</option>
+						
+				</select></td>
 				<td>${error.GUAR_CT}</td>
 			</tr>
 			<tr>
 				<td>住址(區/鄉/鎮/市) : </td>
 				<td>
 <!-- 				<select name="GUAR_AR" ></select> -->
-				<select id="select1" >
+				<select id="select1" name="GUAR_AR">
 				<option value="" selected>請選擇</option>
 				</select>
-				</td>
+				<td>${error.GUAR_AR}</td>
 			</tr>
 			<tr>
 				<td>住址(路/街/巷) : </td>
 <%-- 				<td><input type="text" name="GUAR_ROAD" value="${param.GUAR_ROAD}"></td> --%>
-                <td><input type="text" id="keyword"><input id="textval" type="text" style="display:none"><td>${error.GUAR_ROAD}</td></td>
-			</tr>
+                <td><input type="text" id="keyword"><input id="textval" type="text" name="GUAR_ROAD" style="display:none"><span id="roadsp" style="color:red"></span></td><td>${error.GUAR_ROAD}</td>
+			</tr>                                                        
 			<tr>
 			<td></td>
 			<td id="tb"></td>
 			</tr>
 			<tr>
 				<td>住址(號) : </td>
-				<td><input type="text" name="GUAR_NO" value="${param.GUAR_NO}"></td>
+				<td><input type="text" name="GUAR_NO" value="${param.GUAR_NO}" id="GUAR_NOinput"><span id="GUAR_NOsp" style="color:red"></span></td>
 				<td>${error.GUAR_NO}</td>
 			</tr>
 			<tr>
 				<td>輸入聯絡人姓名 :</td>
-				<td><input type="text" name="Con_name" value="${param.Con_name}"></td>
+				<td><input type="text" name="Con_name" value="${param.Con_name}" id="Con_nameinput"><span id="Con_namesp" style="color:red"></span></td>
 				<td>${error.Con_name}</td>
 			</tr>
 			<tr>
 				<td>輸入連絡人手機 :</td>
 				<td><input type="text" name="Con_cel"
-					value="${param.Con_cel}"></td>
+					value="${param.Con_cel}" placeholder="Ex:0912345678" id="Con_celinput"><span id="Con_celsp" style="color:red"></span></td>
 				<td>${error.Con_cel}</td>
+			</tr>
+			<tr>
+				<td>輸入備用EMAIL :</td>
+				<td><input type="text" name="email2"
+					value="${param.email2}" id="email2input"><span id="email2sp" style="color:red"></span></td>
+				<td>${error.email2}</td>
 			</tr>
 				<tr>
 				<td>收款方式 : </td>
@@ -123,7 +155,7 @@
 				
 			
 			<tr>
-				<td align="right"><input type="submit" value="註冊"></td>
+				<td align="right"><input class="btn btn-primary" type="submit" value="註冊"></td>
 			</tr>
 		</table>
 	</form>
@@ -198,6 +230,170 @@ $(function(){
 			});
 	   };
 </script>
+<script>
+		        window.onload = function () {
+		            document.getElementById("FEINinput").onblur = blur;
+		            document.getElementById("nameinput").onblur = blur2;
+		            document.getElementById("acc_emailinput").onblur = blur3;
+		            document.getElementById("psdinput").onblur = blur4;
+		            document.getElementById("telinput").onblur = blur5;
+		            document.getElementById("keyword").onblur = blur6;
+		            document.getElementById("GUAR_NOinput").onblur = blur7;
+		            document.getElementById("Con_nameinput").onblur = blur8;
+		            document.getElementById("Con_celinput").onblur = blur9;
+		            document.getElementById("email2input").onblur = blur10;
+		        
+		        }
+		     
+		        function blur() {
+		            if (document.getElementById("FEINinput").value == "") {
+		                document.getElementById("FEINsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+		            }
+		            else if (document.getElementById("FEINinput").value != "") {
+		            	chkFEIN();          
+		            }
+		        }
+		        function chkFEIN() {
+		        	var theFEIN = document.getElementById("FEINinput").value;
+		    		
+		            var FEINre = /^\d{8}$/;
+		
+		            if (FEINre.test(chkFEIN)) {
+		                document.getElementById("FEINsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/right.png' />";
+		                
+		            }   
+		             else {
+		                document.getElementById("FEINsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />格式錯誤";
+		               }
+		        } 
+		        
+		     
+		        function blur2() {
+		            if (document.getElementById("nameinput").value == "") {
+		            	document.getElementById("namesp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+		            }		            
+		        }
+		
+		        
+		        function blur3() {
+		            if (document.getElementById("acc_emailinput").value == "") {
+		                document.getElementById("acc_emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+		            }
+		            else if (document.getElementById("acc_emailinput").value != "") {
+		            	chkacc_email();          
+		            }
+		        }
+		        function chkacc_email() {
+		            var chkacc_email = document.getElementById("acc_emailinput").value;
+		
+		            var namere = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+		
+		            if (namere.test(chkacc_email)) {
+		                document.getElementById("acc_emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/right.png' />";
+		                
+		            }   
+		             else {
+		                document.getElementById("acc_emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />格式錯誤";
+		               }
+		        } 
+		        
+		        function blur4() {
+		            if (document.getElementById("psdinput").value == "") {
+		                document.getElementById("psdsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+		            }		            
+		        }
+		        
+		        function blur5() {
+		            if (document.getElementById("telinput").value == "") {
+		            	document.getElementById("teldsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+		            }
+		            else if (document.getElementById("telinput").value != "") {
+		                chktel();
+		            }
+		        }
+
+		        function chktel() {
+		            var thetel = document.getElementById("telinput").value;
+
+		            var telre = /[0-9]{2}\-[0-9]{7}/;
+
+		            if (telre.test(thetel)) {
+		            	document.getElementById("teldsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/right.png' />";
+
+		            }
+		            else {
+		            	document.getElementById("teldsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />格式錯誤";
+		            }
+		        }
+		        
+		        function blur6() {
+		            if (document.getElementById("keyword").value == "") {
+		            	document.getElementById("roadsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+		            }		            
+		        }
+		        
+		        function blur7() {
+		            if (document.getElementById("GUAR_NOinput").value == "") {
+		            	document.getElementById("GUAR_NOsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+		            }		            
+		        }
+		        
+		        function blur8() {
+		            if (document.getElementById("Con_nameinput").value == "") {
+		            	document.getElementById("Con_namesp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+		            }		            
+		        }
+		        
+		        function blur9() {
+		            if (document.getElementById("Con_celinput").value == "") {
+		            	document.getElementById("Con_celsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+		            }
+		            else if (document.getElementById("Con_celinput").value != "") {
+		                chkCon_cel();
+		            }
+		        }
+
+		        function chkCon_cel() {
+		            var theCon_cel = document.getElementById("Con_celinput").value;
+
+		            var Con_celre = /^09[0-9]{8}$/;
+
+		            if (Con_celre.test(theCon_cel)) {
+		            	document.getElementById("Con_celsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/right.png' />";
+
+		            }
+		            else {
+		            	document.getElementById("Con_celsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />格式錯誤";
+		            }
+		        }
+		        
+		        
+		        function blur10() {
+		            if (document.getElementById("email2input").value == "") {
+		                document.getElementById("email2sp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+		            }
+		            else if (document.getElementById("email2input").value != "") {
+		            	chkemail2();          
+		            }
+		        }
+		        function chkemail2() {
+		            var chkemail2 = document.getElementById("email2input").value;
+		
+		            var namere = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+		
+		            if (namere.test(chkemail2)) {
+		                document.getElementById("email2sp").innerHTML = "<img src='<%= request.getContextPath() %>/img/right.png' />";
+		                
+		            }   
+		             else {
+		                document.getElementById("email2sp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />格式錯誤";
+		               }
+		        } 
+		        
+		        
+		        
+		        
+        </script>
 
 
 				</div>

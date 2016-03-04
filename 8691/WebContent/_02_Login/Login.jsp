@@ -39,12 +39,15 @@
 				<div class="col-lg-12 text-center">
 				<form action="<c:url value="/_02_Login/login.controller" />" method="post" >
 					<h2 class="intro-text text-center">					
-					帳號 :<input type="text" name="acc_email"	value="${param.acc_email}"></h2>
-					<h5 class="intro-text text-center">${error.acc_email}</h5>
+					帳號 :<input type="text" name="acc_email"	 id="emailinput" value="${param.acc_email}"><span id="emailsp" style="color:red"></span></h2>
+					<h3 class="intro-text text-center">${error.acc_email}</h3>
+					
+
 					<h2 class="intro-text text-center">
-					密碼 :<input type="password" name="psd" value="${param.psd}"></h2>
-					<h5 class="intro-text text-center" class="red">${error.psd}${error.loginfail}</h5>
-<%-- 					<h5 class="intro-text text-center">${error.loginfail}</h5> --%>
+					密碼 :<input type="password" name="psd"  id="pwdinput" value="${param.psd}"><span id="pwdsp" style="color:red"></span></h2>
+					<h3 class="intro-text text-center" >${error.psd}${error.loginfail}</h3>
+					
+					
                     <div class="checkbox">
 			          	<label><input type="checkbox"> Remember me</label>
 			        </div>
@@ -57,6 +60,39 @@
 
 	</div>
 	<!-- /.container -->
+	<script>
+        window.onload = function () {
+            document.getElementById("emailinput").onblur = blur;
+            document.getElementById("pwdinput").onblur = blur2;            
+        }
+        
+        function blur() {
+            if (document.getElementById("emailinput").value == "") {
+                document.getElementById("emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+            }
+            else if (document.getElementById("emailinput").value != "") {
+                chkemail();          
+            }
+        }
+
+        function chkemail() {
+            var theemail = document.getElementById("emailinput").value;      
+            if (namere.test(theemail)) {
+                document.getElementById("emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/right.png' />";
+            }   
+             else {
+                document.getElementById("emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />格式錯誤";
+               }
+        }        
+
+
+        function blur2() {
+            if (document.getElementById("pwdinput").value == "") {
+                document.getElementById("pwdsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+            }            
+        }
+        
+    </script>
 
     <footer>
         <div class="container">

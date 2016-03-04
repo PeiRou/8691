@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.action.extension" value="controller"></constant>
+	<constant name="struts.multipart.maxSize" value="30000000" />
+
+
+	<package name="function1" namespace="/secure" extends="struts-default">
+
+		<action name="product" class="controller.UploadAction">
+			<interceptor-ref name="fileUpload">
+				<param name="maximumSize">2097152</param>
+				<param name="allowedTypes">image/pjpeg,image/gif,image/jpeg,image/png,image/x-png</param>
+			</interceptor-ref>
+
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="input">/secure/product.jsp</result>
+			<result name="success">/secure/OutPicture.jsp</result>
+		</action>
+		<action name="GetImage" class="controller.GetImageAction">
+			<result name="success">
+			</result>
+		</action>
+	</package>
+</struts>

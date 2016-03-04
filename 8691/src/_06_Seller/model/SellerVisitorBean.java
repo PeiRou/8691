@@ -6,7 +6,7 @@ import java.util.Date;
 public class SellerVisitorBean {
 	public SellerVisitorBean(String Account_UID,String FEIN, String name,Blob Seller_photo,
 			String tel, String GUAR_CT, String GUAR_AR, String GUAR_ROAD, String GUAR_NO,String email2, 
-			String Con_name, String Con_cel,String receipts_metho, boolean IS_check, boolean IS_cooperation, Date insdate) {
+			String Con_name, String Con_cel,String receipts_metho, boolean IS_check, boolean IS_cooperation, String insdate) {
 		
 		this.Account_UID = Account_UID;
 		this.FEIN=FEIN;
@@ -44,7 +44,7 @@ public class SellerVisitorBean {
 	private		String	receipts_metho;
 	private		boolean	IS_check;
 	private		boolean	IS_cooperation;
-	private		java.util.Date	insdate;
+	private		String	insdate;
 	
 	
 	public String getAccount_UID() {
@@ -181,11 +181,11 @@ public class SellerVisitorBean {
 		IS_cooperation = iS_cooperation;
 	}
 
-	public java.util.Date getInsdate() {
+	public String getInsdate() {
 		return insdate;
 	}
 
-	public void setInsdate(java.util.Date insdate) {
+	public void setInsdate(String insdate) {
 		this.insdate = insdate;
 	}
 	public SellerVisitorBean() {
@@ -194,11 +194,13 @@ public class SellerVisitorBean {
 	}
 	@Override
 	public String toString() {
-		return "Seller_visitorBean [account_UID=" + Account_UID + ", FEIN=" + FEIN + ", name=" + name + ",Seller_photo=" + Seller_photo + ", tel=" + tel + ", GUAR_CT=" + GUAR_CT + ", GUAR_AR=" + GUAR_AR
-				+ ", GUAR_ROAD=" + GUAR_ROAD + ", GUAR_NO=" + GUAR_NO + ", email2=" + email2 + ", Con_name=" + Con_name
-				+ ", Con_cel=" + Con_cel + ", receipts_metho=" + receipts_metho + ", IS_check=" + IS_check
-				+ ", IS_cooperation=" + IS_cooperation + ", insdate=" + insdate + "]";
+		return "SellerVisitorBean [Account_UID=" + Account_UID + ", FEIN=" + FEIN + ", name=" + name + ", Seller_photo="
+				+ Seller_photo + ", tel=" + tel + ", GUAR_CT=" + GUAR_CT + ", GUAR_AR=" + GUAR_AR + ", GUAR_ROAD="
+				+ GUAR_ROAD + ", GUAR_NO=" + GUAR_NO + ", email2=" + email2 + ", Con_name=" + Con_name + ", Con_cel="
+				+ Con_cel + ", receipts_metho=" + receipts_metho + ", IS_check=" + IS_check + ", IS_cooperation="
+				+ IS_cooperation + ", insdate=" + insdate + "]";
 	}
+	
 	
 	
 	

@@ -8,14 +8,16 @@ public class OrdersTotalService {
 	private OrdersTotalJDBC ordersTotalDao = new OrdersTotalJDBC();
 	public List<OrdersTotalBean> select(OrdersTotalBean bean) {
 		List<OrdersTotalBean> result = null;
-		if(bean!=null && bean.getOrdersID()!=0) {
-			OrdersTotalBean temp = ordersTotalDao.select(bean.getOrdersID());
+		if(bean!=null && bean.getAccount_UID().length()!=0) {
+			List<OrdersTotalBean> temp = ordersTotalDao.select(bean.getAccount_UID());
 			if(temp!=null) {
 				result = new ArrayList<OrdersTotalBean>();
-				result.add(temp);
+				result.addAll(temp);
+				System.out.println(bean);
+				System.out.println(temp);
 			}
 		} else {
-			result = ordersTotalDao.select(); 
+			//result = ordersTotalDao.select(); 
 		}
 		return result;
 	}
@@ -23,22 +25,22 @@ public class OrdersTotalService {
 //		OrdersTotalBean result = null;
 //		if(bean!=null) {
 //			result = ordersTotalDao.insert(bean);
+//			return result;
 //		}
-//		return result;
+//		return null;
 //	}
 //	public OrdersTotalBean update(OrdersTotalBean bean) {
 //		OrdersTotalBean result = null;
 //		if(bean!=null) {
-//			result = ordersTotalDao.update(bean.getOrders_total_UID(), bean.getMember_UID(),
-//					bean.getStatus(), bean.getName(), bean.getCel(), bean.getGUAR_CT(), bean.getGUAR_AR(),
+//			result = ordersTotalDao.update(bean.getStatus(), bean.getName(), bean.getCel(), bean.getGUAR_CT(), bean.getGUAR_AR(),
 //					bean.getGUAR_ROAD(), bean.getGUAR_NO(), bean.getPay_metho(), bean.getInsdate(),
-//					bean.getShip_price(),bean.getFood_price(),bean.getTotal_amount(), bean.getOrders_ID());
+//					bean.getShip_price(),bean.getFood_price(),bean.getTotal_amount(), bean.getOrdersID());
 //		}
 //		return result;
 //	}
 //	public boolean delete(OrdersTotalBean bean) {
 //		if(bean!=null) {
-//			int i = ordersTotalDao.delete(bean.getOrders_ID());
+//			int i = ordersTotalDao.delete(bean.getOrdersID());
 //			if(i==1) {
 //				return true;
 //			}

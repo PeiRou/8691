@@ -5,9 +5,8 @@ import java.sql.Timestamp;
 
 public class MemberBean {
 	private String account_UID;
-	private String member_ID;
 	private String name;
-	private Blob member_photo;
+	//private Blob member_photo;
 	private String gender;
 	private String tel;
 	private String GUAR_CT;
@@ -16,18 +15,16 @@ public class MemberBean {
 	private String GUAR_NO;
 	private String email2;
 	private String cel;
-	private java.util.Date insdate;
-
+    private String insdate;
 	
 	public MemberBean(){};
 
 	//未加入blob
-	public MemberBean(String account_UID, String member_ID, String name,
+	public MemberBean(String account_UID, String name,
 			String gender, String tel, String gUAR_CT, String gUAR_AR, String gUAR_ROAD, String gUAR_NO, String email2,
-			String cel, java.util.Date insdate) {
+			String cel, String insdate) {
 		super();
 		this.account_UID = account_UID;
-		this.member_ID = member_ID;
 		this.name = name;
 		this.gender = gender;
 		this.tel = tel;
@@ -42,10 +39,9 @@ public class MemberBean {
 
 	@Override
 	public String toString() {
-		return "MemberBean [account_UID=" + account_UID + ", member_ID=" + member_ID + ", name=" + name
-				+ ", member_photo=" + member_photo + ", gender=" + gender + ", tel=" + tel + ", GUAR_CT=" + GUAR_CT
-				+ ", GUAR_AR=" + GUAR_AR + ", GUAR_ROAD=" + GUAR_ROAD + ", GUAR_NO=" + GUAR_NO + ", email2=" + email2
-				+ ", cel=" + cel + ", insdate=" + insdate + "]";
+		return "MemberBean [account_UID=" + account_UID + ", name=" + name + ", gender=" + gender + ", tel=" + tel
+				+ ", GUAR_CT=" + GUAR_CT + ", GUAR_AR=" + GUAR_AR + ", GUAR_ROAD=" + GUAR_ROAD + ", GUAR_NO=" + GUAR_NO
+				+ ", email2=" + email2 + ", cel=" + cel + ", insdate=" + insdate + "]";
 	}
 
 	public String getAccount_UID() {
@@ -56,28 +52,12 @@ public class MemberBean {
 		this.account_UID = account_UID;
 	}
 
-	public String getMember_ID() {
-		return member_ID;
-	}
-
-	public void setMember_ID(String member_ID) {
-		this.member_ID = member_ID;
-	}
-
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Blob getMember_photo() {
-		return member_photo;
-	}
-
-	public void setMember_photo(Blob member_photo) {
-		this.member_photo = member_photo;
 	}
 
 	public String getGender() {
@@ -144,16 +124,18 @@ public class MemberBean {
 		this.cel = cel;
 	}
 
-	public java.util.Date getInsdate() {
+	public String getInsdate() {
 		return insdate;
 	}
 
-	public void setInsdate(java.util.Date insdate) {
+	public void setInsdate(String insdate) {
 		this.insdate = insdate;
 	}
-
 	
-	}
+
+}
+
+
 	
 
 	

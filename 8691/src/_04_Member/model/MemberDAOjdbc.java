@@ -29,8 +29,8 @@ public class MemberDAOjdbc implements MemberDAO {
 	}
 	
 	public static void main(String[] args){
-		//MemberDAOjdbc dao = new MemberDAOjdbc();
-		//select
+//		MemberDAOjdbc dao = new MemberDAOjdbc();
+//		select
 //	    MemberBean beanSelect = dao.select("87B6061E-4C34-4F1A-843F-032EC7D44125");
 //		System.out.println(beanSelect);
 
@@ -39,7 +39,8 @@ public class MemberDAOjdbc implements MemberDAO {
 //		System.out.println(SelectAll);
 		
 //      insert
-//	    MemberBean beanIns = new MemberBean("newID()","Marcus Lo", "bc", "zzzzz","YYYYY",true,"0204388488","DFGDFSG","ESWFEWFEfe","EWFEWFFEWF","djdjhjd","fsafdasfa","afdsafsfas", new java.util.Date());
+//	    MemberBean beanIns = new MemberBean("117EA040-ECA2-4B05-A70D-9EFEA6346796","Marcus wo", "男", "7782406836","A","106","110","1號1樓","Marcuswo@Foodmail.com","0910111111");
+//	                                                      account_UID, member_ID, name, gender, tel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, email2, cel, insdate
 //	    dao.insert(beanIns);
 //		System.out.println(beanIns);
 		
@@ -66,9 +67,8 @@ public class MemberDAOjdbc implements MemberDAO {
 			if (rset.next()) {
 				result = new MemberBean();
 				result.setAccount_UID(rset.getString("account_UID"));
-				result.setMember_ID(rset.getString("member_ID"));
 				result.setName(rset.getString("name"));
-				result.setMember_photo(rset.getBlob("member_photo"));
+				//result.setMember_photo(rset.getBlob("member_photo"));
 				result.setGender(rset.getString("gender"));
 				result.setTel(rset.getString("tel"));
 				result.setGUAR_CT(rset.getString("GUAR_CT"));
@@ -77,7 +77,7 @@ public class MemberDAOjdbc implements MemberDAO {
 				result.setGUAR_NO(rset.getString("GUAR_NO"));
 				result.setEmail2(rset.getString("email2"));
 				result.setCel(rset.getString("Cel"));
-				result.setInsdate(rset.getDate("insdate"));}
+				result.setInsdate(rset.getString("insdate"));}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -124,9 +124,8 @@ public class MemberDAOjdbc implements MemberDAO {
 
 			while(rset.next()){
 				result = new MemberBean();
-				result.setMember_ID(rset.getString("member_ID"));
 				result.setName(rset.getString("name"));
-				result.setMember_photo(rset.getBlob("member_photo"));
+				//result.setMember_photo(rset.getBlob("member_photo"));
 				result.setGender(rset.getString("gender"));
 				result.setTel(rset.getString("tel"));
 				result.setGUAR_CT(rset.getString("GUAR_CT"));
@@ -135,7 +134,7 @@ public class MemberDAOjdbc implements MemberDAO {
 				result.setGUAR_NO(rset.getString("GUAR_NO"));
 				result.setEmail2(rset.getString("email2"));
 				result.setCel(rset.getString("cel"));
-				result.setInsdate(rset.getDate("insdate"));
+				result.setInsdate(rset.getString("insdate"));
 				items.add(result);
 			}
 		} catch (SQLException e) {
@@ -167,13 +166,12 @@ public class MemberDAOjdbc implements MemberDAO {
 	}
 				
 	private static final String UPDATE =
-			"update Member set name=?, member_photo=?, gender=?, tel=?, GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?, email2=?, cel=?, insdate=? where account_UID=?";
-
+			"update Member set name=?, gender=?, tel=?, GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?, email2=?, cel=? where account_UID=?";
+//member_photo=?, 
 @Override
 public MemberBean update(
-		//String member_ID,
 		String name,
-		Blob member_photo,
+		//Blob member_photo,
 		String gender,
 		String tel,
 		String GUAR_CT,
@@ -182,7 +180,7 @@ public MemberBean update(
 		String GUAR_NO,
 		String email2,
 		String cel,
-		java.util.Date insdate,
+		//java.util.Date insdate,
 		String account_UID)
 {
 	MemberBean result = null;
@@ -192,24 +190,23 @@ public MemberBean update(
 			conn = ds.getConnection();
 			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			psStrUpd = conn.prepareStatement(UPDATE);
-			//psStrUpd.setString(1, member_ID);
 			psStrUpd.setString(1, name);
-			psStrUpd.setBlob(2, member_photo);
-			psStrUpd.setString(3, gender);
-			psStrUpd.setString(4, tel);
-			psStrUpd.setString(5, GUAR_CT);
-			psStrUpd.setString(6, GUAR_AR);
-			psStrUpd.setString(7, GUAR_ROAD);
-			psStrUpd.setString(8, GUAR_NO);
-			psStrUpd.setString(9, email2);
-			psStrUpd.setString(10, cel);
-			if (insdate != null) {
-				long time = insdate.getTime();
-				psStrUpd.setDate(11, new java.sql.Date(time));
-			} else {
-				psStrUpd.setDate(11, null);
-			}
-			psStrUpd.setString(12, account_UID);
+			//psStrUpd.setBlob(2, member_photo);
+			psStrUpd.setString(2, gender);
+			psStrUpd.setString(3, tel);
+			psStrUpd.setString(4, GUAR_CT);
+			psStrUpd.setString(5, GUAR_AR);
+			psStrUpd.setString(6, GUAR_ROAD);
+			psStrUpd.setString(7, GUAR_NO);
+			psStrUpd.setString(8, email2);
+			psStrUpd.setString(9, cel);
+//			if (insdate != null) {
+//				long time = insdate.getTime();
+//				psStrUpd.setDate(11, new java.sql.Date(time));
+//			} else {
+//				psStrUpd.setDate(11, null);
+//			}
+			psStrUpd.setString(10, account_UID);
 			int i = psStrUpd.executeUpdate();
 			if(i==1){
 				System.out.println(result);
@@ -237,41 +234,32 @@ public MemberBean update(
 	}
 	
 	private static final String INSERT =
-			"insert into member (account_UID, member_ID, name, acc_email, psd, member_photo, gender, tel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, email2, cel, insdate) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
+			"insert into member (account_UID, name, gender, tel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, email2, cel, insdate) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+// member_photo, 
 	@Override
-	public MemberBean insert(MemberBean bean) {
+	public MemberBean insert(MemberBean bean1) {
 		MemberBean result = null;
 		Connection conn = null;
 		PreparedStatement psStrUpd = null;
 		try {
-			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			conn = ds.getConnection();
 			psStrUpd = conn.prepareStatement(INSERT);
-			psStrUpd.setString(1, bean.getAccount_UID());
-			psStrUpd.setString(2, bean.getMember_ID());
-			psStrUpd.setString(3, bean.getName());
-			//psStrUpd.setString(3, bean.getAcc_email());
-			//psStrUpd.setString(4, bean.getPsd());
-			psStrUpd.setBlob(4, bean.getMember_photo());
-			psStrUpd.setString(5, bean.getGender());
-			psStrUpd.setString(6, bean.getTel());
-			psStrUpd.setString(7, bean.getGUAR_CT());
-			psStrUpd.setString(8, bean.getGUAR_AR());
-			psStrUpd.setString(9, bean.getGUAR_ROAD());
-			psStrUpd.setString(10, bean.getGUAR_NO());
-			psStrUpd.setString(11, bean.getEmail2());
-			psStrUpd.setString(12, bean.getCel());
-			if (bean.getInsdate() != null) {
-				long time = bean.getInsdate().getTime();
-				psStrUpd.setDate(13, new java.sql.Date(time));
-			} else {
-				psStrUpd.setDate(13, null);
-			}
-			
+			psStrUpd.setString(1, bean1.getAccount_UID());
+			psStrUpd.setString(2, bean1.getName());
+			//psStrUpd.setBlob(4, bean.getMember_photo());
+			psStrUpd.setString(3, bean1.getGender());
+			psStrUpd.setString(4, bean1.getTel());
+			psStrUpd.setString(5, bean1.getGUAR_CT());
+			psStrUpd.setString(6, bean1.getGUAR_AR());
+			psStrUpd.setString(7, bean1.getGUAR_ROAD());
+			psStrUpd.setString(8, bean1.getGUAR_NO());
+			psStrUpd.setString(9, bean1.getEmail2());
+		    psStrUpd.setString(10, bean1.getCel());
+		    psStrUpd.setString(11, bean1.getInsdate());
+		   
 			int i = psStrUpd.executeUpdate();
 			if(i==1){
-				result = select(bean.getAccount_UID());
+				result = select(bean1.getAccount_UID());
 				return result;
 			}
 		} catch (SQLException e) {

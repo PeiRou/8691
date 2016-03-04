@@ -33,28 +33,30 @@
 	<div class="container">
 		<div class="row">
 			<div class="box">
-				<div class="col-md-6">
-				<form name="Register" action="<c:url value='/page/register.controller' />" method="post">
-<h2>註冊為一般會員</h2>
-<table>
+				<div class="col-md-12">
+				<form name="Register" action="<c:url value='/register.controller' />" method="post">
+			<h2 class="text-center">註冊為一般會員</h2>
+			<table class="table">
+			
 			<tr>
-				<td>請輸入您的名字 :</td>
-				<td><input type="text" name="name" value="${param.name}"></td>
-				<td>${error.name}</td>
-			</tr>
-			<tr>
-				<td>請輸入您的E-mail, 此E-mail將成為您的帳號 :</td>
-				<td><input type="text" name="acc_email"
-					value="${param.acc_email}"></td>
+				<td class="text-right">請輸入您的E-mail:</td>
+				<td><input type="text" name="acc_email" id="emailinput"
+					value="${param.acc_email}" placeholder="此E-mail將成為您的帳號 "><span id="emailsp" style="color:red"></span></td>
 				<td>${error.acc_email}</td>
+				
 			</tr>
 			<tr>
-				<td>請設定您的密碼 :</td>
-				<td><input type="password" name="psd" value="${param.psd}"></td>
+				<td class="text-right">請設定您的密碼 :</td>
+				<td><input type="password" name="psd" value="${param.psd}" id="pwdinput"><span id="pwdsp" style="color:red"></span></td>
 				<td>${error.psd}</td>
 			</tr>
 			<tr>
-				<td>請輸入您的性別 :</td>
+				<td class="text-right">請輸入您的姓名 :</td>
+				<td><input type="text" name="name" value="${param.name}" id="nameinput"><span id="namesp" style="color:red"></span></td>
+				<td>${error.name}</td> 				
+			</tr>
+			<tr>
+				<td class="text-right">請輸入您的性別 :</td>
 				<td><select name="gender" size="1" value="${param.gender}">
 						<option value="" selected>請選擇</option>
 						<option value="男">男♂</option>
@@ -64,19 +66,18 @@
 			</tr>
 
 			<tr>
-				<td>請輸入您的家用電話號碼 :</td>
-				<td><input type="text" name="tel" value="${param.phone}"></td>
+				<td class="text-right">請輸入您的家用電話號碼 :</td>
+				<td><input type="text" name="tel" value="${param.phone}" placeholder="Ex:02-23456789" id="telinput"><span id="teldsp" style="color:red"></span></td>
 				<td>${error.tel}</td>
 			</tr>
 			<tr>
-				<td>請輸入您的家用手機號碼 :</td>
-				<td><input type="text" name="cel"
-					value="${param.cel}"></td>
+				<td class="text-right">請輸入您的手機號碼 :</td>
+				<td><input type="text" name="cel" value="${param.cel}" placeholder="Ex:0912345678" id="celinput"><span id="celdsp" style="color:red"></span></td>
 				<td>${error.cel}</td>
 			</tr>
 		
 			<tr>
-				<td>請輸入您住的縣市 :</td>
+				<td class="text-right">請輸入您住的縣市 :</td>
 				<td><select name="GUAR_CT" size="1" value="${param.GUAR_CT}">
 												<option value="" selected>請選擇</option>
 						                        <option value="A">臺北市</option>
@@ -107,16 +108,16 @@
 			</tr>
 			
 			<tr>
-				<td>請輸入您住的區域 :</td>
-					<td><select id="select1">
+				<td class="text-right">請輸入您住的區域 :</td>
+					<td><select id="select1" name="GUAR_AR">
 					<option value="" selected>請選擇</option>
 					</select></td>
 				<td></td>
 			</tr>
 			
 			<tr>
-				<td>請輸入您住的路名 :</td>
-				<td><input id="keyword" type="text" value=""> <input id="textval" type="text" style="display:none"></td>
+				<td class="text-right">請輸入您住的路名 :</td>
+				<td><input id="keyword" type="text" value=""> <input id="textval" name="GUAR_ROAD" type="text" style="display:none"><span id="roadsp" style="color:red"></span></td>
 			</tr>
 	
 			<tr>
@@ -125,19 +126,19 @@
 			</tr>
 			
 			<tr>
-				<td>請完成輸入您的地址 :</td>
-				<td><input type="text" name="GUAR_NO" value="${param.GUAR_NO}"></td>
+				<td class="text-right">請完成輸入您的地址 :</td>
+				<td><input type="text" name="GUAR_NO" value="${param.GUAR_NO}" id="addrinput"><span id="addrsp" style="color:red"></span></td>
 				<td>${error.GUAR_NO}</td>
 			</tr>
 						
 			<tr>
-				<td>請輸入您的備用E-mail :</td>
-				<td><input type="text" name="email2" value="${param.email2}"></td>
+				<td class="text-right">請輸入您的備用E-mail :</td>
+				<td><input type="text" name="email2" value="${param.email2}" id="emailinput2"><span id="emailsp2" style="color:red"></span></td>
 				<td>${error.email2}</td>
 			</tr>
 			<tr>
 
-				<td align="right"><input type="submit" value="Register"></td>
+				<td align="right"><input type="submit" value="註冊" class="btn btn-primary"></td>
 			</tr>
 		</table>
 	</form>
@@ -147,72 +148,203 @@
 	</div>
 	<!-- /.container -->
 
-<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-<script>
-$(function(){
-	   $.ajax({
-		  'type':'get',
-		  'url':'<%= request.getContextPath() %>/XMLServlet8691',
-		  'data':{},
-		  'dataType':'xml',
-		  'success':function(data){
-			$(data).find("Category").each(function(){
-				var categoryId = $(this).children("GUAR_AR").text();
-				var categoryName = $(this).children("GUAR_AR_name").text();
-				var opt = $("<option></option>").val(categoryId).text(categoryName);
-				$('#select1').append(opt);
-			})
-		  }
-	   });
-	   $('#tb').empty();
-});
+		<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+		<script>
+		$(function(){
+			   $.ajax({
+				  'type':'get',
+				  'url':'<%= request.getContextPath() %>/XMLServlet8691',
+				  'data':{},
+				  'dataType':'xml',
+				  'success':function(data){
+					$(data).find("Category").each(function(){
+						var categoryId = $(this).children("GUAR_AR").text();
+						var categoryName = $(this).children("GUAR_AR_name").text();
+						var opt = $("<option></option>").val(categoryId).text(categoryName);
+						$('#select1').append(opt);
+					})
+				  }
+			   });
+			   $('#tb').empty();
+		});
+		
+			 $('#select1').change(function(){
+				 if($('#keyword').val() ==''){
+					 $('#tb').empty();
+				 }
+				 else{
+					 LoadRoads();
+				 }
+			   });
+		
+			 $('#keyword').keyup(function(){
+				 if($('#keyword').val() ==''){
+					 $('#tb').empty();
+				 }
+				 else{
+					 LoadRoads();
+				 }
+			   });
+			   
+			   function LoadRoads(){
+				   $('#tb').empty();
+				   $.getJSON('<%= request.getContextPath() %>/GetRoad',
+						   	{'GUAR_AR':$('#select1').val(), 
+					   		 'keyword':$('#keyword').val()},
+					function(datas){
+					   			$.each(datas,function(index,road){
+					   				var celltext = $('<input type=text class="txt" style="display:none">').val(road.GUAR_ROAD);
+					   				var cellGUAR_ROAD_name = $('<label class="txt1"></label>').text(road.GUAR_ROAD_name);
+					   				var cell1 = $("<td></td>").append(celltext).append(cellGUAR_ROAD_name);
+					   				//var cell1 = $("<td></td>").text(road.GUAR_ROAD_name);
+									var row = $("<tr></tr>").append([cell1])
+									                        .mouseover(function(){
+									                        	$(this).css('color', 'red');
+									                        })
+									                        .mouseout(function(){
+									                        	$(this).css('color', 'black');
+									                        })
+									                        .click(function(){
+									                        	$('#textval').val($(this).children().children(".txt").val());
+									                        	$('#keyword').val($(this).children().children(".txt1").text());
+									                        	$('#tb').empty();
+									                        });
+									$('#tb').append(row);
+								});
+					});
+			   };
+		</script>
 
-	 $('#select1').change(function(){
-		 if($('#keyword').val() ==''){
-			 $('#tb').empty();
-		 }
-		 else{
-			 LoadRoads();
-		 }
-	   });
+ 		<script>
+		        window.onload = function () {
+		            document.getElementById("emailinput").onblur = blur;
+		            document.getElementById("pwdinput").onblur = blur2;
+		            document.getElementById("nameinput").onblur = blur3;
+		            document.getElementById("telinput").onblur = blur4;
+		            document.getElementById("celinput").onblur = blur5;
+		            document.getElementById("keyword").onblur = blur6;
+		            document.getElementById("addrinput").onblur = blur7;
+		            document.getElementById("emailinput2").onblur = blur8;
+		        }
+		     
+		        function blur() {
+		            if (document.getElementById("emailinput").value == "") {
+		                document.getElementById("emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+		            }
+		            else if (document.getElementById("emailinput").value != "") {
+		            	chkEmail();          
+		            }
+		        }
+		
+		        function chkEmail() {
+		            var chkEmail = document.getElementById("emailinput").value;
+		
+		            var namere = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+		
+		            if (namere.test(chkEmail)) {
+		                document.getElementById("emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/right.png' />";
+		                
+		            }   
+		             else {
+		                document.getElementById("emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />格式錯誤";
+		               }
+		        } 
+		        
+		        function blur2() {
+		            if (document.getElementById("pwdinput").value == "") {
+		                document.getElementById("pwdsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+		            }		            
+		        }
+		        
+		        function blur3() {
+		            if (document.getElementById("nameinput").value == "") {
+		            	document.getElementById("namesp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+		            }		            
+		        }
+		        
+		        function blur4() {
+		            if (document.getElementById("telinput").value == "") {
+		            	document.getElementById("teldsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+		            }
+		            else if (document.getElementById("telinput").value != "") {
+		                chktel();
+		            }
+		        }
 
-	 $('#keyword').keyup(function(){
-		 if($('#keyword').val() ==''){
-			 $('#tb').empty();
-		 }
-		 else{
-			 LoadRoads();
-		 }
-	   });
-	   
-	   function LoadRoads(){
-		   $('#tb').empty();
-		   $.getJSON('<%= request.getContextPath() %>/GetRoad',
-				   	{'GUAR_AR':$('#select1').val(), 
-			   		 'keyword':$('#keyword').val()},
-			function(datas){
-			   			$.each(datas,function(index,road){
-			   				var celltext = $('<input type=text class="txt" style="display:none">').val(road.GUAR_ROAD);
-			   				var cellGUAR_ROAD_name = $('<label class="txt1"></label>').text(road.GUAR_ROAD_name);
-			   				var cell1 = $("<td></td>").append(celltext).append(cellGUAR_ROAD_name);
-			   				//var cell1 = $("<td></td>").text(road.GUAR_ROAD_name);
-							var row = $("<tr></tr>").append([cell1])
-							                        .mouseover(function(){
-							                        	$(this).css('color', 'red');
-							                        })
-							                        .mouseout(function(){
-							                        	$(this).css('color', 'black');
-							                        })
-							                        .click(function(){
-							                        	$('#textval').val($(this).children().children(".txt").val());
-							                        	$('#keyword').val($(this).children().children(".txt1").text());
-							                        	$('#tb').empty();
-							                        });
-							$('#tb').append(row);
-						});
-			});
-	   };
-</script>
+		        function chktel() {
+		            var thetel = document.getElementById("telinput").value;
+
+		            var telre = /[0-9]{2}\-[0-9]{7}/;
+
+		            if (telre.test(thetel)) {
+		            	document.getElementById("teldsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/right.png' />";
+
+		            }
+		            else {
+		            	document.getElementById("teldsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />格式錯誤";
+		            }
+		        }
+		        
+		        function blur5() {
+		            if (document.getElementById("celinput").value == "") {
+		            	document.getElementById("celdsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+		            }
+		            else if (document.getElementById("celinput").value != "") {
+		                chkcel();
+		            }
+		        }
+
+		        function chkcel() {
+		            var thecel = document.getElementById("celinput").value;
+
+		            var celre = /^09[0-9]{8}$/;
+
+		            if (celre.test(thecel)) {
+		            	document.getElementById("celdsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/right.png' />";
+
+		            }
+		            else {
+		            	document.getElementById("celdsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />格式錯誤";
+		            }
+		        }
+		        
+		        function blur6() {
+		            if (document.getElementById("keyword").value == "") {
+		            	document.getElementById("roadsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+		            }		            
+		        }
+		        
+		        function blur7() {
+		            if (document.getElementById("addrinput").value == "") {
+		            	document.getElementById("addrsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+		            }		            
+		        }
+		        
+		        function blur8() {
+		            if (document.getElementById("emailinput2").value == "") {
+		                document.getElementById("emailsp2").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
+		            }
+		            else if (document.getElementById("emailinput2").value != "") {
+		            	chkEmail2();          
+		            }
+		        }
+		        
+		        function chkEmail2() {
+		            var chkEmail2 = document.getElementById("emailinput2").value;
+		
+		            var namere = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+		
+		            if (namere.test(chkEmail2)) {
+		                document.getElementById("emailsp2").innerHTML = "<img src='<%= request.getContextPath() %>/img/right.png' />";
+		                
+		            }   
+		             else {
+		                document.getElementById("emailsp2").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />格式錯誤";
+		               }
+		        } 
+		        
+		        
+        </script>
 
     <footer>
         <div class="container">

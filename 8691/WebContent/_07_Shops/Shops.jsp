@@ -29,10 +29,7 @@
 		<div class="row">
 			<div class="box">
 				<div class="col-lg-12 text-center">
-
-					<!--內容放這!! 	內容放這!!	內容放這!!	內容放這!! -->
-					<!-- <div class="box">  box為白色區塊包住 -->
-
+				<h4>${StoreUID}</h4>					
 				</div>
 			</div>
 		</div>

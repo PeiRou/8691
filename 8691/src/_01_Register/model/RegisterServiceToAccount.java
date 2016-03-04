@@ -6,14 +6,14 @@ import _00_Account.model.AccountDAOjdbc;
 
 public class RegisterServiceToAccount {
 
-	private AccountDAO accountDao = new AccountDAOjdbc();
-	public AccountBean insertAccount(AccountBean bean1) {
-		AccountBean result = null;
+	private AccountDAOjdbc accountDao = new AccountDAOjdbc();
+	public String insertAccount(AccountBean bean) {
+		String result1 = null;
 		
-		if(bean1!=null) {
-			result = accountDao.insert(bean1);
+		if(bean!=null) {
+			result1 = accountDao.insert(bean);
 		}
-		return result;
+		return result1;
 	}
 	
 

@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -197,49 +198,45 @@ public AccountBean update(
 	
 
 	private static final String INSERT =
-			"insert into Account (acc_email, psd, role_ID) values (?, ?, ?)";
+			"insert into Account (account_UID, acc_email, psd, role_ID) OUTPUT INSERTED.account_UID values (newid(), ?, ?, ?)";
 
-@Override
-	public AccountBean insert(AccountBean bean) {
-	AccountBean result = null;
-	Connection conn = null;
-	PreparedStatement psStrUpd = null;
-	try {
-		//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-		conn = ds.getConnection();
-		psStrUpd = conn.prepareStatement(INSERT);
-		psStrUpd.setString(1, bean.getAcc_email());
-		psStrUpd.setString(2, bean.getPsd());
-		psStrUpd.setString(3, bean.getRole_ID());
-		//if (bean.getInsdate() != null) {
-		//	long time = bean.getInsdate().getTime();
-		//	psStrUpd.setDate(3, new java.sql.Date(time));
-		//}
-
-		int i = psStrUpd.executeUpdate();
-		if(i==1){
-	result = select(bean.getAcc_email());
-	return result;
+	@Override
+	public String insert(AccountBean bean) {
+		String result = null;
+		Connection conn = null;
+		PreparedStatement psStrUpd = null;
+		try {
+			conn = ds.getConnection();
+			psStrUpd = conn.prepareStatement(INSERT);
+			psStrUpd.setString(1, bean.getAcc_email());
+			psStrUpd.setString(2, bean.getPsd());
+			psStrUpd.setString(3, bean.getRole_ID());
+			psStrUpd.execute();
+			ResultSet rs = psStrUpd.getResultSet();
+			if (rs.next()) {
+				result = rs.getString(1);
+				//bean.setAccount_UID(result);
+				return result;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (psStrUpd != null) {
+				try {
+					psStrUpd.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		if (psStrUpd != null) {
-	try {
-		psStrUpd.close();
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}
-		}
-		if (conn != null) {
-	try {
-		conn.close();
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}
-		}
-	}
-	return result;
+		return result;
 	}
 
-		}
+}
