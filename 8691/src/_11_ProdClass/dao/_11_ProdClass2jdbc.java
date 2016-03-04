@@ -14,10 +14,10 @@ import javax.sql.DataSource;
 
 import org.json.simple.JSONObject;
 
-public class _11_ProdClassjdbc {
-	private final String SELECT_BY_ID = "select * from Prod_status_class3 where Prod_status_class3_ID=?";
+public class _11_ProdClass2jdbc {	
 	private DataSource dataSource;
-	public _11_ProdClassjdbc() {
+	
+	public _11_ProdClass2jdbc() {
 		try {
 			Context ctx = new InitialContext();
 			dataSource = (DataSource) ctx.lookup("java:comp/env/8691");
@@ -25,23 +25,22 @@ public class _11_ProdClassjdbc {
 			e.printStackTrace();
 		}
 	}
-	public List select(String ProdStatusClass3ID) {
-		System.out.println("ProdStatusClass3ID: "+ProdStatusClass3ID);
+	
+	private final String SELECT_ALL = "select * from Prod_status_class2";
+	public List select() {
 		List JSONObjectList = null;
 		ResultSet rset = null;
 		try(Connection conn = dataSource.getConnection();
-			PreparedStatement stmt = conn.prepareStatement(SELECT_BY_ID);
+			PreparedStatement stmt = conn.prepareStatement(SELECT_ALL);
 			) {
-			stmt.setString(1, ProdStatusClass3ID);
 			rset = stmt.executeQuery();
 		
 			JSONObjectList = new LinkedList();
 			while(rset.next()) {
 				JSONObject obj = new JSONObject();
-				obj.put("ProdStatusClass3ID", rset.getString("Prod_status_class3_ID"));
 				obj.put("ProdStatusClass2ID", rset.getString("Prod_status_class2_ID"));
-				obj.put("ProdStatusClass3Name", rset.getString("Prod_status_class3_name"));
-				obj.put("ProdStatusClass3Price", rset.getString("Prod_status_class3_price"));
+				obj.put("ProdStatusClass1ID", rset.getString("Prod_status_class1_ID"));
+				obj.put("ProdStatusClass2Name", rset.getString("Prod_status_class2_name"));
 				JSONObjectList.add(obj);
 			}
 		} catch (SQLException e) {

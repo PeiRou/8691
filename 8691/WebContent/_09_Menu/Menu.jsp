@@ -28,17 +28,27 @@
 	<div class="container">
 		<div class="row">
 			<div class="box">
-				<div class="col-lg-12 text-center">
-				<div class="table-responsive">
-					<table id="tble" class="table text-left">
-				<div id="trunkMenu"></div>
-					</table>
+				<div class="col-lg-12">
+				<div class="table-responsive" id="test">
+				<table id="tbl" class="table table-bordered">
+				<tr>
+					<td width="">品名</td>
+					<td>屬性</td>
+					<td></td>
+				</tr>
+				</table>
+					<div id="trunkMenu"></div>
 					<c:url value="/_10_Menu/GetMenu.controller" var="GetMenupath"></c:url>
-								<a class="btn btn-success tdupd" href="${path}">修改</a>	
-					<c:set value="${select}" var="fuckyou" ></c:set>				
-						<input id="hidData" type="hidden" value='${fuckyou}' />
-				</div>
-				
+								
+						<c:set value="${select}" var="FoodStaus"></c:set>
+						<input id="hidFoodStaus" type="hidden" value='${FoodStaus}' />
+						<c:set value="${selectGroup}" var="Group"></c:set>
+						<input id="hidGroup" type="hidden" value='${Group}' />
+						<c:set value="${selectSzSts}" var="SzSts"></c:set>
+						<input id="hidSzSts" type="hidden" value='${SzSts}' />
+						<c:set value="${selectPrCl2}" var="PrCl2"></c:set>
+						<input id="hidPrCl2" type="hidden" value='${PrCl2}' />
+					</div>
 				</div>
 			</div>			
 		</div>
@@ -61,70 +71,145 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
     <script>
-    //var data = $('#hidData').val();
-    var data = '[{"FoodStatus":[{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"1","ProdStatusClass3Name":"珍珠"}],"GroupClass3ID":"1","ProdStatusClass3ID":"1"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"2","ProdStatusClass3Name":"椰果"}],"GroupClass3ID":"1","ProdStatusClass3ID":"2"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"3","ProdStatusClass3Name":"粉條"}],"GroupClass3ID":"1","ProdStatusClass3ID":"3"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"4","ProdStatusClass3Name":"綠豆"}],"GroupClass3ID":"1","ProdStatusClass3ID":"4"},{"ProdStatus":[{"ProdStatusClass3Price":"0","ProdStatusClass2ID":"2","ProdStatusClass3ID":"6","ProdStatusClass3Name":"少糖(7分)"}],"GroupClass3ID":"1","ProdStatusClass3ID":"6"},{"ProdStatus":[{"ProdStatusClass3Price":"0","ProdStatusClass2ID":"2","ProdStatusClass3ID":"7","ProdStatusClass3Name":"半糖(5分)"}],"GroupClass3ID":"1","ProdStatusClass3ID":"7"}],"GroupClass3ID":"1","FoodID":"1","ProdStatusClass1ID":1,"AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"珍珠奶茶"}, {"FoodStatus":[{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"1","ProdStatusClass3Name":"珍珠"}],"GroupClass3ID":"1","ProdStatusClass3ID":"1"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"2","ProdStatusClass3Name":"椰果"}],"GroupClass3ID":"1","ProdStatusClass3ID":"2"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"3","ProdStatusClass3Name":"粉條"}],"GroupClass3ID":"1","ProdStatusClass3ID":"3"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"4","ProdStatusClass3Name":"綠豆"}],"GroupClass3ID":"1","ProdStatusClass3ID":"4"},{"ProdStatus":[{"ProdStatusClass3Price":"0","ProdStatusClass2ID":"2","ProdStatusClass3ID":"6","ProdStatusClass3Name":"少糖(7分)"}],"GroupClass3ID":"1","ProdStatusClass3ID":"6"},{"ProdStatus":[{"ProdStatusClass3Price":"0","ProdStatusClass2ID":"2","ProdStatusClass3ID":"7","ProdStatusClass3Name":"半糖(5分)"}],"GroupClass3ID":"1","ProdStatusClass3ID":"7"}],"GroupClass3ID":"1","FoodID":"4","ProdStatusClass1ID":1,"AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"奶茶"}, {"FoodStatus":[{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"1","ProdStatusClass3Name":"珍珠"}],"GroupClass3ID":"1","ProdStatusClass3ID":"1"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"2","ProdStatusClass3Name":"椰果"}],"GroupClass3ID":"1","ProdStatusClass3ID":"2"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"3","ProdStatusClass3Name":"粉條"}],"GroupClass3ID":"1","ProdStatusClass3ID":"3"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"4","ProdStatusClass3Name":"綠豆"}],"GroupClass3ID":"1","ProdStatusClass3ID":"4"},{"ProdStatus":[{"ProdStatusClass3Price":"0","ProdStatusClass2ID":"2","ProdStatusClass3ID":"6","ProdStatusClass3Name":"少糖(7分)"}],"GroupClass3ID":"1","ProdStatusClass3ID":"6"},{"ProdStatus":[{"ProdStatusClass3Price":"0","ProdStatusClass2ID":"2","ProdStatusClass3ID":"7","ProdStatusClass3Name":"半糖(5分)"}],"GroupClass3ID":"1","ProdStatusClass3ID":"7"}],"GroupClass3ID":"1","FoodID":"5","ProdStatusClass1ID":1,"AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"豆漿紅茶"}, {"FoodStatus":[{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"1","ProdStatusClass3Name":"珍珠"}],"GroupClass3ID":"1","ProdStatusClass3ID":"1"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"2","ProdStatusClass3Name":"椰果"}],"GroupClass3ID":"1","ProdStatusClass3ID":"2"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"3","ProdStatusClass3Name":"粉條"}],"GroupClass3ID":"1","ProdStatusClass3ID":"3"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"4","ProdStatusClass3Name":"綠豆"}],"GroupClass3ID":"1","ProdStatusClass3ID":"4"},{"ProdStatus":[{"ProdStatusClass3Price":"0","ProdStatusClass2ID":"2","ProdStatusClass3ID":"6","ProdStatusClass3Name":"少糖(7分)"}],"GroupClass3ID":"1","ProdStatusClass3ID":"6"},{"ProdStatus":[{"ProdStatusClass3Price":"0","ProdStatusClass2ID":"2","ProdStatusClass3ID":"7","ProdStatusClass3Name":"半糖(5分)"}],"GroupClass3ID":"1","ProdStatusClass3ID":"7"}],"GroupClass3ID":"1","FoodID":"6","ProdStatusClass1ID":1,"AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"綠茶"}]';
-    var json = JSON.parse(data);
-    //console.log(data);
-	LoadTable(json);
-    $.each(json,function(index,jsonVal) {
-    	//console.log(jsonVal.FoodName);
-    	//console.log(jsonVal.GroupClass3ID);
-	    if(jsonVal.FoodStatus!="") { 
-		    $.each(jsonVal.FoodStatus, function(index,FoodStusVal){
-			    $.each(FoodStusVal.ProdStatus,function(index,value){
-// 				    console.log("ProdStatusClass3ID: "+value.ProdStatusClass3ID);
-// 				    console.log("ProdStatusClass3Name: "+value.ProdStatusClass3Name);
-// 				    console.log("ProdStatusClass2ID: "+value.ProdStatusClass2ID);
-// 				    console.log("ProdStatusClass3Price: "+value.ProdStatusClass3Price);
-			    });
-		    });
-	    }
+//     var data = $('#hidFoodStaus').val();
+//     var Group = $('#hidGroup').val();
+//     var SzSts = $('#hidSzSts').val();
+//     var PrCl2 = $('#hidPrCl2').val();
+    var data = '[{"FoodPrice":[{"FoodSizePriceID":"1","SizeStatusID":"2","FoodID":"1","SizeStatus":[{"SizeStatusID":"2","SizeName":"小"}],"FoodStatusPrice":"40"},{"FoodSizePriceID":"2","SizeStatusID":"3","FoodID":"1","SizeStatus":[{"SizeStatusID":"3","SizeName":"中"}],"FoodStatusPrice":"45"}],"GroupClass3ID":"1","FoodID":"1","ProdStatusClass1ID":"1","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"珍珠奶茶"}, {"FoodPrice":[{"FoodSizePriceID":"7","SizeStatusID":"1","FoodID":"4","SizeStatus":[{"SizeStatusID":"1","SizeName":"預設"}],"FoodStatusPrice":"50"}],"GroupClass3ID":"1","FoodID":"4","ProdStatusClass1ID":"1","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"奶茶"}, {"FoodPrice":[{"FoodSizePriceID":"8","SizeStatusID":"1","FoodID":"5","SizeStatus":[{"SizeStatusID":"1","SizeName":"預設"}],"FoodStatusPrice":"45"}],"GroupClass3ID":"1","FoodID":"5","ProdStatusClass1ID":"1","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"豆漿紅茶"}, {"FoodPrice":[{"FoodSizePriceID":"9","SizeStatusID":"1","FoodID":"6","SizeStatus":[{"SizeStatusID":"1","SizeName":"預設"}],"FoodStatusPrice":"60"}],"GroupClass3ID":"1","FoodID":"6","ProdStatusClass1ID":"1","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"綠茶"}, {"FoodPrice":[],"GroupClass3ID":"2","FoodID":"7","ProdStatusClass1ID":"1","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"沙士"}, {"FoodPrice":[],"GroupClass3ID":"2","FoodID":"8","ProdStatusClass1ID":"1","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"青茶"}, {"FoodPrice":[],"GroupClass3ID":"2","FoodID":"9","ProdStatusClass1ID":"1","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"烏龍綠茶"}]';
+    var Group = '[{"FoodStatus":[{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"1","ProdStatusClass3Name":"珍珠"}],"GroupClass3ID":"1","ProdStatusClass3ID":"1"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"2","ProdStatusClass3Name":"椰果"}],"GroupClass3ID":"1","ProdStatusClass3ID":"2"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"3","ProdStatusClass3Name":"粉條"}],"GroupClass3ID":"1","ProdStatusClass3ID":"3"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"4","ProdStatusClass3Name":"綠豆"}],"GroupClass3ID":"1","ProdStatusClass3ID":"4"},{"ProdStatus":[{"ProdStatusClass3Price":"0","ProdStatusClass2ID":"2","ProdStatusClass3ID":"6","ProdStatusClass3Name":"少糖(7分)"}],"GroupClass3ID":"1","ProdStatusClass3ID":"6"},{"ProdStatus":[{"ProdStatusClass3Price":"0","ProdStatusClass2ID":"2","ProdStatusClass3ID":"7","ProdStatusClass3Name":"半糖(5分)"}],"GroupClass3ID":"1","ProdStatusClass3ID":"7"}],"GroupClass3Name":"這是測試","GroupClass3ID":"1"}, {"FoodStatus":[{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"2","ProdStatusClass3Name":"椰果"}],"GroupClass3ID":"2","ProdStatusClass3ID":"2"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"3","ProdStatusClass3Name":"粉條"}],"GroupClass3ID":"2","ProdStatusClass3ID":"3"},{"ProdStatus":[{"ProdStatusClass3Price":"0","ProdStatusClass2ID":"2","ProdStatusClass3ID":"6","ProdStatusClass3Name":"少糖(7分)"}],"GroupClass3ID":"2","ProdStatusClass3ID":"6"},{"ProdStatus":[{"ProdStatusClass3Price":"0","ProdStatusClass2ID":"2","ProdStatusClass3ID":"7","ProdStatusClass3Name":"半糖(5分)"}],"GroupClass3ID":"2","ProdStatusClass3ID":"7"}],"GroupClass3Name":"我的最愛","GroupClass3ID":"2"}]';
+    var SzSts = '[{"SizeStatusID":"1","SizeName":"預設"}, {"SizeStatusID":"2","SizeName":"小"}, {"SizeStatusID":"3","SizeName":"中"}, {"SizeStatusID":"4","SizeName":"大"}]';
+    var PrCl2 = '[{"ProdStatusClass2ID":"1","ProdStatusClass1ID":"1","ProdStatusClass2Name":"冷熱"}, {"ProdStatusClass2ID":"2","ProdStatusClass1ID":"1","ProdStatusClass2Name":"甜度"}, {"ProdStatusClass2ID":"3","ProdStatusClass1ID":"1","ProdStatusClass2Name":"加料"}]';
+    var jsonVal = JSON.parse(data);
+    var jsonGroup = JSON.parse(Group);
+    var jsonSzSts = JSON.parse(SzSts);
+    var jsonPrCl2 = JSON.parse(PrCl2);
+ 	LoadTable(jsonVal,jsonGroup);
+	$(":text").hide();
+	$(":input").attr('disabled', true);
+	$(":text").attr("maxlength",6);
+	$(":text").attr("size",6);
+	$(".tdok").hide();
+	
+	$('.tdupd').click(function() {	
+		var theTr = $(this).parent().parent().attr("id");
+		$("tr[id="+theTr+"] :text").show();
+		$("tr[id="+theTr+"] :input").attr('disabled', false);
+		$("tr[id="+theTr+"] .tdfont").hide();		
+		$(this).hide();
+		$("tr[id="+theTr+"] .tdok").show();
 	});
-    $(function(){
-    	//
-    	//LoadProdStatusClass3();
-    });
-    //第一次載入
-    function LoadTable(jsonVal){
-    	$.each(jsonVal, function(index,FoodStusVal){
-    		console.log("FoodName:  "+index+":"+FoodStusVal.FoodName);    		
-    		console.log("GroupClass3ID:  "+index+":"+FoodStusVal.GroupClass3ID);
-    		InsGroup(FoodStusVal.FoodID,FoodStusVal.FoodName);
-        	var trunkTd = $("<td></td>").append("123");
-        	var trunkTr = $("<tr id=GroupTr'"+ FoodStusVal.GroupClass3ID +"'></tr>").append(trunkTd);
+	$('.tdok').click(function() {
+		$(":text").hide();
+		$(".tdfont").show();			
+		$(this).hide();
+		$('.tdupd').show();
+	});	
+	//第一次載入
+    function LoadTable(jsonVal,jsonGroup){ 	    	
+    	$.each(jsonGroup, function(index,GroupVal){
+    		console.log(index);
+        	var trunkStusTd = $("<td></td>");
+        	var trunkFoodTd = $("<td></td>");
+        	var btnUpd = $('<a class="btn btn-success tdupd"></a>').text('修改');
+        	var btnOk = $('<a class="btn btn-success tdok"></a>').text('確定');
+        	var trunkbtn = $("<td></td>").append(btnUpd).append(btnOk);
+    		var GroupStus = insGroupStus(GroupVal.FoodStatus);	    	
+	    	trunkStusTd.append(GroupStus);
+	    	$.each(jsonVal, function(index,FodStuVal){
+	    		if (GroupVal.GroupClass3ID==FodStuVal.GroupClass3ID){    		
+		    		var GroupFoods = insGroupFood(FodStuVal.FoodID,FodStuVal.FoodName,FodStuVal.FoodPrice);
+		    		console.log("GroupVal.GroupClass3ID: "+GroupVal.GroupClass3ID);
+		    		trunkFoodTd.append(GroupFoods);
+	        	}
+	    	});
+	    	var trunkTr = $("<tr id=GroupTr"+ GroupVal.GroupClass3ID +"></tr>").append(trunkFoodTd).append(trunkStusTd).append(trunkbtn);
+	    	$('#tbl tr:last').after(trunkTr);
     	});
-    	$('#trunkMenu').append(trunkTr);
     }
-	function LoadProdStatusClass3() {
-		var action = "Select"
-		var Class2ID = "3";
-		//InsCel()
+	function loopceltextPrices(FoodID,PriceStus){
+		var appPrices = $("<a/>");
+		$.each(PriceStus,function(index,PriceVal){
+			$.each(PriceVal.SizeStatus,function(index,SzSts){
+				if(PriceVal.SizeStatusID==SzSts.SizeStatusID){
+					var lblPrice = insPrice(SzSts.SizeStatusID,PriceVal.FoodSizePriceID,PriceVal.FoodStatusPrice);
+					if(FoodID==PriceVal.FoodID){
+						appPrices.append(lblPrice).html();
+					}
+				}
+			});
+		});
+		return appPrices.html();
 	}
-	function loopCel(){
+	
+	//尺寸下拉式選單，給定值後順便綁定
+	function selectSizeName(SizePriceID,ID){
+		var select = $('<select id=selSizePrice'+ SizePriceID +'></select>');
+		$.each(jsonSzSts,function(index,Sizeval){
+			if(Sizeval.SizeStatusID==ID){
+				select.append($('<option></option>').val(Sizeval.SizeStatusID).text(Sizeval.SizeName).attr('selected',true));
+			}else{
+				select.append($('<option></option>').val(Sizeval.SizeStatusID).text(Sizeval.SizeName));
+			}
+		});
+		return select;
+	}
+	
+	//組多個size+名稱的label
+	function insPrice(ID,SizePriceID,SizePrice) {		
+		var celtextName = $('<input type=text id=txtSizePrice'+SizePriceID+'>').val(SizePrice);
+		var celfont = $('<font class="tdfont" id=fontSizePrice'+SizePriceID+'></font>').text(SizePrice);
+		var celSeld = selectSizeName(SizePriceID,ID);
+		var cellabel = $('<label class="btn btn-default active" id=lblSizePrice'+SizePriceID +' style="margin: 2px"></label>').append(celSeld).append(celfont).append(celtextName);
+		return cellabel;
+	}
+	//將class3分門別類到class2
+	function insGroupStus(FoodStatus){
+		var appeds = $('<a/>');
+		$.each(jsonPrCl2,function(idx,PrCl2val){
+			if(FoodStatus!=""){								
+				var appClass3 = $('<div/>');
+				$.each(FoodStatus,function(idx,FodStsval){
+					$.each(FodStsval.ProdStatus,function(i,ProdStsval){
+						if(PrCl2val.ProdStatusClass2ID==ProdStsval.ProdStatusClass2ID){
+							var Class3 = insClass3(ProdStsval.ProdStatusClass3ID,ProdStsval.ProdStatusClass3Name,ProdStsval.ProdStatusClass3Price);
+							appClass3.append(Class3);							
+						}
+					});
+				});
+				if(appClass3.html()!=""){
+					var Class2 =insclass2(PrCl2val.ProdStatusClass2ID,PrCl2val.ProdStatusClass2Name);	
+					appeds.append(Class2).append(appClass3).html();
+				}
+			}
+		});
+		$('#trunkMenu').append(appeds);
+		return appeds;
+	}
+	//多個食物品名含有多個價錢
+	function insGroupFood(celFoodID,celFoodName,celFoodPrice) {	
+		//console.log(celFoodID,celFoodName);
+		var celtextName = $('<input type=text id=txtFood'+celFoodID+'>').val(celFoodName);
+		var celfont = $('<font class="tdfont" id=fontFood'+celFoodID+'></font>').text(celFoodName);
+		var celPrices = loopceltextPrices(celFoodID,celFoodPrice);
+		var cellabel = $('<label class="btn btn-default" id=lblFood'+celFoodID +' style="margin: 2px"></label>').append(celfont).append(celtextName).append(celPrices);		
 		
-		
+		return cellabel;
 	}
-	function InsGroup(celFoodID,celFoodName) {		
-		var celchk = $('<input type=checkbox class="tdtext" id=celClass3ID'+celFoodID+'>').val(celFoodID);
-		var celtextName = $('<input type=text class="tdtext" id=celFoodName'+celFoodID+' maxlength="6" size="6">').val(celFoodName);
-		var celfont = $('<font class="tdfont" id=celfont'+celFoodID+'></font>').text(celFoodName);
-		var cellabel = $('<label class="btn btn-default" id=cellbl'+celFoodID +' style="margin: 2px"></label>').prepend(celchk).append(celtextName).append(celfont);
-		$('<div id="div'+ celFoodID +'"></div>').append(cellabel);
-		$(":text").hide();
+	//class2屬性值
+	function insclass2(Class2ID,Class2Name) {		
+		var celtextName = $('<input type=text class="tdtext" id=Class2'+Class2ID+'>').val(Class2Name);		
+		var celfont = $('<font class="tdfont" id=celfont'+Class2ID+'></font>').text(Class2Name);
+		var cellabel = $('<label class="btn btn-primary active" id=cellbl'+Class2ID +' style="margin: 2px"></label>').append(celtextName).append(celfont);
+		return cellabel;
 	}
-	function InsCel(celClass3ID,celName,celPrice) {		
-		var celchk = $('<input type=checkbox class="tdtext" id=celClass3ID'+celClass3ID+'>').val(celClass3ID);
-		var celtextName = $('<input type=text class="tdtext" id=celClass3Name'+celClass3ID+' maxlength="6" size="6">').val(celName);
-		var celtextPrice = $('<input type=text class="tdtext" id=celPrice'+celClass3ID+' maxlength="6" size="6">').val(celPrice);
-		var celfont = $('<font class="tdfont" id=celfont'+celClass3ID+'></font>').text(celName+celPrice);
-		var cellabel = $('<label class="btn btn-default" id=cellbl'+celClass3ID +' style="margin: 2px"></label>').prepend(celchk).append(celtextName).append(celtextPrice).append(celfont).append("元");
-		if(celClass3ID=="NewCel"){
-			var btnNew = fucBtnOkCancel();
-			cellabel.append(btnNew);
-		}
-		$('<div id="div'+  +'"></div>').append(cellabel);
-		$(":text").hide();
-	}
+	//class3屬性值
+	function insClass3(Class3ID,Class3Name,Class3Price) {		
+		var celtextName = $('<input type=text class="tdtext" id=celClass3Name'+Class3ID+'>').val(Class3Name);
+		var celtextPrice = $('<input type=text class="tdtext" id=celPrice'+Class3ID+'>').val(Class3Price);
+		var celfont = $('<font class="tdfont" id=celfont'+Class3ID+'></font>').text(Class3Name+Class3Price);
+		var cellabel = $('<label class="btn btn-default" id=cellbl'+Class3ID +' style="margin: 2px"></label>').append(celtextName).append(celtextPrice).append(celfont).append("元");
+		return cellabel;
+	}    
 </script>
 </body>
 </html>
