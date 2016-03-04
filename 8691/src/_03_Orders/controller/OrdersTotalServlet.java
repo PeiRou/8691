@@ -26,7 +26,7 @@ public class OrdersTotalServlet extends HttpServlet {
 		//接收資料
 		String Orders_total_UID = request.getParameter("Orders_total_UID");
 		String account_UID = (String)request.getSession().getAttribute("LoginOK");
-				//request.getParameter("account_UID");
+				
 		String temp0 = request.getParameter("ordersID");
 		String status = request.getParameter("status");
 		String name = request.getParameter("name");
@@ -163,26 +163,27 @@ public class OrdersTotalServlet extends HttpServlet {
 			if("Select".equals(orderaction)) {
 				List<OrdersTotalBean> result = ordersTotalService.select(bean);
 				request.setAttribute("select", result);
+				System.out.println(result);
 				request.getRequestDispatcher(
 						"/_03_Orders/OrdersTotalDisplay.jsp").forward(request, response);
-			} else if("Insert".equals(orderaction)) {
-				OrdersTotalBean result = ordersTotalService.insert(bean);
-				if(result==null) {
-					error.put("action", "Insert failed");
-				} else {
-					request.setAttribute("insert", result);
-				}
-				request.getRequestDispatcher(
-						"/_03_Orders/OrdersTotal.jsp").forward(request, response);
-			} else if("Update".equals(orderaction)) {
-				OrdersTotalBean result = ordersTotalService.update(bean);
-				if(result==null) {
-					error.put("action", "Update failed");
-				} else {
-					request.setAttribute("update", result);
-				}
-				request.getRequestDispatcher(
-						"/_03_Orders/OrdersTotal.jsp").forward(request, response);
+//			} else if("Insert".equals(orderaction)) {
+//				OrdersTotalBean result = ordersTotalService.insert(bean);
+//				if(result==null) {
+//					error.put("action", "Insert failed");
+//				} else {
+//					request.setAttribute("insert", result);
+//				}
+//				request.getRequestDispatcher(
+//						"/_03_Orders/OrdersTotal.jsp").forward(request, response);
+//			} else if("Update".equals(orderaction)) {
+//				OrdersTotalBean result = ordersTotalService.update(bean);
+//				if(result==null) {
+//					error.put("action", "Update failed");
+//				} else {
+//					request.setAttribute("update", result);
+//				}
+//				request.getRequestDispatcher(
+//						"/_03_Orders/OrdersTotal.jsp").forward(request, response);
 //			} else if("Delete".equals(orderaction)) {
 //				boolean result = ordersTotalService.delete(bean);
 //				if(result) {
