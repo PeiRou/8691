@@ -38,7 +38,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="box">		
-				<div class="col-md-12">
+				<div class="col-lg-12">
 					<h2 class="text-center">訂單資訊</h2>
 					<form action="<c:url value='/_03_Orders/OrdersTotalServlet' />" method="post">
 					<table class="table">

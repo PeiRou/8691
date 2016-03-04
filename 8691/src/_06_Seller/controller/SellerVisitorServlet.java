@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import _00_Account.model.AccountBean;
 import _01_Register.model.RegisterServiceToAccount;
+import _03_Orders.model.OrdersTotalBean;
 import _06_Seller.model.SellerVisitorBean;
 import _06_Seller.model.SellerVisitorService;
 import _09_SendMail.TestMail;
@@ -24,6 +26,8 @@ public class SellerVisitorServlet extends HttpServlet {
 
 	private SellerVisitorService sellerVisitorService = new SellerVisitorService();
 	private RegisterServiceToAccount registerServiceToAccount = new RegisterServiceToAccount();
+	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	Date date = new Date();
 
 	@Override
 	protected void doGet(HttpServletRequest request,
@@ -48,7 +52,7 @@ public class SellerVisitorServlet extends HttpServlet {
 		String receipts_metho = request.getParameter("receipts_metho");
 		String temp2 = request.getParameter("IS_check");
 		String temp3 = request.getParameter("IS_cooperation");
-		String prodaction = request.getParameter("prodaction");
+		String action = request.getParameter("action");
 		
 		TestMail mail= new TestMail();
 		mail.sendmail(acc_email, request);
@@ -132,7 +136,7 @@ public class SellerVisitorServlet extends HttpServlet {
 
 		String result = registerServiceToAccount.insertAccount(bean);
 		
-		System.out.println(result);
+		
 		// 有錯誤
 //		if (!error.isEmpty()) {
 //			RequestDispatcher rd = request
@@ -140,8 +144,13 @@ public class SellerVisitorServlet extends HttpServlet {
 //			rd.forward(request, response);
 //			return;
 //		}
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		Date date = new Date();
+		
+
+		
+		
+		
+		
+
 		// 呼叫model
 		SellerVisitorBean bean1 = new SellerVisitorBean();
 		if (result != null) {
@@ -162,13 +171,11 @@ public class SellerVisitorServlet extends HttpServlet {
 //		bean1.setIS_cooperation(IS_cooperation);
 		bean1.setInsdate(dateFormat.format(date).toString());
 		}
-		System.out.println("4");
 		
-		System.out.println(bean1);
 		
 		SellerVisitorBean result1 = sellerVisitorService.insert(bean1);
 		
-		System.out.println("5");
+		
 		
 		if (result1 != null && !error.isEmpty()) {
 			request.getRequestDispatcher("/_06_Seller/SellerPartner.jsp")
@@ -181,9 +188,14 @@ public class SellerVisitorServlet extends HttpServlet {
 			return;
 		}
 		
-//	寫在SellerVisitorServlet			TestMail mail=new TestMail();
-//                                   mail.sendmail(bean1.getAcc_email());
-	      }
+		if("Select".equals(action)) {
+			List<SellerVisitorBean> sellerVisitorResult = sellerVisitorService.select(bean1);
+			request.setAttribute("select", sellerVisitorResult);
+			request.getRequestDispatcher(
+					"/_03_Orders/OrdersTotalDisplay.jsp").forward(request, response);
+		}
+
+	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)

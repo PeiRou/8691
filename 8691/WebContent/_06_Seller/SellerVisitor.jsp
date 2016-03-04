@@ -28,140 +28,130 @@
 	<div class="container">
 		<div class="row">
 			<div class="box">		
-				<div class="col-lg-12 text-center">
-					<h1>註冊為店家</h1>
-
-	<form name="Visitor"
-		action="<c:url value='/page/visitor.controller' />" method="post">
-		<table>
-			<tr>
-				<td>輸入您的統一編號 :</td>
-				<td><input type="text" name="FEIN" value="${param.FEIN}" id="FEINinput"><span id="FEINsp" style="color:red"></span></td>
-				<td>${error.FEIN}</td>
-			</tr>
-			<tr>
-				<td>輸入您的店家名稱 :</td>
-				<td><input type="text" name="name" value="${param.name}" id="nameinput"><span id="namesp" style="color:red"></span></td>
-				<td>${error.name}</td>
-			</tr>
-			<tr>
-				<td>輸入您的帳號 或 email :</td>
-				<td><input type="text" name="acc_email" value="${param.acc_email}" id="acc_emailinput"><span id="acc_emailsp" style="color:red"></span></td>
-				<td>${error.acc_email}</td>
-			</tr>
-			
-			<tr>
-				<td>輸入您的密碼 :</td>
-
-				<td><input type="text" name="psd" value="${param.psd}" id="psdinput"><span id="psdsp" style="color:red"></span></td>
-
-				<td>${error.psd}</td>
-			</tr>
-			
-			
-		   <!--   <tr height='36'>
-		    <td>輸入您的店家圖片:</td>
-		        <td width="45" align="center" class="title_font">圖片</td> 
-		        <td colspan="3">
-		            <input style="background:#FFFFFF" class='InputClass'  type="file" 
-		            name="uploadFile" size="40" />    
-		    </tr>-->
-			
-
-			<tr>
-				<td>輸入您的連絡市話  :</td>
-				<td><input type="text" name="tel" value="${param.tel}" placeholder="Ex:02-23456789" id="telinput"><span id="teldsp" style="color:red"></span></td>
-				<td>${error.tel}</td>
-			</tr>
-			<tr>
-				<td>請輸入您住的縣市 :</td>
-				<td><select name="GUAR_CT" size="1" value="${param.GUAR_CT}">
-												<option value="" selected>請選擇</option>
-						                        <option value="A">臺北市</option>
-											    <option value="B">臺中市 </option>
-												<option value="C">基隆市</option>
-											    <option value="D">臺南市</option>
-												<option value="E">高雄市</option>
-												<option value="F">新北市</option>
-												<option value="G">宜蘭縣</option>
-												<option value="H">桃園市</option>
-												<option value="I">嘉義市</option>
-												<option value="J">新竹縣</option>
-												<option value="K">苗栗縣</option>
-												<option value="L">南投縣</option>
-												<option value="M">彰化縣</option>
-												<option value="N">新竹市</option>
-												<option value="O">雲林縣</option>
-												<option value="P">嘉義縣</option>
-												<option value="Q">屏東縣</option>
-												<option value="R">花蓮縣</option>
-												<option value="S">臺東縣</option>
-												<option value="T">金門縣</option>
-												<option value="U">澎湖縣</option>
-												<option value="V">連江縣</option>
+				<div class="col-md-12">
+				<form name="Visitor"
+					action="<c:url value='/page/visitor.controller' />" method="post">
+					<h2 class="text-center">註冊為店家</h2>
+					<table class="table">
+						<tr>
+							<td class="text-right">請輸入您的E-mail:</td>
+							<td><input type="text" name="acc_email" value="${param.acc_email}" placeholder="此E-mail將成為您的帳號 " id="acc_emailinput"><span id="acc_emailsp" style="color:red"></span></td>
+							<td>${error.acc_email}</td>
+						</tr>
 						
-				</select></td>
-				<td>${error.GUAR_CT}</td>
-			</tr>
-			<tr>
-				<td>住址(區/鄉/鎮/市) : </td>
-				<td>
-<!-- 				<select name="GUAR_AR" ></select> -->
-				<select id="select1" name="GUAR_AR">
-				<option value="" selected>請選擇</option>
-				</select>
-				<td>${error.GUAR_AR}</td>
-			</tr>
-			<tr>
-				<td>住址(路/街/巷) : </td>
-<%-- 				<td><input type="text" name="GUAR_ROAD" value="${param.GUAR_ROAD}"></td> --%>
-                <td><input type="text" id="keyword"><input id="textval" type="text" name="GUAR_ROAD" style="display:none"><span id="roadsp" style="color:red"></span></td><td>${error.GUAR_ROAD}</td>
-			</tr>                                                        
-			<tr>
-			<td></td>
-			<td id="tb"></td>
-			</tr>
-			<tr>
-				<td>住址(號) : </td>
-				<td><input type="text" name="GUAR_NO" value="${param.GUAR_NO}" id="GUAR_NOinput"><span id="GUAR_NOsp" style="color:red"></span></td>
-				<td>${error.GUAR_NO}</td>
-			</tr>
-			<tr>
-				<td>輸入聯絡人姓名 :</td>
-				<td><input type="text" name="Con_name" value="${param.Con_name}" id="Con_nameinput"><span id="Con_namesp" style="color:red"></span></td>
-				<td>${error.Con_name}</td>
-			</tr>
-			<tr>
-				<td>輸入連絡人手機 :</td>
-				<td><input type="text" name="Con_cel"
-					value="${param.Con_cel}" placeholder="Ex:0912345678" id="Con_celinput"><span id="Con_celsp" style="color:red"></span></td>
-				<td>${error.Con_cel}</td>
-			</tr>
-			<tr>
-				<td>輸入備用EMAIL :</td>
-				<td><input type="text" name="email2"
-					value="${param.email2}" id="email2input"><span id="email2sp" style="color:red"></span></td>
-				<td>${error.email2}</td>
-			</tr>
-				<tr>
-				<td>收款方式 : </td>
-				<td>	
-				<select name="receipts_metho" value="${param.receipts_metho}">
-				<option value="" selected>請選擇</option>
-		        <option value="0">貨到付款</option>
-		        <option value="1">信用卡付款</option>
-		        <option value="3">都有使用</option></select>
-		        </td>
-				<td>${error.receipts_metho}</td>
-				</tr>
-				
+						<tr>
+							<td class="text-right">請輸入您的密碼 :</td>
+							<td><input type="text" name="psd" value="${param.psd}" id="psdinput"><span id="psdsp" style="color:red"></span></td>
+							<td>${error.psd}</td>
+						</tr>
+						<tr>
+							<td class="text-right">請輸入您的統一編號 :</td>
+							<td><input type="text" name="FEIN" value="${param.FEIN}" id="FEINinput"><span id="FEINsp" style="color:red"></span></td>
+							<td>${error.FEIN}</td>
+						</tr>
+						<tr>
+							<td class="text-right">請輸入您的店家名稱 :</td>
+							<td><input type="text" name="name" value="${param.name}" id="nameinput"><span id="namesp" style="color:red"></span></td>
+							<td>${error.name}</td>
+						</tr>
+						<tr>
+							<td class="text-right">請輸入負責人姓名 :</td>
+							<td><input type="text" name="Con_name" value="${param.Con_name}" id="Con_nameinput"><span id="Con_namesp" style="color:red"></span></td>
+							<td>${error.Con_name}</td>
+						</tr>
+					   <!--   <tr height='36'>
+					    <td>輸入您的店家圖片:</td>
+					        <td width="45" align="center" class="title_font">圖片</td> 
+					        <td colspan="3">
+					            <input style="background:#FFFFFF" class='InputClass'  type="file" 
+					            name="uploadFile" size="40" />    
+					    </tr>-->
+						<tr>
+							<td class="text-right">請輸入您的店家電話號碼 :</td>
+							<td><input type="text" name="tel" value="${param.tel}" placeholder="Ex:02-23456789" id="telinput"><span id="teldsp" style="color:red"></span></td>
+							<td>${error.tel}</td>
+						</tr>
+						<tr>
+							<td class="text-right">請輸入負責人手機號碼 :</td>
+							<td><input type="text" name="Con_cel"
+								value="${param.Con_cel}" placeholder="Ex:0912345678" id="Con_celinput"><span id="Con_celsp" style="color:red"></span></td>
+							<td>${error.Con_cel}</td>
+						</tr>
+						<tr>
+							<td class="text-right">請選擇您所在的縣市 :</td>
+							<td><select name="GUAR_CT" size="1" value="${param.GUAR_CT}">
+															<option value="" selected>請選擇</option>
+									                        <option value="A">臺北市</option>
+														    <option value="B">臺中市 </option>
+															<option value="C">基隆市</option>
+														    <option value="D">臺南市</option>
+															<option value="E">高雄市</option>
+															<option value="F">新北市</option>
+															<option value="G">宜蘭縣</option>
+															<option value="H">桃園市</option>
+															<option value="I">嘉義市</option>
+															<option value="J">新竹縣</option>
+															<option value="K">苗栗縣</option>
+															<option value="L">南投縣</option>
+															<option value="M">彰化縣</option>
+															<option value="N">新竹市</option>
+															<option value="O">雲林縣</option>
+															<option value="P">嘉義縣</option>
+															<option value="Q">屏東縣</option>
+															<option value="R">花蓮縣</option>
+															<option value="S">臺東縣</option>
+															<option value="T">金門縣</option>
+															<option value="U">澎湖縣</option>
+															<option value="V">連江縣</option>
+									
+							</select></td>
+							<td>${error.GUAR_CT}</td>
+						</tr>
+						<tr>
+							<td class="text-right">住址(區/鄉/鎮/市) : </td>
+							<td>
 			
-			<tr>
-				<td align="right"><input class="btn btn-primary" type="submit" value="註冊"></td>
-			</tr>
-		</table>
-	</form>
-<script src="<%= request.getContextPath() %>/js/jquery-2.2.1.min.js"></script>
+							<select id="select1" name="GUAR_AR">
+							<option value="" selected>請選擇</option>
+							</select>
+							<td>${error.GUAR_AR}</td>
+						</tr>
+						<tr>
+							<td class="text-right">住址(路/街/巷) : </td>
+			                <td><input type="text" id="keyword"><input id="textval" type="text" name="GUAR_ROAD" style="display:none"><span id="roadsp" style="color:red"></span></td><td>${error.GUAR_ROAD}</td>
+						</tr>                                                        
+						<tr>
+						<td></td>
+						<td id="tb"></td>
+						</tr>
+						<tr>
+							<td class="text-right">住址(號) : </td>
+							<td><input type="text" name="GUAR_NO" value="${param.GUAR_NO}" id="GUAR_NOinput"><span id="GUAR_NOsp" style="color:red"></span></td>
+							<td>${error.GUAR_NO}</td>
+						</tr>						
+						<tr>
+							<td class="text-right">請輸入備用EMAIL :</td>
+							<td><input type="text" name="email2"
+								value="${param.email2}" id="email2input"><span id="email2sp" style="color:red"></span></td>
+							<td>${error.email2}</td>
+						</tr>
+							<tr>
+							<td class="text-right">請選擇收款方式 : </td>
+							<td>	
+							<select name="receipts_metho" value="${param.receipts_metho}">
+							<option value="" selected>請選擇</option>
+					        <option value="0">貨到付款</option>
+					        <option value="1">信用卡付款</option>
+					        <option value="3">都有使用</option></select>
+					        </td>
+							<td>${error.receipts_metho}</td>
+							</tr>
+						<tr>
+							<td align="right"><input class="btn btn-primary" type="submit" value="註冊"></td>
+						</tr>
+					</table>
+				</form>
+<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
 <script>
 
 $(function(){
@@ -256,70 +246,6 @@ $(function(){
 		            }
 		        }
 		        function chkFEIN() {
-<<<<<<< HEAD
-		        	var theFEIN = document.getElementById("FEINinput").value;
-		    		
-		            var FEINre = /^\d{8}$/;
-		
-		            if (FEINre.test(chkFEIN)) {
-		                document.getElementById("FEINsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/right.png' />";
-		                
-		            }   
-		             else {
-		                document.getElementById("FEINsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />格式錯誤";
-		               }
-		        } 
-		        
-		     
-		        function blur2() {
-		            if (document.getElementById("nameinput").value == "") {
-		            	document.getElementById("namesp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
-		            }		            
-		        }
-		
-		        
-		        function blur3() {
-		            if (document.getElementById("acc_emailinput").value == "") {
-		                document.getElementById("acc_emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
-		            }
-		            else if (document.getElementById("acc_emailinput").value != "") {
-		            	chkacc_email();          
-		            }
-		        }
-		        function chkacc_email() {
-		            var chkacc_email = document.getElementById("acc_emailinput").value;
-		
-		            var namere = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-		
-		            if (namere.test(chkacc_email)) {
-		                document.getElementById("acc_emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/right.png' />";
-		                
-		            }   
-		             else {
-		                document.getElementById("acc_emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />格式錯誤";
-		               }
-		        } 
-		        
-		        function blur4() {
-		            if (document.getElementById("psdinput").value == "") {
-		                document.getElementById("psdsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
-		            }		            
-		        }
-		        
-		        function blur5() {
-		            if (document.getElementById("telinput").value == "") {
-		            	document.getElementById("teldsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
-		            }
-		            else if (document.getElementById("telinput").value != "") {
-		                chktel();
-		            }
-		        }
-
-		        function chktel() {
-		            var thetel = document.getElementById("telinput").value;
-
-		            var telre = /[0-9]{2}\-[0-9]{7}/;
-=======
 		        	var chkFEIN = document.getElementById("FEINinput").value;
 		    		
 		            var FEINre = /^\d{8}$/;
@@ -384,7 +310,6 @@ $(function(){
 		            var thetel = document.getElementById("telinput").value;
 
 		            var telre = /^[02]{2}-[0-9]{8}$/;
->>>>>>> branch 'master' of https://github.com/eeit83team05/8691.git
 
 		            if (telre.test(thetel)) {
 		            	document.getElementById("teldsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/right.png' />";
@@ -458,19 +383,12 @@ $(function(){
 		                document.getElementById("email2sp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />格式錯誤";
 		               }
 		        } 
-		        
-		        
-		        
-		        
         </script>
-
-
 				</div>
 			</div>			
 		</div>
 	</div>
 	<!-- /.container -->
-
     <footer>
         <div class="container">
             <div class="row">

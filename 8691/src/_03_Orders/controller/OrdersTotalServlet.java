@@ -178,11 +178,8 @@ public class OrdersTotalServlet extends HttpServlet {
 			if("Select".equals(orderaction)) {
 				List<OrdersTotalBean> result = ordersTotalService.select(bean);
 				request.setAttribute("select", result);
-
 //				List<OrdersTotalBean> result2 = ordersTotalService.select(beanAR);
-//				request.setAttribute("select2", result2);
-
-				System.out.println(result);
+//				request.setAttribute("select2", result2);				
 				request.getRequestDispatcher(
 						"/_03_Orders/OrdersTotalDisplay.jsp").forward(request, response);
 //			} else if("Insert".equals(orderaction)) {
