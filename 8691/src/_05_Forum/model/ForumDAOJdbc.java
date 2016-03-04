@@ -15,12 +15,12 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import _03_Orders.model.OrdersTotalBean;
 
 public class ForumDAOJdbc {
 //	private static final String URL = "jdbc:sqlserver://raab1str2m.database.windows.net:1433;database=DB02";
 //	private static final String USERNAME = "eeit83team05@raab1str2m";
 //	private static final String PASSWORD = "Sa123456";
+	
 	
 	private DataSource dataSource = null;
 	public ForumDAOJdbc() {
@@ -33,11 +33,11 @@ public class ForumDAOJdbc {
 	}
 	
 	public static void main(String[] args) {
-		String RD = UUID.randomUUID().toString();
-		ForumDAOJdbc dao = new ForumDAOJdbc();
+//		String RD = UUID.randomUUID().toString();
+//		ForumDAOJdbc dao = new ForumDAOJdbc();
 		
 		//select  
-//		ForumBean bean = dao.select("69C4D4DA-CA77-4468-BDA3-98B630EF84DD");
+//		ForumBean bean = dao.select("8F1E69DA-009D-4882-A306-13B9BDF46674");
 //		System.out.println(bean);
 		
 		//select all  
@@ -45,8 +45,16 @@ public class ForumDAOJdbc {
 //		System.out.println(beans);
 
 		// insert    
-//		ForumBean beanIns = new ForumBean(RD,"88433134-0610-4792-B5DD-3D0EB6B76097", "E8962DB1-8A44-4248-9BE1-2C7E08431D79", 1, "蘿蔔沒挑過，筋太多，失敗! 豬皮煮得太爛，沒咬頭，失敗!", new java.util.Date());
+//		System.out.println("1");
+//		ForumBean bean = new ForumBean(RD,"88433134-0610-4792-B5DD-3D0EB6B76097", "E8962DB1-8A44-4248-9BE1-2C7E08431D79", 1, "蘿蔔沒挑過，筋太多，失敗! 豬皮煮得太爛，沒咬頭，失敗!", "20160303");
+//		System.out.println("2");
+//		dao.insert(bean);
+//		System.out.println("3");
+		
+//		ForumBean beanIns = new ForumBean("蘿蔔沒挑過，筋太多，失敗! 豬皮煮得太爛，沒咬頭，失敗!", "20160303");
 //		dao.insert(beanIns);
+		
+		
 		
 		//update  
 //		ForumBean beanUpdate = dao.update(RD,"88433134-0610-4792-B5DD-3D0EB6B76097", 0, 
@@ -79,7 +87,7 @@ private static final String SELECT = "select * from Forum where Forum_UID=?";
 				result.setForum_UID(rset.getString("Forum_UID"));
 				result.setOrders_total_UID(rset.getString("Orders_total_UID"));
 				result.setMember_UID(rset.getString("Member_UID"));
-				result.setRatting(rset.getInt("ratting"));
+				result.setRating(rset.getInt("rating"));
 				result.setComment(rset.getString("comment"));
 			}
 		} catch (SQLException e) {
@@ -130,7 +138,7 @@ private static final String SELECT_ALL = "select * from Forum";
 				result.setForum_UID(rset.getString("Forum_UID"));
 				result.setOrders_total_UID(rset.getString("Orders_total_UID"));
 				result.setMember_UID(rset.getString("Member_UID"));
-				result.setRatting(rset.getInt("ratting"));
+				result.setRating(rset.getInt("rating"));
 				result.setComment(rset.getString("comment"));
 				items.add(result);
 			}
@@ -162,9 +170,9 @@ private static final String SELECT_ALL = "select * from Forum";
 		return items;
 	}
 	
-private static final String INSERT = "insert into Forum (Forum_UID, Orders_total_UID, Member_UID, ratting, comment, insdate) values (?, ?, ?, ?, ?, ?)";
-	public ForumBean insert(ForumBean bean) {
-		ForumBean result = null;
+private static final String INSERT = "insert into Forum (Forum_UID, Orders_total_UID, Member_UID, rating, comment, insdate) values (?, ?, ?, ?, ?, ?)";
+//private static final String INSERT = "insert into Forum (comment, insdate) values (?, ?)";
+	public void insert(ForumBean bean) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 
@@ -175,20 +183,21 @@ private static final String INSERT = "insert into Forum (Forum_UID, Orders_total
 			stmt.setString(1, bean.getForum_UID());
 			stmt.setString(2, bean.getOrders_total_UID());			
 			stmt.setString(3, bean.getMember_UID());
-			stmt.setInt(4, bean.getRatting());
+			stmt.setInt(4, bean.getRating());
 			stmt.setString(5, bean.getComment());
-			java.util.Date insdate = bean.getInsdate();
-			if (insdate != null) {
-				long time = insdate.getTime();
-				stmt.setDate(6, new java.sql.Date(time));
-			} else {
-				stmt.setDate(6, null);
-			}			
+			stmt.setString(6, bean.getInsdate());
+			
+//			java.util.Date insdate = bean.getInsdate();
+//			if (insdate != null) {
+//				long time = insdate.getTime();
+//				stmt.setDate(6, new java.sql.Date(time));
+//			} else {
+//				stmt.setDate(6, null);
+//			}			
 
 			int i = stmt.executeUpdate();
 			if (i == 1) {
 				System.out.println("INSERT Success!");
-				result = bean;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -208,11 +217,10 @@ private static final String INSERT = "insert into Forum (Forum_UID, Orders_total
 				}
 			}
 		}
-		return result;
 	}
 	
-private static final String UPDATE = "update Forum set Forum_UID=?, Orders_total_UID=?, ratting=?, comment=?, insdate=? where Member_UID=?";
-	public ForumBean update(String Forum_UID, String Orders_total_UID, int ratting,
+private static final String UPDATE = "update Forum set Forum_UID=?, Orders_total_UID=?, rating=?, comment=?, insdate=? where Member_UID=?";
+	public ForumBean update(String Forum_UID, String Orders_total_UID, int rating,
 			String comment, Date insdate, String Member_UID) {
 		Connection conn = null;
 		PreparedStatement psStrUpd = null;
@@ -223,7 +231,7 @@ private static final String UPDATE = "update Forum set Forum_UID=?, Orders_total
 			psStrUpd = conn.prepareStatement(UPDATE);
 			psStrUpd.setString(1, Forum_UID);
 			psStrUpd.setString(2, Orders_total_UID);
-			psStrUpd.setInt(3, ratting);
+			psStrUpd.setInt(3, rating);
 			psStrUpd.setString(4, comment);
 			if (insdate != null) {
 				long time = insdate.getTime();
@@ -262,7 +270,8 @@ private static final String UPDATE = "update Forum set Forum_UID=?, Orders_total
 private static final String DELETE = "delete from Forum where Forum_UID=?";
 	
 	public int delete(String Forum_UID) {
-		try(//Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+		try(
+				//Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 				Connection conn = dataSource.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(DELETE);) {
 				stmt.setString(1, Forum_UID);

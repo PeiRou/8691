@@ -91,6 +91,10 @@
     
     
     $("#btn").click(function(){
+//     	if( jQuery.trim(comment) == "" || comment == ""){
+<%--     		document.getElementById("msgsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白"; --%>
+//     	}else{
+//    		$("#msgsp").empty();
         	$.ajax({
        		  'type':'get',
        		  'url':'<%= request.getContextPath() %>/ForumServlet',
@@ -99,8 +103,21 @@
        		  'success': function(data){
        		 		}
        		  });
+// 	    	}
     	});
     
+//     '+txtId+'
+//     '+$("#msg").val()+'
+//		'+#+' '+txtId+'
+    
+//     function deltxt(id) {
+//         $("#p"+id).remove();
+//     }
+    
+//     		var msg = $('<p id="p'+txtId+'"> '+"#"+' '+txtId+' '+$("#comment").val()+'<input type="button" value="刪除" onclick="deltxt('+txtId+')"></p>');
+//          var msgdel = $('<input type="button" value="刪除" onclick="deltxt('+txtId+')">');
+//         	$("#div1").append(msg);
+//         	txtId++;
     
     
     
