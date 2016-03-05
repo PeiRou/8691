@@ -12,22 +12,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import _03_Orders.model.OrdersTotalBean;
-import _03_Orders.model.OrdersTotalService;
+import _03_Orders.model.SellerOrdersTotalService;
 import _07_Address.model.Address_AR_Bean;
 import _07_Address.model.Address_CT_Bean;
 import _07_Address.model.Address_ROAD_Bean;
 
 
-@WebServlet(urlPatterns={"/_03_Orders/OrdersTotalServlet"})
-public class OrdersTotalServlet extends HttpServlet {
+@WebServlet(urlPatterns={"/_03_Orders/SellerOrdersTotalServlet"})
+public class SellerOrdersTotalServlet extends HttpServlet {
 	private static SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd");
-	private OrdersTotalService ordersTotalService = new OrdersTotalService();
+	private SellerOrdersTotalService sellerOrdersTotalService = new SellerOrdersTotalService();
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	//接收資料
-		String Orders_total_UID = request.getParameter("Orders_total_UID");
-		String account_UID = (String)request.getSession().getAttribute("LoginOK");
+		//接收資料
+		String Orders_total_UID = request.getParameter("Orders_total_UID");		
+		String seller_UID = (String)request.getSession().getAttribute("seller_UID");		
 		String temp0 = request.getParameter("ordersID");
 		String status = request.getParameter("status");
 		String name = request.getParameter("name");
@@ -43,8 +42,9 @@ public class OrdersTotalServlet extends HttpServlet {
 		String temp4 = request.getParameter("total_amount");
 		String orderaction = request.getParameter("orderaction");
 
+		
 
-	//轉換資料
+		//轉換資料
 		Map<String, String> error = new HashMap<String, String>();
 		request.setAttribute("error", error);
 
@@ -143,7 +143,7 @@ public class OrdersTotalServlet extends HttpServlet {
 	//呼叫model
 			OrdersTotalBean bean = new OrdersTotalBean();
 			bean.setOrders_total_UID(Orders_total_UID);
-			bean.setAccount_UID(account_UID);
+			bean.setSeller_UID(seller_UID);
 			bean.setOrdersID(ordersID);			
 			bean.setStatus(status);
 			bean.setName(name);
@@ -158,24 +158,23 @@ public class OrdersTotalServlet extends HttpServlet {
 			bean.setShip_price(ship_price);
 			bean.setFood_price(food_price);
 			bean.setTotal_amount(total_amount);	
+		 
 			
 	//根據model執行結果顯示view
 			if("Select".equals(orderaction)) {
-				List<OrdersTotalBean> result = ordersTotalService.select(bean);
+				List<OrdersTotalBean> result = sellerOrdersTotalService.select(bean);
 				request.setAttribute("select", result);
-//				List<OrdersTotalBean> result2 = ordersTotalService.select(beanAR);
-//				request.setAttribute("select2", result2);				
 				request.getRequestDispatcher(
-						"/_03_Orders/OrdersTotalDisplay.jsp").forward(request, response);
-			} else if("Insert".equals(orderaction)) {
-				OrdersTotalBean result = ordersTotalService.insert(bean);
-				if(result==null) {
-					error.put("action", "Insert failed");
-				} else {
-					request.setAttribute("insert", result);
-				}
-				request.getRequestDispatcher(
-						"/_03_Orders/OrdersTotal.jsp").forward(request, response);
+						"/_03_Orders/SellerOrdersTotalDisplay.jsp").forward(request, response);
+//			} else if("Insert".equals(orderaction)) {
+//				OrdersTotalBean result = ordersTotalService.insert(bean);
+//				if(result==null) {
+//					error.put("action", "Insert failed");
+//				} else {
+//					request.setAttribute("insert", result);
+//				}
+//				request.getRequestDispatcher(
+//						"/_03_Orders/OrdersTotal.jsp").forward(request, response);
 //			} else if("Update".equals(orderaction)) {
 //				OrdersTotalBean result = ordersTotalService.update(bean);
 //				if(result==null) {

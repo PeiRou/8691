@@ -2,33 +2,31 @@ package _03_Orders.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import _03_Orders.model.OrdersTotalJDBC;
+import _03_Orders.model.SellerOrdersTotalJDBC;
 
-public class OrdersTotalService {
-	private OrdersTotalJDBC ordersTotalDao = new OrdersTotalJDBC();
+public class SellerOrdersTotalService {
+	private SellerOrdersTotalJDBC ordersTotalDao = new SellerOrdersTotalJDBC();
 	public List<OrdersTotalBean> select(OrdersTotalBean bean) {
 		List<OrdersTotalBean> result = null;
-		if(bean!=null && bean.getAccount_UID().length()!=0) {
-			List<OrdersTotalBean> temp = ordersTotalDao.select(bean.getAccount_UID());
+		if(bean!=null && bean.getSeller_UID().length()!=0) {
+			List<OrdersTotalBean> temp = ordersTotalDao.select(bean.getSeller_UID());
 			if(temp!=null) {
 				result = new ArrayList<OrdersTotalBean>();
 				result.addAll(temp);
-//				System.out.println(bean);
-//				System.out.println(temp);
 			}
 		} else {
 			//result = ordersTotalDao.select(); 
 		}
 		return result;
 	}
-	public OrdersTotalBean insert(OrdersTotalBean bean) {
-		OrdersTotalBean result = null;
-		if(bean!=null) {
-			result = ordersTotalDao.insert(bean);
-			return result;
-		}
-		return null;
-	}
+//	public OrdersTotalBean insert(OrdersTotalBean bean) {
+//		OrdersTotalBean result = null;
+//		if(bean!=null) {
+//			result = ordersTotalDao.insert(bean);
+//			return result;
+//		}
+//		return null;
+//	}
 //	public OrdersTotalBean update(OrdersTotalBean bean) {
 //		OrdersTotalBean result = null;
 //		if(bean!=null) {
@@ -48,7 +46,7 @@ public class OrdersTotalService {
 //		return false;
 //	}
 	public static void main(String[] args) {
-		OrdersTotalService service = new OrdersTotalService();
+		SellerOrdersTotalService service = new SellerOrdersTotalService();
 		List<OrdersTotalBean> beans = service.select(null);
 		System.out.println("beans="+beans);
 	}

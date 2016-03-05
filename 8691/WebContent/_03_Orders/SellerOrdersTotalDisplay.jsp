@@ -53,7 +53,7 @@
 							<c:url value="/_03_Orders/OrdersTotal.jsp" var="path">
 								<c:param name="ordersID" value="${bean.ordersID}" />
 								<c:param name="name" value="${bean.name}" />
-								<c:param name="cel" value="${bean.cel}" />								
+								<c:param name="cel" value="${bean.cel}" />
 								<c:param name="GUAR_CT" value="${bean.GUAR_CT}" />
 								<c:param name="GUAR_AR" value="${bean.GUAR_AR}" />
 								<c:param name="GUAR_ROAD" value="${bean.GUAR_ROAD}" />
@@ -81,7 +81,7 @@
 					</table>
 					</c:if>
 					
-					<h3><a href="<c:url value="/_03_Orders/OrdersTotal.jsp" />">OrdersTotal Table</a></h3>
+					<h3><a href="<c:url value="/_03_Orders/SellerOrdersTotal.jsp" />">OrdersTotal Table</a></h3>
 
 
 				</div>
