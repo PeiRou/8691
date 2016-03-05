@@ -103,13 +103,18 @@
 		$(".tdfont").show();			
 		$(this).hide();
 		$('.tdupd').show();
+		$(":input").attr('disabled', true);
+		var theTr = $(this).parent().parent().attr("id");
+		UpdTable(theTr);
+		//把輸入的欄位覆蓋回頁面
+		funChangeVal(theTr);
 	});	
 	//第一次載入
     function LoadTable(jsonVal,jsonGroup){ 	    	
     	$.each(jsonGroup, function(index,GroupVal){
-    		console.log(index);
         	var trunkStusTd = $("<td></td>");
         	var trunkFoodTd = $("<td></td>");
+        	var btnIns = $('<a class="btn btn-warning tdinsfood"></a>').text('新增食物');
         	var btnUpd = $('<a class="btn btn-success tdupd"></a>').text('修改');
         	var btnOk = $('<a class="btn btn-success tdok"></a>').text('確定');
         	var trunkbtn = $("<td></td>").append(btnUpd).append(btnOk);
@@ -118,10 +123,10 @@
 	    	$.each(jsonVal, function(index,FodStuVal){
 	    		if (GroupVal.GroupClass3ID==FodStuVal.GroupClass3ID){    		
 		    		var GroupFoods = insGroupFood(FodStuVal.FoodID,FodStuVal.FoodName,FodStuVal.FoodPrice);
-		    		console.log("GroupVal.GroupClass3ID: "+GroupVal.GroupClass3ID);
 		    		trunkFoodTd.append(GroupFoods);
 	        	}
 	    	});
+	    	trunkFoodTd.append(btnIns);
 	    	var trunkTr = $("<tr id=GroupTr"+ GroupVal.GroupClass3ID +"></tr>").append(trunkFoodTd).append(trunkStusTd).append(trunkbtn);
 	    	$('#tbl tr:last').after(trunkTr);
     	});
@@ -138,7 +143,7 @@
 				}
 			});
 		});
-		return appPrices.html();
+		return appPrices;
 	}
 	
 	//尺寸下拉式選單，給定值後順便綁定
@@ -155,7 +160,7 @@
 	}
 	
 	//組多個size+名稱的label
-	function insPrice(ID,SizePriceID,SizePrice) {		
+	function insPrice(ID,SizePriceID,SizePrice) {
 		var celtextName = $('<input type=text id=txtSizePrice'+SizePriceID+'>').val(SizePrice);
 		var celfont = $('<font class="tdfont" id=fontSizePrice'+SizePriceID+'></font>').text(SizePrice);
 		var celSeld = selectSizeName(SizePriceID,ID);
@@ -177,17 +182,20 @@
 					});
 				});
 				if(appClass3.html()!=""){
+					var btnIns = $('<a class="btn btn-info tdinsC3"></a>').text('新增細項');
+					appClass3.append(btnIns);
 					var Class2 =insclass2(PrCl2val.ProdStatusClass2ID,PrCl2val.ProdStatusClass2Name);	
 					appeds.append(Class2).append(appClass3).html();
 				}
 			}
 		});
+		var btnIns = $('<a class="btn btn-primary tdinsC2"></a>').text('新增類別');
+		appeds.append(btnIns);
 		$('#trunkMenu').append(appeds);
 		return appeds;
 	}
 	//多個食物品名含有多個價錢
-	function insGroupFood(celFoodID,celFoodName,celFoodPrice) {	
-		//console.log(celFoodID,celFoodName);
+	function insGroupFood(celFoodID,celFoodName,celFoodPrice) {
 		var celtextName = $('<input type=text id=txtFood'+celFoodID+'>').val(celFoodName);
 		var celfont = $('<font class="tdfont" id=fontFood'+celFoodID+'></font>').text(celFoodName);
 		var celPrices = loopceltextPrices(celFoodID,celFoodPrice);
@@ -199,7 +207,7 @@
 	function insclass2(Class2ID,Class2Name) {		
 		var celtextName = $('<input type=text class="tdtext" id=Class2'+Class2ID+'>').val(Class2Name);		
 		var celfont = $('<font class="tdfont" id=celfont'+Class2ID+'></font>').text(Class2Name);
-		var cellabel = $('<label class="btn btn-primary active" id=cellbl'+Class2ID +' style="margin: 2px"></label>').append(celtextName).append(celfont);
+		var cellabel = $('<label class="btn btn-default btn-lg active" id=cellbl'+Class2ID +' style="margin: 2px"></label>').append(celtextName).append(celfont);
 		return cellabel;
 	}
 	//class3屬性值
@@ -209,7 +217,123 @@
 		var celfont = $('<font class="tdfont" id=celfont'+Class3ID+'></font>').text(Class3Name+Class3Price);
 		var cellabel = $('<label class="btn btn-default" id=cellbl'+Class3ID +' style="margin: 2px"></label>').append(celtextName).append(celtextPrice).append(celfont).append("元");
 		return cellabel;
-	}    
+	}   
+	//修改資料
+	function UpdTable(theTr){
+		var dataArray = new Array;
+		var foodArray = new Array;
+		var SzPzArray = new Array;
+		var action = "Update";
+		var tmpSize;
+		
+		$("tr[id="+theTr+"] :input").each(function(index,value){			
+			console.log(index);
+			var tmpData = String($(this).attr('id'));
+			console.log(tmpData,$(this).val());
+			var leth = tmpData.length;
+			
+			var culmId = tmpData.substring(0,7);
+			var FoodId = tmpData.substring(7,leth);
+			
+			var culmSzPz = tmpData.substring(0,12);			
+			var SzPzId = tmpData.substring(12,leth);
+			
+			if(culmId=='txtFood'){					
+				var tmpFood = $(this).val();
+				var objdata = new Object;
+				objdata.FoodID = FoodId;
+				objdata.FoodName = tmpFood;
+				foodArray.push(objdata);
+			}else if(culmSzPz=='selSizePrice'){
+				tmpSize= $(this).val();				
+			}else if(culmSzPz=='txtSizePrice'){
+				var tmpSizePrice= $(this).val();
+				var objdata = new Object;
+				objdata.FoodSizePriceID = SzPzId;
+				objdata.SizeStatusID = tmpSize;
+				//用完清空
+				tmpSize = "";
+				objdata.FoodStatusPrice = tmpSizePrice;
+				SzPzArray.push(objdata);
+			}
+		});
+		CovJsonObjectSetAjax(action,"Food",foodArray);
+		CovJsonObjectSetAjax(action,"FoodSizePrice",SzPzArray);
+	}
+	//轉成json物件,再送出ajax
+	function CovJsonObjectSetAjax(action,table,status){
+		var jsonObj = new Object();
+		jsonObj.action = action;
+		jsonObj.table = table;
+		jsonObj.status = status;
+		var JsonData = JSON.stringify(jsonObj);
+		console.log("JsonData:"+JsonData);
+		setJson(action,JsonData);		
+	}
+	//呼叫ajax
+	function setJson(action,jsonData) {
+		var action = action;
+		$.ajax({
+			url : '<%= request.getContextPath() %>/_10_Menu/UpdMenu.controller',
+	        type: 'get',
+	        dataType: 'json',
+	        data: "jsonData=" + jsonData,
+	        contentType: 'application/json',
+	        mimeType: 'application/json',
+	        success: function (data) {
+	        	if(action == "Insert"){
+					if(data!=0){						
+						var Obj = JSON.parse(jsonData);						
+						removeNew();
+						InsCel(data,Obj.status.ProdStatusClass3Name,Obj.status.ProdStatusClass3Price);						
+					}
+				}else if(action == "Update"){
+					var idata = 0;
+						var datalength= data.length;
+						while(idata < datalength){
+								var Obj = new Object;
+								Obj = JSON.parse(JSON.stringify(data[idata]));
+								var ProdStatusClass3ID = Obj.ProdStatusClass3ID;
+								if(typeof(ProdStatusClass3ID)!="undefined"){
+									fucErorrShow(Obj.ProdStatusClass3ID,Obj.ProdStatusClass3Name,Obj.ProdStatusClass3Price);
+								}
+								idata = idata + 1;
+							}	
+				}			
+	        }});
+	}
+	//把輸入的欄位覆蓋回頁面
+	function funChangeVal(theTr){
+		$("tr[id="+theTr+"] :input").each(function(index,value){
+			console.log("funChangeVal:"+index,value);
+			
+			var tmpData = String($(this).attr('id'));
+			console.log(tmpData,$(this).val());
+			var leth = tmpData.length;
+			
+			var culmId = tmpData.substring(0,7);
+			var FoodId = tmpData.substring(7,leth);
+			
+			var culmSzPz = tmpData.substring(0,12);			
+			var SzPzId = tmpData.substring(12,leth);
+
+			if(culmId=='txtFood'){
+				$('font[id="celfont'+tmpClass3NameId+'"]').html('');
+				$('font[id="celfont'+tmpClass3NameId+'"]').append($(this).val());
+			}else if(culmSzPz=='selSizePrice'){
+				$('font[id="celfont'+tmpPriceId+'"]').append($(this).val());
+			}else if(culmSzPz=='txtSizePrice'){
+				var tmpSizePrice= $(this).val();
+				var objdata = new Object;
+				objdata.FoodSizePriceID = SzPzId;
+				objdata.SizeStatusID = tmpSize;
+				//用完清空
+				tmpSize = "";
+				objdata.FoodStatusPrice = tmpSizePrice;
+				SzPzArray.push(objdata);
+			}
+		});
+	}
 </script>
 </body>
 </html>

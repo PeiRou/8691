@@ -73,4 +73,22 @@ public class _11_Foodjdbc {
 		}
 		return JSONObjectList;
 	}
+	
+	private final String UPDATE = "update Food set Food_name=? where Food_ID=?";
+	public int update(JSONObject JsonData){
+		try(Connection conn = dataSource.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(UPDATE);) {				
+				if(JsonData.getString("FoodID") != "") {
+					stmt.setString(1,JsonData.getString("FoodName"));
+					stmt.setString(2,JsonData.getString("FoodID"));
+					int i = stmt.executeUpdate();
+					if(i == 1) {
+						return i;
+					}
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		return 0;
+	}
 }
