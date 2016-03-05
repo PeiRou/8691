@@ -188,12 +188,12 @@ public class SellerVisitorServlet extends HttpServlet {
 			return;
 		}
 		
-		if("Select".equals(action)) {
-			List<SellerVisitorBean> sellerVisitorResult = sellerVisitorService.select(bean1);
-			request.setAttribute("select", sellerVisitorResult);
-			request.getRequestDispatcher(
-					"/_03_Orders/OrdersTotalDisplay.jsp").forward(request, response);
-		}
+//		if("Select".equals(action)) {
+//			List<SellerVisitorBean> sellerVisitorResult = sellerVisitorService.select(bean1);
+//			request.setAttribute("select", sellerVisitorResult);
+//			request.getRequestDispatcher(
+//					"/_03_Orders/OrdersTotalDisplay.jsp").forward(request, response);
+//		}
 
 	}
 
