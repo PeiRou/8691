@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,7 +42,6 @@ public class _11_Foodjdbc {
 			while (rset.next()) {
 				JSONObject obj = new JSONObject();
 				obj.put("AccountUID", rset.getString("Account_UID"));
-				obj.put("ProdStatusClass1ID",rset.getString("Prod_status_class1_ID"));
 				obj.put("FoodID", rset.getString("Food_ID"));				
 				obj.put("FoodName", rset.getString("Food_name"));
 				if (rset.getString("Food_photo") != null) {
@@ -85,6 +85,27 @@ public class _11_Foodjdbc {
 					if(i == 1) {
 						return i;
 					}
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		return 0;
+	}
+	
+	private final String INSERT = "insert into Food values (?,?,null,?)";
+	public int insert(JSONObject JsonData) throws JSONException {
+		try(Connection conn = dataSource.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(INSERT,Statement.RETURN_GENERATED_KEYS);) {				
+				if(JsonData.getString("AccountUID") != ""&&JsonData.getString("GroupClass3ID") != "") {
+					stmt.setString(1,JsonData.getString("AccountUID"));
+					stmt.setString(2,JsonData.getString("FoodName"));
+					//stmt.setString(3,JsonData.getString("FoodPhoto"));
+					stmt.setString(3,JsonData.getString("GroupClass3ID"));
+					stmt.executeUpdate();
+					ResultSet rs = stmt.getGeneratedKeys();
+				    if(rs.next()){
+				    	return rs.getInt(1);
+				    }
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

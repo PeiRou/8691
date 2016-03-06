@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -105,6 +106,25 @@ public class _11_FoodPricejdbc {
 					if(i == 1) {
 						return i;
 					}
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		return 0;
+	}
+	private final String INSERT = "insert into Food_size_price(Food_ID,Size_status_ID,Food_status_price) values(?,?,?)";
+	public int insert(JSONObject JsonData){
+		try(Connection conn = dataSource.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(INSERT,Statement.RETURN_GENERATED_KEYS);) {				
+				if(JsonData.getString("FoodID") != "") {
+					stmt.setString(1,JsonData.getString("FoodID"));
+					stmt.setString(2,JsonData.getString("SizeStatusID"));
+					stmt.setString(3,JsonData.getString("FoodStatusPrice"));
+					stmt.executeUpdate();
+					ResultSet rs = stmt.getGeneratedKeys();
+				    if(rs.next()){
+				    	return rs.getInt(1);
+				    }
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
