@@ -22,14 +22,45 @@
     <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
     
     <!-- jquery.css -->
+    
     <link href="<%= request.getContextPath() %>/css/jquery.dataTable.min.css" rel="stylesheet">
     <link href="<%= request.getContextPath() %>/css/jquery-ui/jquery-ui.min.css" rel="stylesheet">
+    
 </head>
 <style>
-	.customer-font {
-		font-weight: bold; 
-		font-size: 20px;
-	}
+.customer-font {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.checkbox-font {
+	margin-top:0px;
+	height: 32px;
+	display: inline-block;
+	padding: 0 0 0 0px;
+}
+
+input[type=checkbox] {
+	display: none;
+}
+
+input[type=checkbox]+label {
+	background:  url(../image/icon/blank-check-box.png) no-repeat;
+	height: 32px;
+	width: 75px;
+	display: inline-block;
+	padding: 0 0 0 40px;
+	margin-left: 25px;
+}
+
+input[type=checkbox]:checked+label {
+	background: url(../image/icon/check-box.png) no-repeat;
+	height: 32px;
+	width: 75px;
+	display: inline-block;
+	padding: 0 0 0 40px;
+	margin-left: 25px;
+}
 </style>
 <body>
 	<jsp:include page="/fragment/top.jsp" />
@@ -62,18 +93,6 @@
 		</div>
 	</div>
 	<!-- /.container -->
-	
-	<div id="editDialog" style="display: none">
-		<form>
-			<div class="">
-				<p>
-					<label for="spinner"> 數量 : </label> 
-					<input id="spinner"name="value">
-				</p>
-			</div>
-		</form>
-	</div>
-	
     <footer>
         <div class="container">
             <div class="row">
@@ -83,6 +102,37 @@
             </div>
         </div>
     </footer>
+    
+	<div id="editDialog" style="display: none">
+		<form>
+			<div>
+				<p>
+					<label for="spinner"> 數量 : </label> 
+					<input id="spinner"name="value">
+				</p>
+			</div>
+			<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+				<div>
+					<label class="customer-font">冷熱調整 </label>
+				</div>
+				<div>
+					<div>
+						<input type='checkbox' name='thing' value='valuable' id="ice0"/>
+						<label for="ice0" class="">去冰</label>
+						<input type='checkbox' name='thing' value='valuable' id="ice1"/>
+						<label for="ice1" class="">微冰</label>
+						<input type='checkbox' name='thing' value='valuable' id="ice2"/>
+						<label for="ice2" class="">少冰</label>
+						<input type='checkbox' name='thing' value='valuable' id="ice3"/>
+						<label for="ice3" class="">正常</label>
+					</div>
+					<div>
+						
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
@@ -144,9 +194,9 @@ function doModify(FoodName) {
 		minHeight : 700,
 		minWidth : 730,
 		maxWidth : 730,
-		title : FoodName,
 		show: { effect: "slideDown", duration: 300 },
 		hide: { effect: "slideUp", duration: 200 },
+		title : FoodName,
 		buttons: [{
 			text: function() {
 				$(this).hover(function() {
@@ -166,7 +216,10 @@ function doModify(FoodName) {
 		
 	});
 	console.log(FoodName);
-	var spinner = $("#spinner").spinner();
+	$('.ui-dialog-title').addClass('customer-font');
+	var spinner = $("#spinner").spinner().css('width','50px');;
+	$('.ui-spinner').css('width','80px');
+	
 	
 }
 
