@@ -63,7 +63,15 @@
 	</div>
 	<!-- /.container -->
 	
-	<div id="editDialog" class="">
+	<div id="editDialog" style="display: none">
+		<form>
+			<div class="">
+				<p>
+					<label for="spinner"> 數量 : </label> 
+					<input id="spinner"name="value">
+				</p>
+			</div>
+		</form>
 	</div>
 	
     <footer>
@@ -76,23 +84,24 @@
         </div>
     </footer>
 
-    <!-- jQuery -->
-    <script src="<%= request.getContextPath() %>/js/jquery.js"></script>
-	<script src="<%= request.getContextPath() %>/js/jquery.dataTable.min.js"></script>
-	<script src="<%= request.getContextPath() %>/js/jquery-ui.min.js"></script>
-	
     <!-- Bootstrap Core JavaScript -->
     <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
+    
     <!-- Json -->
     <script src="<%= request.getContextPath() %>/js/json.js"></script>
+    
+    <!-- jQuery -->
+    <script src="<%= request.getContextPath() %>/js/jquery.js"></script>
+    <script src="<%= request.getContextPath() %>/js/jquery.dataTable.min.js"></script>
+	<script src="<%= request.getContextPath() %>/js/jquery-ui.min.js"></script>
 </body>
 <script type="text/javascript">
 $(document).ready(function() {
 	//var prodInfo = JSON.parse(JSON.stringify(${prodInfo}));
 	
 	var data = [{"FoodPrice":[{"FoodSizePriceID":"1","SizeStatusID":"2","FoodID":"1","SizeStatus":[{"SizeStatusID":"2","SizeName":"小"}],"FoodStatusPrice":"40"},{"FoodSizePriceID":"2","SizeStatusID":"3","FoodID":"1","SizeStatus":[{"SizeStatusID":"3","SizeName":"中"}],"FoodStatusPrice":"45"}],"GroupClass3ID":"1","FoodID":"1","ProdStatusClass1ID":"1","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"珍珠奶茶"}, {"FoodPrice":[{"FoodSizePriceID":"7","SizeStatusID":"1","FoodID":"4","SizeStatus":[{"SizeStatusID":"1","SizeName":"預設"}],"FoodStatusPrice":"50"}],"GroupClass3ID":"1","FoodID":"4","ProdStatusClass1ID":"1","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"奶茶"}, {"FoodPrice":[{"FoodSizePriceID":"8","SizeStatusID":"1","FoodID":"5","SizeStatus":[{"SizeStatusID":"1","SizeName":"預設"}],"FoodStatusPrice":"45"}],"GroupClass3ID":"1","FoodID":"5","ProdStatusClass1ID":"1","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"豆漿紅茶"}, {"FoodPrice":[{"FoodSizePriceID":"9","SizeStatusID":"1","FoodID":"6","SizeStatus":[{"SizeStatusID":"1","SizeName":"預設"}],"FoodStatusPrice":"60"}],"GroupClass3ID":"1","FoodID":"6","ProdStatusClass1ID":"1","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"綠茶"}, {"FoodPrice":[],"GroupClass3ID":"2","FoodID":"7","ProdStatusClass1ID":"1","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"沙士"}, {"FoodPrice":[],"GroupClass3ID":"2","FoodID":"8","ProdStatusClass1ID":"1","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"青茶"}, {"FoodPrice":[],"GroupClass3ID":"2","FoodID":"9","ProdStatusClass1ID":"1","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"烏龍綠茶"}];
-    var prodInfo = JSON.parse(JSON.stringify(data));
-    
+	var prodInfo = JSON.parse(JSON.stringify(data));
+	
 	$('#prodTable').DataTable({
 		data:prodInfo,
 		columns: 
@@ -120,10 +129,15 @@ $(document).ready(function() {
 	            }
 	        ],
 	});
-	
-			
+		
 });
 
+//商品副選項資料送出
+function customerProdInfoSubmit() {
+	alert("");
+}
+
+//開啟Dialog 
 function doModify(FoodName) {
 	$('div[id="editDialog"]').dialog({
 		modal : true,
@@ -131,19 +145,29 @@ function doModify(FoodName) {
 		minWidth : 730,
 		maxWidth : 730,
 		title : FoodName,
-		buttons: {
-			"送出" : function() {
-				$(this).dialog('close');
-			}
-		},
-		create: function(event, ui) {
-	        var widget = $(this).dialog("widget");
-	        $(".ui-dialog-titlebar-close", widget).removeClass()
-	        	.addClass('ui-state-default ui-dialog-titlebar-close')
-	        	.append('<span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span>')
-	    }
-	})
+		show: { effect: "slideDown", duration: 300 },
+		hide: { effect: "slideUp", duration: 200 },
+		buttons: [{
+			text: function() {
+				$(this).hover(function() {
+					$( this ).addClass("ui-state-hover");
+				},
+				function() {
+					$( this ).removeClass("ui-state-hover");
+				});
+				$(this).append('<span class="ui-button-text">送出</span>');
+			},
+			class: "ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only",
+		    click: function() {
+		    	customerProdInfoSubmit();
+		    	$(this).dialog("close");
+		    }
+		}],
+		
+	});
 	console.log(FoodName);
+	var spinner = $("#spinner").spinner();
+	
 }
 
 </script>
