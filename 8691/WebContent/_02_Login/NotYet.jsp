@@ -17,10 +17,10 @@
     <!-- Custom CSS -->
     <link href="<%= request.getContextPath() %>/css/business-casual.css" rel="stylesheet">
 
-
     <!-- Fonts -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+
     
 </head>
 <body>
@@ -29,15 +29,10 @@
 		<div class="row">
 			<div class="box">		
 				<div class="col-lg-12 text-center">
-					<form action="<c:url value="/MemberServlet" />" method="post" >
+				
 
-						<h2>親愛的會員您好</h2>
-					<input class="btn btn-primary" type="button" value="點我看訂單" onclick="location.href='<%= request.getContextPath() %>/_03_Orders/OrdersTotal.jsp'"> 
-					
-					<input class="btn btn-primary" type="button" value="點我改資料" onclick="location.href='<%= request.getContextPath() %>/_04_Members/InfoUpdate.jsp'">
+<h1>還未審核, 也就是說你甚麼都不能做, 阿哈哈哈哈哈</h1>
 
-					
-					</form>
 				</div>
 			</div>			
 		</div>
