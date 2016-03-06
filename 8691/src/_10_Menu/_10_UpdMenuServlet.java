@@ -1,6 +1,8 @@
 package _10_Menu;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,7 +42,8 @@ public class _10_UpdMenuServlet extends HttpServlet {
 		System.out.println("strTable: "+strTable);
 		System.out.println("strJsonData: "+strJsonData);	
 		
-		if(strTable!="" && strJsonData!=""){			
+		if(strTable!="" && strJsonData!=""){	
+			List errJSONList = new LinkedList();		
 			if("Food".equals(strTable)){
 				try {
 					JSONArray jsonArry = jsonObj.getJSONArray("status");
@@ -50,7 +53,10 @@ public class _10_UpdMenuServlet extends HttpServlet {
 						json.put("FoodID",jsonArry.getJSONObject(i).getString("FoodID"));
 						json.put("FoodName",jsonArry.getJSONObject(i).getString("FoodName"));
 						int result = foodjdbc.update(json);
-						System.out.println("result: "+result);
+						if(result==0){
+							json.put("table","Food");
+							errJSONList.add(json);
+						}
 				      }
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -67,11 +73,21 @@ public class _10_UpdMenuServlet extends HttpServlet {
 							
 						int result = foodPricejdbc.update(json);
 						System.out.println("result: "+result);
+						if(result==0){
+							json.put("table","FoodSizePrice");
+							String OgnPrice =foodPricejdbc.select_SZPZ(jsonArry.getJSONObject(i).getString("FoodSizePriceID"));
+							json.put("OgnPrice",OgnPrice);
+							errJSONList.add(json);
+						}
 				      }
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
 			}
+			response.setHeader("Cache-control", "no-cache, no-store");
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html");
+			response.getWriter().write(errJSONList.toString());
 		}
 	}
 

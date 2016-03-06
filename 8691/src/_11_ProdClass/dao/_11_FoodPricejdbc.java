@@ -66,6 +66,33 @@ public class _11_FoodPricejdbc {
 		return JSONObjectList;
 	}
 	
+	private final String SELECT_BY_SZPZ_ID = "select Food_status_price from Food_size_price where Food_size_price_ID=?";
+	public String select_SZPZ(String FoodSizePriceID) {
+		String result = null;
+		ResultSet rset = null;
+		try(Connection conn = dataSource.getConnection();
+			PreparedStatement stmt = conn.prepareStatement(SELECT_BY_SZPZ_ID);
+			) {
+			stmt.setString(1, FoodSizePriceID);
+			rset = stmt.executeQuery();
+			
+			while(rset.next()) {												
+				result = rset.getString("Food_status_price");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			if (rset != null) {
+				try {
+					rset.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return result;
+	}
+	
 	private final String UPDATE = "update Food_size_price set Size_status_ID=?,Food_status_price=? where Food_size_price_ID=?";
 	public int update(JSONObject JsonData){
 		try(Connection conn = dataSource.getConnection();

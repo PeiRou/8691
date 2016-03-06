@@ -83,6 +83,7 @@
     var jsonGroup = JSON.parse(Group);
     var jsonSzSts = JSON.parse(SzSts);
     var jsonPrCl2 = JSON.parse(PrCl2);
+    
  	LoadTable(jsonVal,jsonGroup);
 	$(":text").hide();
 	$(":input").attr('disabled', true);
@@ -227,9 +228,9 @@
 		var tmpSize;
 		
 		$("tr[id="+theTr+"] :input").each(function(index,value){			
-			console.log(index);
+			//console.log(index);
 			var tmpData = String($(this).attr('id'));
-			console.log(tmpData,$(this).val());
+			//console.log(tmpData,$(this).val());
 			var leth = tmpData.length;
 			
 			var culmId = tmpData.substring(0,7);
@@ -288,14 +289,21 @@
 						InsCel(data,Obj.status.ProdStatusClass3Name,Obj.status.ProdStatusClass3Price);						
 					}
 				}else if(action == "Update"){
+					console.log("Errordata:"+data);
 					var idata = 0;
 						var datalength= data.length;
 						while(idata < datalength){
 								var Obj = new Object;
 								Obj = JSON.parse(JSON.stringify(data[idata]));
-								var ProdStatusClass3ID = Obj.ProdStatusClass3ID;
-								if(typeof(ProdStatusClass3ID)!="undefined"){
-									fucErorrShow(Obj.ProdStatusClass3ID,Obj.ProdStatusClass3Name,Obj.ProdStatusClass3Price);
+								console.log("Obj.table:"+Obj.table);
+								if(Obj.table=="FoodSizePrice"){
+									console.log("Obj.FoodSizePriceID:"+Obj.FoodSizePriceID);
+									var tmpID = "lblSizePrice"+Obj.FoodSizePriceID;
+									var thelabel = $("#"+tmpID).parent().parent().attr("id");
+									var theTr = $("#"+thelabel).parent().parent().attr("id");
+									console.log("thelabel:"+thelabel);					
+									console.log("theTr:"+theTr);
+									fucErorrShow(theTr,thelabel,Obj.FoodSizePriceID,Obj.OgnPrice);
 								}
 								idata = idata + 1;
 							}	
@@ -305,10 +313,10 @@
 	//把輸入的欄位覆蓋回頁面
 	function funChangeVal(theTr){
 		$("tr[id="+theTr+"] :input").each(function(index,value){
-			console.log("funChangeVal:"+index,value);
+			//console.log("funChangeVal:"+index,value);
 			
 			var tmpData = String($(this).attr('id'));
-			console.log(tmpData,$(this).val());
+			//console.log(tmpData,$(this).val());
 			var leth = tmpData.length;
 			
 			var culmId = tmpData.substring(0,7);
@@ -318,20 +326,58 @@
 			var SzPzId = tmpData.substring(12,leth);
 
 			if(culmId=='txtFood'){
-				$('font[id="celfont'+tmpClass3NameId+'"]').html('');
-				$('font[id="celfont'+tmpClass3NameId+'"]').append($(this).val());
-			}else if(culmSzPz=='selSizePrice'){
-				$('font[id="celfont'+tmpPriceId+'"]').append($(this).val());
+				$('font[id="fontFood'+FoodId+'"]').html('');
+				$('font[id="fontFood'+FoodId+'"]').append($(this).val());
 			}else if(culmSzPz=='txtSizePrice'){
-				var tmpSizePrice= $(this).val();
-				var objdata = new Object;
-				objdata.FoodSizePriceID = SzPzId;
-				objdata.SizeStatusID = tmpSize;
-				//用完清空
-				tmpSize = "";
-				objdata.FoodStatusPrice = tmpSizePrice;
-				SzPzArray.push(objdata);
+				$('font[id="fontSizePrice'+SzPzId+'"]').html('');
+				$('font[id="fontSizePrice'+SzPzId+'"]').append($(this).val());
 			}
+		});
+	}
+	//有錯誤的時候則不讓格子隱藏回去
+	function fucErorrShow(theTr,thelabel,FoodSizePriceID,OgnPrice){
+		$('label[id="'+ thelabel +'"]').attr("class","btn btn-danger")
+									   .css("color","black")
+									   .append(addBtnNO());
+		$('label[id="'+ thelabel +'"] :input').attr('disabled', false)
+		$('label[id="'+ thelabel +'"] :hidden').show();
+		$('label[id="'+ thelabel +'"] .tdfont').hide();
+		//把原先的輸入的還原回去
+		$('font[id="fontSizePrice'+FoodSizePriceID+'"]').html('');
+		$('font[id="fontSizePrice'+FoodSizePriceID+'"]').append(OgnPrice);
+		//把確定的按鈕重新秀回來
+		$("tr[id="+theTr+"] .tdupd").hide();
+		$("tr[id="+theTr+"] .tdok").show();
+		//必須在事件發生後再載入
+		beLoad(OgnPrice);
+	}
+	//取消
+	function addBtnNO(){
+		var btn = $('<div/>').html('<button type="button" class="btn btn-default NewN" aria-label="Left Align"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>');
+		return btn;
+	}
+	//必須在事件發生後再載入
+	function beLoad(OgnPrice){
+		$('.NewN').click(function() {
+			var thelabel = $(this).parent().parent().attr("id");
+			console.log("thelabel:  "+thelabel);
+			$('label[id="'+ thelabel +'"]').attr("class","btn btn-default");
+			$('label[id="'+ thelabel +'"] :input').attr('disabled', true);
+			$('label[id="'+ thelabel +'"] :hidden').show();
+			$('label[id="'+ thelabel +'"] :text').hide()
+												 .val(OgnPrice);
+			$(this).remove();			
+			
+			var errCount = 0; 
+			
+			$('.NewN').each(function(){
+				errCount = 1;
+			});
+				
+			if(errCount==0){
+				$('.tdupd').show();
+				$('.tdok').hide();				
+			}				
 		});
 	}
 </script>

@@ -75,7 +75,7 @@ public class _11_Foodjdbc {
 	}
 	
 	private final String UPDATE = "update Food set Food_name=? where Food_ID=?";
-	public int update(JSONObject JsonData){
+	public int update(JSONObject JsonData) throws JSONException {
 		try(Connection conn = dataSource.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(UPDATE);) {				
 				if(JsonData.getString("FoodID") != "") {
