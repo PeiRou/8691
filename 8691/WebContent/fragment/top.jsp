@@ -41,16 +41,13 @@
 						</li>
 					</c:when>
 				</c:choose>
-				
-<!-- 				店家部分未完成 -->
-<%-- 						<c:choose> --%>
-<%-- 					<c:when test="${RoleID == 101}"> --%>
-<%-- 						<li><c:url value="/_10_Menu/GetMenu.controller" var="GetMenupath"></c:url> --%>
-<%-- 						<a href="${GetMenupath}">申請中店家資料修改</a> --%>
-<!-- 						</li> -->
-<%-- 					</c:when> --%>
-<%-- 				</c:choose> --%>
-				
+				<c:choose>
+					<c:when test="${RoleID == 102}">
+						<li><c:url value="/_13_Maintenance/GetSeller.controller" var="GetMenupath"></c:url>
+						<a href="${GetMenupath}">店家資訊</a>
+						</li>
+					</c:when>
+				</c:choose>				
 				<c:choose>
 					<c:when test="${RoleID == 201}">
 						<li><c:url value="/MemberServlet" var="GetMemberPath"></c:url>
