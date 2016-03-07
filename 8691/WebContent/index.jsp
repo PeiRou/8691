@@ -3,12 +3,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>Welcome to 8691</title>
 
     <!-- Bootstrap Core CSS -->
@@ -27,11 +25,66 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-</head>
+<style>
+	
+</style>
 </head>
 <body>
 <jsp:include page="/fragment/top.jsp" />
     <div class="container">
+    	<div class="row">
+            <div class="box">
+                <div class="col-lg-12">
+                <table class="table">
+                <tr>
+					<td class="text-right"><strong>請輸入縣市 :</strong></td>
+					<td><select name="GUAR_CT" size="1" value="${param.GUAR_CT}">
+													<option value="" selected>請選擇</option>
+							                        <option value="A">臺北市</option>
+												    <option value="B">臺中市 </option>
+													<option value="C">基隆市</option>
+												    <option value="D">臺南市</option>
+													<option value="E">高雄市</option>
+													<option value="F">新北市</option>
+													<option value="G">宜蘭縣</option>
+													<option value="H">桃園市</option>
+													<option value="I">嘉義市</option>
+													<option value="J">新竹縣</option>
+													<option value="K">苗栗縣</option>
+													<option value="L">南投縣</option>
+													<option value="M">彰化縣</option>
+													<option value="N">新竹市</option>
+													<option value="O">雲林縣</option>
+													<option value="P">嘉義縣</option>
+													<option value="Q">屏東縣</option>
+													<option value="R">花蓮縣</option>
+													<option value="S">臺東縣</option>
+													<option value="T">金門縣</option>
+													<option value="U">澎湖縣</option>
+													<option value="V">連江縣</option>
+					</select></td>
+					
+					<td class="text-right">請輸入區域 :</td>
+					<td><select id="select1" name="GUAR_AR" size="">
+					<option value="" selected>請選擇</option>
+					</select></td>
+					
+					<td class="text-right">請輸入路名 :</td>
+					<td><input id="keyword" type="text" value=""> <input id="textval" name="GUAR_ROAD" type="text" style="display:none"><span id="roadsp" style="color:red"></span><input type="button" class="btn btn-info" id="btn1" value="立即搜尋美食"></td>
+					<td></td>
+				</tr>
+				<tr class="tr1">
+					<td></td><td></td><td></td><td></td><td></td>
+					<td id="tb"></td>
+				</tr>
+                </table>
+                <div class="col-lg-12 text-center" id="map1">
+                <input id="mapurl" type="text" value="<%=request.getContextPath() %>/googleAPI.jsp" style="display:none">
+                </div>
+                </div>
+            </div>
+        </div>
+        
         <div class="row">
             <div class="box">
                 <div class="col-lg-12 text-center">
@@ -129,10 +182,87 @@
     <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
 
     <!-- Script to Activate the Carousel -->
-    <script>
+<script>
     $('.carousel').carousel({
         interval: 3000 //廣告輪播速度(毫秒)
     })
-    </script>
+    
+    //進入首頁後立刻從資料庫讀取區域的下拉式選單內容
+    $(function(){
+    		$('#map').hide();
+			   $.ajax({
+				  'type':'get',
+				  'url':'<%= request.getContextPath() %>/GetAddress',
+				  'data':{},
+				  'dataType':'xml',
+				  'success':function(data){
+					$(data).find("Category").each(function(){
+						var categoryId = $(this).children("GUAR_AR").text();
+						var categoryName = $(this).children("GUAR_AR_name").text();
+						var opt = $("<option></option>").val(categoryId).text(categoryName);
+						$('#select1').append(opt);
+					})
+				  }
+			   });
+			   $('#tb').empty();
+		});
+    
+    //當更換選單內容時，清空路名&關鍵字查詢
+    $('#select1').change(function(){
+    		$('#tb').empty();
+    		$("#keyword").val('');
+	   });
+    
+    //關鍵字輸入事件
+        var timer;
+        $("#keyword").on('keyup',function() {
+        	$('#tb').empty();
+            timer && clearTimeout(timer);
+            timer = setTimeout(LoadRoad, 600);
+        });
+    
+    //路名查詢autocomplete
+    function LoadRoad(){
+    	   if($('#keyword').val() =='' || $('#keyword').val().trim() ==''){
+			   $('#tb').empty();
+		   }else{
+			   $.getJSON('<%= request.getContextPath() %>/GetRoad',
+					   	{'GUAR_AR':$('#select1').val(), 
+				   		 'keyword':$('#keyword').val()},
+				function(datas){
+				   			$.each(datas,function(index,road){
+				   				var celltext = $('<input type=text class="txt" style="display:none">').val(road.GUAR_ROAD);
+				   				var cellGUAR_ROAD_name = $('<label class="txt1"></label>').text(road.GUAR_ROAD_name);
+				   				var cell1 = $("<td></td>").append(celltext).append(cellGUAR_ROAD_name);
+				   				//var cell1 = $("<td></td>").text(road.GUAR_ROAD_name);
+								var row = $("<tr></tr>").append([cell1])
+								                        .mouseover(function(){
+								                        	$(this).css('color', 'red');
+								                        })
+								                        .mouseout(function(){
+								                        	$(this).css('color', 'black');
+								                        })
+								                        .click(function(){
+								                        	$('#textval').val($(this).children().children(".txt").val());
+								                        	$('#keyword').val($(this).children().children(".txt1").text());
+								                        	$('#tb').empty();
+								                        });
+								$('#tb').append(row);
+							});
+						});
+		  		 }
+		   };
+		   
+		   $("#btn1").click(function(){
+			   if($("#keyword").val()!=""){
+				   var url = $('#mapurl').val();
+				  $("#map1").append('<iframe src='+ url +' width="600px" height="400px" frameborder=0 ></iframe>');
+				   //$("#mapurl").after('<iframe src=/8691/googleAPI.jsp scrolling=yes width=100% frameborder=0 height=100%></iframe>'); 
+			   }
+			 });
+
+		   
+		   
+</script>	
 </body>
 </html>

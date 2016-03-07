@@ -28,12 +28,12 @@ import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
 
-@WebServlet("/XMLServlet8691")
-public class XMLServlet8691 extends HttpServlet {
+@WebServlet("/GetAddress")
+public class GetAddress extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DataSource ds = null;
 	
-	public XMLServlet8691() {
+	public GetAddress() {
 		try {
 			Context context = new InitialContext();
 			ds = (DataSource) context.lookup("java:comp/env/8691");

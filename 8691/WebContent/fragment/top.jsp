@@ -6,7 +6,7 @@
 
 <!-- Bootstrap Core JavaScript -->
 <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
-<div class="brand">巴豆揪么 8691</div>
+<a class="navbar brand"  style="color:none; text-decoration: none; hover:none;" href="<%= request.getContextPath() %>/index.jsp">巴豆揪么 8691</a>
 <div class="address-bar">就是要吃喝之美食飲料訂購網站</div>
 
 <!-- Navigation -->
@@ -29,7 +29,7 @@
 			<ul class="nav navbar-nav">
 				<li><a href="<%= request.getContextPath() %>/index.jsp">首頁</a>
 				</li>
-				<li><a href="<%= request.getContextPath() %>/about.jsp">店家</a>
+				<li><a href="<%= request.getContextPath() %>/about4.jsp">店家</a>
 				</li>
 				<li><c:url value="/_08_GetStore/Store.controller" var="GetStorepath"></c:url>
 					<a href="${GetStorepath}">我要訂餐</a></li>
@@ -50,6 +50,11 @@
 				</c:choose>				
 				<c:choose>
 					<c:when test="${RoleID == 201}">
+						<li><c:url value="/MemberServlet" var="GetMemberPath"></c:url>
+						<a href="${GetMemberPath}">會員中心</a>
+						</li>
+					</c:when>
+						<c:when test="${RoleID == 102}">
 						<li><c:url value="/MemberServlet" var="GetMemberPath"></c:url>
 						<a href="${GetMemberPath}">會員中心</a>
 						</li>
