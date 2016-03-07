@@ -52,7 +52,11 @@
 							<td><input type="text" name="name" value="${param.name}"></td>
 							<td>${error.name}</td>
 						</tr>
-					
+						<tr>
+							<td class="text-right">訂購店家 : </td>
+							<td><input type="text" name="seller_UID" value="${param.seller_UID}"></td>
+							<td>${error.seller_UID}</td>
+						</tr>
 						<tr>
 							<td class="text-right">訂購人手機 : </td>
 							<td><input type="text" name="cel" value="${cel.cel}"></td>

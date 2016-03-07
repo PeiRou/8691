@@ -58,7 +58,7 @@ public class OrdersDetailJDBC {
 private static final String SELECT = "select * from Orders_detail where ordersID=?";
 
 	
-	public List<OrdersDetailBean> select(String Orders_detail_UID) {
+	public List<OrdersDetailBean> select(int ordersID) {
 		List<OrdersDetailBean> items = new ArrayList<OrdersDetailBean>();
 		OrdersDetailBean result = null;
 		Connection conn = null;
@@ -70,12 +70,12 @@ private static final String SELECT = "select * from Orders_detail where ordersID
 			conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(SELECT);
 
-			stmt.setString(1, Orders_detail_UID);
+			stmt.setInt(1, ordersID);
 			rset = stmt.executeQuery();
 			if (rset.next()) {
 				result = new OrdersDetailBean();
 				result.setOrders_detail_UID(rset.getString("Orders_detail_UID"));
-				result.setOrdersID(rset.getString("ordersID"));
+				result.setOrdersID(rset.getInt("ordersID"));
 				result.setFood_ID(rset.getInt("Food_ID"));
 				result.setDrink_name(rset.getString("Drink_name"));
 				result.setQuantity(rset.getInt("quantity"));

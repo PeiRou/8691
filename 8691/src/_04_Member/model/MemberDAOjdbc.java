@@ -12,6 +12,7 @@ import javax.naming.NamingException;
 
 import _04_Member.model.MemberBean;
 import _04_Member.model.MemberDAO;
+import _07_Address.model.Address_CT_Bean;
 
 public class MemberDAOjdbc implements MemberDAO {
 //	private static final String URL = "jdbc:sqlserver://raab1str2m.database.windows.net:1433;database=DB02";
@@ -59,7 +60,7 @@ public class MemberDAOjdbc implements MemberDAO {
 		MemberBean result = null;
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
-		try {//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+		try {
             conn = ds.getConnection();	
 			pstmt = conn.prepareStatement(SELECT_BY_account_UID); {
 			pstmt.setString(1, account_UID);
@@ -319,5 +320,4 @@ public MemberBean update(
 		}
 		return 0;
 	}
-	
 }

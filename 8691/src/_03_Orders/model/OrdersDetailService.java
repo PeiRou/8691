@@ -8,7 +8,7 @@ public class OrdersDetailService {
 	private OrdersDetailJDBC ordersDetaiDao = new OrdersDetailJDBC();
 	public List<OrdersDetailBean> select(OrdersDetailBean bean) {
 		List<OrdersDetailBean> result = null;
-		if(bean!=null && bean.getOrdersID().length()!=0) {
+		if(bean!=null && bean.getOrdersID()!=0) {
 			List<OrdersDetailBean> temp = ordersDetaiDao.select(bean.getOrdersID());
 			if(temp!=null) {
 				result = new ArrayList<OrdersDetailBean>();

@@ -11,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import _03_Orders.model.OrdersTotalBean;
 import _03_Orders.model.OrdersTotalService;
 import _07_Address.model.Address_AR_Bean;
@@ -28,6 +30,7 @@ public class OrdersTotalServlet extends HttpServlet {
 	//接收資料
 		String Orders_total_UID = request.getParameter("Orders_total_UID");
 		String account_UID = (String)request.getSession().getAttribute("LoginOK");
+		String seller_UID = request.getParameter("seller_UID");
 		String temp0 = request.getParameter("ordersID");
 		String status = request.getParameter("status");
 		String name = request.getParameter("name");
@@ -129,11 +132,11 @@ public class OrdersTotalServlet extends HttpServlet {
 			}
 			
 	//驗證資料
-			if("Insert".equals(orderaction) || "Update".equals(orderaction) || "Delete".equals(orderaction)) {
-				if(cel.length()==0) {
-					error.put("cel", "Please enter PhoneNumber for "+orderaction);
-				}
-			}
+//			if("Insert".equals(orderaction) || "Update".equals(orderaction) || "Delete".equals(orderaction)) {
+//				if(cel.length()==0) {
+//					error.put("cel", "Please enter PhoneNumber for "+orderaction);
+//				}
+//			}
 			if(error!=null && !error.isEmpty()){
 				request.getRequestDispatcher(
 						"/_03_Orders/OrdersTotal.jsp").forward(request, response);
@@ -144,13 +147,13 @@ public class OrdersTotalServlet extends HttpServlet {
 			OrdersTotalBean bean = new OrdersTotalBean();
 			bean.setOrders_total_UID(Orders_total_UID);
 			bean.setAccount_UID(account_UID);
+			bean.setSeller_UID(seller_UID);
 			bean.setOrdersID(ordersID);			
 			bean.setStatus(status);
 			bean.setName(name);
 			bean.setCel(cel);
 			bean.setGUAR_CT(GUAR_CT);
 			bean.setGUAR_AR(GUAR_AR);
-			bean.setName(name);
 			bean.setGUAR_ROAD(GUAR_ROAD);
 			bean.setGUAR_NO(GUAR_NO);
 			bean.setPay_metho(pay_metho);
@@ -159,12 +162,15 @@ public class OrdersTotalServlet extends HttpServlet {
 			bean.setFood_price(food_price);
 			bean.setTotal_amount(total_amount);	
 			
+			
+			
+			
 	//根據model執行結果顯示view
-			if("Select".equals(orderaction)) {
+			if("查看我的訂單".equals(orderaction)) {
 				List<OrdersTotalBean> result = ordersTotalService.select(bean);
+				HttpSession session = request.getSession();
+				session.setAttribute("ordersID", result.get(ordersID));
 				request.setAttribute("select", result);
-//				List<OrdersTotalBean> result2 = ordersTotalService.select(beanAR);
-//				request.setAttribute("select2", result2);				
 				request.getRequestDispatcher(
 						"/_03_Orders/OrdersTotalDisplay.jsp").forward(request, response);
 			} else if("Insert".equals(orderaction)) {

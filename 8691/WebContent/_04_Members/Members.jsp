@@ -30,16 +30,17 @@
 			<div class="box">		
 				<div class="col-lg-12 text-center">
 					<form action="<c:url value="/MemberServlet" />" method="post" >
-
 						<h2>親愛的會員您好</h2>
-						
-						
-					<input class="btn btn-primary" type="button" value="點我看訂單" onclick="location.href='<%= request.getContextPath() %>/_03_Orders/OrdersTotal.jsp'"> 
-					
-					<input class="btn btn-primary" type="button" value="點我改資料" onclick="location.href='<%= request.getContextPath() %>/_04_Members/InfoUpdate.jsp'">
-
-					
+<%-- 						<input class="btn btn-primary" type="button" value="點我看訂單" onclick="location.href='<%= request.getContextPath() %>/_03_Orders/OrdersTotal.jsp'">  --%>
+						<input class="btn btn-primary" type="button" value="點我改資料" onclick="location.href='<%= request.getContextPath() %>/_04_Members/InfoUpdate.jsp'">
 					</form>
+					
+					<form action="<c:url value='/_03_Orders/OrdersTotalServlet' />" method="post">
+					<input class="btn btn-primary" type="submit" name="orderaction" value="查看我的訂單">
+					</form>
+					<div>
+					
+					</div>
 				</div>
 			</div>			
 		</div>

@@ -24,7 +24,7 @@ public class _13_GetSellerServlet extends HttpServlet {
 		System.out.println("accountUID:"+accountUID);
 		List result = null;
 		
-		//result = accountjdbc.select();
+		result = accountjdbc.select();
 		
 		System.out.println("result:"+result);			
 		

@@ -2,7 +2,7 @@ package _03_Orders.model;
 
 public class OrdersDetailBean {
 	private	String	Orders_detail_UID;
-	private	String	ordersID;
+	private	int	ordersID;
 	private	int	Food_ID;
 	private	String	Drink_name;
 	private	int	quantity;
@@ -14,10 +14,10 @@ public class OrdersDetailBean {
 	public void setOrders_detail_UID(String orders_detail_UID) {
 		Orders_detail_UID = orders_detail_UID;
 	}
-	public String getOrdersID() {
+	public int getOrdersID() {
 		return ordersID;
 	}
-	public void setOrdersID(String ordersID) {
+	public void setOrdersID(int ordersID) {
 		this.ordersID = ordersID;
 	}
 	public int getFood_ID() {
@@ -50,7 +50,7 @@ public class OrdersDetailBean {
 	public void setNote(String note) {
 		this.note = note;
 	}
-	public OrdersDetailBean(String orders_detail_UID, String ordersID, int food_ID, String drink_name, int quantity,
+	public OrdersDetailBean(String orders_detail_UID, int ordersID, int food_ID, String drink_name, int quantity,
 			int originalPrice, String note) {
 		super();
 		Orders_detail_UID = orders_detail_UID;

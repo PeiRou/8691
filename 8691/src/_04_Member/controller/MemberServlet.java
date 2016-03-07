@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import _04_Member.model.MemberBean;
 import _04_Member.model.MemberDAO;
 import _04_Member.model.MemberDAOjdbc;
 
@@ -26,8 +27,6 @@ public class MemberServlet extends HttpServlet {
 	System.out.println("RoleID: "+RoleID);
 	
 	
-	MemberDAO dao = new MemberDAOjdbc();
-	//String result = selectName.SelectName();
 	
 	
 	if(RoleID.equals("201")){

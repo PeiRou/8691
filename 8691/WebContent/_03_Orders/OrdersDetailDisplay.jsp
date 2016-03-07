@@ -24,48 +24,38 @@
     
 </head>
 <body>
-<div class="brand">Business Casual</div>
-    <div class="address-bar">3481 Melrose Place | Beverly Hills, CA 90210 | 123.456.7890</div>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="container">           
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>               
-                <a class="navbar-brand" href="index.jsp">Business Casual</a>
-            </div>           
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="<%= request.getContextPath() %>/index.jsp">Home</a>
-                    </li>
-                    <li>
-                        <a href="<%= request.getContextPath() %>/about.jsp">About</a>
-                    </li>
-                    <li>
-                        <a href="<%= request.getContextPath() %>/blog.jsp">Blog</a>
-                    </li>
-                    <li>
-                        <a href="<%= request.getContextPath() %>/contact.jsp">Contact</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-    </nav>
-
+<jsp:include page="/fragment/top.jsp" />
 	<div class="container">
 		<div class="row">
 			<div class="box">		
 				<div class="col-lg-12 text-center">
-				
-<!--內容放這!! 	內容放這!!	內容放這!!	內容放這!! -->
-<!-- <div class="box">  box為白色區塊包住 -->
+				<c:if test="${not empty select}">
+					<table class="table">
+						<thead>
+						<tr class="text-center">
+								<th>訂單編號</th>
+								<th>品名</th>
+								<th>數量</th>
+								<th>價格</th>
+								<th>備註</th>
+						</tr>
+						</thead>
+						<tbody>
+						<c:forEach var="bean" items="${select}">
+						<tr>
+							<td>${bean.ordersID}</td>
+							<td>${bean.Drink_name}</td>
+							<td>${bean.quantity}</td>
+							<td>${bean.originalPrice}</td>
+							<td>${bean.note}</td>
+						</tr>
+					</c:forEach>	
+						</tbody>
+					</table>
+					</c:if>
+					<input class="btn btn-primary" type="button" value="上一頁" onclick="location.href='<%= request.getContextPath() %>/_04_Members/Members.jsp'">
+<%-- 					<h3><a href="<c:url value="/_03_Orders/OrdersTotal.jsp" />">OrdersTotal Table</a></h3> --%>
+
 
 				</div>
 			</div>			
