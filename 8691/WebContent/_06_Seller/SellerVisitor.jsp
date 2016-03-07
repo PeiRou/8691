@@ -146,6 +146,18 @@
 					        </td>
 							<td>${error.receipts_metho}</td>
 							</tr>
+							
+							<tr>
+								<td>運費 : </td>
+								<td><input type="text" name="Ship_price" value="${param.Ship_price}"></td>
+								<td>${error.Ship_price}</td>
+							</tr>
+							<tr>
+								<td>消費最低金額: </td>
+								<td><input type="text" name="Lowest_price" value="${param.Lowest_price}"></td>
+								<td>${error.Lowest_price}</td>
+							</tr>
+							
 						<tr>
 							<td align="right"><input class="btn btn-primary" type="submit" value="註冊"></td>
 						</tr>

@@ -32,12 +32,12 @@ public class SellerVisitorJDBC {
 	}
 
 	public static void main(String[] args) {
-//		String RD = UUID.randomUUID().toString();
-//		SellerVisitorJDBC dao = new SellerVisitorJDBC();
+		String RD = UUID.randomUUID().toString();
+		SellerVisitorJDBC dao = new SellerVisitorJDBC();
 
 		// select   OK
 //		 SellerVisitorBean bean =
-//		 dao.select("A4EEC036-1A09-4CFF-80C7-68268BC1BC9F");
+//		 dao.select("8A42F1DE-6562-48F1-B746-43808076A466");
 //		 System.out.println(bean);
 
 		// select all OK
@@ -45,15 +45,15 @@ public class SellerVisitorJDBC {
 //		 System.out.println(beans);
 
 		// update OK
-//		 SellerVisitorBean beanupdate = dao.update("9999911","玖壹壹",null,"0222227911","A","200","1001","69號52樓","CCC2@hotmail.com","上原亞依","0912345678","1",false,false, new java.util.Date(),"A4EEC036-1A09-4CFF-80C7-68268BC1BC9F");
+//		 SellerVisitorBean beanupdate = dao.update("9999911","玖壹壹",null,"0222227911","A","200","1001","69號52樓","CCC2@hotmail.com","上原亞依","0912345678","1",false,false,10000,10000, "4DDF4A66-2618-4A89-BB32-01BB25E36E2B");
 //		 System.out.println(beanupdate);           
 
 		// insert OK
-//		SellerVisitorBean beanIns = new SellerVisitorBean(RD,"99999999","玖壹壹",null,"0222227890","A","200","1001","69號52樓","CCC2@hotmail.com","上原亞依","0912345678","1",false,false,"2016/1/1");
-//		dao.insert(beanIns);
+//		SellerVisitorBean beanIns = new SellerVisitorBean(RD,"99999999","玖壹壹",null,"02227890","A","200","1001","69號52樓","CCC2@hotmail.com","上原亞依","0998987987","3",false,false,10000,10000,"2016/1/1");
+//		dao.insert(beanIns);                              
 
 		// delete  OK
-//		 int beanDel = dao.delete("99999999");
+//		 int beanDel = dao.delete("3BF52DE7-C806-45ED-B606-FD106175CE9F");
 //		 System.out.println(beanDel);
 	}
 
@@ -66,8 +66,8 @@ public class SellerVisitorJDBC {
 		ResultSet rset = null;
 
 		try {
-//			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-			conn = dataSource.getConnection();
+		  //conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+		    conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(SELECT);
 
 			stmt.setString(1, Account_UID);
@@ -90,7 +90,10 @@ public class SellerVisitorJDBC {
 				result.setCon_cel(rset.getString("Con_cel"));
 				result.setReceipts_metho(rset.getString("receipts_metho"));				
 				result.setIS_check(rset.getBoolean("IS_check"));
-				result.setIS_cooperation(rset.getBoolean("IS_cooperation"));
+//				result.setIS_cooperation(rset.getBoolean("IS_cooperation"));
+				result.setSeller_status(rset.getBoolean("Seller_status"));
+				result.setShip_price(rset.getInt("ship_price"));					
+				result.setLowest_price(rset.getInt("lowest_price"));
 				result.setInsdate(rset.getString("insdate"));
 			}
 		} catch (SQLException e) {
@@ -155,7 +158,10 @@ public class SellerVisitorJDBC {
 				result.setCon_cel(rset.getString("Con_cel"));
 				result.setReceipts_metho(rset.getString("receipts_metho"));				
 				result.setIS_check(rset.getBoolean("IS_check"));
-				result.setIS_cooperation(rset.getBoolean("IS_cooperation"));
+//				result.setIS_cooperation(rset.getBoolean("IS_cooperation"));
+				result.setSeller_status(rset.getBoolean("Seller_status"));
+				result.setShip_price(rset.getInt("Ship_price"));					
+				result.setLowest_price(rset.getInt("Lowest_price"));
 				result.setInsdate(rset.getString("insdate"));
 				items.add(result);
 			}
@@ -187,7 +193,7 @@ public class SellerVisitorJDBC {
 		return items;
 	}
 
-	private static final String INSERT = "insert into Seller_visitor (Account_UID,FEIN, name, Seller_photo, tel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, email2, Con_name, Con_cel, receipts_metho, IS_check, IS_cooperation, insdate) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , 0, 0, ?)";
+	private static final String INSERT = "insert into Seller_visitor (Account_UID,FEIN, name, Seller_photo, tel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, email2, Con_name, Con_cel, receipts_metho, IS_check,Seller_status,ship_price,lowest_price,insdate ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , 0, 0,?,?,getdate())";
 
 	public SellerVisitorBean insert(SellerVisitorBean bean) {
 		SellerVisitorBean result = null;
@@ -214,17 +220,11 @@ public class SellerVisitorJDBC {
 			stmt.setString(12, bean.getCon_cel());			
 			stmt.setString(13, bean.getReceipts_metho());			
 //			stmt.setBoolean(14, bean.isIS_check());
-//			stmt.setBoolean(15, bean.isIS_cooperation());
-			stmt.setString(14, bean.getInsdate());
-			
-//			java.util.Date insdate = bean.getInsdate();
-//			if (insdate != null) {
-//				long time = insdate.getTime();
-//				stmt.setDate(16, new java.sql.Date(time));
-//			} else {
-//				stmt.setDate(16, null);
-//			}
-
+////		stmt.setBoolean(15, bean.isIS_cooperation());
+//			stmt.setBoolean(15, bean.isSeller_status());
+			stmt.setInt(14, bean.getShip_price());
+			stmt.setInt(15, bean.getLowest_price());
+			//stmt.setString(18, bean.getInsdate());
 			int i = stmt.executeUpdate();
 
 			if (i == 1) {
@@ -252,10 +252,10 @@ public class SellerVisitorJDBC {
 		return result;
 	}
 
-	private static final String UPDATE = "update Seller_visitor set  FEIN=?, name=?, Seller_photo=?, tel=?, GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?, email2=?, Con_name=?, Con_cel=?, receipts_metho=?, IS_check=?, IS_cooperation=?, insdate=? where Account_UID=?";
+	private static final String UPDATE = "update Seller_visitor set  FEIN=?, name=?, Seller_photo=?, tel=?, GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?, email2=?, Con_name=?, Con_cel=?, Seller_status=? , receipts_metho=?, IS_check=?,Ship_price=?, Lowest_price=? where Account_UID=?";
 
 	public SellerVisitorBean update(String FEIN, String name, Blob Seller_photo,String tel, String GUAR_CT, String GUAR_AR, String GUAR_ROAD, String GUAR_NO,String email2, 
-			String Con_name, String Con_cel,String receipts_metho, boolean IS_check, boolean IS_cooperation, String insdate, String Account_UID) {
+			String Con_name, String Con_cel,String receipts_metho, boolean IS_check, boolean Seller_status, int Ship_price, int Lowest_price, String Account_UID) {
 		Connection conn = null;
 		PreparedStatement psStrUpd = null;
 		SellerVisitorBean result = null;
@@ -276,16 +276,18 @@ public class SellerVisitorJDBC {
 			psStrUpd.setString(11, Con_cel);
 			psStrUpd.setString(12, receipts_metho);
 			psStrUpd.setBoolean(13, IS_check);
-			psStrUpd.setBoolean(14, IS_cooperation);	
-			psStrUpd.setString(15, insdate);
-			
+//			psStrUpd.setBoolean(14, IS_cooperation);	
+//			psStrUpd.setString(15, insdate);
+			psStrUpd.setBoolean(14,Seller_status);
+			psStrUpd.setInt(15, Ship_price);
+			psStrUpd.setInt(16, Lowest_price);
 //			if (insdate != null) {
 //				long time = insdate.getTime();
 //				psStrUpd.setDate(15, new java.sql.Date(time));
 //			} else {
 //				psStrUpd.setDate(15, null);
 //			}			
-			psStrUpd.setString(16, Account_UID);
+			psStrUpd.setString(17, Account_UID);
 			
 			
 			int i = psStrUpd.executeUpdate();
