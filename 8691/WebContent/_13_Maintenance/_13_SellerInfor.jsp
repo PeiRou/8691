@@ -36,11 +36,21 @@
 						class="table table-striped table-hover dataTable" cellspacing="0">
 						<thead>
 							<tr class="customer-font">
+								<th>統一編號</th>
 								<th>店家名稱</th>
-								<th>是否審核</th>
-								<th>店家狀態</th>
-								<th>申請日期</th>
-								<th>accountUID</th>
+								<th>電話</th>
+								<th>住址(縣/市)</th>
+								<th>住址(區/鄉/鎮/市)</th>
+								<th>住址(路)</th>
+								<th>住址(號)</th>
+								<th>聯絡人</th>
+								<th>聯絡人手機</th>
+								<th>收款方式(0:貨到付款,1:信用卡,3:都有)</th>
+								<th>是否審核(0:未審核,1:已審核</th>
+								<th>是否為合作店家(0:否,1:是)</th>
+								<th>運費</th>
+								<th>最低金額</th>
+								<th>新增日期</th>
 							</tr>
 						</thead>
 						<tbody style="text-align: left;" class="customer-font">
@@ -76,26 +86,50 @@
 	<script src="<%= request.getContextPath() %>/js/jquery-ui.min.js"></script>
 </body>
 <script type="text/javascript">
-$(document).ready(function() {
-	//var prodInfo = JSON.parse(JSON.stringify(${prodInfo}));
-	
-	var data = [{"isCheck":"0","sellerSstatus":"0","name":"小隻老","insdate":"2016-03-07","accountUID":"A6105F1F-80A1-459C-B5D3-420BCDBED06A"}, {"isCheck":"0","sellerSstatus":"0","name":"000","insdate":"2016-03-07","accountUID":"1A91A662-869A-4EFA-9DC2-BD519AD8C710"}, {"isCheck":"0","sellerSstatus":"0","name":"1111","insdate":"2016-03-07","accountUID":"359FD003-1052-481F-9BD2-DE90E1F60329"}];
-	var prodInfo = JSON.parse(JSON.stringify(data));
+$(document).ready(function() {	
+	var data = $('#hidVistorStaus').val();	
+	//var data = '';
+	var prodInfo = JSON.parse(data);
 	
 	$('#vistorTable').DataTable({
 		data:prodInfo,
 		columns: 
 			[
-	            { data: "name" },
-	            { data: "isCheck" },
-	            { data: "sellerSstatus" },
-	            { data: "insdate" },
-	            { data: function(prodInfo){
-	            	var temp = '<a href="<%= request.getContextPath() %>/about.jsp">店家</a>';
-	            	
-	            	return temp;
-	            }}
-	            //{ data: "accountUID" }	            
+	            { data: "fein"},
+				{ data: "name"},
+				{ data: "tel"},
+				{ data: "guarCT"},
+				{ data: "guarAR"},
+				{ data: "guarROAD"},
+				{ data: "guarNO"},
+				{ data: "conName"},
+				{ data: "conCel"},
+				//{ data: "receiptsMetho"},
+				{ data: function(prodInfo){
+					var receiptsMetho = parseInt(prodInfo.receiptsMetho);
+					var temp;
+					switch(receiptsMetho) {
+				    case 0:				        
+				    	temp = "貨到付款";
+				    	break;
+				    case 1:				        
+				    	temp = "信用卡";
+				    	break;
+				    case 3:
+				    	temp = "都有";
+				    	break;
+				    default:
+				    	temp = "啊!錯了";
+				    	break;
+				    }
+					var temphtml = '<a class="btn btn-primary">'+temp+'</a>';
+					return temphtml;
+				}},
+				{ data: "isCheck"},
+				{ data: "sellerStatus"},
+				{ data: "shipPrice"},
+				{ data: "lowestPrice"},
+				{ data: "insdate"}	            
 	        ],
 	});
 		
