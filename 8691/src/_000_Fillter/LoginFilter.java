@@ -17,39 +17,39 @@ import _00_Account.model.AccountBean;
 
 @WebFilter(
 		urlPatterns = {"/_04_Members/*", "/_03_Orders/*"} 
-//		initParams = { 
-//				@WebInitParam(name = "Forum", value = "/_05_Forum/*"), 
-//				@WebInitParam(name = "member", value = "/_04_Members/*"),
-//				@WebInitParam(name = "Maintenance", value = "/_xxx_Maintenance/*")
-//			
-//		}
+		//		initParams = { 
+		//				@WebInitParam(name = "Forum", value = "/_05_Forum/*"), 
+		//				@WebInitParam(name = "member", value = "/_04_Members/*"),
+		//				@WebInitParam(name = "Maintenance", value = "/_xxx_Maintenance/*")
+		//			
+		//		}
 		)
 public class LoginFilter implements Filter {
 	private FilterConfig filterConfig;
-@Override
-public void init(FilterConfig filterConfig) throws ServletException {
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
 		this.filterConfig = filterConfig;
 	}
 
-@Override
-public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
-		throws IOException, ServletException {
-       HttpServletRequest request = (HttpServletRequest) req;
-       HttpServletResponse response = (HttpServletResponse) resp;
+	@Override
+	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
+			throws IOException, ServletException {
+		HttpServletRequest request = (HttpServletRequest) req;
+		HttpServletResponse response = (HttpServletResponse) resp;
 
-HttpSession session = request.getSession();
-String bean= (String) session.getAttribute("LoginOK");
+		HttpSession session = request.getSession();
+		String bean= (String) session.getAttribute("LoginOK");
 
 		if(bean!=null){
 			chain.doFilter(request, response);
-			}else{
-		    String path = request.getContextPath();
+		}else{
+			String path = request.getContextPath();
 			response.sendRedirect(path+"/_02_Login/Login.jsp");
-			} 
-		}
-@Override
-public void destroy() {
-		
+		} 
+	}
+	@Override
+	public void destroy() {
+
 	}
 
 }
