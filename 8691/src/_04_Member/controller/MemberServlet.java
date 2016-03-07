@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import _04_Member.model.MemberDAO;
+import _04_Member.model.MemberDAOjdbc;
+
 
 @WebServlet("/MemberServlet")
 
@@ -17,16 +20,23 @@ public class MemberServlet extends HttpServlet {
 	
 	HttpSession session = request.getSession();
 	String accountUID = (String) session.getAttribute("LoginOK");
-	String roleID = (String) session.getAttribute("roleID");
+	String RoleID = (String) session.getAttribute("RoleID");
 	session.setAttribute("LoginOK", accountUID);
 	System.out.println("accountUID: "+accountUID);
-	System.out.println("roleID: "+roleID);
+	System.out.println("RoleID: "+RoleID);
 	
 	
+	MemberDAO dao = new MemberDAOjdbc();
+	//String result = selectName.SelectName();
 	
-	request.getRequestDispatcher(
-			"/_04_Members/Members.jsp").forward(request, response);
 	
+	if(RoleID.equals("201")){
+		request.getRequestDispatcher(
+				"/_04_Members/Members.jsp").forward(request, response);
+		}else if(RoleID.equals("102")){
+			request.getRequestDispatcher(
+					"/_04_Members/SellerMembers.jsp").forward(request, response);	
+		}	
 	}
 	
 	
