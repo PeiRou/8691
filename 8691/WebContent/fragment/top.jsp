@@ -63,7 +63,7 @@
 				
 				<c:choose>
 					<c:when test="${RoleID == 0000}">
-						<li><c:url value="/Maintenance" var="GetStaffPath"></c:url>
+						<li><c:url value="/_13_Maintenance/GetSeller.controller" var="GetStaffPath"></c:url>
 						<a href="${GetStaffPath}">管理員</a>
 						</li>
 					</c:when>
