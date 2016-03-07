@@ -43,13 +43,7 @@ public class _11_FoodPricejdbc {
 				JSONObject obj = new JSONObject();
 				obj.put("FoodSizePriceID", rset.getString("Food_size_price_ID"));
 				obj.put("FoodID", rset.getString("Food_ID"));
-				obj.put("SizeStatusID", rset.getString("Size_status_ID"));
-				List SizeStatusList = sizeStatusjdbc.select(rset.getString("Size_status_ID"));
-				if (SizeStatusList != null) {
-					obj.put("SizeStatus", SizeStatusList);
-				}else{
-					obj.put("SizeStatus", "");
-				}				
+				obj.put("SizeStatusID", rset.getString("Size_status_ID"));						
 				obj.put("FoodStatusPrice", rset.getString("Food_status_price"));
 				JSONObjectList.add(obj);
 			}

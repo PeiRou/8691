@@ -104,6 +104,7 @@ public class _11_Foodjdbc {
 					stmt.executeUpdate();
 					ResultSet rs = stmt.getGeneratedKeys();
 				    if(rs.next()){
+				    	System.out.println(rs.getInt(1));
 				    	return rs.getInt(1);
 				    }
 				}

@@ -78,12 +78,12 @@
     <script src="<%= request.getContextPath() %>/js/jquery.js"></script>
 	<script src="<%= request.getContextPath() %>/js/jquery-ui.min.js"></script>
     <script>
-//     var data = $('#hidFoodStaus').val();
+     var data = $('#hidFoodStaus').val();
 //     var Group = $('#hidGroup').val();
 //     var SzSts = $('#hidSzSts').val();
 //     var PrCl1 = $('#hidPrCl1').val();
 //     var PrCl2 = $('#hidPrCl2').val();
-    var data = '[{"FoodPrice":[{"FoodSizePriceID":"1","SizeStatusID":"2","FoodID":"1","SizeStatus":[{"SizeStatusID":"2","SizeName":"小"}],"FoodStatusPrice":"40"},{"FoodSizePriceID":"2","SizeStatusID":"3","FoodID":"1","SizeStatus":[{"SizeStatusID":"3","SizeName":"中"}],"FoodStatusPrice":"45"}],"GroupClass3ID":"1","FoodID":"1","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"珍珠奶茶"}, {"FoodPrice":[{"FoodSizePriceID":"7","SizeStatusID":"1","FoodID":"4","SizeStatus":[{"SizeStatusID":"1","SizeName":"預設"}],"FoodStatusPrice":"50"}],"GroupClass3ID":"1","FoodID":"4","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"奶茶"}, {"FoodPrice":[{"FoodSizePriceID":"8","SizeStatusID":"1","FoodID":"5","SizeStatus":[{"SizeStatusID":"1","SizeName":"預設"}],"FoodStatusPrice":"45"}],"GroupClass3ID":"1","FoodID":"5","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"豆漿紅茶"}, {"FoodPrice":[{"FoodSizePriceID":"9","SizeStatusID":"1","FoodID":"6","SizeStatus":[{"SizeStatusID":"1","SizeName":"預設"}],"FoodStatusPrice":"60"}],"GroupClass3ID":"1","FoodID":"6","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"綠茶"}, {"FoodPrice":[],"GroupClass3ID":"2","FoodID":"7","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"沙士"}, {"FoodPrice":[],"GroupClass3ID":"2","FoodID":"8","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"青茶"}, {"FoodPrice":[],"GroupClass3ID":"2","FoodID":"9","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"烏龍綠茶"}]';
+//    var data = '[{"FoodPrice":[{"FoodSizePriceID":"1","SizeStatusID":"2","FoodID":"1","SizeStatus":[{"SizeStatusID":"2","SizeName":"小"}],"FoodStatusPrice":"40"},{"FoodSizePriceID":"2","SizeStatusID":"3","FoodID":"1","SizeStatus":[{"SizeStatusID":"3","SizeName":"中"}],"FoodStatusPrice":"45"}],"GroupClass3ID":"1","FoodID":"1","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"珍珠奶茶"}, {"FoodPrice":[{"FoodSizePriceID":"7","SizeStatusID":"1","FoodID":"4","SizeStatus":[{"SizeStatusID":"1","SizeName":"預設"}],"FoodStatusPrice":"50"}],"GroupClass3ID":"1","FoodID":"4","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"奶茶"}, {"FoodPrice":[{"FoodSizePriceID":"8","SizeStatusID":"1","FoodID":"5","SizeStatus":[{"SizeStatusID":"1","SizeName":"預設"}],"FoodStatusPrice":"45"}],"GroupClass3ID":"1","FoodID":"5","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"豆漿紅茶"}, {"FoodPrice":[{"FoodSizePriceID":"9","SizeStatusID":"1","FoodID":"6","SizeStatus":[{"SizeStatusID":"1","SizeName":"預設"}],"FoodStatusPrice":"60"}],"GroupClass3ID":"1","FoodID":"6","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"綠茶"}, {"FoodPrice":[],"GroupClass3ID":"2","FoodID":"7","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"沙士"}, {"FoodPrice":[],"GroupClass3ID":"2","FoodID":"8","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"青茶"}, {"FoodPrice":[],"GroupClass3ID":"2","FoodID":"9","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"烏龍綠茶"}]';
     var Group = '[{"FoodStatus":[{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"1","ProdStatusClass3Name":"珍珠"}],"GroupClass3ID":"1","ProdStatusClass3ID":"1"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"2","ProdStatusClass3Name":"椰果"}],"GroupClass3ID":"1","ProdStatusClass3ID":"2"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"3","ProdStatusClass3Name":"粉條"}],"GroupClass3ID":"1","ProdStatusClass3ID":"3"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"4","ProdStatusClass3Name":"綠豆"}],"GroupClass3ID":"1","ProdStatusClass3ID":"4"},{"ProdStatus":[{"ProdStatusClass3Price":"0","ProdStatusClass2ID":"2","ProdStatusClass3ID":"6","ProdStatusClass3Name":"少糖(7分)"}],"GroupClass3ID":"1","ProdStatusClass3ID":"6"},{"ProdStatus":[{"ProdStatusClass3Price":"0","ProdStatusClass2ID":"2","ProdStatusClass3ID":"7","ProdStatusClass3Name":"半糖(5分)"}],"GroupClass3ID":"1","ProdStatusClass3ID":"7"}],"GroupClass3Name":"這是測試","GroupClass3ID":"1","ProdStatusClass1ID":"11"}, {"FoodStatus":[{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"2","ProdStatusClass3Name":"椰果"}],"GroupClass3ID":"2","ProdStatusClass3ID":"2"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"3","ProdStatusClass3Name":"粉條"}],"GroupClass3ID":"2","ProdStatusClass3ID":"3"},{"ProdStatus":[{"ProdStatusClass3Price":"0","ProdStatusClass2ID":"2","ProdStatusClass3ID":"6","ProdStatusClass3Name":"少糖(7分)"}],"GroupClass3ID":"2","ProdStatusClass3ID":"6"},{"ProdStatus":[{"ProdStatusClass3Price":"0","ProdStatusClass2ID":"2","ProdStatusClass3ID":"7","ProdStatusClass3Name":"半糖(5分)"}],"GroupClass3ID":"2","ProdStatusClass3ID":"7"}],"GroupClass3Name":"我的最愛","GroupClass3ID":"2","ProdStatusClass1ID":"11"}]';
     var SzSts = '[{"SizeStatusID":"1","SizeName":"預設"}, {"SizeStatusID":"2","SizeName":"小"}, {"SizeStatusID":"3","SizeName":"中"}, {"SizeStatusID":"4","SizeName":"大"}]';
     var PrCl1 = '[{"ProdStatusClass1Name":"下午茶","ProdStatusClass1ID":"1"}, {"ProdStatusClass1Name":"中式料理","ProdStatusClass1ID":"2"}, {"ProdStatusClass1Name":"中西麵食料理","ProdStatusClass1ID":"3"}, {"ProdStatusClass1Name":"便當-小吃","ProdStatusClass1ID":"4"}, {"ProdStatusClass1Name":"其他歐系料理","ProdStatusClass1ID":"5"}, {"ProdStatusClass1Name":"其他異國料理","ProdStatusClass1ID":"6"}, {"ProdStatusClass1Name":"冰品(冰淇淋、刨冰、甜品)","ProdStatusClass1ID":"7"}, {"ProdStatusClass1Name":"南洋料理(越、馬、新)","ProdStatusClass1ID":"8"}, {"ProdStatusClass1Name":"印度料理","ProdStatusClass1ID":"9"}, {"ProdStatusClass1Name":"台菜-熱炒","ProdStatusClass1ID":"10"}, {"ProdStatusClass1Name":"咖啡專賣","ProdStatusClass1ID":"11"}, {"ProdStatusClass1Name":"壽司-生魚片","ProdStatusClass1ID":"12"}, {"ProdStatusClass1Name":"披薩","ProdStatusClass1ID":"13"}, {"ProdStatusClass1Name":"日本料理","ProdStatusClass1ID":"14"}, {"ProdStatusClass1Name":"早午餐","ProdStatusClass1ID":"15"}, {"ProdStatusClass1Name":"泰式料理","ProdStatusClass1ID":"16"}, {"ProdStatusClass1Name":"炸雞速食","ProdStatusClass1ID":"17"}, {"ProdStatusClass1Name":"無國界料理與創意料理","ProdStatusClass1ID":"18"}, {"ProdStatusClass1Name":"粵菜(港式、飲茶、點心)","ProdStatusClass1ID":"19"}, {"ProdStatusClass1Name":"精緻套餐","ProdStatusClass1ID":"20"}, {"ProdStatusClass1Name":"素食","ProdStatusClass1ID":"21"}, {"ProdStatusClass1Name":"美墨料理","ProdStatusClass1ID":"22"}, {"ProdStatusClass1Name":"義式料理","ProdStatusClass1ID":"23"}, {"ProdStatusClass1Name":"蛋糕-西式點心","ProdStatusClass1ID":"24"}, {"ProdStatusClass1Name":"輕食(沙拉、三明治)","ProdStatusClass1ID":"25"}, {"ProdStatusClass1Name":"鍋物(火鍋、豆腐鍋)","ProdStatusClass1ID":"26"}, {"ProdStatusClass1Name":"韓式料理","ProdStatusClass1ID":"27"}, {"ProdStatusClass1Name":"飯類料理(丼飯、飯盒、粥)","ProdStatusClass1ID":"28"}]';
@@ -94,17 +94,15 @@
     var jsonSzSts = JSON.parse(SzSts);
     var jsonPrCl1 = JSON.parse(PrCl1);
     var jsonPrCl2 = JSON.parse(PrCl2);
-    var errArray = null;
-    var insdata = null;
+    var errArray = null;    
     var newPlusInx = 0;
+    
+    //紀錄ajax是否回傳response
+    var queue = [];
     
     //-----第一次載入--start---
  	LoadTable(jsonVal,jsonGroup);
-	$(":text").hide();
-	$(":input").attr('disabled', true);
-	$(":text").attr("maxlength",6);
-	$(":text").attr("size",6);
-	$(".tdok").hide();	
+    beLoad();
 	//dialog事件
 	$( "#dialog" ).dialog({
 	  resizable: false,
@@ -144,6 +142,13 @@
 	//------固定的btn事件---End----	
 	
 	//------function---start----
+	function beLoad(){
+		$(":text").hide();
+		$(":input").attr('disabled', true);
+		$(":text").attr("maxlength",6);
+		$(":text").attr("size",6);
+		$(".tdok").hide();	
+	}
 	//第一次載入
     function LoadTable(jsonVal,jsonGroup){ 	    	
     	$.each(jsonGroup, function(index,GroupVal){
@@ -182,14 +187,8 @@
 		console.log("PriceStus:"+JsonData);
 		var appPrices = $("<a/>");
 		$.each(PriceStus,function(index,PriceVal){
-			$.each(PriceVal.SizeStatus,function(index,SzSts){
-				if(PriceVal.SizeStatusID==SzSts.SizeStatusID){
-					var lblPrice = insPrice(SzSts.SizeStatusID,PriceVal.FoodSizePriceID,PriceVal.FoodStatusPrice);
-					if(FoodID==PriceVal.FoodID){
-						appPrices.append(lblPrice).html();
-					}
-				}
-			});
+			var lblPrice = insPrice(PriceVal.SizeStatusID,PriceVal.FoodSizePriceID,PriceVal.FoodStatusPrice);
+			appPrices.append(lblPrice).html();			
 		});
 		return appPrices;
 	}	
@@ -352,13 +351,13 @@
 	}
 	//轉成json物件,再送出ajax
 	function CovJsonObjectSetAjax(action,table,status){
-		var jsonObj = new Object();
+		var jsonObj = new Object;
 		jsonObj.action = action;
 		jsonObj.table = table;
 		jsonObj.status = status;
 		var JsonData = JSON.stringify(jsonObj);
 		console.log("JsonData:"+JsonData);
-		setJson(action,JsonData);		
+		setJson(action,JsonData);					
 	}
 	//呼叫ajax
 	function setJson(action,jsonData) {
@@ -371,36 +370,20 @@
 	        contentType: 'application/json',
 	        mimeType: 'application/json',
 	        success: function (data) {
-	        	if(action == "Insert"){
-	        		var data = JSON.parse(data);
-					var idata = 0;
-					var datalength= data.length;
-					while(idata < datalength){
-							var Obj = new Object;
-							Obj = JSON.parse(JSON.stringify(data[idata]));
-							if(Obj.table=="Food"){
-								insdata = new Object;
-								insdata = Obj;
-							}else if(Obj.table=="FoodSizePrice"){
-								if(Obj.FoodSizePriceID!="")
-								{
-									if(errArray==null){
-										errArray = new Array;
-									}
-									errArray.push(Obj);
-								}
-							}
-						}
+	        	if(action == "Insert"){	        		
+	        		var Obj = JSON.parse(JSON.stringify(data));
+	        		console.log("Obj:"+Obj);
+					
 					//如果沒有錯
 					if(errArray!=null){
-						$("#lblFoodNewCel").attr("class","btn btn-danger");
+						$("#lblFoodNewCel").attr("class","btn btn-danger")
+										   .css("color","black");
 						errArray = null;
-					}else if(data[0].table=="FoodSizePrice"){				
-						insdata.FoodPrice= data;
-			    		var GroupFoods = insGroupFood(insdata.FoodID,insdata.FoodName,insdata.FoodPrice);
+					}else if(Obj.FoodID!=""){
+			    		var GroupFoods = insGroupFood(Obj.FoodID,Obj.FoodName,Obj.FoodPrice);
 			    		$("#lblFoodNewCel").before(GroupFoods);
 			    		$("#lblFoodNewCel").remove();
-			    		insdata = null;
+			    		beLoad();
 					}
 				}else if(action == "Update"){
 					console.log("Errordata:"+data);
@@ -573,8 +556,7 @@
 	//新增食物
 	function InsFood(theTr){			
 		var dataArray = new Array;
-		var foodArray = new Array;
-		var SzPzArray = new Array;
+		var requestArray = new Array;
 		var action = "Insert";
 		var tmpSize;
 		
@@ -590,35 +572,36 @@
 			
 			if(culmFId=='txtFood'){					
 				var tmpFood = $(this).val();
-				var objdata = new Object;
 				var FoodID = tmpData.substring(7,leth);
 				var GroupClass3ID = theTr.substring(7,theTr.length);
-				//console.log("GroupClass3ID:"+GroupClass3ID);
-				objdata.GroupClass3ID = GroupClass3ID;
-				objdata.FoodID = FoodID;
-				objdata.FoodName = tmpFood;
-				foodArray.push(objdata);
+				//console.log("GroupClass3ID:"+GroupClass3ID);				
+				var foodObject = new Object;
+				foodObject.GroupClass3ID = GroupClass3ID;
+				foodObject.FoodID = FoodID;
+				foodObject.FoodName = tmpFood;
+				requestArray.push(foodObject);
 			}else if(culmSzPz=='selSizePrice'){
 				tmpSize= $(this).val();				
 			}else if(culmSzPz=='txtSizePrice'){
 				var tmpSizePrice= $(this).val();
 				console.log("tmpSizePrice:"+tmpSizePrice);
-				var objdata = new Object;			
+				var SzPzObject = new Object;			
 				var SzPzId = tmpData.substring(12,leth);
 				
-				objdata.FoodSizePriceID = SzPzId;
-				objdata.SizeStatusID = tmpSize;
+				SzPzObject.FoodSizePriceID = SzPzId;
+				SzPzObject.SizeStatusID = tmpSize;
 				//用完清空
 				tmpSize = "";
 				
-				objdata.FoodStatusPrice = tmpSizePrice;
+				SzPzObject.FoodStatusPrice = tmpSizePrice;
 				//驗證金額不是輸入數字
 				if(!isNaN(tmpSizePrice)){
-					SzPzArray.push(objdata);
+					requestArray.push(SzPzObject);
 				}else{					
 					var thelabel = $("#"+tmpData).parent().parent().parent().attr("id");					
 					var OgnPrice = $("#fontSizePrice"+SzPzId).html();
-					console.log("thelabel:"+thelabel);
+					console.log("thelabel:"+thelabel);					
+					var objdata = new Object;
 					objdata.theTr = theTr;
 					objdata.thelabel = thelabel;
 					objdata.OgnPrice = OgnPrice;	
@@ -631,17 +614,11 @@
 		});		
 		//前端驗證數字
 		if(errArray!=null){
-			$("#lblFoodNewCel").attr("class","btn btn-danger");
+			$("#lblFoodNewCel").attr("class","btn btn-danger")
+							   .css("color","black");
 			errArray = null;
-		}else{
-			CovJsonObjectSetAjax(action,"Food",foodArray);
-			if(insdata.FoodID!=""){
-				$.each(SzPzArray,function(index,value){
-					SzPzArray[index].FoodID = insdata.FoodID;
-				});
-				CovJsonObjectSetAjax(action,"FoodSizePrice",SzPzArray);
-				insdata = null;
-			}
+		}else{			
+			CovJsonObjectSetAjax(action,"insFood",requestArray);
 		}
 	}
 	
