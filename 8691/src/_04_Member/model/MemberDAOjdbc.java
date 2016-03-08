@@ -320,4 +320,63 @@ public MemberBean update(
 		return 0;
 	}
 	
+	
+	
+//private static final String SELECT_name_from_member = "select * from member where account_UID=?";
+//	
+//	@Override
+//	public MemberBean selectName(String account_UID) {
+//		Connection conn = null;
+//		MemberBean result = null;
+//		ResultSet rset = null;
+//		PreparedStatement pstmt = null;
+//		try {//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+//            conn = ds.getConnection();	
+//			pstmt = conn.prepareStatement(SELECT_name_from_member); {
+//			pstmt.setString(1, account_UID);
+//			rset = pstmt.executeQuery();
+//			if (rset.next()) {
+//				result = new MemberBean();
+//				result.setAccount_UID(rset.getString("account_UID"));
+//				result.setName(rset.getString("name"));
+//				//result.setMember_photo(rset.getBlob("member_photo"));
+//				result.setGender(rset.getString("gender"));
+//				result.setTel(rset.getString("tel"));
+//				result.setGUAR_CT(rset.getString("GUAR_CT"));
+//				result.setGUAR_AR(rset.getString("GUAR_AR"));
+//				result.setGUAR_ROAD(rset.getString("GUAR_ROAD"));
+//				result.setGUAR_NO(rset.getString("GUAR_NO"));
+//				result.setEmail2(rset.getString("email2"));
+//				result.setCel(rset.getString("Cel"));
+//				result.setInsdate(rset.getString("insdate"));}
+//			}
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			if (rset != null) {
+//				try {
+//					rset.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			if (conn != null) {
+//				try {
+//					conn.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
+//		return result;
+//	}
+	
 }

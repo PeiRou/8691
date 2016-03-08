@@ -85,8 +85,7 @@ private static final String SELECT = "select * from Forum where Forum_UID=?";
 			if (rset.next()) {
 				result = new ForumBean();
 				result.setForum_UID(rset.getString("Forum_UID"));
-				result.setOrders_total_UID(rset.getString("Orders_total_UID"));
-				result.setMember_UID(rset.getString("Member_UID"));
+				result.setAccount_UID(rset.getString("account_UID"));
 				result.setRating(rset.getInt("rating"));
 				result.setComment(rset.getString("comment"));
 			}
@@ -136,8 +135,7 @@ private static final String SELECT_ALL = "select * from Forum";
 			while (rset.next()) {
 				result = new ForumBean();
 				result.setForum_UID(rset.getString("Forum_UID"));
-				result.setOrders_total_UID(rset.getString("Orders_total_UID"));
-				result.setMember_UID(rset.getString("Member_UID"));
+				result.setAccount_UID(rset.getString("account_UID"));
 				result.setRating(rset.getInt("rating"));
 				result.setComment(rset.getString("comment"));
 				items.add(result);
@@ -170,8 +168,7 @@ private static final String SELECT_ALL = "select * from Forum";
 		return items;
 	}
 	
-private static final String INSERT = "insert into Forum (Forum_UID, Orders_total_UID, Member_UID, rating, comment, insdate) values (?, ?, ?, ?, ?, ?)";
-//private static final String INSERT = "insert into Forum (comment, insdate) values (?, ?)";
+private static final String INSERT = "insert into Forum (Forum_UID, account_UID, rating, comment, insdate) values (NEWID(), ?, ?, ?, ?)";
 	public void insert(ForumBean bean) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -180,12 +177,11 @@ private static final String INSERT = "insert into Forum (Forum_UID, Orders_total
 			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(INSERT);
-			stmt.setString(1, bean.getForum_UID());
-			stmt.setString(2, bean.getOrders_total_UID());			
-			stmt.setString(3, bean.getMember_UID());
-			stmt.setInt(4, bean.getRating());
-			stmt.setString(5, bean.getComment());
-			stmt.setString(6, bean.getInsdate());
+			//stmt.setString(1, bean.getForum_UID());
+			stmt.setString(1, bean.getAccount_UID());
+			stmt.setInt(2, bean.getRating());
+			stmt.setString(3, bean.getComment());
+			stmt.setString(4, bean.getInsdate());
 			
 //			java.util.Date insdate = bean.getInsdate();
 //			if (insdate != null) {
@@ -219,9 +215,9 @@ private static final String INSERT = "insert into Forum (Forum_UID, Orders_total
 		}
 	}
 	
-private static final String UPDATE = "update Forum set Forum_UID=?, Orders_total_UID=?, rating=?, comment=?, insdate=? where Member_UID=?";
-	public ForumBean update(String Forum_UID, String Orders_total_UID, int rating,
-			String comment, Date insdate, String Member_UID) {
+private static final String UPDATE = "update Forum set account_UID=?, rating=?, comment=?, insdate=? where Forum_UID=?";
+	public ForumBean update(String Forum_UID, int rating,
+			String comment, String insdate, String account_UID) {
 		Connection conn = null;
 		PreparedStatement psStrUpd = null;
 		ForumBean result = null;
@@ -229,17 +225,17 @@ private static final String UPDATE = "update Forum set Forum_UID=?, Orders_total
 			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			conn = dataSource.getConnection();
 			psStrUpd = conn.prepareStatement(UPDATE);
-			psStrUpd.setString(1, Forum_UID);
-			psStrUpd.setString(2, Orders_total_UID);
-			psStrUpd.setInt(3, rating);
-			psStrUpd.setString(4, comment);
-			if (insdate != null) {
-				long time = insdate.getTime();
-				psStrUpd.setDate(5, new java.sql.Date(time));
-			} else {
-				psStrUpd.setDate(5, null);
-			}
-			psStrUpd.setString(6, Member_UID);
+			psStrUpd.setString(1, account_UID);
+			psStrUpd.setInt(2, rating);
+			psStrUpd.setString(3, comment);
+			psStrUpd.setString(4, insdate);
+//			if (insdate != null) {
+//				long time = insdate.getTime();
+//				psStrUpd.setDate(4, new java.sql.Date(time));
+//			} else {
+//				psStrUpd.setDate(4, null);
+//			}
+			psStrUpd.setString(5, Forum_UID);
 
 			int i = psStrUpd.executeUpdate();
 			if (i == 1) {

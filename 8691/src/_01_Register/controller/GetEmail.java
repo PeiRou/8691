@@ -1,4 +1,4 @@
-package _05_Forum.controller;
+package _01_Register.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,15 +24,15 @@ import javax.sql.DataSource;
 
 import org.json.simple.JSONValue;
 
-@WebServlet("/GetComment")
-public class GetComment extends HttpServlet {
+@WebServlet("/GetEmail")
+public class GetEmail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 //	private static final String URL = "jdbc:sqlserver://localhost:1433;database=DB02";
 //	private static final String USERNAME = "sa";
 //	private static final String PASSWORD = "sa123456";
 	
 	DataSource datasource = null;
-	public GetComment() {
+	public GetEmail() {
 		try {
 			Context context = new InitialContext();
 			datasource = (DataSource) context.lookup("java:comp/env/8691");
@@ -49,15 +49,13 @@ public class GetComment extends HttpServlet {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;		
 
-		String query = "select comment, name, Forum.insdate from Forum join Member "
-				+ "on Forum.account_UID=Member.account_UID order by Forum.commentNum DESC";
-//		String comment = request.getParameter("comment");
+		String query = "select acc_email from Account where acc_email = ?";
+		String acc_email = request.getParameter("acc_email");
 		
 		try{
 			conn = datasource.getConnection();
-			//conn = DriverManager.getConnection(URL,USERNAME,PASSWORD);
 			stmt = conn.prepareStatement(query);
-//			stmt.setString(1,comment);
+			stmt.setString(1,acc_email);
 			rs = stmt.executeQuery();
 			
 			 List  l1 = new LinkedList();

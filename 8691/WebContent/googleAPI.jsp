@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div id="map" style="width: 400px; height: 300px;"></div>
+<div id="map" style="width: 600px; height: 400px;"></div>
 <script type="text/javascript">
 var locations = [
   ['<a href="https://tw.yahoo.com/">王家刀削麵</a>', 25.032970, 121.545906, 3],  //彈跳訊息可以自行輸入

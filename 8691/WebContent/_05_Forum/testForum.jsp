@@ -21,8 +21,36 @@
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
 
+	<link type="text/css" rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css" />
 
-    
+<style>
+	.label1{
+		font-size:450%;
+	}
+
+	form{
+		text-align:center;
+	}
+
+	textarea {
+    width: 35%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+}
+
+	form.p{
+		margin-left:20px;
+	
+	}
+		
+
+</style>
 </head>
 <body>
 <jsp:include page="/fragment/top.jsp" />
@@ -30,17 +58,21 @@
 		<div class="row">
             <div class="box">
             <form name="Forum" action="<c:url value='/forum.controller' />" method="post">
-                <div class="col-lg-12">
-                	<label class="control-label col-md-6" for="comment">8691討論專區:</label>   
+            	<div class="col-lg-12">
+                	<label class="label1" for="comment">8691巴豆揪么討論區:</label><br>
+                	<h3 id="msgsp" style="color:red">${error.comment}</h3>  
                 </div>
-                <div id="div1" class="col-md-6">
-					<textarea class="auto-height" id="comment" name="comment" rows="6" cols="80"></textarea>
-                	<input type="submit" id="btn" value="送出" /><span id="msgsp" style="color:red">${error.comment}</span>
-                	<br>
-                	<br>
+                
+                <div id="con">
+				<div class="bottomcover" style="z-index:2;"></div>
+				<ul id="ul1"></ul>
+				</div>
+				
+                <div>
+					<textarea id="comment" name="comment" ></textarea>
+                	<p><input type="submit" id="btn" value="送出" /></p>
+                	<br><br>
                 </div>
-                <div class="col-md-6"></div>
-                <div class="clearfix"></div>
            	</form>	
             </div>
         </div>
@@ -59,67 +91,80 @@
         </div>
     </footer>
 
-    <!-- jQuery -->
-    <script src="<%= request.getContextPath() %>/js/jquery.js"></script>
-
     <!-- Bootstrap Core JavaScript -->
     <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-    
-       var comment = $("#comment").val();
-  
-       $(function LoadComment(){
-     	   $.ajax({
-     		  'type':'get',
-     		  'url':'<%= request.getContextPath() %>/GetComment',
-     		  'data':{},
-     		  'dataType':'json',
-     		  'success': function(data){
-     			 $("#msgsp").empty();
-     			 $.each(data,function(index){
-     	 			var cellcomment = JSON.parse(JSON.stringify(data[index].comment));
-     	 			var cellinsdate = JSON.parse(JSON.stringify(data[index].insdate));
-     	 			var cellconnect = $('<small></small>').append("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;發表於")
-     	 			var index = index+1;
-    				var cellmsg = $('<h3 id="h'+index+'"></h3>').append("#"+(index)).append("&nbsp;&nbsp;").append(cellcomment).append(cellconnect).append(cellinsdate);
-    	   			$('#div1').append(cellmsg);
-    	   			
-     			 });
-     		 }});
-        });
-    
-    
+    <!--jQuery-->
+	<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery2.js"></script>
+	<!--jQuery动画暂停插件-->
+	<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery.pause.min.js"></script>
+	<!--滚动效果js-->
+	<script type="text/javascript">
+	
+	var comment = $("#comment").val();
+	  
+    $(function(){
+  	   $.ajax({
+  		  'type':'post',
+  		  'url':'<%= request.getContextPath() %>/GetComment',
+  		  'data':{},
+  		  'dataType':'json',
+  		  'success': function(data){
+  			 $("#msgsp").empty();
+  			 $.each(data,function(index){
+  	 			var cellcomment = JSON.parse(JSON.stringify(data[index].comment));
+  	 			var cellname1 = JSON.parse(JSON.stringify(data[index].name));
+  	 			var cellinsdate = JSON.parse(JSON.stringify(data[index].insdate));
+  	 			var cellword = $('<small></small>').append("發表於").append(cellinsdate);
+  	 			var cellname2 = $('<h5 style="text-align:right;"></h5>').append(cellname1).append(cellword);
+  	 			
+  	 			var index = index+1;
+ 	   			var cellmsg1 = $('<h2 id="h'+index+'" style="text-align:left;"></h2>').append("#"+(index)).append("&nbsp;&nbsp;").append(cellcomment)
+								.after(cellname2);
+				var cellmsg2 =  $('<li></li>').append(cellmsg1);
+ 				$('#ul1').append(cellmsg2);
+ 	   			
+  			 });
+  		 }});
+     });
+	
+	
+$(function () {
+    var scrtime;
+
+    var $ul = $("#con ul");
+    var liFirstHeight = $ul.find("li:first").height();//第一个li的高度
+    $ul.css({ top: "-" + liFirstHeight - 20 + "px" });//利用css的top属性将第一个li隐藏在列表上方	 因li的上下padding:10px所以要-20
+
+    $("#con").hover(function () {
+        $ul.pause();//暂停动画
+        clearInterval(scrtime);
+    }, function () {
+        $ul.resume();//恢复播放动画	
+        scrtime = setInterval(function scrolllist() {
+            //动画形式展现第一个li
+            $ul.animate({ top: 0 + "px" }, 1500, function () { //留言移動速度
+                //动画完成时
+                $ul.find("li:last").prependTo($ul);//将ul的最后一个剪切li插入为ul的第一个li
+                liFirstHeight = $ul.find("li:first").height();//刚插入的li的高度
+                $ul.css({ top: "-" + liFirstHeight - 20 + "px" });//利用css的top属性将刚插入的li隐藏在列表上方  因li的上下padding:10px所以要-20					
+            });
+        }, 3000); //留言置頂速度
+
+    }).trigger("mouseleave");//通过trigger("mouseleave")函数来触发hover事件的第2个函数
+
+});
+
     
     $("#btn").click(function(){
-//     	if( jQuery.trim(comment) == "" || comment == ""){
-<%--     		document.getElementById("msgsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白"; --%>
-//     	}else{
-//    		$("#msgsp").empty();
         	$.ajax({
-       		  'type':'get',
+       		  'type':'post',
        		  'url':'<%= request.getContextPath() %>/ForumServlet',
        		  'data':{'comment':comment},
        		  'dataType':'json',
        		  'success': function(data){
        		 		}
        		  });
-// 	    	}
     	});
-    
-//     '+txtId+'
-//     '+$("#msg").val()+'
-//		'+#+' '+txtId+'
-    
-//     function deltxt(id) {
-//         $("#p"+id).remove();
-//     }
-    
-//     		var msg = $('<p id="p'+txtId+'"> '+"#"+' '+txtId+' '+$("#comment").val()+'<input type="button" value="刪除" onclick="deltxt('+txtId+')"></p>');
-//          var msgdel = $('<input type="button" value="刪除" onclick="deltxt('+txtId+')">');
-//         	$("#div1").append(msg);
-//         	txtId++;
-    
-    
     
     </script>
 		        

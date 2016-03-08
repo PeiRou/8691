@@ -1,13 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!-- jQuery -->
-<script src="<%= request.getContextPath() %>/js/jquery.js"></script>
+<!--jQuery-->
+<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery2.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
-<div class="brand">巴豆揪么 8691</div>
+<a class="navbar brand"  style="color:none; text-decoration: none; hover:none;" href="<%= request.getContextPath() %>/index.jsp">巴豆揪么 8691</a>
 <div class="address-bar">就是要吃喝之美食飲料訂購網站</div>
+
+<!--jQuery动画暂停插件-->
+<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery.pause.min.js"></script>
+<!--滚动效果js-->
+<script type="text/javascript"></script>
+
 
 <!-- Navigation -->
 <nav class="navbar navbar-default" role="navigation">

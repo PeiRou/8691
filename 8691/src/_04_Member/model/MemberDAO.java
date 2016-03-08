@@ -28,4 +28,6 @@ public interface MemberDAO {
 
 	int delete(String acc_email);
 
+//	MemberBean selectName(String name);
+
 }

@@ -4,50 +4,38 @@ import java.util.Date;
 
 public class ForumBean {
 	private	String	Forum_UID;
-	private	String	Orders_total_UID;
-	private	String	Member_UID;
+	private	String	account_UID;
 	private	int rating;
 	private	String comment;
 	private String insdate;
+	private int commentNum;
 	
+
 	public ForumBean() {
 	}
 	
-	public ForumBean(String Forum_UID, String Orders_total_UID, String Member_UID, 
-			int rating, String comment, String insdate) {
+	public ForumBean(String Forum_UID, String account_UID, int rating, String comment, String insdate, int commentNum) {
 		super();
 		this.Forum_UID = Forum_UID;
-		this.Orders_total_UID = Orders_total_UID;
-		this.Member_UID = Member_UID;
+		this.account_UID = account_UID;
 		this.rating = rating;
 		this.comment = comment;
 		this.insdate = insdate;
+		this.commentNum = commentNum;
 	}
-	
-//	public ForumBean(String comment, String insdate) {
-//		super();
-//		this.comment = comment;
-//		this.insdate = insdate;
-//	}
 	
 	
 	public String getForum_UID() {
 		return Forum_UID;
 	}
 	public void setForum_UID(String forum_UID) {
-		Forum_UID = forum_UID;
+		this.Forum_UID = forum_UID;
 	}
-	public String getOrders_total_UID() {
-		return Orders_total_UID;
+	public String getAccount_UID() {
+		return account_UID;
 	}
-	public void setOrders_total_UID(String orders_total_UID) {
-		Orders_total_UID = orders_total_UID;
-	}
-	public String getMember_UID() {
-		return Member_UID;
-	}
-	public void setMember_UID(String member_UID) {
-		Member_UID = member_UID;
+	public void setAccount_UID(String account_UID) {
+		this.account_UID = account_UID;
 	}
 	public int getRating() {
 		return rating;
@@ -67,13 +55,17 @@ public class ForumBean {
 	public void setInsdate(String insdate) {
 		this.insdate = insdate;
 	}
-	
-	
+	public int getCommentNum() {
+		return commentNum;
+	}
+	public void setCommentNum(int commentNum) {
+		this.commentNum = commentNum;
+	}
+
 	@Override
 	public String toString() {
-		return "ForumBean [Forum_UID=" + Forum_UID + ", Orders_total_UID=" + Orders_total_UID + ", Member_UID=" + Member_UID + ", rating=" + rating
-				+ ", comment=" + comment + ", insdate=" + insdate + "]";
+		return "ForumBean [Forum_UID=" + Forum_UID + ", account_UID=" + account_UID + ", rating=" + rating
+				+ ", comment=" + comment + ", insdate=" + insdate + ", commentNum=" + commentNum + "]";
 	}
-	
 	
 }
