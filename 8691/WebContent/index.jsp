@@ -24,10 +24,12 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-<style>
 	
-</style>
+	<style>
+	    	td{
+	    		font-size:1.3em;
+	    	}
+	</style>
 </head>
 <body>
 <jsp:include page="/fragment/top.jsp" />
@@ -37,7 +39,7 @@
                 <div class="col-lg-12">
                 <table class="table">
                 <tr>
-					<td class="text-right"><strong>請輸入縣市 :</strong></td>
+					<td class="text-right"><strong>請選擇縣市 :</strong></td>
 					<td><select name="GUAR_CT" size="1" value="${param.GUAR_CT}">
 													<option value="" selected>請選擇</option>
 							                        <option value="A">臺北市</option>
@@ -64,12 +66,12 @@
 													<option value="V">連江縣</option>
 					</select></td>
 					
-					<td class="text-right">請輸入區域 :</td>
+					<td class="text-right"><strong>請選擇區域 :</strong></td>
 					<td><select id="select1" name="GUAR_AR" size="">
 					<option value="" selected>請選擇</option>
 					</select></td>
 					
-					<td class="text-right">請輸入路名 :</td>
+					<td class="text-right"><strong>請輸入路名 :</strong></td>
 					<td><input id="keyword" type="text" value=""> <input id="textval" name="GUAR_ROAD" type="text" style="display:none"><span id="roadsp" style="color:red"></span><input type="button" class="btn btn-info" id="btn1" value="立即搜尋美食"></td>
 					<td></td>
 				</tr>

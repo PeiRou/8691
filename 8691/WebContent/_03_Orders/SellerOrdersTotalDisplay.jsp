@@ -20,7 +20,23 @@
     <!-- Fonts -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
-
+	<style>
+    
+    	th{
+    		font-size:1em;
+    		text-align:center;
+    	}
+    	
+    	td{
+    		font-size:1em;
+    	}
+    	table#t01 tr:nth-child(even) {
+		    background-color: #fff;
+		}
+		table#t01 tr:nth-child(odd) {
+		   background-color:#eee;
+		}
+    </style>
     
 </head>
 <body>
@@ -29,28 +45,30 @@
 		<div class="row">
 			<div class="box">		
 				<div class="col-lg-12 text-center">
-					<%-- <h3>Select Product Table Result : ${fn:length(select)} row(s) selected</h3> --%>
+				<form action="<c:url value='/_03_Orders/SellerOrdersTotalServlet' />" method="post" >
 					<c:if test="${not empty select}">
-					<table class="table">
+					<table id="t01" class="table">
 						<thead>
 						<tr class="text-center">
 							<th>訂單編號</th>
 							<th>訂購人姓名</th>
-							<th>訂購人手機</th>
+							<th>手機</th>
 							<th>住址(縣/市)</th>
-							<th>住址(區/鄉/鎮/市)</th>
-							<th>住址(路/街/巷)</th>
-							<th>住址(號)</th>
+							<th>(區/鄉/鎮)</th>
+							<th>(路/街/巷)</th>
+							<th>(號)</th>
 							<th>付款方式</th>
 							<th>運費</th>
-							<th>食物金額</th>
+							<th>價格</th>
 							<th>總金額</th>
+							<th>訂單狀態</th>
+							<th>訂單明細</th>
 						</tr>
 						</thead>
 						<tbody>
 						<jsp:useBean id="hugeStick" scope="page" class="_07_Address.model.AddressJDBC"/>
 						<c:forEach var="bean" items="${select}">
-							<c:url value="/_03_Orders/OrdersTotal.jsp" var="path">
+							<c:url value="/_03_Orders/UpdateOrdersTotal.jsp" var="path">
 								<c:param name="ordersID" value="${bean.ordersID}" />
 								<c:param name="name" value="${bean.name}" />
 								<c:param name="cel" value="${bean.cel}" />
@@ -62,6 +80,7 @@
 								<c:param name="ship_price" value="${bean.ship_price}" />
 								<c:param name="food_price" value="${bean.food_price}" />
 								<c:param name="total_amount" value="${bean.total_amount}" />
+								<c:param name="status" value="${bean.status}" />
 							</c:url>
 						<tr>
 							<td><a href="${path}">${bean.ordersID}</a></td>
@@ -75,15 +94,21 @@
 							<td>${bean.ship_price}</td>
 							<td>${bean.food_price}</td>
 							<td>${bean.total_amount}</td>
+							<td>${bean.status}</td>
+							<td>
+							<c:url value="/_03_Orders/SellerOrdersDetailServlet" var="GetDetailPath">
+								<c:param name="ordersID" value="${bean.ordersID}" />
+								<c:param name="action" value="訂單明細" />
+							</c:url>
+							<a class="btn btn-success" href="${GetDetailPath}">訂單</a>
+							</td>
 						</tr>
 					</c:forEach>	
 						</tbody>
 					</table>
 					</c:if>
-					
-					<h3><a href="<c:url value="/_03_Orders/SellerOrdersTotal.jsp" />">OrdersTotal Table</a></h3>
-
-
+					</form>
+					<input class="btn btn-primary" type="button" value="上一頁" onclick="location.href='<%= request.getContextPath() %>/_04_Members/SellerMembers.jsp'">
 				</div>
 			</div>			
 		</div>

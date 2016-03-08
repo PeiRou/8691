@@ -31,7 +31,12 @@
     	td{
     		font-size:1.5em;
     	}
-    
+    	table#t01 tr:nth-child(even) {
+		    background-color: #eee;
+		}
+		table#t01 tr:nth-child(odd) {
+		   background-color:#fff;
+		}
     </style>
 </head>
 <body>
@@ -41,7 +46,7 @@
 			<div class="box">		
 				<div class="col-md-6 col-md-offset-3 text-center">
 				<c:if test="${not empty select}">
-					<table class="table">
+					<table id="t01" class="table">
 						<thead>
 						<tr class="text-center">
 								<th>訂單編號</th>

@@ -20,103 +20,107 @@
     <!-- Fonts -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
-	<title>訂單資訊</title>
-	<script type="text/javascript">
-	function clearForm() {
-		var inputs = document.getElementsByTagName("input");
-		for(var i=0; i<inputs.length; i++) {
-			if(inputs[i].type=="text") {
-				inputs[i].value="";
+	<title>修改訂單資訊</title>
+		<script type="text/javascript">
+		function clearForm() {
+			var inputs = document.getElementsByTagName("input");
+			for(var i=0; i<inputs.length; i++) {
+				if(inputs[i].type=="text") {
+					inputs[i].value="";
+				}
 			}
 		}
-	}
-</script>
+		</script>
     
+    	<style>
+    
+    	th{
+    		font-size:1em;
+    		text-align:center;
+    	}
+    	
+    	td{
+    		font-size:1em;
+    	}
+    	table#t01 tr:nth-child(even) {
+		    background-color: #fff;
+		}
+		table#t01 tr:nth-child(odd) {
+		   background-color:#eee;
+		}
+    </style>
 </head>
 <body>
 <jsp:include page="/fragment/top.jsp" />
 	<div class="container">
 		<div class="row">
 			<div class="box">		
-				<div class="col-md-12">
-					<h2 class="text-center">訂單資訊</h2>
-					<form action="<c:url value='/_03_Orders/OrdersTotalServlet' />" method="post">
-					<table class="table">
+				<div class="col-lg-12 text-center">
+					<h2>修改訂單資訊</h2>
+					<form action="<c:url value='/_03_Orders/SellerOrdersTotalServlet' />" method="post">
+					<jsp:useBean id="hugeStick" scope="page" class="_07_Address.model.AddressJDBC"/>
+					<table id="t01" class="table">
 						<tr>
 							<td class="text-right">訂單編號 : </td>
-							<td><input type="text" name="ordersID" value="${param.ordersID}"></td>
-							<td>${error.ordersID}</td>
+							<td>${param.ordersID}</td>
 						</tr>
 						<tr>
 							<td class="text-right">訂購人姓名 : </td>
-							<td><input type="text" name="name" value="${param.name}"></td>
-							<td>${error.name}</td>
-						</tr>
-						<tr>
-							<td class="text-right">訂購店家 : </td>
-							<td><input type="text" name="seller_UID" value="${param.seller_UID}"></td>
-							<td>${error.seller_UID}</td>
+							<td>${param.name}</td>
 						</tr>
 						<tr>
 							<td class="text-right">訂購人手機 : </td>
-							<td><input type="text" name="cel" value="${cel.cel}"></td>
-							<td>${error.cel}</td>
+							<td>${param.cel}</td>
 						</tr>
 						<tr>
 							<td class="text-right">住址(縣/市) : </td>
-							<td><input type="text" name="GUAR_CT" value="${param.GUAR_CT}"></td>
-							<td>${error.GUAR_CT}</td>
+							<td>${hugeStick.findGUAR_CT_nameByAddress_CT(param.GUAR_CT).getGUAR_CT_name()}</td>
 						</tr>
 						<tr>
 							<td class="text-right">住址(區/鄉/鎮/市) : </td>
-							<td><input type="text" name="GUAR_AR" value="${param.GUAR_AR}"></td>
-							<td>${error.GUAR_AR}</td>
+							<td>${hugeStick.findGUAR_AR_nameByAddress_AR(param.GUAR_AR).getGUAR_AR_name()}</td>
 						</tr>
 							<tr>
 							<td class="text-right">住址(路/街/巷) : </td>
-							<td><input type="text" name="GUAR_ROAD" value="${param.GUAR_ROAD}"></td>
-							<td>${error.GUAR_ROAD}</td>
+							<td>${hugeStick.findGUAR_ROAD_nameByAddress_ROAD(param.GUAR_ROAD).getGUAR_ROAD_name()}</td>
 						</tr>
 							<tr>
 							<td class="text-right">住址(號) : </td>
-							<td><input type="text" name="GUAR_NO" value="${param.GUAR_NO}"></td>
-							<td>${error.GUAR_NO}</td>
+							<td>${param.GUAR_NO}</td>
 						</tr>
 							<tr>
 							<td class="text-right">付款方式 : </td>
-							<td>	
-							<select name="pay_metho" value="${param.pay_metho}">
-							<option value="">請選擇</option>
-					        <option value="0">貨到付款</option>
-					        <option value="1">信用卡</option></select>
-					        </td>
-							<td>${error.pay_metho}</td>
+							<td>${param.pay_metho}</td>
 						</tr>
 							<tr>
-							<td class="text-right">測試用自己輸入(運費): </td>
+							<td class="text-right">修改運費 :</td>
 							<td><input type="text" name="ship_price" value="${param.ship_price}"></td>
 							<td>${error.ship_price}</td>
 						</tr>
 							<tr>
-							<td class="text-right">測試用自己輸入(食物金額): </td>
+							<td class="text-right">修改食物金額 :</td>
 							<td><input type="text" name="food_price" value="${param.food_price}"></td>
 							<td>${error.food_price}</td>
 						</tr>
 							<tr>
-							<td class="text-right">測試用自己輸入(總金額): </td>
+							<td class="text-right">修改總金額 :</td>
 							<td><input type="text" name="total_amount" value="${param.total_amount}"></td>
 							<td>${error.total_amount}</td>
 						</tr>
+							<tr>
+							<td class="text-right">修改訂單狀態 :</td>
+							<td>
+							<select name="status" value="${param.status}">
+							<option value="處理中" selected>處理中</option>
+					        <option value="已出貨">已出貨</option>
+					        </select></td>
+					    </tr>
 						
-					
-						
-						<tr>
+						<tr class="text-right">
 							<td class="text-right">
-								<input type="submit" name="orderaction" value="Insert">
-								<input type="submit" name="orderaction" value="Update">
-								<input type="submit" name="orderaction" value="Delete">
-								<input type="submit" name="orderaction" value="Select">
-								<input type="button" value="Clear" onclick="clearForm()">
+								<input class="btn btn-success" type="submit" name="orderaction" value="更新訂單">
+								<input class="btn btn-danger" type="submit" name="orderaction" value="刪除訂單">
+								<input class="btn btn-warning" type="button" value="清空" onclick="clearForm()">
 							</td>
 						</tr>
 					</table>
@@ -130,26 +134,26 @@
 					<script type="text/javascript">clearForm();</script>
 					</c:if>
 					
-					<c:if test="${not empty insert}">
-					<h3>Insert Product Table Success</h3>
-					<table border="1">
-						<tr><td>訂單編號 :</td><td>${insert.ordersID}</td></tr>
-						<tr><td>訂購人姓名 :</td><td>${insert.name}</td></tr>
-						<tr><td>訂購人手機 :</td><td>${insert.cel}</td></tr>
-						<tr><td>住址(縣/市) :</td><td>${insert.GUAR_CT}</td></tr>
-						<tr><td>住址(區/鄉/鎮/市) :</td><td>${insert.GUAR_AR}</td></tr>
-						<tr><td>住址(路/街/巷) :</td><td>${insert.GUAR_ROAD}</td></tr>
-						<tr><td>住址(號) :</td><td>${insert.GUAR_NO}</td></tr>
-						<tr><td>付款方式 :</td><td>${insert.pay_metho}</td></tr>
-						<tr><td>運費 :</td><td>${insert.ship_price}</td></tr>
-						<tr><td>食物金額 :</td><td>${insert.food_price}</td></tr>
-						<tr><td>總金額 :</td><td>${insert.total_amount}</td></tr>
-					</table>
-					<script type="text/javascript">clearForm();</script>
-					</c:if>
+<%-- 					<c:if test="${not empty insert}"> --%>
+<!-- 					<h3>Insert Product Table Success</h3> -->
+<!-- 					<table border="1"> -->
+<%-- 						<tr><td>訂單編號 :</td><td>${insert.ordersID}</td></tr> --%>
+<%-- 						<tr><td>訂購人姓名 :</td><td>${insert.name}</td></tr> --%>
+<%-- 						<tr><td>訂購人手機 :</td><td>${insert.cel}</td></tr> --%>
+<%-- 						<tr><td>住址(縣/市) :</td><td>${insert.GUAR_CT}</td></tr> --%>
+<%-- 						<tr><td>住址(區/鄉/鎮/市) :</td><td>${insert.GUAR_AR}</td></tr> --%>
+<%-- 						<tr><td>住址(路/街/巷) :</td><td>${insert.GUAR_ROAD}</td></tr> --%>
+<%-- 						<tr><td>住址(號) :</td><td>${insert.GUAR_NO}</td></tr> --%>
+<%-- 						<tr><td>付款方式 :</td><td>${insert.pay_metho}</td></tr> --%>
+<%-- 						<tr><td>運費 :</td><td>${insert.ship_price}</td></tr> --%>
+<%-- 						<tr><td>食物金額 :</td><td>${insert.food_price}</td></tr> --%>
+<%-- 						<tr><td>總金額 :</td><td>${insert.total_amount}</td></tr> --%>
+<!-- 					</table> -->
+<!-- 					<script type="text/javascript">clearForm();</script> -->
+<%-- 					</c:if> --%>
 					
 					<c:if test="${not empty update}">
-					<h3>Update Product Table Success</h3>
+					<h3>更新成功</h3>
 					<table border="1">
 						<tr><td>訂單編號 :</td><td>${update.ordersID}</td></tr>
 						<tr><td>訂購人姓名 :</td><td>${update.name}</td></tr>
@@ -160,8 +164,9 @@
 						<tr><td>住址(號) :</td><td>${update.GUAR_NO}</td></tr>
 						<tr><td>付款方式 :</td><td>${update.pay_metho}</td></tr>
 						<tr><td>運費 :</td><td>${update.ship_price}</td></tr>
-						<tr><td>食物金額 :</td><td>${update.food_price}</td></tr>
+						<tr><td>金額 :</td><td>${update.food_price}</td></tr>
 						<tr><td>總金額 :</td><td>${update.total_amount}</td></tr>
+						<tr><td>訂單狀態 :</td><td>${update.status}</td></tr>
 					</table>
 					<script type="text/javascript">clearForm();</script>
 					</c:if>

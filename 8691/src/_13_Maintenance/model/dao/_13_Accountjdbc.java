@@ -26,7 +26,7 @@ public class _13_Accountjdbc {
 		}
 	}
 	
-	private final String SELECT_ALL = "select b.name ,b.IS_check,b.Seller_status,b.insdate,a.account_UID from Account a join Seller_visitor b on a.account_UID = b.account_UID where a.role_ID = '101'";
+	private final String SELECT_ALL = "select b.name ,b.Seller_status,b.insdate,a.account_UID from Account a join Seller_visitor b on a.account_UID = b.account_UID where a.role_ID = '101'";
 	public List select() {
 		List JSONObjectList = null;
 		ResultSet rset = null;
@@ -39,7 +39,6 @@ public class _13_Accountjdbc {
 			while(rset.next()) {
 				JSONObject obj = new JSONObject();
 				obj.put("name", rset.getString("name"));
-				obj.put("isCheck", rset.getString("IS_check"));
 				obj.put("sellerSstatus", rset.getString("Seller_status"));
 				obj.put("insdate", rset.getString("insdate"));
 				obj.put("accountUID", rset.getString("account_UID"));
