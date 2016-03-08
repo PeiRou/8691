@@ -77,8 +77,6 @@ public class SellerVisitorJDBC {
 				result.setAccount_UID(rset.getString("Account_UID"));
 				result.setFEIN(rset.getString("FEIN"));
 				result.setName(rset.getString("name"));
-//				result.setAcc_email(rset.getString("acc_email"));
-//				result.setPsd(rset.getString("psd"));
 				result.setSeller_photo(rset.getString("Seller_photo"));
 				result.setTel(rset.getString("tel"));
 				result.setGUAR_CT(rset.getString("GUAR_CT"));
@@ -89,9 +87,7 @@ public class SellerVisitorJDBC {
 				result.setCon_name(rset.getString("Con_name"));					
 				result.setCon_cel(rset.getString("Con_cel"));
 				result.setReceipts_metho(rset.getString("receipts_metho"));				
-				result.setIS_check(rset.getBoolean("IS_check"));
-//				result.setIS_cooperation(rset.getBoolean("IS_cooperation"));
-				result.setSeller_status(rset.getBoolean("Seller_status"));
+				result.setSeller_status(rset.getString("Seller_status"));
 				result.setShip_price(rset.getInt("ship_price"));					
 				result.setLowest_price(rset.getInt("lowest_price"));
 				result.setInsdate(rset.getString("insdate"));
@@ -145,8 +141,6 @@ public class SellerVisitorJDBC {
 				result.setAccount_UID(rset.getString("Account_UID"));
 				result.setFEIN(rset.getString("FEIN"));
 				result.setName(rset.getString("name"));
-//				result.setAcc_email(rset.getString("acc_email"));
-//				result.setPsd(rset.getString("psd"));
 				result.setSeller_photo(rset.getString("Seller_photo"));
 				result.setTel(rset.getString("tel"));
 				result.setGUAR_CT(rset.getString("GUAR_CT"));
@@ -157,9 +151,7 @@ public class SellerVisitorJDBC {
 				result.setCon_name(rset.getString("Con_name"));					
 				result.setCon_cel(rset.getString("Con_cel"));
 				result.setReceipts_metho(rset.getString("receipts_metho"));				
-				result.setIS_check(rset.getBoolean("IS_check"));
-//				result.setIS_cooperation(rset.getBoolean("IS_cooperation"));
-				result.setSeller_status(rset.getBoolean("Seller_status"));
+				result.setSeller_status(rset.getString("Seller_status"));
 				result.setShip_price(rset.getInt("Ship_price"));					
 				result.setLowest_price(rset.getInt("Lowest_price"));
 				result.setInsdate(rset.getString("insdate"));
@@ -193,7 +185,7 @@ public class SellerVisitorJDBC {
 		return items;
 	}
 
-	private static final String INSERT = "insert into Seller_visitor (Account_UID,FEIN, name, Seller_photo, tel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, email2, Con_name, Con_cel, receipts_metho, IS_check,Seller_status,ship_price,lowest_price,insdate ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , 0, 0,?,?,getdate())";
+	private static final String INSERT = "insert into Seller_visitor (Account_UID,FEIN, name, Seller_photo, tel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, email2, Con_name, Con_cel, receipts_metho, Seller_status,ship_price,lowest_price,insdate) values (?, ?, ?, '', ?, ?, ?, ?, ?, ?, ?, ?, ? , 0, ?,?,getdate())";
 
 	public SellerVisitorBean insert(SellerVisitorBean bean) {
 		SellerVisitorBean result = null;
@@ -207,23 +199,19 @@ public class SellerVisitorJDBC {
 			stmt.setString(1, bean.getAccount_UID());
 			stmt.setString(2, bean.getFEIN());
 			stmt.setString(3, bean.getName());
-//			stmt.setString(4, bean.getAcc_email());
-//			stmt.setString(5, bean.getPsd());
-			stmt.setString(4, bean.getSeller_photo());
-			stmt.setString(5, bean.getTel());
-			stmt.setString(6, bean.getGUAR_CT());
-			stmt.setString(7, bean.getGUAR_AR());
-			stmt.setString(8, bean.getGUAR_ROAD());
-			stmt.setString(9, bean.getGUAR_NO());			
-			stmt.setString(10, bean.getEmail2());			
-			stmt.setString(11, bean.getCon_name());
-			stmt.setString(12, bean.getCon_cel());			
-			stmt.setString(13, bean.getReceipts_metho());			
-//			stmt.setBoolean(14, bean.isIS_check());
-////		stmt.setBoolean(15, bean.isIS_cooperation());
-//			stmt.setBoolean(15, bean.isSeller_status());
-			stmt.setInt(14, bean.getShip_price());
-			stmt.setInt(15, bean.getLowest_price());
+			//stmt.setString(4, bean.getSeller_photo());
+			stmt.setString(4, bean.getTel());
+			stmt.setString(5, bean.getGUAR_CT());
+			stmt.setString(6, bean.getGUAR_AR());
+			stmt.setString(7, bean.getGUAR_ROAD());
+			stmt.setString(8, bean.getGUAR_NO());			
+			stmt.setString(9, bean.getEmail2());			
+			stmt.setString(10, bean.getCon_name());
+			stmt.setString(11, bean.getCon_cel());			
+			stmt.setString(12, bean.getReceipts_metho());			
+			//stmt.setString(14, bean.getSeller_status());
+			stmt.setInt(13, bean.getShip_price());
+			stmt.setInt(14, bean.getLowest_price());
 			//stmt.setString(18, bean.getInsdate());
 			int i = stmt.executeUpdate();
 
@@ -252,82 +240,82 @@ public class SellerVisitorJDBC {
 		return result;
 	}
 
-	private static final String UPDATE = "update Seller_visitor set  FEIN=?, name=?, Seller_photo=?, tel=?, GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?, email2=?, Con_name=?, Con_cel=?, Seller_status=? , receipts_metho=?, IS_check=?,Ship_price=?, Lowest_price=? where Account_UID=?";
-
-	public SellerVisitorBean update(String FEIN, String name, String Seller_photo,String tel, String GUAR_CT, String GUAR_AR, String GUAR_ROAD, String GUAR_NO,String email2, 
-			String Con_name, String Con_cel,String receipts_metho, boolean IS_check, boolean Seller_status, int Ship_price, int Lowest_price, String Account_UID) {
-		Connection conn = null;
-		PreparedStatement psStrUpd = null;
-		SellerVisitorBean result = null;
-		try {
-//			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-			conn = dataSource.getConnection();
-			psStrUpd = conn.prepareStatement(UPDATE);			
-			psStrUpd.setString(1, FEIN);
-			psStrUpd.setString(2, name);
-			psStrUpd.setString  (3, Seller_photo);
-			psStrUpd.setString(4, tel);
-			psStrUpd.setString(5, GUAR_CT);
-			psStrUpd.setString(6, GUAR_AR);
-			psStrUpd.setString(7, GUAR_ROAD);
-			psStrUpd.setString(8, GUAR_NO);
-			psStrUpd.setString(9, email2);
-			psStrUpd.setString(10, Con_name);
-			psStrUpd.setString(11, Con_cel);
-			psStrUpd.setString(12, receipts_metho);
-			psStrUpd.setBoolean(13, IS_check);
-//			psStrUpd.setBoolean(14, IS_cooperation);	
-//			psStrUpd.setString(15, insdate);
-			psStrUpd.setBoolean(14,Seller_status);
-			psStrUpd.setInt(15, Ship_price);
-			psStrUpd.setInt(16, Lowest_price);
-//			if (insdate != null) {
-//				long time = insdate.getTime();
-//				psStrUpd.setDate(15, new java.sql.Date(time));
-//			} else {
-//				psStrUpd.setDate(15, null);
-//			}			
-			psStrUpd.setString(17, Account_UID);
-			
-			
-			int i = psStrUpd.executeUpdate();
-			if (i == 1) {
-				System.out.println("UPDATE Success!");
-				result = this.select(Account_UID);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (psStrUpd != null) {
-				try {
-					psStrUpd.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return result;
-	}
-
-	private static final String DELETE = "delete from Seller_visitor where Account_UID=?";
-
-	public int delete(String Account_UID) {
-		try(
-//				Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-				Connection conn = dataSource.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(DELETE);) {
-				stmt.setString(1, Account_UID);
-				return stmt.executeUpdate();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			return 0;
-		}
+//	private static final String UPDATE = "update Seller_visitor set  FEIN=?, name=?, Seller_photo=?, tel=?, GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?, email2=?, Con_name=?, Con_cel=?, Seller_status=? , receipts_metho=?, IS_check=?,Ship_price=?, Lowest_price=? where Account_UID=?";
+//
+//	public SellerVisitorBean update(String FEIN, String name, String Seller_photo,String tel, String GUAR_CT, String GUAR_AR, String GUAR_ROAD, String GUAR_NO,String email2, 
+//			String Con_name, String Con_cel,String receipts_metho, boolean IS_check, boolean Seller_status, int Ship_price, int Lowest_price, String Account_UID) {
+//		Connection conn = null;
+//		PreparedStatement psStrUpd = null;
+//		SellerVisitorBean result = null;
+//		try {
+////			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+//			conn = dataSource.getConnection();
+//			psStrUpd = conn.prepareStatement(UPDATE);			
+//			psStrUpd.setString(1, FEIN);
+//			psStrUpd.setString(2, name);
+//			psStrUpd.setString  (3, Seller_photo);
+//			psStrUpd.setString(4, tel);
+//			psStrUpd.setString(5, GUAR_CT);
+//			psStrUpd.setString(6, GUAR_AR);
+//			psStrUpd.setString(7, GUAR_ROAD);
+//			psStrUpd.setString(8, GUAR_NO);
+//			psStrUpd.setString(9, email2);
+//			psStrUpd.setString(10, Con_name);
+//			psStrUpd.setString(11, Con_cel);
+//			psStrUpd.setString(12, receipts_metho);
+//			psStrUpd.setBoolean(13, IS_check);
+////			psStrUpd.setBoolean(14, IS_cooperation);	
+////			psStrUpd.setString(15, insdate);
+//			psStrUpd.setBoolean(14,Seller_status);
+//			psStrUpd.setInt(15, Ship_price);
+//			psStrUpd.setInt(16, Lowest_price);
+////			if (insdate != null) {
+////				long time = insdate.getTime();
+////				psStrUpd.setDate(15, new java.sql.Date(time));
+////			} else {
+////				psStrUpd.setDate(15, null);
+////			}			
+//			psStrUpd.setString(17, Account_UID);
+//			
+//			
+//			int i = psStrUpd.executeUpdate();
+//			if (i == 1) {
+//				System.out.println("UPDATE Success!");
+//				result = this.select(Account_UID);
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			if (psStrUpd != null) {
+//				try {
+//					psStrUpd.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			if (conn != null) {
+//				try {
+//					conn.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
+//		return result;
+//	}
+//
+//	private static final String DELETE = "delete from Seller_visitor where Account_UID=?";
+//
+//	public int delete(String Account_UID) {
+//		try(
+////				Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+//				Connection conn = dataSource.getConnection();
+//				PreparedStatement stmt = conn.prepareStatement(DELETE);) {
+//				stmt.setString(1, Account_UID);
+//				return stmt.executeUpdate();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//			return 0;
+//		}
 }

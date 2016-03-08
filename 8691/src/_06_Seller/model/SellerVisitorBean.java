@@ -16,8 +16,7 @@ public class SellerVisitorBean {
 	private		String	Con_name;
 	private		String	Con_cel;
 	private		String	receipts_metho;
-	private		boolean	IS_check;
-	private 	boolean	Seller_status;
+	private 	String	Seller_status;
 	private 	int	    ship_price;
 	private 	int	    lowest_price;
 	private 	String	insdate;
@@ -99,16 +98,10 @@ public class SellerVisitorBean {
 	public void setReceipts_metho(String receipts_metho) {
 		this.receipts_metho = receipts_metho;
 	}
-	public boolean isIS_check() {
-		return IS_check;
-	}
-	public void setIS_check(boolean iS_check) {
-		IS_check = iS_check;
-	}
-	public boolean isSeller_status() {
+	public String getSeller_status() {
 		return Seller_status;
 	}
-	public void setSeller_status(boolean seller_status) {
+	public void setSeller_status(String seller_status) {
 		Seller_status = seller_status;
 	}
 	public int getShip_price() {
@@ -129,14 +122,10 @@ public class SellerVisitorBean {
 	public void setInsdate(String insdate) {
 		this.insdate = insdate;
 	}
-	public SellerVisitorBean() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 	public SellerVisitorBean(String account_UID, String fEIN, String name, String seller_photo, String tel,
 			String gUAR_CT, String gUAR_AR, String gUAR_ROAD, String gUAR_NO, String email2, String con_name,
-			String con_cel, String receipts_metho, boolean iS_check, boolean seller_status, int ship_price,
-			int lowest_price, String insdate) {
+			String con_cel, String receipts_metho, String seller_status, int ship_price, int lowest_price,
+			String insdate) {
 		super();
 		Account_UID = account_UID;
 		FEIN = fEIN;
@@ -151,32 +140,23 @@ public class SellerVisitorBean {
 		Con_name = con_name;
 		Con_cel = con_cel;
 		this.receipts_metho = receipts_metho;
-		IS_check = iS_check;
 		Seller_status = seller_status;
 		this.ship_price = ship_price;
 		this.lowest_price = lowest_price;
 		this.insdate = insdate;
+	}
+	public SellerVisitorBean() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public String toString() {
 		return "SellerVisitorBean [Account_UID=" + Account_UID + ", FEIN=" + FEIN + ", name=" + name + ", Seller_photo="
 				+ Seller_photo + ", tel=" + tel + ", GUAR_CT=" + GUAR_CT + ", GUAR_AR=" + GUAR_AR + ", GUAR_ROAD="
 				+ GUAR_ROAD + ", GUAR_NO=" + GUAR_NO + ", email2=" + email2 + ", Con_name=" + Con_name + ", Con_cel="
-				+ Con_cel + ", receipts_metho=" + receipts_metho + ", IS_check=" + IS_check + ", Seller_status="
-				+ Seller_status + ", ship_price=" + ship_price + ", lowest_price=" + lowest_price + ", insdate="
-				+ insdate + "]";
+				+ Con_cel + ", receipts_metho=" + receipts_metho + ", Seller_status=" + Seller_status + ", ship_price="
+				+ ship_price + ", lowest_price=" + lowest_price + ", insdate=" + insdate + "]";
 	}
 	
-	
-
-	
-	
-	
-
-
-
-
-
-
 
 }

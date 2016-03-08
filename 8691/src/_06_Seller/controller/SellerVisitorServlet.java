@@ -50,42 +50,21 @@ public class SellerVisitorServlet extends HttpServlet {
 		String Con_name = request.getParameter("Con_name");
 		String Con_cel = request.getParameter("Con_cel");
 		String receipts_metho = request.getParameter("receipts_metho");
-		//String temp2 = request.getParameter("IS_check");
-		//String temp3 = request.getParameter("Seller_status");
+		String Seller_status = request.getParameter("Seller_status");
 		String temp4 = request.getParameter("Ship_price");
 		String temp5 = request.getParameter("Lowest_price");
 		String temp6 = request.getParameter("insdate");
 		String action = request.getParameter("action");
 		 System.out.println("1");
 		
-		TestMail mail= new TestMail();      //寄email
-		mail.sendmail(acc_email, request);  //觸發的欄位
+//		TestMail mail= new TestMail();      //寄email
+//		mail.sendmail(acc_email, request);  //觸發的欄位
 
 		// 轉換資料
 		Map<String, String> error = new HashMap<String, String>();
 		request.setAttribute("error", error);
 
-//		Boolean IS_check = null;
-//		if (temp2 != null && temp2.length() != 0) {
-//			try {
-//				IS_check = Boolean.parseBoolean(temp2);
-//			} catch (NumberFormatException e) {
-//				e.printStackTrace();
-//				error.put("IS_check", "IS_check must true or false");
-//			}
-//			System.out.println(temp2);
-//		}
 
-//		Boolean IS_cooperation = null;
-//		if (temp3 != null && temp3.length() != 0) {
-//			try {
-//				IS_cooperation = Boolean.parseBoolean(temp3);
-//			} catch (NumberFormatException e) {
-//				e.printStackTrace();
-//				error.put("IS_cooperation", "IS_cooperation must true or false");
-//			}
-//			System.out.println(temp3);
-//		}
 		
 //		Boolean Seller_status = null;
 //		if (temp3 != null && temp3.length() != 0) {
@@ -219,9 +198,7 @@ public class SellerVisitorServlet extends HttpServlet {
 		bean1.setCon_name(Con_name);
 		bean1.setCon_cel(Con_cel);
 		bean1.setReceipts_metho(receipts_metho);
-		//bean1.setIS_check(IS_check);
-//		bean1.setIS_cooperation(IS_cooperation);
-		//bean1.setSeller_status(Seller_status);
+		bean1.setSeller_status(Seller_status);
 		bean1.setShip_price(Ship_price);
 		bean1.setLowest_price(Lowest_price);
 		bean1.setInsdate(dateFormat.format(date).toString());
