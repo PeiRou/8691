@@ -38,49 +38,52 @@
 	<div class="container">
 		<div class="row">
 			<div class="box">		
-				<div class="col-lg-12 text-center">
-										<h3>訂單資訊</h3>
-					
+				<div class="col-md-12">
+					<h2 class="text-center">訂單資訊</h2>
 					<form action="<c:url value='/_03_Orders/OrdersTotalServlet' />" method="post">
-					<table>
+					<table class="table">
 						<tr>
-							<td>訂單編號 : </td>
+							<td class="text-right">訂單編號 : </td>
 							<td><input type="text" name="ordersID" value="${param.ordersID}"></td>
 							<td>${error.ordersID}</td>
 						</tr>
 						<tr>
-							<td>訂購人姓名 : </td>
+							<td class="text-right">訂購人姓名 : </td>
 							<td><input type="text" name="name" value="${param.name}"></td>
 							<td>${error.name}</td>
 						</tr>
-					
 						<tr>
-							<td>訂購人手機 : </td>
+							<td class="text-right">訂購店家 : </td>
+							<td><input type="text" name="seller_UID" value="${param.seller_UID}"></td>
+							<td>${error.seller_UID}</td>
+						</tr>
+						<tr>
+							<td class="text-right">訂購人手機 : </td>
 							<td><input type="text" name="cel" value="${cel.cel}"></td>
 							<td>${error.cel}</td>
 						</tr>
 						<tr>
-							<td>住址(縣/市) : </td>
+							<td class="text-right">住址(縣/市) : </td>
 							<td><input type="text" name="GUAR_CT" value="${param.GUAR_CT}"></td>
 							<td>${error.GUAR_CT}</td>
 						</tr>
 						<tr>
-							<td>住址(區/鄉/鎮/市) : </td>
+							<td class="text-right">住址(區/鄉/鎮/市) : </td>
 							<td><input type="text" name="GUAR_AR" value="${param.GUAR_AR}"></td>
 							<td>${error.GUAR_AR}</td>
 						</tr>
 							<tr>
-							<td>住址(路/街/巷) : </td>
+							<td class="text-right">住址(路/街/巷) : </td>
 							<td><input type="text" name="GUAR_ROAD" value="${param.GUAR_ROAD}"></td>
 							<td>${error.GUAR_ROAD}</td>
 						</tr>
 							<tr>
-							<td>住址(號) : </td>
+							<td class="text-right">住址(號) : </td>
 							<td><input type="text" name="GUAR_NO" value="${param.GUAR_NO}"></td>
 							<td>${error.GUAR_NO}</td>
 						</tr>
 							<tr>
-							<td>付款方式 : </td>
+							<td class="text-right">付款方式 : </td>
 							<td>	
 							<select name="pay_metho" value="${param.pay_metho}">
 							<option value="">請選擇</option>
@@ -90,17 +93,17 @@
 							<td>${error.pay_metho}</td>
 						</tr>
 							<tr>
-							<td>測試用自己輸入(運費): </td>
+							<td class="text-right">測試用自己輸入(運費): </td>
 							<td><input type="text" name="ship_price" value="${param.ship_price}"></td>
 							<td>${error.ship_price}</td>
 						</tr>
 							<tr>
-							<td>測試用自己輸入(食物金額): </td>
+							<td class="text-right">測試用自己輸入(食物金額): </td>
 							<td><input type="text" name="food_price" value="${param.food_price}"></td>
 							<td>${error.food_price}</td>
 						</tr>
 							<tr>
-							<td>測試用自己輸入(總金額): </td>
+							<td class="text-right">測試用自己輸入(總金額): </td>
 							<td><input type="text" name="total_amount" value="${param.total_amount}"></td>
 							<td>${error.total_amount}</td>
 						</tr>
@@ -108,11 +111,9 @@
 					
 						
 						<tr>
-							<td>
+							<td class="text-right">
 								<input type="submit" name="orderaction" value="Insert">
 								<input type="submit" name="orderaction" value="Update">
-							</td>
-							<td>
 								<input type="submit" name="orderaction" value="Delete">
 								<input type="submit" name="orderaction" value="Select">
 								<input type="button" value="Clear" onclick="clearForm()">

@@ -11,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import _03_Orders.model.OrdersTotalBean;
 import _03_Orders.model.OrdersTotalService;
 import _07_Address.model.Address_AR_Bean;
@@ -24,12 +26,11 @@ public class OrdersTotalServlet extends HttpServlet {
 	private OrdersTotalService ordersTotalService = new OrdersTotalService();
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		
-		//接收資料
+	//接收資料
 		String Orders_total_UID = request.getParameter("Orders_total_UID");
 		String account_UID = (String)request.getSession().getAttribute("LoginOK");
-				
+		String seller_UID = request.getParameter("seller_UID");
 		String temp0 = request.getParameter("ordersID");
 		String status = request.getParameter("status");
 		String name = request.getParameter("name");
@@ -45,12 +46,8 @@ public class OrdersTotalServlet extends HttpServlet {
 		String temp4 = request.getParameter("total_amount");
 		String orderaction = request.getParameter("orderaction");
 
-		String GUAR_CT_name = request.getParameter("GUAR_CT_name");
-		String GUAR_AR_name = request.getParameter("GUAR_AR_name");
-		String GUAR_ROAD_name = request.getParameter("GUAR_ROAD_name");
 
-
-		//轉換資料
+	//轉換資料
 		Map<String, String> error = new HashMap<String, String>();
 		request.setAttribute("error", error);
 
@@ -135,11 +132,11 @@ public class OrdersTotalServlet extends HttpServlet {
 			}
 			
 	//驗證資料
-			if("Insert".equals(orderaction) || "Update".equals(orderaction) || "Delete".equals(orderaction)) {
-				if(cel.length()==0) {
-					error.put("cel", "Please enter PhoneNumber for "+orderaction);
-				}
-			}
+//			if("Insert".equals(orderaction) || "Update".equals(orderaction) || "Delete".equals(orderaction)) {
+//				if(cel.length()==0) {
+//					error.put("cel", "Please enter PhoneNumber for "+orderaction);
+//				}
+//			}
 			if(error!=null && !error.isEmpty()){
 				request.getRequestDispatcher(
 						"/_03_Orders/OrdersTotal.jsp").forward(request, response);
@@ -148,19 +145,15 @@ public class OrdersTotalServlet extends HttpServlet {
 			
 	//呼叫model
 			OrdersTotalBean bean = new OrdersTotalBean();
-			Address_AR_Bean beanAR = new Address_AR_Bean();
-			Address_CT_Bean beanCT = new Address_CT_Bean();
-			Address_ROAD_Bean beanROAD = new Address_ROAD_Bean();
-			
 			bean.setOrders_total_UID(Orders_total_UID);
 			bean.setAccount_UID(account_UID);
+			bean.setSeller_UID(seller_UID);
 			bean.setOrdersID(ordersID);			
 			bean.setStatus(status);
 			bean.setName(name);
 			bean.setCel(cel);
 			bean.setGUAR_CT(GUAR_CT);
 			bean.setGUAR_AR(GUAR_AR);
-			bean.setName(name);
 			bean.setGUAR_ROAD(GUAR_ROAD);
 			bean.setGUAR_NO(GUAR_NO);
 			bean.setPay_metho(pay_metho);
@@ -168,32 +161,25 @@ public class OrdersTotalServlet extends HttpServlet {
 			bean.setShip_price(ship_price);
 			bean.setFood_price(food_price);
 			bean.setTotal_amount(total_amount);	
-		 
-			beanCT.getGUAR_CT_name();
-			beanAR.getGUAR_AR_name();
-			beanROAD.getGUAR_ROAD_name();
+			
+			
 			
 			
 	//根據model執行結果顯示view
-			if("Select".equals(orderaction)) {
+			if("查看我的訂單".equals(orderaction)) {
 				List<OrdersTotalBean> result = ordersTotalService.select(bean);
 				request.setAttribute("select", result);
-
-//				List<OrdersTotalBean> result2 = ordersTotalService.select(beanAR);
-//				request.setAttribute("select2", result2);
-
-				System.out.println(result);
 				request.getRequestDispatcher(
 						"/_03_Orders/OrdersTotalDisplay.jsp").forward(request, response);
-//			} else if("Insert".equals(orderaction)) {
-//				OrdersTotalBean result = ordersTotalService.insert(bean);
-//				if(result==null) {
-//					error.put("action", "Insert failed");
-//				} else {
-//					request.setAttribute("insert", result);
-//				}
-//				request.getRequestDispatcher(
-//						"/_03_Orders/OrdersTotal.jsp").forward(request, response);
+			} else if("Insert".equals(orderaction)) {
+				OrdersTotalBean result = ordersTotalService.insert(bean);
+				if(result==null) {
+					error.put("action", "Insert failed");
+				} else {
+					request.setAttribute("insert", result);
+				}
+				request.getRequestDispatcher(
+						"/_03_Orders/OrdersTotal.jsp").forward(request, response);
 //			} else if("Update".equals(orderaction)) {
 //				OrdersTotalBean result = ordersTotalService.update(bean);
 //				if(result==null) {

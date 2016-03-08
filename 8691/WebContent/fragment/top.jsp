@@ -35,20 +35,49 @@
 			<ul class="nav navbar-nav">
 				<li><a href="<%= request.getContextPath() %>/index.jsp">首頁</a>
 				</li>
-				<li><a href="<%= request.getContextPath() %>/about.jsp">店家</a>
+				<li><a href="<%= request.getContextPath() %>/about4.jsp">店家</a>
 				</li>
 				<li><c:url value="/_08_GetStore/Store.controller" var="GetStorepath"></c:url>
 					<a href="${GetStorepath}">我要訂餐</a></li>
 				<c:choose>
+				
 					<c:when test="${RoleID == 102}">
 						<li><c:url value="/_10_Menu/GetMenu.controller" var="GetMenupath"></c:url>
 						<a href="${GetMenupath}">測試菜單維護</a>
 						</li>
 					</c:when>
 				</c:choose>
-				<li><a
-					href="<%=request.getContextPath()%>/_04_Members/Members.jsp">會員中心</a>
-				</li>
+				<c:choose>
+					<c:when test="${RoleID == 102}">
+						<li><c:url value="/_13_Maintenance/GetSeller.controller" var="GetMenupath"></c:url>
+						<a href="${GetMenupath}">店家資訊</a>
+						</li>
+					</c:when>
+				</c:choose>				
+				<c:choose>
+					<c:when test="${RoleID == 201}">
+						<li><c:url value="/MemberServlet" var="GetMemberPath"></c:url>
+						<a href="${GetMemberPath}">會員中心</a>
+						</li>
+					</c:when>
+						<c:when test="${RoleID == 102}">
+						<li><c:url value="/MemberServlet" var="GetMemberPath"></c:url>
+						<a href="${GetMemberPath}">會員中心</a>
+						</li>
+					</c:when>
+				</c:choose>
+				
+				<c:choose>
+					<c:when test="${RoleID == 0000}">
+						<li><c:url value="/_13_Maintenance/GetSeller.controller" var="GetStaffPath"></c:url>
+						<a href="${GetStaffPath}">管理員</a>
+						</li>
+					</c:when>
+				</c:choose>
+				
+<!-- 				<li><a -->
+<%-- 					href="<%=request.getContextPath()%>/_04_Members/Members.jsp">會員中心</a> --%>
+<!-- 				</li> -->
 				<li><a
 					href="<%= request.getContextPath() %>/_05_Forum/Forum.jsp">留言板</a>
 				</li>

@@ -10,17 +10,17 @@ public class loginService {
 		AccountBean bean = dao.select(acc_mail);
 			if (bean != null && psd.equals(bean.getPsd())) {
 	        	 return bean;
-	        }else{System.out.println("error");}
+	        }else{System.out.println("登入失敗");}
 	     
 		return null;
 	}
 
-public static void main(String[] args) {
-	loginService service = new loginService();
-	AccountBean bean = service.login("Marcuslo@Foodmail.com", "6666");
-	System.out.println(bean);
-   }
-//	
-//service.changePassword("Ellen", "EEE", "E");
-//}
+//public static void main(String[] args) {
+//	loginService service = new loginService();
+//	AccountBean bean = service.login("Marcuslo@Foodmail.com", "6666");
+//	System.out.println(bean);
+//   }
+////	
+////service.changePassword("Ellen", "EEE", "E");
+////}
 }

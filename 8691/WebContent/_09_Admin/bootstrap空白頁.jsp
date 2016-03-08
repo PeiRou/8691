@@ -29,23 +29,15 @@
 		<div class="row">
 			<div class="box">		
 				<div class="col-lg-12 text-center">
+				<h1>管理者介面</h1>
+				<form action="<c:url value='/_06_Seller/SellerVisitorServlet' />" method="post">
 				
-<!--內容放這!! 	內容放這!!	內容放這!!	內容放這!! -->
-
-						<h1>管理者介面</h1>
-						
-
-						
-
-<form action="<c:url value='/_06_Seller/SellerVisitorServlet' />" method="post">
-
-
-
-
-
-
-<!-- <div class="box">  box為白色區塊包住 -->
-
+				
+				
+				
+				
+				
+				</form>
 				</div>
 			</div>			
 		</div>

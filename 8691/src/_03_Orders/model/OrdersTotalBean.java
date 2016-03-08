@@ -6,6 +6,7 @@ public class OrdersTotalBean {
 
 	private	String	Orders_total_UID;  
 	private	String	account_UID;
+	private	String	seller_UID;
 	private	int	ordersID;
 	private	String	status;
 	private	String	name;
@@ -19,21 +20,7 @@ public class OrdersTotalBean {
 	private	int	ship_price;
 	private	int	food_price;
 	private	int	total_amount;
-	
-	private	String	GUAR_CT_name;
-	private	String	GUAR_AR_name;
-	private	String	GUAR_ROAD_name;	
-	public String getGUAR_CT_name() {
-		return GUAR_CT_name;
-	}
-	public String getGUAR_AR_name() {
-		return GUAR_AR_name;
-	}
-	public String getGUAR_ROAD_name() {
-		return GUAR_ROAD_name;
-	}
-	
-	
+		
 	public String getOrders_total_UID() {
 		return Orders_total_UID;
 	}
@@ -45,6 +32,12 @@ public class OrdersTotalBean {
 	}
 	public void setAccount_UID(String account_UID) {
 		this.account_UID = account_UID;
+	}
+	public String getSeller_UID() {
+		return seller_UID;
+	}
+	public void setSeller_UID(String seller_UID) {
+		this.seller_UID = seller_UID;
 	}
 	public int getOrdersID() {
 		return ordersID;

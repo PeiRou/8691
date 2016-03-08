@@ -25,7 +25,7 @@ public class InfoUpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	HttpSession session = request.getSession();
 //    	request.getAttribute("LoginOK");
-    	  	
+    	
     	//接收資料	
     	String  aaa = (String) session.getAttribute("LoginOK");
     			
@@ -107,15 +107,16 @@ public class InfoUpdateServlet extends HttpServlet {
     				bean2.setCel(cel);
     				bean2.setAccount_UID(aaa);
     				System.out.println(bean2);
-    				
     				updateInfoService.update(bean2);
     				
-    				if (aaa == null) {
-        				error.put("action", "修改失敗");
-        				
-        				System.out.println(bean2);
-        				
-        				
+    				if (aaa!= null) {
+        				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+        				rd.forward(request, response);}else{
+        					RequestDispatcher rd = request.getRequestDispatcher("/_02_Login/Login.jsp");
+        				rd.forward(request, response);
+        					
+        					
+        				}	
 //    				} else if("Update".equals(orderaction)) {
 //    				OrdersTotalBean result = ordersTotalService.update(bean);
 //    				if(result==null) {
@@ -125,17 +126,7 @@ public class InfoUpdateServlet extends HttpServlet {
 //    				}
 //    				request.getRequestDispatcher(
 //    						"/_03_Orders/OrdersTotal.jsp").forward(request, response);
-    				
-    				
-    			    if (bean2== null || !error.isEmpty()) {
-        				error.put("action", "修改失敗");
-        				RequestDispatcher rd = request.getRequestDispatcher("/_04_Members/InfoUpdate.jsp");
-        				rd.forward(request, response);	
-        				return;
-        			}else{RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-    				rd.forward(request, response);	}
-        			   
-    				}
+		
 	}
 
 	

@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import _00_Account.model.AccountBean;
 import _01_Register.model.RegisterServiceToAccount;
+import _03_Orders.model.OrdersTotalBean;
 import _06_Seller.model.SellerVisitorBean;
 import _06_Seller.model.SellerVisitorService;
 import _09_SendMail.TestMail;
@@ -24,11 +26,13 @@ public class SellerVisitorServlet extends HttpServlet {
 
 	private SellerVisitorService sellerVisitorService = new SellerVisitorService();
 	private RegisterServiceToAccount registerServiceToAccount = new RegisterServiceToAccount();
+	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	Date date = new Date();
 
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// System.out.println("!");
+		
 
 		// 接收資料
 		
@@ -36,7 +40,7 @@ public class SellerVisitorServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		String acc_email = request.getParameter("acc_email");
 		String psd = request.getParameter("psd");
-		String temp1 = request.getParameter("Seller_photo");
+		String Seller_photo = request.getParameter("Seller_photo");
 		String tel = request.getParameter("tel");
 		String GUAR_CT = request.getParameter("GUAR_CT");
 		String GUAR_AR = request.getParameter("GUAR_AR");
@@ -46,38 +50,66 @@ public class SellerVisitorServlet extends HttpServlet {
 		String Con_name = request.getParameter("Con_name");
 		String Con_cel = request.getParameter("Con_cel");
 		String receipts_metho = request.getParameter("receipts_metho");
-		String temp2 = request.getParameter("IS_check");
-		String temp3 = request.getParameter("IS_cooperation");
-		String prodaction = request.getParameter("prodaction");
+		String Seller_status = request.getParameter("Seller_status");
+		String temp4 = request.getParameter("Ship_price");
+		String temp5 = request.getParameter("Lowest_price");
+		String temp6 = request.getParameter("insdate");
+		String action = request.getParameter("action");
+		 System.out.println("1");
 		
-		TestMail mail= new TestMail();
-		mail.sendmail(acc_email, request);
+//		TestMail mail= new TestMail();      //寄email
+//		mail.sendmail(acc_email, request);  //觸發的欄位
 
 		// 轉換資料
 		Map<String, String> error = new HashMap<String, String>();
 		request.setAttribute("error", error);
 
-		Boolean IS_check = null;
-		if (temp2 != null && temp2.length() != 0) {
+
+		
+//		Boolean Seller_status = null;
+//		if (temp3 != null && temp3.length() != 0) {
+//			try {
+//				Seller_status = Boolean.parseBoolean(temp3);
+//			} catch (NumberFormatException e) {
+//				e.printStackTrace();
+//				error.put("Seller_status", "Seller_status must true or flase");
+//			}
+//			System.out.println(temp3);
+//		}
+
+		int Ship_price = 0;
+		if (temp4 != null && temp4.length() != 0) {
 			try {
-				IS_check = Boolean.parseBoolean(temp2);
+				Ship_price = Integer.parseInt(temp4);
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
-				error.put("IS_check", "IS_check must true or false");
+				error.put("Ship_price", "Ship_price must true or flase");
 			}
-			System.out.println(temp2);
+			System.out.println(temp4);
 		}
 
-		Boolean IS_cooperation = null;
-		if (temp3 != null && temp3.length() != 0) {
+		int Lowest_price = 0;
+		if (temp5 != null && temp5.length() != 0) {
 			try {
-				IS_cooperation = Boolean.parseBoolean(temp3);
+				Lowest_price = Integer.parseInt(temp5);
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
-				error.put("IS_cooperation", "IS_check must true or false");
+				error.put("Lowest_price", "Lowest_price must true or flase");
 			}
-			System.out.println(temp3);
+			System.out.println(temp5);
 		}
+		
+//		java.util.Date insdate = null;
+//		if (temp6 != null && temp6.length() != 0) {
+//			try {
+//				insdate = mma.parse(temp6);
+//			} catch (Exception e) {
+//
+//				e.printStackTrace();
+//				error.put("insdate", "insdate must be a Date with yyyy-MM-dd");
+//			}
+//
+//		}
 		
 		if (FEIN == null || FEIN.trim().length() == 0) {
 			error.put("FEIN", "請輸入您的統一編號!");
@@ -86,11 +118,14 @@ public class SellerVisitorServlet extends HttpServlet {
 			error.put("name", "請輸入您的店家名稱!");
 		}System.out.println(name);
 		if (acc_email == null || acc_email.trim().length() == 0) {
-			error.put("acc_email", "請輸入您的帳號 或 email!");
+			error.put("acc_email", "請輸入您的帳號 或 E-mail!");
 		}System.out.println(acc_email);
 		if (psd == null || psd.trim().length() == 0) {
 			error.put("psd", "請輸入您的密碼!");
 		}System.out.println(psd);
+//		if (Seller_photo == null || Seller_photo.trim().length() == 0) {
+//			error.put("Seller_photo", "請輸入您的圖片!");
+//		}System.out.println(Seller_photo);
 		if (tel == null || tel.trim().length() == 0) {
 			error.put("tel", "請輸入您的連絡市話 !");
 		}System.out.println(tel);
@@ -107,7 +142,7 @@ public class SellerVisitorServlet extends HttpServlet {
 			error.put("GUAR_NO", "請輸入您的住址(號)");
 		}System.out.println(GUAR_NO);
 		if (email2 == null || email2.trim().length() == 0) {
-			error.put("email2", "請輸入您的備用email!");
+			error.put("email2", "請輸入您的備用E-mail!");
 		}System.out.println(email2);
 		if (Con_name == null || Con_name.trim().length() == 0) {
 			error.put("Con_name", "請輸入您的聯絡人姓名!");
@@ -132,7 +167,7 @@ public class SellerVisitorServlet extends HttpServlet {
 
 		String result = registerServiceToAccount.insertAccount(bean);
 		
-		System.out.println(result);
+		
 		// 有錯誤
 //		if (!error.isEmpty()) {
 //			RequestDispatcher rd = request
@@ -140,15 +175,20 @@ public class SellerVisitorServlet extends HttpServlet {
 //			rd.forward(request, response);
 //			return;
 //		}
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		Date date = new Date();
+	
+
+		
+		
+		
+		
+
 		// 呼叫model
 		SellerVisitorBean bean1 = new SellerVisitorBean();
 		if (result != null) {
 		bean1.setAccount_UID(result);
 		bean1.setFEIN(FEIN);
 		bean1.setName(name);
-		// 傳圖片有問題先註解 bean.setSeller_photo("Seller_photo");
+		bean1.setSeller_photo(Seller_photo);
 		bean1.setTel(tel);
 		bean1.setGUAR_CT(GUAR_CT);
 		bean1.setGUAR_AR(GUAR_AR);
@@ -158,32 +198,39 @@ public class SellerVisitorServlet extends HttpServlet {
 		bean1.setCon_name(Con_name);
 		bean1.setCon_cel(Con_cel);
 		bean1.setReceipts_metho(receipts_metho);
-//		bean1.setIS_check(IS_check);
-//		bean1.setIS_cooperation(IS_cooperation);
+		bean1.setSeller_status(Seller_status);
+		bean1.setShip_price(Ship_price);
+		bean1.setLowest_price(Lowest_price);
 		bean1.setInsdate(dateFormat.format(date).toString());
 		}
-		System.out.println("4");
 		
-		System.out.println(bean1);
 		
 		SellerVisitorBean result1 = sellerVisitorService.insert(bean1);
 		
-		System.out.println("5");
+		System.out.println(result1);
 		
-		if (result1 != null && !error.isEmpty()) {
-			request.getRequestDispatcher("/_06_Seller/SellerPartner.jsp")
-					.forward(request, response);
-			return;
-		}else{
-			RequestDispatcher rd = request
-					.getRequestDispatcher("/_06_Seller/VisitorWaitConfirm.jsp");
+		
+		if(result1==null&&!error.isEmpty()) {
+			error.put("action", "註冊失敗了");}
+		// 沒有錯誤		
+		if (error!= null&&!error.isEmpty()) {
+			RequestDispatcher rd = request.getRequestDispatcher("/_06_Seller/SellerVisitor.jsp");
+					rd.forward(request, response);
+		}else{RequestDispatcher rd = request.getRequestDispatcher("/_06_Seller/VisitorWaitConfirm.jsp");
 			rd.forward(request, response);
 			return;
 		}
+
 		
-//	寫在SellerVisitorServlet			TestMail mail=new TestMail();
-//                                   mail.sendmail(bean1.getAcc_email());
-	      }
+//		if("Select".equals(action)) {
+//			List<SellerVisitorBean> sellerVisitorResult = sellerVisitorService.select(bean1);
+//			request.setAttribute("select", sellerVisitorResult);
+//			request.getRequestDispatcher(
+//					"/_06_Seller/SellerVisitor.jsp").forward(request, response);
+//		}
+
+
+	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)

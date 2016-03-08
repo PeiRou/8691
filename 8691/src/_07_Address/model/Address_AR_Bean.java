@@ -22,7 +22,6 @@ public class Address_AR_Bean {
 	public void setGUAR_AR_name(String gUAR_AR_name) {
 		GUAR_AR_name = gUAR_AR_name;
 	}
-
 	
 	
 	

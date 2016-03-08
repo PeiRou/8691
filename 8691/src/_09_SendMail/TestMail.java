@@ -50,7 +50,7 @@ public class TestMail {
 	  MimeBodyPart textPart = new MimeBodyPart();
 	   StringBuffer html = new StringBuffer();
 	   String pathurl = "http://localhost:8080"+request.getContextPath()+"/index.jsp";
-
+                  //	 http://localhost:8080/8691/_02_Login/Login.jsp
 	   String url = "<a href='"+pathurl+"'>按我回首頁</a>";
 	   html.append(url);
 //	   html.append("<a href='http://localhost:8080/8691/index.jsp'>按我回首頁</a>");

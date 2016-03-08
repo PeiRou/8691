@@ -15,8 +15,8 @@ import javax.sql.DataSource;
 import org.json.simple.JSONObject;
 
 public class _11_FoodClassjdbc {
+	private _11_ProdClass3jdbc prodClassjdbc = new _11_ProdClass3jdbc();
 	private DataSource dataSource;
-	private _11_ProdClassjdbc prodClassjdbc = new _11_ProdClassjdbc();
 
 	public _11_FoodClassjdbc() {
 		try {
@@ -30,7 +30,6 @@ public class _11_FoodClassjdbc {
 	private final String SELECT_BY_UID = "select * from Food_status_class3 where Group_class3_ID=?";
 
 	public List select(String GroupClass3ID) {
-		System.out.println("haha123");
 		List JSONObjectList = null;
 		ResultSet rset = null;
 		try (Connection conn = dataSource.getConnection();
@@ -46,8 +45,11 @@ public class _11_FoodClassjdbc {
 
 				List ProdStatusList = prodClassjdbc.select(rset.getString("Prod_status_class3_ID"));
 				if (ProdStatusList != null) {
-					System.out.println("ProdStatusList:" + ProdStatusList);
 					obj.put("ProdStatus", ProdStatusList);
+				}
+				else
+				{
+					obj.put("ProdStatus", "");
 				}
 				JSONObjectList.add(obj);
 			}

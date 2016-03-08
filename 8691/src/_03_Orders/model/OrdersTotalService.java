@@ -13,22 +13,22 @@ public class OrdersTotalService {
 			if(temp!=null) {
 				result = new ArrayList<OrdersTotalBean>();
 				result.addAll(temp);
-				System.out.println(bean);
-				System.out.println(temp);
+//				System.out.println(bean);
+//				System.out.println(temp);
 			}
 		} else {
 			//result = ordersTotalDao.select(); 
 		}
 		return result;
 	}
-//	public OrdersTotalBean insert(OrdersTotalBean bean) {
-//		OrdersTotalBean result = null;
-//		if(bean!=null) {
-//			result = ordersTotalDao.insert(bean);
-//			return result;
-//		}
-//		return null;
-//	}
+	public OrdersTotalBean insert(OrdersTotalBean bean) {
+		OrdersTotalBean result = null;
+		if(bean!=null) {
+			result = ordersTotalDao.insert(bean);
+			return result;
+		}
+		return null;
+	}
 //	public OrdersTotalBean update(OrdersTotalBean bean) {
 //		OrdersTotalBean result = null;
 //		if(bean!=null) {

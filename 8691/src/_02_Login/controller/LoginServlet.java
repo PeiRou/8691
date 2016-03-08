@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -54,17 +55,26 @@ public class LoginServlet extends HttpServlet {
 		} else {
 			HttpSession session = request.getSession();
 			session.setAttribute("LoginOK", bean.getAccount_UID());
+			session.setAttribute("seller_UID", bean.getAccount_UID());
+			System.out.println("LoginOK= "+ bean.getAccount_UID());
+			
 			session.setAttribute("RoleID", bean.getRole_ID());
+			String  roleid = (String) session.getAttribute("RoleID");
 			
 //			String dest = (String)session.getAttribute("dest");
 //			if(dest!=null && dest.length()!=0){
 //				session.removeAttribute("dest");
 //				response.sendRedirect(dest);
 //			}else{			
+			
+			if(roleid.equals("101")){
+				RequestDispatcher rd = request.getRequestDispatcher("/_02_Login/NotYet.jsp");
+				rd.forward(request, response);	
+			}else{
 					String path = request.getContextPath();
-					response.sendRedirect(path+"/index.jsp");
+					response.sendRedirect(path+"/index.jsp");}
 //			}
-		}		
+		}	
 	}
 	@Override
 	protected void doPost(HttpServletRequest req,

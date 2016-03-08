@@ -16,6 +16,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import _03_Orders.model.OrdersTotalBean;
+import _07_Address.model.Address_CT_Bean;
 
 public class OrdersTotalJDBC {
 //	private static final String URL = "jdbc:sqlserver://raab1str2m.database.windows.net:1433;database=DB02";
@@ -60,8 +61,8 @@ public class OrdersTotalJDBC {
 		// System.out.println(beanDel);
 	}
 
-	//private static final String SELECT = "select * from Orders_total where account_UID=?";  //此處因登入後可抓到account_UID，故可以select自己的單(一般會員&店家皆是)
-	private static final String SELECT = "select * from Orders_total join Address_AR on Orders_total.GUAR_AR=Address_AR.GUAR_AR join Address_CT on Orders_total.GUAR_CT=Address_CT.GUAR_CT join Address_ROAD on Orders_total.GUAR_ROAD=Address_ROAD.GUAR_ROAD where account_UID=?";  //此處因登入後可抓到account_UID，故可以select自己的單(一般會員&店家皆是)
+	private static final String SELECT = "select * from Orders_total where account_UID=?";  //此處因登入後可抓到account_UID，故可以select自己的單(一般會員&店家皆是)
+	//private static final String SELECT = "select * from Orders_total join Address_AR on Orders_total.GUAR_AR=Address_AR.GUAR_AR join Address_CT on Orders_total.GUAR_CT=Address_CT.GUAR_CT join Address_ROAD on Orders_total.GUAR_ROAD=Address_ROAD.GUAR_ROAD where account_UID=?";  //此處因登入後可抓到account_UID，故可以select自己的單(一般會員&店家皆是)
 
 	public List<OrdersTotalBean> select(String account_UID) {
 		List<OrdersTotalBean> items = new ArrayList<OrdersTotalBean>();
@@ -81,6 +82,7 @@ public class OrdersTotalJDBC {
 				result = new OrdersTotalBean();
 				result.setOrders_total_UID(rset.getString("Orders_total_UID"));
 				result.setAccount_UID(rset.getString("account_UID"));
+				result.setSeller_UID(rset.getString("seller_UID"));
 				result.setOrdersID(rset.getInt("ordersID"));
 				result.setStatus(rset.getString("status"));
 				result.setName(rset.getString("name"));
@@ -94,9 +96,6 @@ public class OrdersTotalJDBC {
 				result.setShip_price(rset.getInt("ship_price"));
 				result.setFood_price(rset.getInt("food_price"));
 				result.setTotal_amount(rset.getInt("total_amount"));
-				
-				rset.getString("GUAR_CT_name");
-				System.out.println(rset.getString("GUAR_CT_name"));
 				items.add(result);
 			}
 		} catch (SQLException e) {
@@ -190,91 +189,58 @@ public class OrdersTotalJDBC {
 //		return items;
 //	}
 
-//	private static final String INSERT = "insert into Orders_total (Orders_total_UID, account_UID, status, name, cel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, pay_metho, insdate, ship_price, food_price, total_amount) OUTPUT INSERTED.ordersID values (NEWID(), ?, 0, ?, ?, ?, ?, ?, ?, ?, getdate(), ?, ?, ?)";
-//
-//	public OrdersTotalBean insert(OrdersTotalBean bean) {
-//		OrdersTotalBean result = null;
-//		Connection conn = null;
-//		PreparedStatement stmt = null;
-//
-//		try {
-//			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-//			conn = dataSource.getConnection();
-//			stmt = conn.prepareStatement(INSERT,Statement.RETURN_GENERATED_KEYS);
-////			stmt.setString(1, bean.getOrders_total_UID());   
-////			stmt.setString(2, bean.getAccount_UID());
-////			
-////			stmt.setString(3, bean.getStatus());
-////			stmt.setString(4, bean.getName());
-////			stmt.setString(5, bean.getCel());
-////			stmt.setString(6, bean.getGUAR_CT());
-////			stmt.setString(7, bean.getGUAR_AR());
-////			stmt.setString(8, bean.getGUAR_ROAD());
-////			stmt.setString(9, bean.getGUAR_NO());
-////			stmt.setString(10, bean.getPay_metho());
-////			java.util.Date insdate = bean.getInsdate();
-////			if (insdate != null) {
-////				long time = insdate.getTime();
-////				stmt.setDate(11, new java.sql.Date(time));
-////			} else {
-////				stmt.setDate(11, null);
-////			}
-////			stmt.setInt(12, bean.getShip_price());
-////			stmt.setInt(13, bean.getFood_price());
-////			stmt.setInt(14, bean.getTotal_amount());
-////	----------------------------------------------------------------------------
-//			
-////			stmt.setString(1, bean.getOrders_total_UID());    測試用先塞NEWID()
-////			stmt.setString(2, bean.getAccount_UID());         測試用先塞NEWID()
-////			stmt.setInt(3, bean.getOrdersID());               流水號不塞資料  
-////			stmt.setString(4, bean.getStatus());		               預設狀態0
-//			stmt.setString(1, bean.getAccount_UID());
-//			stmt.setString(2, bean.getName());
-//			stmt.setString(3, bean.getCel());
-//			stmt.setString(4, bean.getGUAR_CT());
-//			stmt.setString(5, bean.getGUAR_AR());
-//			stmt.setString(6, bean.getGUAR_ROAD());
-//			stmt.setString(7, bean.getGUAR_NO());
-//			stmt.setString(8, bean.getPay_metho());
-////			java.util.Date insdate = bean.getInsdate();
-////			if (insdate != null) {
-////				long time = insdate.getTime();
-////				stmt.setDate(12, new java.sql.Date(time));
-////			} else {
-////				stmt.setDate(12, null);
-////			}
-//			stmt.setInt(9, bean.getShip_price());
-//			stmt.setInt(10, bean.getFood_price());
-//			stmt.setInt(11, bean.getTotal_amount());
-//
-//			stmt.execute();
-//			ResultSet rs = stmt.getGeneratedKeys();
-//			if (rs.next()) {
-//				System.out.println("INSERT Success!");				
-//				bean.setOrdersID(rs.getInt(1));
-//				result = bean;
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			if (stmt != null) {
-//				try {
-//					stmt.close();
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//			if (conn != null) {
-//				try {
-//					conn.close();
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		}
-//		return result;
-//	}
-//
+	private static final String INSERT = "insert into Orders_total (Orders_total_UID, account_UID, status, name, cel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, pay_metho, insdate, ship_price, food_price, total_amount) OUTPUT INSERTED.ordersID values (NEWID(), ?, 0, ?, ?, ?, ?, ?, ?, ?, getdate(), ?, ?, ?)";
+
+	public OrdersTotalBean insert(OrdersTotalBean bean) {
+		OrdersTotalBean result = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try {
+			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement(INSERT,Statement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, bean.getAccount_UID());
+			//stmt.setString(2, bean.getSeller_UID());   要抓店家的Seller_UID(Account_UID)才能insert訂單
+			stmt.setString(2, bean.getName());
+			stmt.setString(3, bean.getCel());
+			stmt.setString(4, bean.getGUAR_CT());
+			stmt.setString(5, bean.getGUAR_AR());
+			stmt.setString(6, bean.getGUAR_ROAD());
+			stmt.setString(7, bean.getGUAR_NO());
+			stmt.setString(8, bean.getPay_metho());
+			stmt.setInt(9, bean.getShip_price());
+			stmt.setInt(10, bean.getFood_price());
+			stmt.setInt(11, bean.getTotal_amount());
+
+			stmt.execute();
+			ResultSet rs = stmt.getGeneratedKeys();
+			if (rs.next()) {
+				System.out.println("INSERT Success!");				
+				bean.setOrdersID(rs.getInt(1));
+				result = bean;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return result;
+	}
+
 //	private static final String UPDATE = "update Orders_total set status=?, name=?, cel=?, GUAR_CT=?, GUAR_AR=?, "
 //			+ "GUAR_ROAD=?, GUAR_NO=?, pay_metho=? ,insdate=?, "
 //			+ "ship_price=?, food_price=?, total_amount=? where ordersID=?";   //此處因ordersID為unique，故選為依據
@@ -350,5 +316,49 @@ public class OrdersTotalJDBC {
 //			}
 //			return 0;
 //		}
+	
+	
+	public OrdersTotalBean findNameBySellerPartner(String account_UID) {
+		OrdersTotalBean ordersTotalBean = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rset = null;
 
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement("select * from Seller_visitor where account_UID=?");
+			stmt.setString(1, account_UID);
+			rset = stmt.executeQuery();
+			while (rset.next()) {
+				ordersTotalBean = new OrdersTotalBean();
+				ordersTotalBean.setAccount_UID(rset.getString("account_UID"));
+				ordersTotalBean.setName(rset.getString("name"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rset != null) {
+				try {
+					rset.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return ordersTotalBean;
+	}
 }
