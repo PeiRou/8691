@@ -169,7 +169,7 @@
 $(function(){
 	   $.ajax({
 		  'type':'get',
-		  'url':'<%= request.getContextPath() %>/XMLServlet8691',
+		  'url':'<%= request.getContextPath() %>/GetAddress',
 		  'data':{},
 		  'dataType':'xml',
 		  'success':function(data){

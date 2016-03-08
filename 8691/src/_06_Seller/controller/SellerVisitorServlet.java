@@ -58,8 +58,8 @@ public class SellerVisitorServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		 System.out.println("1");
 		
-//		TestMail mail= new TestMail();      //寄email
-//		mail.sendmail(acc_email, request);  //觸發的欄位
+		TestMail mail= new TestMail();      //寄email
+		mail.sendmail(acc_email, request);  //觸發的欄位
 
 		// 轉換資料
 		Map<String, String> error = new HashMap<String, String>();
