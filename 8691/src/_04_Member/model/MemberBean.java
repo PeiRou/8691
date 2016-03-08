@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 public class MemberBean {
 	private String account_UID;
 	private String name;
-	//private Blob member_photo;
+	private String member_photo;
 	private String gender;
 	private String tel;
 	private String GUAR_CT;
@@ -20,12 +20,16 @@ public class MemberBean {
 	public MemberBean(){};
 
 	//未加入blob
-	public MemberBean(String account_UID, String name,
-			String gender, String tel, String gUAR_CT, String gUAR_AR, String gUAR_ROAD, String gUAR_NO, String email2,
-			String cel, String insdate) {
+
+
+	
+
+	public MemberBean(String account_UID, String name, String member_photo, String gender, String tel, String gUAR_CT,
+			String gUAR_AR, String gUAR_ROAD, String gUAR_NO, String email2, String cel, String insdate) {
 		super();
 		this.account_UID = account_UID;
 		this.name = name;
+		this.member_photo = member_photo;
 		this.gender = gender;
 		this.tel = tel;
 		GUAR_CT = gUAR_CT;
@@ -34,14 +38,15 @@ public class MemberBean {
 		GUAR_NO = gUAR_NO;
 		this.email2 = email2;
 		this.cel = cel;
-		this.insdate=insdate;
+		this.insdate = insdate;
 	}
 
 	@Override
 	public String toString() {
-		return "MemberBean [account_UID=" + account_UID + ", name=" + name + ", gender=" + gender + ", tel=" + tel
-				+ ", GUAR_CT=" + GUAR_CT + ", GUAR_AR=" + GUAR_AR + ", GUAR_ROAD=" + GUAR_ROAD + ", GUAR_NO=" + GUAR_NO
-				+ ", email2=" + email2 + ", cel=" + cel + ", insdate=" + insdate + "]";
+		return "MemberBean [account_UID=" + account_UID + ", name=" + name + ", member_photo=" + member_photo
+				+ ", gender=" + gender + ", tel=" + tel + ", GUAR_CT=" + GUAR_CT + ", GUAR_AR=" + GUAR_AR
+				+ ", GUAR_ROAD=" + GUAR_ROAD + ", GUAR_NO=" + GUAR_NO + ", email2=" + email2 + ", cel=" + cel
+				+ ", insdate=" + insdate + "]";
 	}
 
 	public String getAccount_UID() {
@@ -131,6 +136,16 @@ public class MemberBean {
 	public void setInsdate(String insdate) {
 		this.insdate = insdate;
 	}
+
+	public String getMember_photo() {
+		return member_photo;
+	}
+
+	public void setMember_photo(String member_photo) {
+		this.member_photo = member_photo;
+	}
+
+
 	
 
 }

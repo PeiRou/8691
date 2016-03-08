@@ -72,7 +72,7 @@ private static final String SELECT = "select * from Orders_detail where ordersID
 
 			stmt.setInt(1, ordersID);
 			rset = stmt.executeQuery();
-			if (rset.next()) {
+			while (rset.next()) {
 				result = new OrdersDetailBean();
 				result.setOrders_detail_UID(rset.getString("Orders_detail_UID"));
 				result.setOrdersID(rset.getInt("ordersID"));
@@ -111,61 +111,6 @@ private static final String SELECT = "select * from Orders_detail where ordersID
 		return items;
 	}
 
-//	private static final String SELECT_ALL = "select * from Orders_detail";
-//
-//	
-//	public List<OrdersDetailBean> select() {
-//		List<OrdersDetailBean> items = new ArrayList<OrdersDetailBean>();
-//		OrdersDetailBean result = null;
-//
-//		Connection conn = null;
-//		PreparedStatement stmt = null;
-//		ResultSet rset = null;
-//
-//		try {
-//			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-//			conn = dataSource.getConnection();
-//			stmt = conn.prepareStatement(SELECT_ALL);
-//			rset = stmt.executeQuery();
-//
-//			while (rset.next()) {
-//				result = new OrdersDetailBean();
-//				result.setOrders_detail_UID(rset.getString("Orders_detail_UID"));
-//				result.setOrdersID(rset.getString("ordersID"));
-//				result.setFood_ID(rset.getInt("Food_ID"));
-//				result.setDrink_name(rset.getString("Drink_name"));
-//				result.setQuantity(rset.getInt("quantity"));
-//				result.setOriginalPrice(rset.getInt("originalPrice"));
-//				result.setNote(rset.getString("note"));
-//				items.add(result);
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			if (rset != null) {
-//				try {
-//					rset.close();
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//			if (stmt != null) {
-//				try {
-//					stmt.close();
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//			if (conn != null) {
-//				try {
-//					conn.close();
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		}
-//		return items;
-//	}
 
 //	private static final String INSERT = "insert into Orders_detail (Orders_detail_UID, Orders_ID, Food_ID, Drink_name, quantity, Food_original_price, Note) values (?, ?, ?, ?, ?, ?, ?)";
 //

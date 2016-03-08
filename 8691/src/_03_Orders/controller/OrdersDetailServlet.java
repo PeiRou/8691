@@ -26,7 +26,7 @@ public class OrdersDetailServlet extends HttpServlet {
 		System.out.println("ordersID:"+temp0);
 		String Orders_detail_UID = request.getParameter("Orders_detail_UID");
 		String temp1 = request.getParameter("Food_ID");
-		String Drink_name = request.getParameter("Drink_name");
+		String Drink_name = request.getParameter("drink_name");
 		String temp2 = request.getParameter("quantity");
 		String temp3 = request.getParameter("originalPrice");
 		String note = request.getParameter("note");
