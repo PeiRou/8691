@@ -1,13 +1,12 @@
 package _06_Seller.model;
 
-import java.sql.Blob;
-import java.util.Date;
+
 
 public class SellerVisitorBean {
 	private 	String	Account_UID;
 	private		String	FEIN;
 	private		String	name;
-	private		Blob	Seller_photo;
+	private		String	Seller_photo;
 	private		String	tel;
 	private		String	GUAR_CT;
 	private		String	GUAR_AR;
@@ -40,10 +39,10 @@ public class SellerVisitorBean {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Blob getSeller_photo() {
+	public String getSeller_photo() {
 		return Seller_photo;
 	}
-	public void setSeller_photo(Blob seller_photo) {
+	public void setSeller_photo(String seller_photo) {
 		Seller_photo = seller_photo;
 	}
 	public String getTel() {
@@ -134,7 +133,7 @@ public class SellerVisitorBean {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public SellerVisitorBean(String account_UID, String fEIN, String name, Blob seller_photo, String tel,
+	public SellerVisitorBean(String account_UID, String fEIN, String name, String seller_photo, String tel,
 			String gUAR_CT, String gUAR_AR, String gUAR_ROAD, String gUAR_NO, String email2, String con_name,
 			String con_cel, String receipts_metho, boolean iS_check, boolean seller_status, int ship_price,
 			int lowest_price, String insdate) {

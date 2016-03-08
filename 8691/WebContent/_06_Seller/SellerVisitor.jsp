@@ -59,13 +59,13 @@
 							<td><input type="text" name="Con_name" value="${param.Con_name}" id="Con_nameinput"><span id="Con_namesp" style="color:red"></span></td>
 							<td>${error.Con_name}</td>
 						</tr>
-					   <!--   <tr height='36'>
+					      <tr height='36'>
 					    <td>輸入您的店家圖片:</td>
-					        <td width="45" align="center" class="title_font">圖片</td> 
-					        <td colspan="3">
+					       <!-- <td width="45" align="center" class="title_font">圖片</td>--> 
+					        	<td colspan="3">
 					            <input style="background:#FFFFFF" class='InputClass'  type="file" 
 					            name="uploadFile" size="40" />    
-					    </tr>-->
+					    </tr>
 						<tr>
 							<td class="text-right">請輸入您的店家電話號碼 :</td>
 							<td><input type="text" name="tel" value="${param.tel}" placeholder="Ex:02-23456789" id="telinput"><span id="teldsp" style="color:red"></span></td>

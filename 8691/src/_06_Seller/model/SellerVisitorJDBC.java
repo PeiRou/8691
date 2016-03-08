@@ -1,6 +1,6 @@
 package _06_Seller.model;
 
-import java.sql.Blob;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -45,11 +45,11 @@ public class SellerVisitorJDBC {
 //		 System.out.println(beans);
 
 		// update OK
-//		 SellerVisitorBean beanupdate = dao.update("9999911","玖壹壹",null,"0222227911","A","200","1001","69號52樓","CCC2@hotmail.com","上原亞依","0912345678","1",false,false,10000,10000, "4DDF4A66-2618-4A89-BB32-01BB25E36E2B");
+//		 SellerVisitorBean beanupdate = dao.update("9999911","玖壹壹"," ","0222227911","A","200","1001","69號52樓","CCC2@hotmail.com","上原亞依","0912345678","1",false,false,10000,10000, "4DDF4A66-2618-4A89-BB32-01BB25E36E2B");
 //		 System.out.println(beanupdate);           
 
 		// insert OK
-//		SellerVisitorBean beanIns = new SellerVisitorBean(RD,"99999999","玖壹壹",null,"02227890","A","200","1001","69號52樓","CCC2@hotmail.com","上原亞依","0998987987","3",false,false,10000,10000,"2016/1/1");
+//		SellerVisitorBean beanIns = new SellerVisitorBean(RD,"99999999","玖壹壹"," ","02227890","A","200","1001","69號52樓","CCC2@hotmail.com","上原亞依","0998987987","3",false,false,10000,10000,"2016/1/1");
 //		dao.insert(beanIns);                              
 
 		// delete  OK
@@ -79,7 +79,7 @@ public class SellerVisitorJDBC {
 				result.setName(rset.getString("name"));
 //				result.setAcc_email(rset.getString("acc_email"));
 //				result.setPsd(rset.getString("psd"));
-				result.setSeller_photo(rset.getBlob("Seller_photo"));
+				result.setSeller_photo(rset.getString("Seller_photo"));
 				result.setTel(rset.getString("tel"));
 				result.setGUAR_CT(rset.getString("GUAR_CT"));
 				result.setGUAR_AR(rset.getString("GUAR_AR"));
@@ -147,7 +147,7 @@ public class SellerVisitorJDBC {
 				result.setName(rset.getString("name"));
 //				result.setAcc_email(rset.getString("acc_email"));
 //				result.setPsd(rset.getString("psd"));
-				result.setSeller_photo(rset.getBlob("Seller_photo"));
+				result.setSeller_photo(rset.getString("Seller_photo"));
 				result.setTel(rset.getString("tel"));
 				result.setGUAR_CT(rset.getString("GUAR_CT"));
 				result.setGUAR_AR(rset.getString("GUAR_AR"));
@@ -209,7 +209,7 @@ public class SellerVisitorJDBC {
 			stmt.setString(3, bean.getName());
 //			stmt.setString(4, bean.getAcc_email());
 //			stmt.setString(5, bean.getPsd());
-			stmt.setBlob(4, bean.getSeller_photo());
+			stmt.setString(4, bean.getSeller_photo());
 			stmt.setString(5, bean.getTel());
 			stmt.setString(6, bean.getGUAR_CT());
 			stmt.setString(7, bean.getGUAR_AR());
@@ -254,7 +254,7 @@ public class SellerVisitorJDBC {
 
 	private static final String UPDATE = "update Seller_visitor set  FEIN=?, name=?, Seller_photo=?, tel=?, GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?, email2=?, Con_name=?, Con_cel=?, Seller_status=? , receipts_metho=?, IS_check=?,Ship_price=?, Lowest_price=? where Account_UID=?";
 
-	public SellerVisitorBean update(String FEIN, String name, Blob Seller_photo,String tel, String GUAR_CT, String GUAR_AR, String GUAR_ROAD, String GUAR_NO,String email2, 
+	public SellerVisitorBean update(String FEIN, String name, String Seller_photo,String tel, String GUAR_CT, String GUAR_AR, String GUAR_ROAD, String GUAR_NO,String email2, 
 			String Con_name, String Con_cel,String receipts_metho, boolean IS_check, boolean Seller_status, int Ship_price, int Lowest_price, String Account_UID) {
 		Connection conn = null;
 		PreparedStatement psStrUpd = null;
@@ -265,7 +265,7 @@ public class SellerVisitorJDBC {
 			psStrUpd = conn.prepareStatement(UPDATE);			
 			psStrUpd.setString(1, FEIN);
 			psStrUpd.setString(2, name);
-			psStrUpd.setBlob  (3, Seller_photo);
+			psStrUpd.setString  (3, Seller_photo);
 			psStrUpd.setString(4, tel);
 			psStrUpd.setString(5, GUAR_CT);
 			psStrUpd.setString(6, GUAR_AR);

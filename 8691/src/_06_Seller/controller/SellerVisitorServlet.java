@@ -40,7 +40,7 @@ public class SellerVisitorServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		String acc_email = request.getParameter("acc_email");
 		String psd = request.getParameter("psd");
-		String temp1 = request.getParameter("Seller_photo");
+		String Seller_photo = request.getParameter("Seller_photo");
 		String tel = request.getParameter("tel");
 		String GUAR_CT = request.getParameter("GUAR_CT");
 		String GUAR_AR = request.getParameter("GUAR_AR");
@@ -144,6 +144,9 @@ public class SellerVisitorServlet extends HttpServlet {
 		if (psd == null || psd.trim().length() == 0) {
 			error.put("psd", "請輸入您的密碼!");
 		}System.out.println(psd);
+//		if (Seller_photo == null || Seller_photo.trim().length() == 0) {
+//			error.put("Seller_photo", "請輸入您的圖片!");
+//		}System.out.println(Seller_photo);
 		if (tel == null || tel.trim().length() == 0) {
 			error.put("tel", "請輸入您的連絡市話 !");
 		}System.out.println(tel);
@@ -206,7 +209,7 @@ public class SellerVisitorServlet extends HttpServlet {
 		bean1.setAccount_UID(result);
 		bean1.setFEIN(FEIN);
 		bean1.setName(name);
-		// 傳圖片有問題先註解 bean.setSeller_photo("Seller_photo");
+		bean1.setSeller_photo(Seller_photo);
 		bean1.setTel(tel);
 		bean1.setGUAR_CT(GUAR_CT);
 		bean1.setGUAR_AR(GUAR_AR);
