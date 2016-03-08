@@ -81,10 +81,12 @@
 </body>
 <script type="text/javascript">
 $(document).ready(function() {
+
 	var data = $('#hidVistorStaus').val();	
 	//var data = '[{"isCheck":"0","sellerSstatus":"1","name":"玖壹壹","insdate":"2016-03-07","accountUID":"4DDF4A66-2618-4A89-BB32-01BB25E36E2B"},{"isCheck":"1","sellerSstatus":"0","name":"willy wang","insdate":"2016-03-07","accountUID":"A04712B3-A15A-4448-AF9E-27E40BB6733A"},{"isCheck":"0","sellerSstatus":"0","name":"大隻老","insdate":"2016-03-07","accountUID":"A6105F1F-80A1-459C-B5D3-420BCDBED06A"},{"isCheck":"1","sellerSstatus":"0","name":"1111","insdate":"2016-03-07","accountUID":"399115CA-CF2F-48D7-AE37-4288E8E55F6A"},{"isCheck":"0","sellerSstatus":"0","name":"玖壹壹","insdate":"2016-03-07","accountUID":"61C16B60-CB5A-4548-A4B7-584E8E6F2807"},{"isCheck":"0","sellerSstatus":"0","name":"測試","insdate":"2016-03-07","accountUID":"0E23A738-497E-4DBC-83B8-7109260A52FA"},{"isCheck":"0","sellerSstatus":"0","name":"000","insdate":"2016-03-07","accountUID":"1A91A662-869A-4EFA-9DC2-BD519AD8C710"},{"isCheck":"0","sellerSstatus":"0","name":"1111","insdate":"2016-03-07","accountUID":"00B12767-B318-499B-9A14-CD5E9D5A9F13"},{"isCheck":"0","sellerSstatus":"0","name":"1111","insdate":"2016-03-07","accountUID":"359FD003-1052-481F-9BD2-DE90E1F60329"},{"isCheck":"0","sellerSstatus":"0","name":"willy wang","insdate":"2016-03-07","accountUID":"8B1459F0-4C4E-481F-87A5-F3855C6BE256"}]';
+
 	var prodInfo = JSON.parse(data);
-	
+
 	$('#vistorTable').DataTable({
 		data:prodInfo,
 		columns: 

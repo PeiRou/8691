@@ -81,8 +81,13 @@
 							<td>${bean.ship_price}</td>
 							<td>${bean.food_price}</td>
 							<td>${bean.total_amount}</td>
-							<td><input class="btn btn-primary" type="submit" name="orderaction" value="訂單明細"></td>
-							
+<!-- 							<td><input class="btn btn-primary" type="submit" name="orderaction" value="訂單明細"></td> -->
+							<td>
+							<c:url value="/_03_Orders/OrdersDetailServlet" var="GetDetailPath">
+							<c:param name="ordersID" value="${bean.ordersID}" />
+							</c:url>
+							<a class="btn btn-primary" href="${GetDetailPath}" value="訂單明細">訂單</a>
+							</td>
 						</tr>
 					</c:forEach>	
 						</tbody>

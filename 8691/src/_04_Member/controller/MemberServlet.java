@@ -34,7 +34,7 @@ public class MemberServlet extends HttpServlet {
 				"/_04_Members/Members.jsp").forward(request, response);
 		}else if(RoleID.equals("102")){
 			request.getRequestDispatcher(
-					"/_04_Members/SellerMembers.jsp").forward(request, response);	
+				"/_04_Members/SellerMembers.jsp").forward(request, response);	
 		}	
 	}
 	

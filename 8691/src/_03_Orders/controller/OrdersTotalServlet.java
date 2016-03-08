@@ -168,8 +168,6 @@ public class OrdersTotalServlet extends HttpServlet {
 	//根據model執行結果顯示view
 			if("查看我的訂單".equals(orderaction)) {
 				List<OrdersTotalBean> result = ordersTotalService.select(bean);
-				HttpSession session = request.getSession();
-				session.setAttribute("ordersID", result.get(ordersID));
 				request.setAttribute("select", result);
 				request.getRequestDispatcher(
 						"/_03_Orders/OrdersTotalDisplay.jsp").forward(request, response);

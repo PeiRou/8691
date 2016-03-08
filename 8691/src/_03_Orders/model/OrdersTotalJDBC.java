@@ -326,7 +326,7 @@ public class OrdersTotalJDBC {
 
 		try {
 			conn = dataSource.getConnection();
-			stmt = conn.prepareStatement("select * from Seller_partner where account_UID=?");
+			stmt = conn.prepareStatement("select * from Seller_visitor where account_UID=?");
 			stmt.setString(1, account_UID);
 			rset = stmt.executeQuery();
 			while (rset.next()) {

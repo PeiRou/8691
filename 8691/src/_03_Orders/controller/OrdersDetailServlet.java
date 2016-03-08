@@ -22,9 +22,9 @@ public class OrdersDetailServlet extends HttpServlet {
 	private OrdersDetailService ordersDeatilService = new OrdersDetailService();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//接收資料
-		Integer ordersID = (Integer)request.getSession().getAttribute("ordersID");
+		String temp0 = request.getParameter("ordersID");
+		System.out.println("ordersID:"+temp0);
 		String Orders_detail_UID = request.getParameter("Orders_detail_UID");
-		//String temp0 = request.getParameter("ordersID");
 		String temp1 = request.getParameter("Food_ID");
 		String Drink_name = request.getParameter("Drink_name");
 		String temp2 = request.getParameter("quantity");
@@ -36,15 +36,15 @@ public class OrdersDetailServlet extends HttpServlet {
 		//轉換資料
 		Map<String, String> error = new HashMap<String, String>();
 		request.setAttribute("error", error);
-//		int ordersID = 0;
-//		if (temp0 != null && temp0.length() != 0) {
-//			try {
-//				ordersID = Integer.parseInt(temp0);
-//			} catch (NumberFormatException e) {
-//				e.printStackTrace();
-//				error.put("ordersID", "OrdersID must be an number");
-//			}
-//		}
+		int ordersID = 0;
+		if (temp0 != null && temp0.length() != 0) {
+			try {
+				ordersID = Integer.parseInt(temp0);
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+				error.put("ordersID", "OrdersID must be an number");
+			}
+		}
 		int Food_ID = 0;
 		if (temp1 != null && temp1.length() != 0) {
 			try {

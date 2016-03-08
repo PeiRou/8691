@@ -57,7 +57,13 @@
 		</div>
 <%
   session.invalidate();
+
 %>
+<script Language="JavaScript">
+
+     location.reload();
+
+</script>
 	</div>
 	<!-- /.container -->
 

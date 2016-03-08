@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
+
 	<Resource name="8691" auth="Container" type="javax.sql.DataSource"
                maxTotal="100" maxIdle="30" maxWaitMillis="10000"
-               username="eeit83team05@raab1str2m" password="Sa123456"
+               username="eeit838691@rnjwjato72" password="Sa123456"
                driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-               url="jdbc:sqlserver://raab1str2m.database.windows.net:1433;database=DB02"/>
+               url="jdbc:sqlserver://rnjwjato72.database.windows.net:1433;database=DB02"/>
+               
+<!--            舊雲端         -->
+<!--     <Resource name="8691" auth="Container" type="javax.sql.DataSource" -->
+<!--                maxTotal="100" maxIdle="30" maxWaitMillis="10000" -->
+<!--                username="eeit83team05@raab1str2m" password="Sa123456" -->
+<!--                driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" -->
+<!--                url="jdbc:sqlserver://raab1str2m.database.windows.net:1433;database=DB02"/>            -->
+               
 <!--        	<Resource name="8691" auth="Container" type="javax.sql.DataSource" -->
 <!--                maxTotal="100" maxIdle="30" maxWaitMillis="10000" -->
 <!--                username="sa" password="sa123456" -->

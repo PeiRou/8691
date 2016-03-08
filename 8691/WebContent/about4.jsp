@@ -226,19 +226,14 @@
 
 		$(function() {
 			var imgnum = Math.floor(Math.random() * 4) + 9;
-			$
-					.ajax({
-						'type' : 'get',
+			$.ajax({'type' : 'get',
 						'url' : 'GetProd',
 						'data' : {
 							'index' : imgnum
 						},
 						'dataType' : 'json',
 						'success' : function(data) {
-							$
-									.each(
-											data,
-											function(index) {
+							$.each(data, function(index) {
 												var mesg = JSON
 														.parse(JSON
 																.stringify(data[index].mesg));
