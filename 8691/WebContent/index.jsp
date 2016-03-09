@@ -150,19 +150,19 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="box">
-                <div class="col-lg-12">
-                    <hr>
-                    <h2 class="intro-text text-center">巴豆揪么(8691)美食飲料訂購網站
-                        <strong>系統公告</strong>
-                    </h2>
-                    <hr>
-                    <p>祝您用餐愉快!!</p>
-                    <p>巴豆揪么(8691)  管理團隊  敬上</p>
-                </div>
-            </div>
-        </div>
+<!--         <div class="row"> -->
+<!--             <div class="box"> -->
+<!--                 <div class="col-lg-12"> -->
+<!--                     <hr> -->
+<!--                     <h2 class="intro-text text-center">巴豆揪么(8691)美食飲料訂購網站 -->
+<!--                         <strong>系統公告</strong> -->
+<!--                     </h2> -->
+<!--                     <hr> -->
+<!--                     <p>祝您用餐愉快!!</p> -->
+<!--                     <p>巴豆揪么(8691)  管理團隊  敬上</p> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
 
     </div>
     <!-- /.container -->
@@ -171,7 +171,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <p>Copyright &copy; Your Website 2016</p>
+                    <p>Copyright &copy; EEIT83第五小組 2016 | <a href="<%= request.getContextPath() %>/contact.jsp">聯絡我們</a></p>
                 </div>
             </div>
         </div>
@@ -186,7 +186,7 @@
     <!-- Script to Activate the Carousel -->
 <script>
     $('.carousel').carousel({
-        interval: 3000 //廣告輪播速度(毫秒)
+        interval: 2500 //廣告輪播速度(毫秒)
     })
     
     //進入首頁後立刻從資料庫讀取區域的下拉式選單內容

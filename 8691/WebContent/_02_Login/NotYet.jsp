@@ -29,10 +29,9 @@
 		<div class="row">
 			<div class="box">		
 				<div class="col-lg-12 text-center">
-				
-
-<h1>還未審核, 也就是說你甚麼都不能做, 阿哈哈哈哈哈</h1>
-
+				<h2>您尚未通過認證, 請等待管理員審核</h2>
+				<h2>若有任何疑問請<a href="<%= request.getContextPath() %>/contact.jsp">聯絡我們</a></h2>
+				<h2>EEIT83第五小組 2016</h2>
 				</div>
 			</div>			
 		</div>
@@ -43,7 +42,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <p>Copyright &copy; Your Website 2016</p>
+                    <p>Copyright &copy; EEIT83第五小組 2016 | <a href="<%= request.getContextPath() %>/contact.jsp">聯絡我們</a></p>
                 </div>
             </div>
         </div>

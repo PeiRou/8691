@@ -33,18 +33,16 @@
 		</script>
     
     	<style>
-    
-    	
-    	td{
-    		font-size:1.1em;
-    	}
-    	table#t01 tr:nth-child(even) {
-		    background-color: #fff;
-		}
-		table#t01 tr:nth-child(odd) {
-		   background-color:#eee;
-		}
-    </style>
+	    	td{
+	    		font-size:1.1em;
+	    	}
+	    	table#t01 tr:nth-child(even) {
+			    background-color: #fff;
+			}
+			table#t01 tr:nth-child(odd) {
+			   background-color:#eee;
+			}
+    	</style>
 </head>
 <body>
 <jsp:include page="/fragment/top.jsp" />
@@ -203,7 +201,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <p>Copyright &copy; Your Website 2016</p>
+                    <p>Copyright &copy; EEIT83第五小組 2016 | <a href="<%= request.getContextPath() %>/contact.jsp">聯絡我們</a></p>
                 </div>
             </div>
         </div>

@@ -27,6 +27,21 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+    	th{
+    		font-size:1em;
+    		text-align:center;
+    	}
+    	td{
+    		font-size:1em;
+    	}
+    	table#t01 tr:nth-child(even) {
+		    background-color: #fff;
+		}
+		table#t01 tr:nth-child(odd) {
+		   background-color:#eee;
+		}
+    </style>
 </head>
 <body>
 	<jsp:include page="/fragment/top.jsp" />
@@ -36,7 +51,7 @@
 				<div class="col-md-12">
 				<form name="Register" action="<c:url value='/register.controller' />" method="post">
 			<h2 class="text-center">註冊為一般會員</h2>
-			<table class="table">
+			<table id="t01" class="table">
 			<tr>
 				<td class="text-right">請輸入您的E-mail:</td>
 				<td><input type="text" name="acc_email" id="emailinput"
@@ -113,8 +128,10 @@
 			<tr>
 				<td class="text-right">住址(路/街/巷) :</td>
 				<td><input id="keyword" type="text" value=""> <input id="textval" name="GUAR_ROAD" type="text" style="display:none"><span id="roadsp" style="color:red"></span></td>
+				<td></td>
 			</tr>
 			<tr>
+				<td></td>
 				<td></td>
 				<td id="tb"></td>
 			</tr>
@@ -129,7 +146,9 @@
 				<td>${error.email2}</td>
 			</tr>
 			<tr>
-				<td align="right"><input type="submit" value="註冊" class="btn btn-primary"></td>
+				<td></td>
+				<td><input type="submit" value="註冊" class="btn btn-primary"></td>
+				<td></td>
 			</tr>
 		</table>
 	</form>
