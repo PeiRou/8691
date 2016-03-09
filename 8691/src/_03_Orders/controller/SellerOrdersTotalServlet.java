@@ -25,7 +25,8 @@ public class SellerOrdersTotalServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//接收資料
 		String Orders_total_UID = request.getParameter("Orders_total_UID");		
-		String seller_UID = (String)request.getSession().getAttribute("seller_UID");		
+		String seller_UID = (String)request.getSession().getAttribute("seller_UID");	
+		String account_UID = request.getParameter("account_UID");
 		String temp0 = request.getParameter("ordersID");
 		String status = request.getParameter("status");
 		String name = request.getParameter("name");
@@ -75,7 +76,7 @@ public class SellerOrdersTotalServlet extends HttpServlet {
 					ship_price = Integer.parseInt(temp2);
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
-					error.put("ship_price", "Ship_price must be an number");
+					error.put("ship_price", "運費必須為整數!");
 				}
 			}
 			
@@ -85,7 +86,7 @@ public class SellerOrdersTotalServlet extends HttpServlet {
 					food_price = Integer.parseInt(temp3);
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
-					error.put("food_price", "Food_price must be a number");
+					error.put("food_price", "食物金額必須為整數!");
 				}
 			}
 			
@@ -95,7 +96,7 @@ public class SellerOrdersTotalServlet extends HttpServlet {
 					total_amount = Integer.parseInt(temp4);
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
-					error.put("total_amount", "Total_amount must be a number");
+					error.put("total_amount", "總金額必須為整數!");
 				}
 			}
 			
@@ -114,6 +115,7 @@ public class SellerOrdersTotalServlet extends HttpServlet {
 	//呼叫model
 			OrdersTotalBean bean = new OrdersTotalBean();
 			bean.setOrders_total_UID(Orders_total_UID);
+			bean.setAccount_UID(account_UID);
 			bean.setSeller_UID(seller_UID);
 			bean.setOrdersID(ordersID);			
 			bean.setStatus(status);
@@ -129,6 +131,7 @@ public class SellerOrdersTotalServlet extends HttpServlet {
 			bean.setShip_price(ship_price);
 			bean.setFood_price(food_price);
 			bean.setTotal_amount(total_amount);	
+
 		 
 			
 	//根據model執行結果顯示view
@@ -147,7 +150,10 @@ public class SellerOrdersTotalServlet extends HttpServlet {
 //				request.getRequestDispatcher(
 //						"/_03_Orders/OrdersTotal.jsp").forward(request, response);
 			} else if("更新訂單".equals(orderaction)) {
+				//List<OrdersTotalBean> result = sellerOrdersTotalService.select(bean);
 				OrdersTotalBean result = sellerOrdersTotalService.update(bean);
+				System.out.println(result);
+				System.out.println(bean);
 				if(result==null) {
 					error.put("action", "Update failed");
 				} else {

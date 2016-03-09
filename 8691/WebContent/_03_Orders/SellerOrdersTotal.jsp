@@ -55,7 +55,7 @@
 					
 						<tr>
 							<td class="text-right">訂購人手機 : </td>
-							<td><input type="text" name="cel" value="${cel.cel}"></td>
+							<td><input type="text" name="cel" value="${param.cel}"></td>
 							<td>${error.cel}</td>
 						</tr>
 						<tr>

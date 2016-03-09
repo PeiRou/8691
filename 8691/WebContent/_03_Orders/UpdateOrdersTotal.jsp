@@ -34,13 +34,9 @@
     
     	<style>
     
-    	th{
-    		font-size:1em;
-    		text-align:center;
-    	}
     	
     	td{
-    		font-size:1em;
+    		font-size:1.1em;
     	}
     	table#t01 tr:nth-child(even) {
 		    background-color: #fff;
@@ -54,74 +50,101 @@
 <jsp:include page="/fragment/top.jsp" />
 	<div class="container">
 		<div class="row">
-			<div class="box">		
-				<div class="col-lg-12 text-center">
-					<h2>修改訂單資訊</h2>
+			<div class="box">
+				<div class="col-md-12">		
 					<form action="<c:url value='/_03_Orders/SellerOrdersTotalServlet' />" method="post">
 					<jsp:useBean id="hugeStick" scope="page" class="_07_Address.model.AddressJDBC"/>
+					<h2 class="text-center"><strong>修改訂單資訊</strong></h2>
 					<table id="t01" class="table">
 						<tr>
-							<td class="text-right">訂單編號 : </td>
+							<td class="col-xs-8 col-sm-6 text-right">訂單編號 : </td>
 							<td>${param.ordersID}</td>
+							<td></td>
 						</tr>
 						<tr>
-							<td class="text-right">訂購人姓名 : </td>
+							<td class="col-xs-8 col-sm-6 text-right">訂購人姓名 : </td>
 							<td>${param.name}</td>
+							<td></td>
 						</tr>
 						<tr>
-							<td class="text-right">訂購人手機 : </td>
+							<td class="col-xs-8 col-sm-6 text-right">訂購人手機 : </td>
 							<td>${param.cel}</td>
+							<td></td>
 						</tr>
 						<tr>
-							<td class="text-right">住址(縣/市) : </td>
+							<td class="col-xs-8 col-sm-6 text-right">住址(縣/市) : </td>
 							<td>${hugeStick.findGUAR_CT_nameByAddress_CT(param.GUAR_CT).getGUAR_CT_name()}</td>
+							<td style="display:none">${param.GUAR_CT}</td><td></td>
 						</tr>
 						<tr>
-							<td class="text-right">住址(區/鄉/鎮/市) : </td>
+							<td class="col-xs-8 col-sm-6 text-right">住址(區/鄉/鎮/市) : </td>
 							<td>${hugeStick.findGUAR_AR_nameByAddress_AR(param.GUAR_AR).getGUAR_AR_name()}</td>
+							<td style="display:none">${param.GUAR_AR}</td><td></td>
 						</tr>
 							<tr>
-							<td class="text-right">住址(路/街/巷) : </td>
+							<td class="col-xs-8 col-sm-6 text-right">住址(路/街/巷) : </td>
 							<td>${hugeStick.findGUAR_ROAD_nameByAddress_ROAD(param.GUAR_ROAD).getGUAR_ROAD_name()}</td>
+							<td style="display:none">${param.GUAR_ROAD}</td><td></td>
 						</tr>
 							<tr>
-							<td class="text-right">住址(號) : </td>
+							<td class="col-xs-8 col-sm-6 text-right">住址(號) : </td>
 							<td>${param.GUAR_NO}</td>
+							<td></td>
 						</tr>
 							<tr>
-							<td class="text-right">付款方式 : </td>
+							<td class="col-xs-8 col-sm-6 text-right">付款方式 : </td>
 							<td>${param.pay_metho}</td>
+							<td></td>
 						</tr>
 							<tr>
-							<td class="text-right">修改運費 :</td>
-							<td><input type="text" name="ship_price" value="${param.ship_price}"></td>
+							<td class="col-xs-8 col-sm-6 text-right">修改運費 :</td>
+							<td><input type="text" name="ship_price" value="${param.ship_price}" size="8"></td>
 							<td>${error.ship_price}</td>
 						</tr>
 							<tr>
-							<td class="text-right">修改食物金額 :</td>
-							<td><input type="text" name="food_price" value="${param.food_price}"></td>
+							<td class="col-xs-8 col-sm-6 text-right">修改食物金額 :</td>
+							<td><input type="text" name="food_price" value="${param.food_price}" size="8"></td>
 							<td>${error.food_price}</td>
 						</tr>
 							<tr>
-							<td class="text-right">修改總金額 :</td>
-							<td><input type="text" name="total_amount" value="${param.total_amount}"></td>
+							<td class="col-xs-8 col-sm-6 text-right">修改總金額 :</td>
+							<td><input type="text" name="total_amount" value="${param.total_amount}" size="8"></td>
 							<td>${error.total_amount}</td>
 						</tr>
 							<tr>
-							<td class="text-right">修改訂單狀態 :</td>
+							<td class="col-xs-8 col-sm-6 text-right">修改訂單狀態 :</td>
 							<td>
 							<select name="status" value="${param.status}">
 							<option value="處理中" selected>處理中</option>
 					        <option value="已出貨">已出貨</option>
 					        </select></td>
+					        <td></td>
 					    </tr>
+					    
 						
-						<tr class="text-right">
-							<td class="text-right">
-								<input class="btn btn-success" type="submit" name="orderaction" value="更新訂單">
-								<input class="btn btn-danger" type="submit" name="orderaction" value="刪除訂單">
-								<input class="btn btn-warning" type="button" value="清空" onclick="clearForm()">
+						<tr>
+							<td class="col-xs-8 col-sm-6 text-right">
+								<c:url value="/_03_Orders/SellerOrdersTotalServlet" var="GetUpdate">
+									<c:param name="ordersID" value="${param.ordersID}" />
+									<c:param name="status" value="${param.status}" />
+									<c:param name="ship_price" value="${param.ship_price}" />
+									<c:param name="food_price" value="${param.food_price}" />
+									<c:param name="total_amount" value="${param.total_amount}" />
+									<c:param name="orderaction" value="更新訂單" />
+								</c:url>
+								<a class="btn btn-success" href="${GetUpdate}">更新訂單</a>
+<!-- 								<input class="btn btn-success" type="submit" name="orderaction" value="更新訂單"> -->
 							</td>
+							<td class="col-xs-8 col-sm-6">
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="btn btn-warning" type="button" value="清空" onclick="clearForm()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<c:url value="/_03_Orders/SellerOrdersTotalServlet" var="GetDelete">
+									<c:param name="ordersID" value="${param.ordersID}" />
+									<c:param name="orderaction" value="刪除訂單" />
+								</c:url>
+								<a class="btn btn-danger" href="${GetDelete}">刪除訂單</a>
+<!-- 								<input class="btn btn-danger" type="submit" name="orderaction" value="刪除訂單"> -->
+							</td>
+							<td></td>
 						</tr>
 					</table>
 					
@@ -130,7 +153,7 @@
 					<h3><span class="error">${error.action}</span></h3>
 					
 					<c:if test="${not empty delete and delete}">
-					<h3>Delete Product Table Success</h3>
+					<h3>刪除成功</h3>
 					<script type="text/javascript">clearForm();</script>
 					</c:if>
 					
@@ -154,24 +177,22 @@
 					
 					<c:if test="${not empty update}">
 					<h3>更新成功</h3>
-					<table border="1">
-						<tr><td>訂單編號 :</td><td>${update.ordersID}</td></tr>
-						<tr><td>訂購人姓名 :</td><td>${update.name}</td></tr>
-						<tr><td>訂購人手機 :</td><td>${update.cel}</td></tr>
-						<tr><td>住址(縣/市) :</td><td>${update.GUAR_CT}</td></tr>
-						<tr><td>住址(區/鄉/鎮/市) :</td><td>${update.GUAR_AR}</td></tr>
-						<tr><td>住址(路/街/巷) :</td><td>${update.GUAR_ROAD}</td></tr>
-						<tr><td>住址(號) :</td><td>${update.GUAR_NO}</td></tr>
-						<tr><td>付款方式 :</td><td>${update.pay_metho}</td></tr>
-						<tr><td>運費 :</td><td>${update.ship_price}</td></tr>
-						<tr><td>金額 :</td><td>${update.food_price}</td></tr>
-						<tr><td>總金額 :</td><td>${update.total_amount}</td></tr>
-						<tr><td>訂單狀態 :</td><td>${update.status}</td></tr>
-					</table>
-					<script type="text/javascript">clearForm();</script>
+<!-- 					<table border="1"> -->
+<%-- 						<tr><td>訂單編號 :</td><td>${update.ordersID}</td></tr> --%>
+<%-- 						<tr><td>訂購人姓名 :</td><td>${update.name}</td></tr> --%>
+<%-- 						<tr><td>訂購人手機 :</td><td>${update.cel}</td></tr> --%>
+<%-- 						<tr><td>住址(縣/市) :</td><td>${update.GUAR_CT}</td></tr> --%>
+<%-- 						<tr><td>住址(區/鄉/鎮/市) :</td><td>${update.GUAR_AR}</td></tr> --%>
+<%-- 						<tr><td>住址(路/街/巷) :</td><td>${update.GUAR_ROAD}</td></tr> --%>
+<%-- 						<tr><td>住址(號) :</td><td>${update.GUAR_NO}</td></tr> --%>
+<%-- 						<tr><td>付款方式 :</td><td>${update.pay_metho}</td></tr> --%>
+<%-- 						<tr><td>運費 :</td><td>${update.ship_price}</td></tr> --%>
+<%-- 						<tr><td>金額 :</td><td>${update.food_price}</td></tr> --%>
+<%-- 						<tr><td>總金額 :</td><td>${update.total_amount}</td></tr> --%>
+<%-- 						<tr><td>訂單狀態 :</td><td>${update.status}</td></tr> --%>
+<!-- 					</table> -->
+<!-- 					<script type="text/javascript">clearForm();</script> -->
 					</c:if>
-	
-
 				</div>
 			</div>			
 		</div>
