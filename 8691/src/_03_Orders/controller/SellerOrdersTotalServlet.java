@@ -108,7 +108,7 @@ public class SellerOrdersTotalServlet extends HttpServlet {
 //			}
 			if(error!=null && !error.isEmpty()){
 				request.getRequestDispatcher(
-						"/_03_Orders/OrdersTotal.jsp").forward(request, response);
+						"/_03_Orders/UpdateOrdersTotal.jsp").forward(request, response);
 				return;
 			}
 			
@@ -150,17 +150,13 @@ public class SellerOrdersTotalServlet extends HttpServlet {
 //				request.getRequestDispatcher(
 //						"/_03_Orders/OrdersTotal.jsp").forward(request, response);
 			} else if("更新訂單".equals(orderaction)) {
-				//List<OrdersTotalBean> result = sellerOrdersTotalService.select(bean);
 				OrdersTotalBean result = sellerOrdersTotalService.update(bean);
-				System.out.println(result);
-				System.out.println(bean);
 				if(result==null) {
-					error.put("action", "Update failed");
-				} else {
+					error.put("action", "更新成功");
 					request.setAttribute("update", result);
 				}
 				request.getRequestDispatcher(
-						"/_03_Orders/UpdateOrdersTotal.jsp").forward(request, response);
+						"/_03_Orders/UpdateSuccess.jsp").forward(request, response);
 			} else if("刪除訂單".equals(orderaction)) {
 				boolean result = sellerOrdersTotalService.delete(bean);
 				if(result) {
@@ -169,7 +165,7 @@ public class SellerOrdersTotalServlet extends HttpServlet {
 					error.put("action", "Delete failed");
 				}
 				request.getRequestDispatcher(
-						"/_03_Orders/UpdateOrdersTotal.jsp").forward(request, response);
+						"/_03_Orders/DeleteSuccess.jsp").forward(request, response);
 			} else {
 				error.put("action", "Unknown action: "+orderaction);
 				request.getRequestDispatcher(

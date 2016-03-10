@@ -86,7 +86,7 @@ public class OrdersDetailServlet extends HttpServlet {
 		bean.setNote(note);
 		
 		//根據model執行結果顯示view
-		if("訂單明細".equals(action)) {
+		if("明細".equals(action)) {
 			List<OrdersDetailBean> result = ordersDeatilService.select(bean);
 			request.setAttribute("select", result);
 			request.getRequestDispatcher(

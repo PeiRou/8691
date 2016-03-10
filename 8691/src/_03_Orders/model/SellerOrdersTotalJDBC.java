@@ -139,7 +139,8 @@ public class SellerOrdersTotalJDBC {
 			int i = psStrUpd.executeUpdate();
 			if (i == 1) {
 				System.out.println("UPDATE Success!");
-				//result = (OrdersTotalBean) this.select(account_UID);
+//				result = (OrdersTotalBean) this.select(ordersID);
+//				return result;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

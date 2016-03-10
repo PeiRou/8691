@@ -57,7 +57,7 @@
 						<tr>
 							<td class="col-xs-8 col-sm-6 text-right">訂單編號 : </td>
 							<td>${param.ordersID}</td>
-							<td></td>
+							<td><input type="text" name="ordersID" value="${param.ordersID}" size="8" style="display:none"></td>
 						</tr>
 						<tr>
 							<td class="col-xs-8 col-sm-6 text-right">訂購人姓名 : </td>
@@ -96,18 +96,18 @@
 						</tr>
 							<tr>
 							<td class="col-xs-8 col-sm-6 text-right">修改運費 :</td>
-							<td><input type="text" name="ship_price" value="${param.ship_price}" size="8"></td>
-							<td>${error.ship_price}</td>
+							<td><input type="text" name="ship_price" value="${param.ship_price}" size="8">${error.ship_price}</td>
+							<td></td>
 						</tr>
 							<tr>
 							<td class="col-xs-8 col-sm-6 text-right">修改食物金額 :</td>
-							<td><input type="text" name="food_price" value="${param.food_price}" size="8"></td>
-							<td>${error.food_price}</td>
+							<td><input type="text" name="food_price" value="${param.food_price}" size="8">${error.food_price}</td>
+							<td></td>
 						</tr>
 							<tr>
 							<td class="col-xs-8 col-sm-6 text-right">修改總金額 :</td>
-							<td><input type="text" name="total_amount" value="${param.total_amount}" size="8"></td>
-							<td>${error.total_amount}</td>
+							<td><input type="text" name="total_amount" value="${param.total_amount}" size="8">${error.total_amount}</td>
+							<td></td>
 						</tr>
 							<tr>
 							<td class="col-xs-8 col-sm-6 text-right">修改訂單狀態 :</td>
@@ -122,16 +122,16 @@
 						
 						<tr>
 							<td class="col-xs-8 col-sm-6 text-right">
-								<c:url value="/_03_Orders/SellerOrdersTotalServlet" var="GetUpdate">
-									<c:param name="ordersID" value="${param.ordersID}" />
-									<c:param name="status" value="${param.status}" />
-									<c:param name="ship_price" value="${param.ship_price}" />
-									<c:param name="food_price" value="${param.food_price}" />
-									<c:param name="total_amount" value="${param.total_amount}" />
-									<c:param name="orderaction" value="更新訂單" />
-								</c:url>
-								<a class="btn btn-success" href="${GetUpdate}">更新訂單</a>
-<!-- 								<input class="btn btn-success" type="submit" name="orderaction" value="更新訂單"> -->
+<%-- 								<c:url value="/_03_Orders/SellerOrdersTotalServlet" var="GetUpdate"> --%>
+<%-- 									<c:param name="ordersID" value="${param.ordersID}" /> --%>
+<%-- 									<c:param name="status" value="${bean.status}" /> --%>
+<%-- 									<c:param name="ship_price" value="${bean.ship_price}" /> --%>
+<%-- 									<c:param name="food_price" value="${bean.food_price}" /> --%>
+<%-- 									<c:param name="total_amount" value="${bean.total_amount}" /> --%>
+<%-- 									<c:param name="orderaction" value="更新訂單" /> --%>
+<%-- 								</c:url> --%>
+<%-- 								<a class="btn btn-success" href="${GetUpdate}">更新訂單</a> --%>
+								<input class="btn btn-success" type="submit" name="orderaction" value="更新訂單">
 							</td>
 							<td class="col-xs-8 col-sm-6">
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="btn btn-warning" type="button" value="清空" onclick="clearForm()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -173,8 +173,8 @@
 <!-- 					<script type="text/javascript">clearForm();</script> -->
 <%-- 					</c:if> --%>
 					
-					<c:if test="${not empty update}">
-					<h3>更新成功</h3>
+<%-- 					<c:if test="${empty update}"> --%>
+<!-- 					<h3>更新成功</h3> -->
 <!-- 					<table border="1"> -->
 <%-- 						<tr><td>訂單編號 :</td><td>${update.ordersID}</td></tr> --%>
 <%-- 						<tr><td>訂購人姓名 :</td><td>${update.name}</td></tr> --%>
@@ -190,7 +190,7 @@
 <%-- 						<tr><td>訂單狀態 :</td><td>${update.status}</td></tr> --%>
 <!-- 					</table> -->
 <!-- 					<script type="text/javascript">clearForm();</script> -->
-					</c:if>
+<%-- 					</c:if> --%>
 				</div>
 			</div>			
 		</div>

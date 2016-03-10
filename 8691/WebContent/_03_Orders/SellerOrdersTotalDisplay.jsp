@@ -94,13 +94,20 @@
 							<td>${bean.ship_price}</td>
 							<td>${bean.food_price}</td>
 							<td>${bean.total_amount}</td>
-							<td>${bean.status}</td>
+							<c:choose>
+								<c:when test="${bean.status == '處理中'}">
+									<td class="btn btn-warning">${bean.status}</td>
+								</c:when>
+								<c:when test="${bean.status == '已出貨'}">
+									<td class="btn btn-success">${bean.status}</td>
+								</c:when>
+							</c:choose>
 							<td>
 							<c:url value="/_03_Orders/SellerOrdersDetailServlet" var="GetDetailPath">
 								<c:param name="ordersID" value="${bean.ordersID}" />
 								<c:param name="action" value="訂單明細" />
 							</c:url>
-							<a class="btn btn-success" href="${GetDetailPath}">訂單</a>
+							<a class="btn btn-info" href="${GetDetailPath}">訂單</a>
 							</td>
 						</tr>
 					</c:forEach>	

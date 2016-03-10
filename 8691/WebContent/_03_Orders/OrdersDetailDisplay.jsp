@@ -24,12 +24,12 @@
     <style>
     
     	th{
-    		font-size:2em;
+    		font-size:1.1em;
     		text-align:center;
     	}
     	
     	td{
-    		font-size:1.5em;
+    		font-size:1em;
     	}
     	table#t01 tr:nth-child(even) {
 		    background-color: #fff;
@@ -69,7 +69,10 @@
 						</tbody>
 					</table>
 					</c:if>
-					<input class="btn btn-primary" type="button" value="上一頁" onclick="location.href='<%= request.getContextPath() %>/_04_Members/Members.jsp'">
+					<form action="<c:url value='/_03_Orders/OrdersTotalServlet' />" method="post">
+					<input class="btn btn-info" type="submit" name="orderaction" value="查看我的訂單">
+					</form>
+<%-- 					<input class="btn btn-primary" type="button" value="上一頁" onclick="location.href='<%= request.getContextPath() %>/_04_Members/Members.jsp'"> --%>
 <%-- 					<h3><a href="<c:url value="/_03_Orders/OrdersTotal.jsp" />">OrdersTotal Table</a></h3> --%>
 
 

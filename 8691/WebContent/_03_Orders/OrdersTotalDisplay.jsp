@@ -58,7 +58,7 @@
 							<th>運費</th>
 							<th>食物金額</th>
 							<th>總金額</th>
-							<th>明細</th>
+							<th>訂單明細</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -81,9 +81,9 @@
 							<td>
 							<c:url value="/_03_Orders/OrdersDetailServlet" var="GetDetailPath">
 								<c:param name="ordersID" value="${bean.ordersID}" />
-								<c:param name="action" value="訂單明細" />
+								<c:param name="action" value="明細" />
 							</c:url>
-							<a class="btn btn-success" href="${GetDetailPath}">訂單</a>
+							<a class="btn btn-success" href="${GetDetailPath}">明細</a>
 							</td>
 						</tr>
 					</c:forEach>	
