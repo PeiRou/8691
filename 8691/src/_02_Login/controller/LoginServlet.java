@@ -70,6 +70,9 @@ public class LoginServlet extends HttpServlet {
 			if(roleid.equals("101")){
 				RequestDispatcher rd = request.getRequestDispatcher("/_02_Login/NotYet.jsp");
 				rd.forward(request, response);	
+			}else if(roleid.equals("1111")){
+				RequestDispatcher rd = request.getRequestDispatcher("/_02_Login/Reject.jsp");
+				rd.forward(request, response);	
 			}else{
 					String path = request.getContextPath();
 					response.sendRedirect(path+"/index.jsp");}

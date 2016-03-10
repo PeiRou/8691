@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <meta http-equiv="refresh" content="3;url=<%= request.getContextPath() %>/index.jsp" />
 
-    <title>About - Business Casual - Start Bootstrap Theme</title>
+    <title>8691</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<%= request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
