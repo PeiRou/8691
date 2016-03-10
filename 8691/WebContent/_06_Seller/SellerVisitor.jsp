@@ -20,7 +20,17 @@
     <!-- Fonts -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
-
+	    <style>
+	    	td{
+	    		font-size:1.1em;
+	    	}
+	    	table#t01 tr:nth-child(even) {
+			    background-color: #fff;
+			}
+			table#t01 tr:nth-child(odd) {
+			   background-color:#eee;
+			}
+    	</style>
     
 </head>
 <body>
@@ -31,54 +41,54 @@
 				<div class="col-md-12">
 				<form name="Visitor"
 					action="<c:url value='/page/visitor.controller' />" method="post">
-					<h2 class="text-center">註冊為店家</h2>
-					<table class="table">
+					<h2 class="text-center"><strong>註冊為店家</strong></h2>
+					<table id="t01" class="table">
 						<tr>
-							<td class="text-right">請輸入您的E-mail:</td>
+							<td class="col-xs-8 col-sm-6 text-right">請輸入您的E-mail:</td>
 							<td><input type="text" name="acc_email" value="${param.acc_email}" placeholder="此E-mail將成為您的帳號 " id="acc_emailinput"><span id="acc_emailsp" style="color:red"></span></td>
 							<td>${error.acc_email}</td>
 						</tr>
 						
 						<tr>
-							<td class="text-right">請輸入您的密碼 :</td>
+							<td class="col-xs-8 col-sm-6 text-right">請輸入您的密碼 :</td>
 							<td><input type="text" name="psd" value="${param.psd}" id="psdinput"><span id="psdsp" style="color:red"></span></td>
 							<td>${error.psd}</td>
 						</tr>
 						<tr>
-							<td class="text-right">請輸入您的統一編號 :</td>
+							<td class="col-xs-8 col-sm-6 text-right">請輸入您的統一編號 :</td>
 							<td><input type="text" name="FEIN" value="${param.FEIN}" id="FEINinput"><span id="FEINsp" style="color:red"></span></td>
 							<td>${error.FEIN}</td>
 						</tr>
 						<tr>
-							<td class="text-right">請輸入您的店家名稱 :</td>
+							<td class="col-xs-8 col-sm-6 text-right">請輸入您的店家名稱 :</td>
 							<td><input type="text" name="name" value="${param.name}" id="nameinput"><span id="namesp" style="color:red"></span></td>
 							<td>${error.name}</td>
 						</tr>
 						<tr>
-							<td class="text-right">請輸入負責人姓名 :</td>
+							<td class="col-xs-8 col-sm-6 text-right">請輸入負責人姓名 :</td>
 							<td><input type="text" name="Con_name" value="${param.Con_name}" id="Con_nameinput"><span id="Con_namesp" style="color:red"></span></td>
 							<td>${error.Con_name}</td>
 						</tr>
 					      <tr height='36'>
-					    <td>輸入您的店家圖片:</td>
+					    		<td class="col-xs-8 col-sm-6 text-right">輸入您的店家圖片:</td>
 					       <!-- <td width="45" align="center" class="title_font">圖片</td>--> 
 					        	<td colspan="3">
 					            <input style="background:#FFFFFF" class='InputClass'  type="file" 
 					            name="uploadFile" size="40" />    
 					    </tr>
 						<tr>
-							<td class="text-right">請輸入您的店家電話號碼 :</td>
+							<td class="col-xs-8 col-sm-6 text-right">請輸入您的店家電話號碼 :</td>
 							<td><input type="text" name="tel" value="${param.tel}" placeholder="Ex:02-23456789" id="telinput"><span id="teldsp" style="color:red"></span></td>
 							<td>${error.tel}</td>
 						</tr>
 						<tr>
-							<td class="text-right">請輸入負責人手機號碼 :</td>
+							<td class="col-xs-8 col-sm-6 text-right">請輸入負責人手機號碼 :</td>
 							<td><input type="text" name="Con_cel"
 								value="${param.Con_cel}" placeholder="Ex:0912345678" id="Con_celinput"><span id="Con_celsp" style="color:red"></span></td>
 							<td>${error.Con_cel}</td>
 						</tr>
 						<tr>
-							<td class="text-right">請選擇您所在的縣市 :</td>
+							<td class="col-xs-8 col-sm-6 text-right">請選擇您所在的縣市 :</td>
 							<td><select name="GUAR_CT" size="1" value="${param.GUAR_CT}">
 															<option value="" selected>請選擇</option>
 									                        <option value="A">臺北市</option>
@@ -108,7 +118,7 @@
 							<td>${error.GUAR_CT}</td>
 						</tr>
 						<tr>
-							<td class="text-right">住址(區/鄉/鎮/市) : </td>
+							<td class="col-xs-8 col-sm-6 text-right">住址(區/鄉/鎮/市) : </td>
 							<td>
 			
 							<select id="select1" name="GUAR_AR">
@@ -117,26 +127,27 @@
 							<td>${error.GUAR_AR}</td>
 						</tr>
 						<tr>
-							<td class="text-right">住址(路/街/巷) : </td>
+							<td class="col-xs-8 col-sm-6 text-right">住址(路/街/巷) : </td>
 			                <td><input type="text" id="keyword"><input id="textval" type="text" name="GUAR_ROAD" style="display:none"><span id="roadsp" style="color:red"></span></td><td>${error.GUAR_ROAD}</td>
 						</tr>                                                        
 						<tr>
 						<td></td>
+						<td></td>
 						<td id="tb"></td>
 						</tr>
 						<tr>
-							<td class="text-right">住址(號) : </td>
+							<td class="col-xs-8 col-sm-6 text-right">住址(號) : </td>
 							<td><input type="text" name="GUAR_NO" value="${param.GUAR_NO}" id="GUAR_NOinput"><span id="GUAR_NOsp" style="color:red"></span></td>
 							<td>${error.GUAR_NO}</td>
 						</tr>						
 						<tr>
-							<td class="text-right">請輸入備用EMAIL :</td>
+							<td class="col-xs-8 col-sm-6 text-right">請輸入備用EMAIL :</td>
 							<td><input type="text" name="email2"
 								value="${param.email2}" id="email2input"><span id="email2sp" style="color:red"></span></td>
 							<td>${error.email2}</td>
 						</tr>
 							<tr>
-							<td class="text-right">請選擇收款方式 : </td>
+							<td class="col-xs-8 col-sm-6 text-right">請選擇收款方式 : </td>
 							<td>	
 							<select name="receipts_metho" value="${param.receipts_metho}">
 							<option value="" selected>請選擇</option>
@@ -148,18 +159,20 @@
 							</tr>
 							
 							<tr>
-								<td>運費 : </td>
+								<td class="col-xs-8 col-sm-6 text-right">運費 : </td>
 								<td><input type="text" name="Ship_price" value="${param.Ship_price}"></td>
 								<td>${error.Ship_price}</td>
 							</tr>
 							<tr>
-								<td>消費最低金額: </td>
+								<td class="col-xs-8 col-sm-6 text-right">消費最低金額: </td>
 								<td><input type="text" name="Lowest_price" value="${param.Lowest_price}"></td>
 								<td>${error.Lowest_price}</td>
 							</tr>
 							
 						<tr>
-							<td align="right"><input class="btn btn-primary" type="submit" value="註冊"></td>
+							<td></td>
+							<td><input class="btn btn-primary" type="submit" value="註冊"></td>
+							<td></td>
 						</tr>
 					</table>
 				</form>
@@ -405,7 +418,7 @@ $(function(){
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <p>Copyright &copy; Your Website 2016</p>
+                    <p>Copyright &copy; EEIT83第五小組 2016 | <a href="<%= request.getContextPath() %>/contact.jsp">聯絡我們</a></p>
                 </div>
             </div>
         </div>

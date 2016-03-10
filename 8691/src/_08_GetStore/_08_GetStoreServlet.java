@@ -25,7 +25,7 @@ import org.json.simple.JSONObject;
 		)
 public class _08_GetStoreServlet extends HttpServlet {
 
-	private final String SELECT_ALL = "select * from Seller_partner";
+	private final String SELECT_ALL = "select * from Seller_visitor";
 	private DataSource dataSource;
 	public _08_GetStoreServlet() {
 		try {

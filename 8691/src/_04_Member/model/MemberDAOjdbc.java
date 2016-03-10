@@ -12,7 +12,6 @@ import javax.naming.NamingException;
 
 import _04_Member.model.MemberBean;
 import _04_Member.model.MemberDAO;
-import _07_Address.model.Address_CT_Bean;
 
 public class MemberDAOjdbc implements MemberDAO {
 //	private static final String URL = "jdbc:sqlserver://raab1str2m.database.windows.net:1433;database=DB02";
@@ -69,7 +68,7 @@ public class MemberDAOjdbc implements MemberDAO {
 				result = new MemberBean();
 				result.setAccount_UID(rset.getString("account_UID"));
 				result.setName(rset.getString("name"));
-				//result.setMember_photo(rset.getBlob("member_photo"));
+				result.setMember_photo(rset.getString("member_photo"));
 				result.setGender(rset.getString("gender"));
 				result.setTel(rset.getString("tel"));
 				result.setGUAR_CT(rset.getString("GUAR_CT"));
@@ -126,7 +125,7 @@ public class MemberDAOjdbc implements MemberDAO {
 			while(rset.next()){
 				result = new MemberBean();
 				result.setName(rset.getString("name"));
-				//result.setMember_photo(rset.getBlob("member_photo"));
+				result.setMember_photo(rset.getString("member_photo"));
 				result.setGender(rset.getString("gender"));
 				result.setTel(rset.getString("tel"));
 				result.setGUAR_CT(rset.getString("GUAR_CT"));
@@ -167,12 +166,12 @@ public class MemberDAOjdbc implements MemberDAO {
 	}
 				
 	private static final String UPDATE =
-			"update Member set name=?, gender=?, tel=?, GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?, email2=?, cel=? where account_UID=?";
-//member_photo=?, 
+			"update Member set name=?, member_photo=?,gender=?, tel=?, GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?, email2=?, cel=? where account_UID=?";
+// 
 @Override
 public MemberBean update(
 		String name,
-		//Blob member_photo,
+		String member_photo,
 		String gender,
 		String tel,
 		String GUAR_CT,
@@ -192,7 +191,7 @@ public MemberBean update(
 			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			psStrUpd = conn.prepareStatement(UPDATE);
 			psStrUpd.setString(1, name);
-			//psStrUpd.setBlob(2, member_photo);
+			psStrUpd.setString(2, member_photo);
 			psStrUpd.setString(2, gender);
 			psStrUpd.setString(3, tel);
 			psStrUpd.setString(4, GUAR_CT);
@@ -235,8 +234,8 @@ public MemberBean update(
 	}
 	
 	private static final String INSERT =
-			"insert into member (account_UID, name, gender, tel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, email2, cel, insdate) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-// member_photo, 
+			"insert into member (account_UID, name, member_photo, gender, tel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, email2, cel, insdate) values (?, ?, '', ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+// 
 	@Override
 	public MemberBean insert(MemberBean bean1) {
 		MemberBean result = null;
@@ -247,7 +246,7 @@ public MemberBean update(
 			psStrUpd = conn.prepareStatement(INSERT);
 			psStrUpd.setString(1, bean1.getAccount_UID());
 			psStrUpd.setString(2, bean1.getName());
-			//psStrUpd.setBlob(4, bean.getMember_photo());
+			//psStrUpd.setString(4, bean1.getMember_photo());
 			psStrUpd.setString(3, bean1.getGender());
 			psStrUpd.setString(4, bean1.getTel());
 			psStrUpd.setString(5, bean1.getGUAR_CT());

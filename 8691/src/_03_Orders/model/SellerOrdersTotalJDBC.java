@@ -18,8 +18,8 @@ import javax.sql.DataSource;
 import _03_Orders.model.OrdersTotalBean;
 
 public class SellerOrdersTotalJDBC {
-//	private static final String URL = "jdbc:sqlserver://raab1str2m.database.windows.net:1433;database=DB02";
-//	private static final String USERNAME = "eeit83team05@raab1str2m";
+//	private static final String URL = "jdbc:sqlserver://rnjwjato72.database.windows.net:1433;database=DB02";
+//	private static final String USERNAME = "eeit838691@rnjwjato72";
 //	private static final String PASSWORD = "Sa123456";
 	
 	private DataSource dataSource = null;
@@ -42,8 +42,7 @@ public class SellerOrdersTotalJDBC {
 //		 System.out.println(bean);
 
 		// update OK
-//		 OrdersTotalBean beanupdate = dao.update("01657CF4-B140-4718-9C7E-0C8BAB1A4D76", "1", "炫窩鳴人", "0912345269", "A", "105", "2000",
-//					"307號12樓", "0", new java.util.Date(), 300, 200, 500, "88433134-0610-4792-B5DD-3D0EB6B76097");
+//		 OrdersTotalBean beanupdate = dao.update("處理中", 300, 200, 2200, 7000);
 //		 System.out.println(beanupdate);
 
 		// delete  OK
@@ -51,7 +50,7 @@ public class SellerOrdersTotalJDBC {
 		// System.out.println(beanDel);
 	}
 
-	private static final String SELECT = "select * from Orders_total where account_UID=?";  //此處因登入後可抓到account_UID，故可以select自己的單(一般會員&店家皆是)
+	private static final String SELECT = "select * from Orders_total where seller_UID=? order by ordersID ASC";  //此處因登入後可抓到account_UID，故可以select自己的單(一般會員&店家皆是)
 	//private static final String SELECT = "select * from Orders_total join Address_AR on Orders_total.GUAR_AR=Address_AR.GUAR_AR join Address_CT on Orders_total.GUAR_CT=Address_CT.GUAR_CT join Address_ROAD on Orders_total.GUAR_ROAD=Address_ROAD.GUAR_ROAD where seller_UID=?";  //此處因登入後可抓到account_UID，故可以select自己的單(一般會員&店家皆是)
 
 	public List<OrdersTotalBean> select(String account_UID) {
@@ -119,80 +118,63 @@ public class SellerOrdersTotalJDBC {
 
 
 
-//	private static final String UPDATE = "update Orders_total set status=?, name=?, cel=?, GUAR_CT=?, GUAR_AR=?, "
-//			+ "GUAR_ROAD=?, GUAR_NO=?, pay_metho=? ,insdate=?, "
-//			+ "ship_price=?, food_price=?, total_amount=? where ordersID=?";   //此處因ordersID為unique，故選為依據
-//
-//	public OrdersTotalBean update(String status, String name, String cel,
-//			String gUAR_CT, String gUAR_AR, String gUAR_ROAD, String gUAR_NO, String pay_metho, Date insdate,
-//			int ship_price, int food_price, int total_amount, int ordersID) {
-//		Connection conn = null;
-//		PreparedStatement psStrUpd = null;
-//		OrdersTotalBean result = null;
-//		
-//		try {
-//			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-//			conn = dataSource.getConnection();
-//			psStrUpd = conn.prepareStatement(UPDATE);						
-//			
-//			psStrUpd.setString(1, status);
-//			psStrUpd.setString(2, name);
-//			psStrUpd.setString(3, cel);
-//			psStrUpd.setString(4, gUAR_CT);
-//			psStrUpd.setString(5, gUAR_AR);
-//			psStrUpd.setString(6, gUAR_ROAD);
-//			psStrUpd.setString(7, gUAR_NO);
-//			psStrUpd.setString(8, pay_metho);
-//			if (insdate != null) {
-//				long time = insdate.getTime();
-//				psStrUpd.setDate(9, new java.sql.Date(time));
-//			} else {
-//				psStrUpd.setDate(9, null);
-//			}
-//			psStrUpd.setInt(10, ship_price);
-//			psStrUpd.setInt(11, food_price);
-//			psStrUpd.setInt(12, total_amount);
-//			psStrUpd.setInt(13, ordersID);
-//
-//			int i = psStrUpd.executeUpdate();
-//			if (i == 1) {
-//				System.out.println("UPDATE Success!");
+	private static final String UPDATE = "update Orders_total set status=?, ship_price=?, food_price=?, total_amount=? where ordersID=?";
+										//此處因ordersID為unique，故選為依據
+	public OrdersTotalBean update(String status, int ship_price, int food_price, int total_amount, int ordersID) {
+		Connection conn = null;
+		PreparedStatement psStrUpd = null;
+		OrdersTotalBean result = null;
+		
+		try {
+			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			conn = dataSource.getConnection();
+			psStrUpd = conn.prepareStatement(UPDATE);
+			//psStrUpd.setString(1, account_UID);
+			psStrUpd.setString(1, status);
+			psStrUpd.setInt(2, ship_price);
+			psStrUpd.setInt(3, food_price);
+			psStrUpd.setInt(4, total_amount);
+			psStrUpd.setInt(5, ordersID);
+
+			int i = psStrUpd.executeUpdate();
+			if (i == 1) {
+				System.out.println("UPDATE Success!");
+//				result = (OrdersTotalBean) this.select(ordersID);
 //				return result;
-//				//result = this.select(account_UID);				
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			if (psStrUpd != null) {
-//				try {
-//					psStrUpd.close();
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//			if (conn != null) {
-//				try {
-//					conn.close();
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		}
-//		return result;
-//	}
-//
-//	private static final String DELETE = "delete from Orders_total where ordersID=?";
-//
-//	public int delete(int ordersID) {
-//		try(//Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-//				Connection conn = dataSource.getConnection();
-//				PreparedStatement stmt = conn.prepareStatement(DELETE);) {
-//				stmt.setInt(1, ordersID);
-//				return stmt.executeUpdate();
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//			return 0;
-//		}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (psStrUpd != null) {
+				try {
+					psStrUpd.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return result;
+	}
+
+	private static final String DELETE = "delete from Orders_total where ordersID=?";
+
+	public int delete(int ordersID) {
+		try(//Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+				Connection conn = dataSource.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(DELETE);) {
+				stmt.setInt(1, ordersID);
+				return stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return 0;
+		}
 
 }

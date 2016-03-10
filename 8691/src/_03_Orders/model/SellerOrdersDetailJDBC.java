@@ -14,13 +14,13 @@ import javax.sql.DataSource;
 import _03_Orders.model.OrdersDetailBean;
 
 
-public class OrdersDetailJDBC {
+public class SellerOrdersDetailJDBC {
 //	private static final String URL = "jdbc:sqlserver://raab1str2m.database.windows.net:1433;database=DB02";
 //	private static final String USERNAME = "eeit83team05@raab1str2m";
 //	private static final String PASSWORD = "Sa123456";
 	
 	private DataSource dataSource = null;
-	public OrdersDetailJDBC() {
+	public SellerOrdersDetailJDBC() {
 		try {
 			Context ctx = new InitialContext();
 			dataSource = (DataSource) ctx.lookup("java:comp/env/8691");
@@ -31,7 +31,7 @@ public class OrdersDetailJDBC {
 
 	public static void main(String[] args) {
 		String RD = UUID.randomUUID().toString();
-		OrdersDetailJDBC dao = new OrdersDetailJDBC();
+		SellerOrdersDetailJDBC dao = new SellerOrdersDetailJDBC();
 		
 		//select  OK
 //		OrdersDetailBean bean = dao.select("1A01E09E-EDBB-4740-8A40-2996A98F4237");

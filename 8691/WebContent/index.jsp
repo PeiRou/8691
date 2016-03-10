@@ -24,10 +24,12 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-<style>
 	
-</style>
+	<style>
+	    	td{
+	    		font-size:1.3em;
+	    	}
+	</style>
 </head>
 <body>
 <jsp:include page="/fragment/top.jsp" />
@@ -37,7 +39,7 @@
                 <div class="col-lg-12">
                 <table class="table">
                 <tr>
-					<td class="text-right">請輸入縣市 :</td>
+					<td class="text-right"><strong>請選擇縣市 :</strong></td>
 					<td><select name="GUAR_CT" size="1" value="${param.GUAR_CT}">
 													<option value="" selected>請選擇</option>
 							                        <option value="A">臺北市</option>
@@ -64,13 +66,14 @@
 													<option value="V">連江縣</option>
 					</select></td>
 					
-					<td class="text-right">請輸入區域 :</td>
+					<td class="text-right"><strong>請選擇區域 :</strong></td>
 					<td><select id="select1" name="GUAR_AR" size="">
 					<option value="" selected>請選擇</option>
 					</select></td>
 					
-					<td class="text-right">請輸入路名 :</td>
-					<td><input id="keyword" type="text" value=""> <input id="textval" name="GUAR_ROAD" type="text" style="display:none"><span id="roadsp" style="color:red"></span><input type="button" id="btn1" value="立即搜尋美食"></td>
+					<td class="text-right"><strong>請輸入路名 :</strong></td>
+					<td><input id="keyword" type="text" value=""> <input id="textval" name="GUAR_ROAD" type="text" style="display:none"><span id="roadsp" style="color:red"></span><input type="button" class="btn btn-info" id="btn1" value="立即搜尋美食"></td>
+
 					<td></td>
 				</tr>
 				<tr class="tr1">
@@ -120,11 +123,11 @@
                     <h2 class="brand-before">
                         <small>Welcome to</small>
                     </h2>
-                    <h1 class="brand-name">Business Casual</h1>
+                    <h1 class="brand-name">巴豆揪么(8691)美食飲料訂購網站</h1>
                     <hr class="tagline-divider">
                     <h2>
                         <small>By
-                            <strong>Start Bootstrap</strong>
+                            <strong>就是要吃喝之美食飲料!!</strong>
                         </small>
                     </h2>
                 </div>
@@ -135,32 +138,32 @@
             <div class="box">
                 <div class="col-lg-12">
                     <hr>
-                    <h2 class="intro-text text-center">Build a website
-                        <strong>worth visiting</strong>
+                    <h2 class="intro-text text-center">巴豆揪么(8691)
+                        <strong>由來介紹</strong>
                     </h2>
                     <hr>
-                    <img class="img-responsive img-border img-left" src="img/intro-pic.jpg" alt="">
+                    <img class="img-responsive img-border img-left" src="img/8691.jpg" alt="">
                     <hr class="visible-xs">
-                    <p>The boxes used in this template are nested inbetween a normal Bootstrap row and the start of your column layout. The boxes will be full-width boxes, so if you want to make them smaller then you will need to customize.</p>
-                    <p>A huge thanks to <a href="http://join.deathtothestockphoto.com/" target="_blank">Death to the Stock Photo</a> for allowing us to use the beautiful photos that make this template really come to life. When using this template, make sure your photos are decent. Also make sure that the file size on your photos is kept to a minumum to keep load times to a minimum.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc placerat diam quis nisl vestibulum dignissim. In hac habitasse platea dictumst. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                    <p>近年來由於行動上網逐漸成為現代人們上網的主流方式，便利的電子商務O2O(Online To Offline)及APP系統(ex:團購活動)逐漸成為很多人都熱衷於的活動之一，這個趨勢在全球各國都相當明顯。</p>
+                    <p>繁忙的生活中，用餐時間往往都不知道食用什麼? 以至於沒有足夠的時間一次性的滿足味蕾，而導致寶貴的時間流逝。為了給予現代人可以一次享用到各種不同類型的美食，所以集思廣益製作出了『巴豆揪么(8961) 』美食飲料訂購網站系統，在大家聚集的教室、辦公室...等開放式空間，以提供節省運費及不必要的時間浪費之功效，希望藉由這個網站可以讓大家的食欲得到滿足。</p>
+                    
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="box">
-                <div class="col-lg-12">
-                    <hr>
-                    <h2 class="intro-text text-center">Beautiful boxes
-                        <strong>to showcase your content</strong>
-                    </h2>
-                    <hr>
-                    <p>Use as many boxes as you like, and put anything you want in them! They are great for just about anything, the sky's the limit!</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc placerat diam quis nisl vestibulum dignissim. In hac habitasse platea dictumst. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-                </div>
-            </div>
-        </div>
+<!--         <div class="row"> -->
+<!--             <div class="box"> -->
+<!--                 <div class="col-lg-12"> -->
+<!--                     <hr> -->
+<!--                     <h2 class="intro-text text-center">巴豆揪么(8691)美食飲料訂購網站 -->
+<!--                         <strong>系統公告</strong> -->
+<!--                     </h2> -->
+<!--                     <hr> -->
+<!--                     <p>祝您用餐愉快!!</p> -->
+<!--                     <p>巴豆揪么(8691)  管理團隊  敬上</p> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
 
     </div>
     <!-- /.container -->
@@ -169,7 +172,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <p>Copyright &copy; Your Website 2014</p>
+                    <p>Copyright &copy; EEIT83第五小組 2016 | <a href="<%= request.getContextPath() %>/contact.jsp">聯絡我們</a></p>
                 </div>
             </div>
         </div>
@@ -184,7 +187,7 @@
     <!-- Script to Activate the Carousel -->
 <script>
     $('.carousel').carousel({
-        interval: 3000 //廣告輪播速度(毫秒)
+        interval: 2500 //廣告輪播速度(毫秒)
     })
     
     //進入首頁後立刻從資料庫讀取區域的下拉式選單內容

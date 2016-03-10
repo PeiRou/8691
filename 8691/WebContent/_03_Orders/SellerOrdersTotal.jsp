@@ -55,7 +55,7 @@
 					
 						<tr>
 							<td class="text-right">訂購人手機 : </td>
-							<td><input type="text" name="cel" value="${cel.cel}"></td>
+							<td><input type="text" name="cel" value="${param.cel}"></td>
 							<td>${error.cel}</td>
 						</tr>
 						<tr>
@@ -173,7 +173,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <p>Copyright &copy; Your Website 2016</p>
+                   <p>Copyright &copy; EEIT83第五小組 2016 | <a href="<%= request.getContextPath() %>/contact.jsp">聯絡我們</a></p>
                 </div>
             </div>
         </div>

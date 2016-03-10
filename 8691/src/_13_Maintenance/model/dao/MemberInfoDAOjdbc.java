@@ -14,10 +14,10 @@ import javax.sql.DataSource;
 
 import org.json.simple.JSONObject;
 
-public class _13_Accountjdbc {	
+public class MemberInfoDAOjdbc {	
 	private DataSource dataSource;
 	
-	public _13_Accountjdbc() {
+	public MemberInfoDAOjdbc() {
 		try {
 			Context ctx = new InitialContext();
 			dataSource = (DataSource) ctx.lookup("java:comp/env/8691");
@@ -26,22 +26,28 @@ public class _13_Accountjdbc {
 		}
 	}
 	
-	private final String SELECT_ALL = "select b.name ,b.Seller_status,b.insdate,a.account_UID from Account a join Seller_visitor b on a.account_UID = b.account_UID where a.role_ID = '101'";
-	public List select() {
+	private final String SELECT_BY_UID = "select a.name,a.tel,a.cel,a.gender,CT.GUAR_CT_name,AR.GUAR_AR_name,ROAD.GUAR_ROAD_name,a.GUAR_NO,a.email2 from member a join Address_CT CT on a.GUAR_CT = CT.GUAR_CT join Address_AR AR on a.GUAR_AR = AR.GUAR_AR join Address_ROAD ROAD on a.GUAR_ROAD = ROAD.GUAR_ROAD where account_UID = ?";
+	public List select(String accountUID) {
 		List JSONObjectList = null;
 		ResultSet rset = null;
 		try(Connection conn = dataSource.getConnection();
-			PreparedStatement stmt = conn.prepareStatement(SELECT_ALL);
+			PreparedStatement stmt = conn.prepareStatement(SELECT_BY_UID);
 			) {
+			stmt.setString(1, accountUID);
 			rset = stmt.executeQuery();
 		
 			JSONObjectList = new LinkedList();
 			while(rset.next()) {
 				JSONObject obj = new JSONObject();
 				obj.put("name", rset.getString("name"));
-				obj.put("sellerSstatus", rset.getString("Seller_status"));
-				obj.put("insdate", rset.getString("insdate"));
-				obj.put("accountUID", rset.getString("account_UID"));
+				obj.put("tel", rset.getString("tel"));
+				obj.put("cel", rset.getString("cel"));
+				obj.put("guarCT", rset.getString("GUAR_CT_name"));
+				obj.put("guarAR", rset.getString("GUAR_AR_name"));
+				obj.put("guarROAD", rset.getString("GUAR_ROAD_name"));
+				obj.put("guarNO", rset.getString("GUAR_NO"));
+				obj.put("email2", rset.getString("email2"));
+
 				JSONObjectList.add(obj);
 			}
 		} catch (SQLException e) {

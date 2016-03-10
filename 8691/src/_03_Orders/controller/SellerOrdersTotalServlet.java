@@ -17,7 +17,6 @@ import _07_Address.model.Address_AR_Bean;
 import _07_Address.model.Address_CT_Bean;
 import _07_Address.model.Address_ROAD_Bean;
 
-
 @WebServlet(urlPatterns={"/_03_Orders/SellerOrdersTotalServlet"})
 public class SellerOrdersTotalServlet extends HttpServlet {
 	private static SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -26,7 +25,8 @@ public class SellerOrdersTotalServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//接收資料
 		String Orders_total_UID = request.getParameter("Orders_total_UID");		
-		String seller_UID = (String)request.getSession().getAttribute("seller_UID");		
+		String seller_UID = (String)request.getSession().getAttribute("seller_UID");	
+		String account_UID = request.getParameter("account_UID");
 		String temp0 = request.getParameter("ordersID");
 		String status = request.getParameter("status");
 		String name = request.getParameter("name");
@@ -48,34 +48,6 @@ public class SellerOrdersTotalServlet extends HttpServlet {
 		Map<String, String> error = new HashMap<String, String>();
 		request.setAttribute("error", error);
 
-			
-//			if(name==null || name.length()==0) {				
-//				  error.put("name", "訂購人姓名為必填");				
-//				}
-//			
-//			if(cel==null || cel.length()==0) {				
-//			  error.put("cel", "訂購人手機為必填");				
-//			}
-//			
-//			if(GUAR_CT==null || GUAR_CT.length()==0) {				
-//				  error.put("GUAR_CT", "住址(縣/市)為必填");				
-//			}
-//			
-//			if(GUAR_AR==null || GUAR_AR.length()==0) {				
-//				  error.put("GUAR_AR", "住址(區/鄉/鎮/市)為必填");				
-//			}
-//			
-//			if(GUAR_ROAD==null || GUAR_ROAD.length()==0) {				
-//				  error.put("GUAR_ROAD", "住址(路/街/巷)為必填");				
-//			}
-//			
-//			if(GUAR_NO==null || GUAR_NO.length()==0) {				
-//				  error.put("GUAR_NO", "住址(號)為必填");				
-//			}
-//			
-//			if(pay_metho==null || pay_metho.length()==0) {				
-//				  error.put("pay_metho", "付款方式為必填");				
-//			}
 			
 		int ordersID = 0;
 		if (temp0 != null && temp0.length() != 0) {
@@ -104,7 +76,7 @@ public class SellerOrdersTotalServlet extends HttpServlet {
 					ship_price = Integer.parseInt(temp2);
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
-					error.put("ship_price", "Ship_price must be an number");
+					error.put("ship_price", "運費必須為整數!");
 				}
 			}
 			
@@ -114,7 +86,7 @@ public class SellerOrdersTotalServlet extends HttpServlet {
 					food_price = Integer.parseInt(temp3);
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
-					error.put("food_price", "Food_price must be a number");
+					error.put("food_price", "食物金額必須為整數!");
 				}
 			}
 			
@@ -124,25 +96,26 @@ public class SellerOrdersTotalServlet extends HttpServlet {
 					total_amount = Integer.parseInt(temp4);
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
-					error.put("total_amount", "Total_amount must be a number");
+					error.put("total_amount", "總金額必須為整數!");
 				}
 			}
 			
 	//驗證資料
-			if("Insert".equals(orderaction) || "Update".equals(orderaction) || "Delete".equals(orderaction)) {
-				if(cel.length()==0) {
-					error.put("cel", "Please enter PhoneNumber for "+orderaction);
-				}
-			}
+//			if("Insert".equals(orderaction) || "Update".equals(orderaction) || "Delete".equals(orderaction)) {
+//				if(cel.length()==0) {
+//					error.put("cel", "Please enter PhoneNumber for "+orderaction);
+//				}
+//			}
 			if(error!=null && !error.isEmpty()){
 				request.getRequestDispatcher(
-						"/_03_Orders/OrdersTotal.jsp").forward(request, response);
+						"/_03_Orders/UpdateOrdersTotal.jsp").forward(request, response);
 				return;
 			}
 			
 	//呼叫model
 			OrdersTotalBean bean = new OrdersTotalBean();
 			bean.setOrders_total_UID(Orders_total_UID);
+			bean.setAccount_UID(account_UID);
 			bean.setSeller_UID(seller_UID);
 			bean.setOrdersID(ordersID);			
 			bean.setStatus(status);
@@ -158,10 +131,11 @@ public class SellerOrdersTotalServlet extends HttpServlet {
 			bean.setShip_price(ship_price);
 			bean.setFood_price(food_price);
 			bean.setTotal_amount(total_amount);	
+
 		 
 			
 	//根據model執行結果顯示view
-			if("Select".equals(orderaction)) {
+			if("查看所有訂單".equals(orderaction)) {
 				List<OrdersTotalBean> result = sellerOrdersTotalService.select(bean);
 				request.setAttribute("select", result);
 				request.getRequestDispatcher(
@@ -175,24 +149,23 @@ public class SellerOrdersTotalServlet extends HttpServlet {
 //				}
 //				request.getRequestDispatcher(
 //						"/_03_Orders/OrdersTotal.jsp").forward(request, response);
-//			} else if("Update".equals(orderaction)) {
-//				OrdersTotalBean result = ordersTotalService.update(bean);
-//				if(result==null) {
-//					error.put("action", "Update failed");
-//				} else {
-//					request.setAttribute("update", result);
-//				}
-//				request.getRequestDispatcher(
-//						"/_03_Orders/OrdersTotal.jsp").forward(request, response);
-//			} else if("Delete".equals(orderaction)) {
-//				boolean result = ordersTotalService.delete(bean);
-//				if(result) {
-//					request.setAttribute("delete", result);
-//				} else {
-//					error.put("action", "Delete failed");
-//				}
-//				request.getRequestDispatcher(
-//						"/_03_Orders/OrdersTotal.jsp").forward(request, response);
+			} else if("更新訂單".equals(orderaction)) {
+				OrdersTotalBean result = sellerOrdersTotalService.update(bean);
+				if(result==null) {
+					error.put("action", "更新成功");
+					request.setAttribute("update", result);
+				}
+				request.getRequestDispatcher(
+						"/_03_Orders/UpdateSuccess.jsp").forward(request, response);
+			} else if("刪除訂單".equals(orderaction)) {
+				boolean result = sellerOrdersTotalService.delete(bean);
+				if(result) {
+					request.setAttribute("delete", result);
+				} else {
+					error.put("action", "Delete failed");
+				}
+				request.getRequestDispatcher(
+						"/_03_Orders/DeleteSuccess.jsp").forward(request, response);
 			} else {
 				error.put("action", "Unknown action: "+orderaction);
 				request.getRequestDispatcher(

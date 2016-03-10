@@ -5,14 +5,14 @@ import java.util.List;
 
 public interface MemberDAO {
 
-	MemberBean select(String acc_email);
+	MemberBean select(String account_UID);
 
 	List<MemberBean> select();
 
 	MemberBean update(
 			//String member_ID,
 			String name,
-			//Blob member_photo,
+			String member_photo,
 			String gender,
 			String tel,
 			String GUAR_CT,

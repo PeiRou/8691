@@ -21,22 +21,40 @@
     <!-- Fonts -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
-    
+    <style>
+		table, th, td {
+		    border: 0px solid black;
+		    border-collapse: collapse;
+		}
+		th, td {
+		    padding: 25px;
+		    text-align: center;
+		}
+	</style>
 </head>
 <body>
 <jsp:include page="/fragment/top.jsp" />
 	<div class="container">
 		<div class="row">
 			<div class="box">		
-				<div class="col-lg-12 text-center">
-					<form action="<c:url value="/MemberServlet" />" method="post" >
-
-						<h2>親愛的店家會員您好</h2>
-					<input class="btn btn-primary" type="button" value="點我看訂單" onclick="location.href='<%= request.getContextPath() %>/_03_Orders/OrdersTotal.jsp'"> 
-					
-					<input class="btn btn-primary" type="button" value="點我改資料" onclick="location.href='<%= request.getContextPath() %>/_04_Members/InfoUpdate.jsp'">
-
-					
+				<div class="col-lg-12 text-center ">
+					<form action="<c:url value="/MemberServlet" />" method="post" ></form>
+					<form action="<c:url value='/_03_Orders/SellerOrdersTotalServlet' />" method="post" >
+					<table style="width:100%">
+						  <tr>
+						    <td colspan="3"><h2>親愛的店家會員您好</h2></td>		
+						  </tr>
+						  <tr>
+						    <td><input class="btn btn-info" type="submit" name="orderaction" value="查看所有訂單"></td>
+						    <td>Jackson</td>		
+						    <td>xxx</td>
+						  </tr>
+						  <tr>
+						    <td><input class="btn btn-info" type="button" value="修改會員資料" onclick="location.href='<%= request.getContextPath() %>/_04_Members/InfoUpdate.jsp'"></td>
+						    <td>Doe</td>		
+						    <td>xxx</td>
+						  </tr>
+					</table>
 					</form>
 				</div>
 			</div>			
@@ -48,7 +66,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <p>Copyright &copy; Your Website 2016</p>
+                    <p>Copyright &copy; EEIT83第五小組 2016 | <a href="<%= request.getContextPath() %>/contact.jsp">聯絡我們</a></p>
                 </div>
             </div>
         </div>

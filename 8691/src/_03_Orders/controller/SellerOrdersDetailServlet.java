@@ -17,8 +17,8 @@ import _03_Orders.model.OrdersTotalBean;
 
 
 
-@WebServlet(urlPatterns={"/_03_Orders/OrdersDetailServlet"})
-public class OrdersDetailServlet extends HttpServlet {	
+@WebServlet(urlPatterns={"/_03_Orders/SellerOrdersDetailServlet"})
+public class SellerOrdersDetailServlet extends HttpServlet {	
 	private OrdersDetailService ordersDeatilService = new OrdersDetailService();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//接收資料
@@ -86,11 +86,11 @@ public class OrdersDetailServlet extends HttpServlet {
 		bean.setNote(note);
 		
 		//根據model執行結果顯示view
-		if("明細".equals(action)) {
+		if("訂單明細".equals(action)) {
 			List<OrdersDetailBean> result = ordersDeatilService.select(bean);
 			request.setAttribute("select", result);
 			request.getRequestDispatcher(
-					"/_03_Orders/OrdersDetailDisplay.jsp").forward(request, response);
+					"/_03_Orders/SellerOrdersDetailDisplay.jsp").forward(request, response);
 		} else {
 			error.put("action", "Unknown action: "+action);
 			request.getRequestDispatcher(
