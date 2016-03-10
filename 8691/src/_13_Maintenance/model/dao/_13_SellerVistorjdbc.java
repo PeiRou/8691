@@ -51,7 +51,6 @@ public class _13_SellerVistorjdbc {
 				obj.put("conName", rset.getString("Con_name"));
 				obj.put("conCel", rset.getString("Con_cel"));
 				obj.put("receiptsMetho", rset.getString("receipts_metho"));
-				obj.put("isCheck", rset.getString("IS_check"));
 				obj.put("sellerStatus", rset.getString("Seller_status"));
 				obj.put("shipPrice", rset.getString("ship_price"));
 				obj.put("lowestPrice", rset.getString("lowest_price"));

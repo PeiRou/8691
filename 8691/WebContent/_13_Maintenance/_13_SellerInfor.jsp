@@ -125,7 +125,6 @@ $(document).ready(function() {
 					var temphtml = '<a class="btn btn-primary">'+temp+'</a>';
 					return temphtml;
 				}},
-				{ data: "isCheck"},
 				{ data: "sellerStatus"},
 				{ data: "shipPrice"},
 				{ data: "lowestPrice"},
