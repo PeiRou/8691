@@ -45,17 +45,19 @@ public class TestMail {
    Message message = new MimeMessage(session);
    message.setFrom(new InternetAddress("eeit83team05@gmail.com"));
    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-   message.setSubject("測試寄信.");
+   message.setSubject("系統註冊審核回覆.");
    message.setSentDate(new java.util.Date()); 
 	  MimeBodyPart textPart = new MimeBodyPart();
 	   StringBuffer html = new StringBuffer();
-	   String pathurl = "http://localhost:8080"+request.getContextPath()+"/index.jsp";
-                  //	 http://localhost:8080/8691/_02_Login/Login.jsp
-	   String url = "<a href='"+pathurl+"'>按我回首頁</a>";
+	   String pathurl = "http://localhost:8080"+request.getContextPath()+"/_02_Login/Login.jsp";
+	   String url = "<a href='"+pathurl+"'>按我回登入</a>";
 	   html.append(url);
 //	   html.append("<a href='http://localhost:8080/8691/index.jsp'>按我回首頁</a>");
-	   html.append("此為系統自動發送之信件，請勿直接回覆！"); 
-	   html.append("8691管理團隊  敬上");
+	   html.append("此為 系統通知~"); 
+	   html.append("恭喜   先生/小姐  成為  店家會員 ，已完成系統註冊!");
+	   html.append("若有需更新店家圖片Logo及介紹資料，請回傳訊息於8691管理團隊!!"); 
+	   html.append("我們將盡快更新  您的店家Logo及介紹資料正式上線後，將可更新您的菜單與商品!!!"); 
+	   html.append("EEIT83第五小組  敬上");
 	
 	   textPart.setContent(html.toString(), "text/html; charset=UTF-8");
 	  
