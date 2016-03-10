@@ -69,7 +69,8 @@
 				</div>
 				
                 <div>
-					<textarea id="comment" name="comment" ></textarea>
+                	<p><select id="select2" name="seller"><option value="" selected>請選擇您要討論的店家:</option></select>
+					<p><textarea id="comment" name="comment" placeholder="請輸入留言"></textarea>
                 	<p><input type="submit" id="btn" value="送出" /></p>
                 	<br><br>
                 </div>
@@ -100,8 +101,9 @@
 	<!--滚动效果js-->
 	<script type="text/javascript">
 	
+	
+	//進入留言板後立刻從資料庫讀取已存在的留言
 	var comment = $("#comment").val();
-	  
     $(function(){
   	   $.ajax({
   		  'type':'post',
@@ -114,20 +116,24 @@
   	 			var cellcomment = JSON.parse(JSON.stringify(data[index].comment));
   	 			var cellname1 = JSON.parse(JSON.stringify(data[index].name));
   	 			var cellinsdate = JSON.parse(JSON.stringify(data[index].insdate));
-  	 			var cellword = $('<small></small>').append("發表於").append(cellinsdate);
-  	 			var cellname2 = $('<h5 style="text-align:right;"></h5>').append(cellname1).append(cellword);
+  	 			//var cellseller = ;
+   	 			var cellname2 = $('<strong></strong>').append(cellname1);
+  	 			
+  	 			var cellmsg1 = $('<p style="text-align:left;"></p>').prepend(cellname2).append("&nbsp;&nbsp;&nbsp;&nbsp;想對").append().append("&nbsp;&nbsp;&nbsp;&nbsp;說:");
+  	 			var cellmsg2 = $('<h6 style="text-align:right;"></h6>').append("發表於").append(cellinsdate);
+  	 			
   	 			
   	 			var index = index+1;
- 	   			var cellmsg1 = $('<h2 id="h'+index+'" style="text-align:left;"></h2>').append("#"+(index)).append("&nbsp;&nbsp;").append(cellcomment)
-								.after(cellname2);
-				var cellmsg2 =  $('<li></li>').append(cellmsg1);
- 				$('#ul1').append(cellmsg2);
+ 	   			var celltotal = $('<h2 id="h'+index+'" style="text-align:left;"></h2>').append("#"+(index)).append("&nbsp;&nbsp;").append(cellcomment)
+								.before(cellmsg1).after(cellmsg2);
+				var celltotal2 =  $('<li></li>').append(celltotal);
+ 				$('#ul1').append(celltotal2);
  	   			
   			 });
   		 }});
      });
 	
-	
+//留言滾動效果	
 $(function () {
     var scrtime;
 
@@ -148,25 +154,48 @@ $(function () {
                 liFirstHeight = $ul.find("li:first").height();//刚插入的li的高度
                 $ul.css({ top: "-" + liFirstHeight - 20 + "px" });//利用css的top属性将刚插入的li隐藏在列表上方  因li的上下padding:10px所以要-20					
             });
-        }, 3000); //留言置頂速度
+        }, 2500); //留言置頂速度
 
     }).trigger("mouseleave");//通过trigger("mouseleave")函数来触发hover事件的第2个函数
 
 });
 
-    
+    //將留言輸入資料庫
     $("#btn").click(function(){
         	$.ajax({
        		  'type':'post',
        		  'url':'<%= request.getContextPath() %>/ForumServlet',
-       		  'data':{'comment':comment},
+       		  'data':{'comment':comment,
+       			  	  'seller':	$("#select2").text()},
        		  'dataType':'json',
        		  'success': function(data){
        		 		}
        		  });
     	});
     
+  	//進入留言板後立刻從資料庫讀取店家的下拉式選單內容
+    $(function(){
+			   $.ajax({
+				  'type':'get',
+				  'url':'<%= request.getContextPath() %>/GetSeller',
+				  'data':{},
+				  'dataType':'json',
+				  'success':function(data){
+					  $.each(data,function(index){
+			  	 		var cellUID = JSON.parse(JSON.stringify(data[index].Account_UID));
+			  	 		var cellname = JSON.parse(JSON.stringify(data[index].name));
+						var opt = $("<option></option>").val(cellUID).text(cellname);
+						$('#select2').append(opt);
+					})
+				  }
+			   });
+			});
+    
+    
+  	
+    
     </script>
+  
 		        
 </body>
 </html>

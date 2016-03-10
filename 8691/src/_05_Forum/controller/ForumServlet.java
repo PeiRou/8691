@@ -33,6 +33,7 @@ public class ForumServlet extends HttpServlet {
 			
 		//接收資料		
 				String comment = request.getParameter("comment");
+				String seller = request.getParameter("seller");
 				
 		//驗證資料// 轉型態
 				Map<String, String> error = new HashMap<String, String>();
@@ -52,8 +53,6 @@ public class ForumServlet extends HttpServlet {
 					return;
 				
 				}
-			
-				
 				
 		//呼叫model	
 				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -62,7 +61,7 @@ public class ForumServlet extends HttpServlet {
 				ForumBean bean = new ForumBean();
 				//bean.setForum_UID(RD);
 				bean.setAccount_UID(accountbean);
-				bean.setRating(3);
+				bean.setSeller_Name(seller);
 				bean.setComment(comment);
 				bean.setInsdate(dateFormat.format(date).toString());
 				ForumService.insertForum(bean);

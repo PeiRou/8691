@@ -76,7 +76,9 @@
         }
 
         function chkemail() {
-            var theemail = document.getElementById("emailinput").value;      
+            var theemail = document.getElementById("emailinput").value; 
+            var namere = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+            
             if (namere.test(theemail)) {
                 document.getElementById("emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/right.png' />";
             }   

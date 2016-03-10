@@ -5,7 +5,7 @@ import java.util.Date;
 public class ForumBean {
 	private	String	Forum_UID;
 	private	String	account_UID;
-	private	int rating;
+	private	String seller_Name;
 	private	String comment;
 	private String insdate;
 	private int commentNum;
@@ -14,11 +14,11 @@ public class ForumBean {
 	public ForumBean() {
 	}
 	
-	public ForumBean(String Forum_UID, String account_UID, int rating, String comment, String insdate, int commentNum) {
+	public ForumBean(String Forum_UID, String account_UID, String seller_Name, String comment, String insdate, int commentNum) {
 		super();
 		this.Forum_UID = Forum_UID;
 		this.account_UID = account_UID;
-		this.rating = rating;
+		this.seller_Name = seller_Name;
 		this.comment = comment;
 		this.insdate = insdate;
 		this.commentNum = commentNum;
@@ -37,11 +37,11 @@ public class ForumBean {
 	public void setAccount_UID(String account_UID) {
 		this.account_UID = account_UID;
 	}
-	public int getRating() {
-		return rating;
+	public String getSeller_Name() {
+		return seller_Name;
 	}
-	public void setRating(int rating) {
-		this.rating = rating;
+	public void setSeller_Name(String seller_Name) {
+		this.seller_Name = seller_Name;
 	}
 	public String getComment() {
 		return comment;
@@ -64,7 +64,7 @@ public class ForumBean {
 
 	@Override
 	public String toString() {
-		return "ForumBean [Forum_UID=" + Forum_UID + ", account_UID=" + account_UID + ", rating=" + rating
+		return "ForumBean [Forum_UID=" + Forum_UID + ", account_UID=" + account_UID + ", seller_Name=" + seller_Name
 				+ ", comment=" + comment + ", insdate=" + insdate + ", commentNum=" + commentNum + "]";
 	}
 	

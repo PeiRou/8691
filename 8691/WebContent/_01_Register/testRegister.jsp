@@ -221,36 +221,46 @@
 		  	 
 		  	 
 		  	var $input = $('#emailinput') // 抓輸入框
-		  	$input.on('change', checkUser) // 在輸入時執行 `checkUser` 也就是下面這個 function
+		  	$input.on('change', checkUser) // 在輸入時執行 "checkUser" 也就是下面這個 function
+		  	
 		  	function checkUser() {
-
-		  	  // POST 一個 Ajax request 到 /users/check，資料為 input 輸入框的值
-		  	  $.ajax({
-		  	    'url': '<%= request.getContextPath() %>/GetEmail',
-		  	    'type': 'POST',
-		  	    'data': {'acc_email':$input.val()},
-		  	  	'success': function(res) {
-		          if(res=='1') {
-		            alert('申請帳號重複，請輸入其他帳號');
-		          } else {
-		            
-		          }
-		  	  })
-
-		  	  // 當回傳的狀態是 2xx 例如 200，也就是資料沒有重複的話則執行：
-		  	  .done(function () {
-		  	    // 例如，可以在輸入框附近加個綠色溝溝的 icon 之類的？
-		  	    // 如果沒有要做 UI 上的處理，這裡就什麼都不用寫囉。
-		  	  })
-
-		  	  // 當回傳的資料是 4xx 例如 403，表示 server 檢查發現資料重複了，則執行：
-		  	  .fail(function () {
-		  	    // 例如，可以在輸入框附近加個紅色叉叉的 icon 之類的？
-		  	    // 或是把輸入框加上一些變色的 class，
-		  	    // 或者是把表單的 submit 按鈕鎖住（加上 `disabled` 屬性）。
-		  	  })
-
+		  	// POST 一個 Ajax request 到 /GetEmail，資料為 input 輸入框的值
+			  	  $.ajax({
+			  		'url': '<%= request.getContextPath() %>/GetEmail',
+			  	    'type': 'POST',
+			  	    'data': {'acc_email':$input.val()},
+			  	  	'dataType':'json',
+			  	  	'success': function(response){
+			  	  		if($input.val() != null || $input.val().trim()!=0){
+			  	  			if(response == "1" ){
+			  	  				alert('帳號申請重複，請輸入其他帳號');
+			  	  			}else{
+			  	  				chkEmail();  //執行驗證email格式
+				          	}
+			  	  		}
+			  	  	}
+			  	});
 		  	}
+		  	  
+		  //當重新輸入email時，清空驗證狀態
+		    $('#emailinput').change(function(){
+		    		$('#emailsp').empty();
+			   });
+		  		
+// 		  	  // 當回傳的狀態是 2xx 例如 200，也就是資料沒有重複的話則執行：
+// 		  	  .done(function () {
+// 		  	    // 例如，可以在輸入框附近加個綠色溝溝的 icon 之類的？
+// 		  	    // 如果沒有要做 UI 上的處理，這裡就什麼都不用寫囉。
+// 		  	  })
+
+// 		  	  // 當回傳的資料是 4xx 例如 403，表示 server 檢查發現資料重複了，則執行：
+// 		  	  .fail(function () {
+// 		  	    // 例如，可以在輸入框附近加個紅色叉叉的 icon 之類的？
+// 		  	    // 或是把輸入框加上一些變色的 class，
+// 		  	    // 或者是把表單的 submit 按鈕鎖住（加上 `disabled` 屬性）。
+// 		  	  })
+
+		  
 		</script>
 
  		<script>
@@ -269,24 +279,8 @@
 		            if (document.getElementById("emailinput").value == "") {
 		                document.getElementById("emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
 		            }
-		            else if (document.getElementById("emailinput").value != "") {
-		            	chkEmail();          
-		            }
 		        }
 		
-		        function chkEmail() {
-		            var chkEmail = document.getElementById("emailinput").value;
-		
-		            var namere = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-		
-		            if (namere.test(chkEmail)) {
-		                document.getElementById("emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/right.png' />";
-		                
-		            }   
-		             else {
-		                document.getElementById("emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />格式錯誤";
-		               }
-		        } 
 		        
 		        function blur2() {
 		            if (document.getElementById("pwdinput").value == "") {
@@ -366,6 +360,20 @@
 		            	chkEmail2();          
 		            }
 		        }
+		        
+		        function chkEmail() {
+		            var chkEmail = document.getElementById("emailinput").value;
+		
+		            var namere = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+		
+		            if (namere.test(chkEmail)) {
+		                document.getElementById("emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/right.png' />";
+		                
+		            }   
+		             else {
+		                document.getElementById("emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />格式錯誤";
+		               }
+		        } 
 		        
 		        function chkEmail2() {
 		            var chkEmail2 = document.getElementById("emailinput2").value;

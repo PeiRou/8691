@@ -86,7 +86,6 @@ private static final String SELECT = "select * from Forum where Forum_UID=?";
 				result = new ForumBean();
 				result.setForum_UID(rset.getString("Forum_UID"));
 				result.setAccount_UID(rset.getString("account_UID"));
-				result.setRating(rset.getInt("rating"));
 				result.setComment(rset.getString("comment"));
 			}
 		} catch (SQLException e) {
@@ -136,7 +135,6 @@ private static final String SELECT_ALL = "select * from Forum";
 				result = new ForumBean();
 				result.setForum_UID(rset.getString("Forum_UID"));
 				result.setAccount_UID(rset.getString("account_UID"));
-				result.setRating(rset.getInt("rating"));
 				result.setComment(rset.getString("comment"));
 				items.add(result);
 			}
@@ -168,7 +166,7 @@ private static final String SELECT_ALL = "select * from Forum";
 		return items;
 	}
 	
-private static final String INSERT = "insert into Forum (Forum_UID, account_UID, rating, comment, insdate) values (NEWID(), ?, ?, ?, ?)";
+private static final String INSERT = "insert into Forum (Forum_UID, account_UID, seller_Name, comment, insdate) values (NEWID(), ?, ?, ?, ?)";
 	public void insert(ForumBean bean) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -179,7 +177,7 @@ private static final String INSERT = "insert into Forum (Forum_UID, account_UID,
 			stmt = conn.prepareStatement(INSERT);
 			//stmt.setString(1, bean.getForum_UID());
 			stmt.setString(1, bean.getAccount_UID());
-			stmt.setInt(2, bean.getRating());
+			stmt.setString(2, bean.getSeller_Name());
 			stmt.setString(3, bean.getComment());
 			stmt.setString(4, bean.getInsdate());
 			
@@ -215,9 +213,9 @@ private static final String INSERT = "insert into Forum (Forum_UID, account_UID,
 		}
 	}
 	
-private static final String UPDATE = "update Forum set account_UID=?, rating=?, comment=?, insdate=? where Forum_UID=?";
-	public ForumBean update(String Forum_UID, int rating,
-			String comment, String insdate, String account_UID) {
+private static final String UPDATE = "update Forum set account_UID=?, seller_Name=?, comment=?, insdate=? where Forum_UID=?";
+	public ForumBean update(String account_UID, String seller_Name,
+			String comment, String insdate, String Forum_UID) {
 		Connection conn = null;
 		PreparedStatement psStrUpd = null;
 		ForumBean result = null;
@@ -226,7 +224,7 @@ private static final String UPDATE = "update Forum set account_UID=?, rating=?, 
 			conn = dataSource.getConnection();
 			psStrUpd = conn.prepareStatement(UPDATE);
 			psStrUpd.setString(1, account_UID);
-			psStrUpd.setInt(2, rating);
+			psStrUpd.setString(2, seller_Name);
 			psStrUpd.setString(3, comment);
 			psStrUpd.setString(4, insdate);
 //			if (insdate != null) {

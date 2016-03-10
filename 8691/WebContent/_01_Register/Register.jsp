@@ -37,6 +37,7 @@
 				<form name="Register" action="<c:url value='/register.controller' />" method="post">
 			<h2 class="text-center">註冊為一般會員</h2>
 			<table class="table">
+			
 			<tr>
 				<td class="text-right">請輸入您的E-mail:</td>
 				<td><input type="text" name="acc_email" id="emailinput"
@@ -46,7 +47,11 @@
 			</tr>
 			<tr>
 				<td class="text-right">請設定您的密碼 :</td>
+
 				<td><input type="password" name="psd" value="${param.psd}" id="pwdinput"><span id="pwdsp" style="color:red"></span></td>
+
+				
+
 				<td>${error.psd}</td>
 			</tr>
 			<tr>
@@ -63,6 +68,7 @@
 				</select></td>
 				<td></td>
 			</tr>
+
 			<tr>
 				<td class="text-right">請輸入您的家用電話號碼 :</td>
 				<td><input type="text" name="tel" value="${param.phone}" placeholder="Ex:02-23456789" id="telinput"><span id="teldsp" style="color:red"></span></td>
@@ -73,8 +79,9 @@
 				<td><input type="text" name="cel" value="${param.cel}" placeholder="Ex:0912345678" id="celinput"><span id="celdsp" style="color:red"></span></td>
 				<td>${error.cel}</td>
 			</tr>
+		
 			<tr>
-				<td class="text-right">請選擇您所在的縣市 :</td>
+				<td class="text-right">請輸入您住的縣市 :</td>
 				<td><select name="GUAR_CT" size="1" value="${param.GUAR_CT}">
 												<option value="" selected>請選擇</option>
 						                        <option value="A">臺北市</option>
@@ -103,32 +110,38 @@
 				</select></td>
 				<td></td>
 			</tr>
+			
 			<tr>
-				<td class="text-right">住址(區/鄉/鎮/市) :</td>
+				<td class="text-right">請輸入您住的區域 :</td>
 					<td><select id="select1" name="GUAR_AR">
 					<option value="" selected>請選擇</option>
 					</select></td>
 				<td></td>
 			</tr>
+			
 			<tr>
-				<td class="text-right">住址(路/街/巷) :</td>
+				<td class="text-right">請輸入您住的路名 :</td>
 				<td><input id="keyword" type="text" value=""> <input id="textval" name="GUAR_ROAD" type="text" style="display:none"><span id="roadsp" style="color:red"></span></td>
 			</tr>
+	
 			<tr>
 				<td></td>
 				<td id="tb"></td>
 			</tr>
+			
 			<tr>
-				<td class="text-right">住址(號) :</td>
+				<td class="text-right">請完成輸入您的地址 :</td>
 				<td><input type="text" name="GUAR_NO" value="${param.GUAR_NO}" id="addrinput"><span id="addrsp" style="color:red"></span></td>
 				<td>${error.GUAR_NO}</td>
 			</tr>
+						
 			<tr>
 				<td class="text-right">請輸入您的備用E-mail :</td>
 				<td><input type="text" name="email2" value="${param.email2}" id="emailinput2"><span id="emailsp2" style="color:red"></span></td>
 				<td>${error.email2}</td>
 			</tr>
 			<tr>
+
 				<td align="right"><input type="submit" value="註冊" class="btn btn-primary"></td>
 			</tr>
 		</table>
@@ -205,6 +218,36 @@
 							});
 			  		 }
 		  	 };
+		  	 
+		  	 
+		  	var $input = $('#emailinput') // 抓輸入框
+		  	$input.on('change', checkUser) // 在輸入時執行 "checkUser" 也就是下面這個 function
+		  	
+		  	function checkUser() {
+		  	// POST 一個 Ajax request 到 /GetEmail，資料為 input 輸入框的值
+			  	  $.ajax({
+			  		'url': '<%= request.getContextPath() %>/GetEmail',
+			  	    'type': 'POST',
+			  	    'data': {'acc_email':$input.val()},
+			  	  	'dataType':'json',
+			  	  	'success': function(response){
+			  	  		if($input.val() != null || $input.val().trim()!=0){
+			  	  			if(response == "1" ){
+			  	  				alert('帳號申請重複，請輸入其他帳號');
+			  	  			}else{
+			  	  				chkEmail();  //執行驗證email格式
+				          	}
+			  	  		}
+			  	  	}
+			  	});
+		  	}
+		  	  
+		  //當重新輸入email時，清空驗證狀態
+		    $('#emailinput').change(function(){
+		    		$('#emailsp').empty();
+			   });
+		  		
+		  
 		</script>
 
  		<script>
@@ -223,24 +266,8 @@
 		            if (document.getElementById("emailinput").value == "") {
 		                document.getElementById("emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
 		            }
-		            else if (document.getElementById("emailinput").value != "") {
-		            	chkEmail();          
-		            }
 		        }
 		
-		        function chkEmail() {
-		            var chkEmail = document.getElementById("emailinput").value;
-		
-		            var namere = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-		
-		            if (namere.test(chkEmail)) {
-		                document.getElementById("emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/right.png' />";
-		                
-		            }   
-		             else {
-		                document.getElementById("emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />格式錯誤";
-		               }
-		        } 
 		        
 		        function blur2() {
 		            if (document.getElementById("pwdinput").value == "") {
@@ -320,6 +347,20 @@
 		            	chkEmail2();          
 		            }
 		        }
+		        
+		        function chkEmail() {
+		            var chkEmail = document.getElementById("emailinput").value;
+		
+		            var namere = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+		
+		            if (namere.test(chkEmail)) {
+		                document.getElementById("emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/right.png' />";
+		                
+		            }   
+		             else {
+		                document.getElementById("emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />格式錯誤";
+		               }
+		        } 
 		        
 		        function chkEmail2() {
 		            var chkEmail2 = document.getElementById("emailinput2").value;

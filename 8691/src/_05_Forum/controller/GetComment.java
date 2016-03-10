@@ -49,7 +49,7 @@ public class GetComment extends HttpServlet {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;		
 
-		String query = "select comment, name, Forum.insdate from Forum join Member "
+		String query = "select comment, name, seller_Name, Forum.insdate from Forum join Member "
 				+ "on Forum.account_UID=Member.account_UID order by Forum.commentNum DESC";
 //		String comment = request.getParameter("comment");
 		
@@ -65,7 +65,8 @@ public class GetComment extends HttpServlet {
 				 Map m1 = new HashMap();       
 		 		 m1.put("comment",rs.getString(1));
 		 		 m1.put("name", rs.getString(2));
-		 		 m1.put("insdate",rs.getString(3));
+		 		 m1.put("seller_Name", rs.getString(3));
+		 		 m1.put("insdate",rs.getString(4));
 				 l1.add(m1);
 			 }
 			 String jsonString = JSONValue.toJSONString(l1);                    

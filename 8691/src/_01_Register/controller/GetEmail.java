@@ -27,9 +27,9 @@ import org.json.simple.JSONValue;
 @WebServlet("/GetEmail")
 public class GetEmail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-//	private static final String URL = "jdbc:sqlserver://localhost:1433;database=DB02";
-//	private static final String USERNAME = "sa";
-//	private static final String PASSWORD = "sa123456";
+	
+	int M1 = 1;
+	int M2 = 2;
 	
 	DataSource datasource = null;
 	public GetEmail() {
@@ -49,7 +49,7 @@ public class GetEmail extends HttpServlet {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;		
 
-		String query = "select acc_email from Account where acc_email = ?";
+		String query = "select * from Account where acc_email = ?";
 		String acc_email = request.getParameter("acc_email");
 		
 		try{
@@ -58,16 +58,14 @@ public class GetEmail extends HttpServlet {
 			stmt.setString(1,acc_email);
 			rs = stmt.executeQuery();
 			
-			 List  l1 = new LinkedList();
-			 while (rs.next()) {
-				 Map m1 = new HashMap();       
-		 		 m1.put("comment",rs.getString(1));
-		 		 m1.put("name", rs.getString(2));
-		 		 m1.put("insdate",rs.getString(3));
-				 l1.add(m1);
+			 if (rs.next()) {
+				 String jsonString = JSONValue.toJSONString(M1);                    
+				 out.println(jsonString);      
+			 }else{
+				 String jsonString = JSONValue.toJSONString(M2);                    
+				 out.println(jsonString);
 			 }
-			 String jsonString = JSONValue.toJSONString(l1);                    
-			 out.println(jsonString);
+			 
 		}
 		catch(SQLException e){
 			out.println("Error:" + e.getMessage());
