@@ -58,7 +58,7 @@ public class GetSeller extends HttpServlet {
 				
 				//String url = "jdbc:sqlserver://localhost:1433;DatabaseName=DB02";
 				
-				String query = "select name from Seller_visitor";
+				String query = "select Account_UID, name from Seller_visitor";
 				
 				try{
 					conn = ds.getConnection();
@@ -69,8 +69,8 @@ public class GetSeller extends HttpServlet {
 					List  l1 = new LinkedList();
 					 while (rs.next()) {
 						 Map m1 = new HashMap();       
-				 		 //m1.put("Account_UID",rs.getString(1));
-				 		 m1.put("name", rs.getString(1));
+				 		 m1.put("Account_UID",rs.getString(1));
+				 		 m1.put("name", rs.getString(2));
 						 l1.add(m1);
 					 }
 					 String jsonString = JSONValue.toJSONString(l1);                    

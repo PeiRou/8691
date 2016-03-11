@@ -194,9 +194,9 @@ $(function () {
 				  'dataType':'json',
 				  'success':function(data){
 					  $.each(data,function(index){
-			  	 		//var cellUID = JSON.parse(JSON.stringify(data[index].Account_UID));
+			  	 		var cellUID = JSON.parse(JSON.stringify(data[index].Account_UID));
 			  	 		var cellname = JSON.parse(JSON.stringify(data[index].name));
-						var opt = $("<option></option>").text(cellname);
+						var opt = $("<option></option>").val(cellUID).text(cellname);
 						$('#select2').append(opt);
 					})
 				  }

@@ -42,12 +42,13 @@ public class ForumServlet extends HttpServlet {
 				if(comment !=null && accountbean==null) {
 					error.put("comment", "對不起，請先登入");
 				}else if(comment==null || comment.trim().length()==0){
-					error.put("comment", "請輸入您的留言");
+					error.put("comment", "請輸入留言");
+				}else if(seller==null){
+					error.put("seller", "請選擇店家");
 				}
 				
 				//處理前面的資料驗證，有錯就先return
 				if (error!= null&&!error.isEmpty()) {
-					//error.put("action", "註冊失敗");
 					RequestDispatcher rd = request.getRequestDispatcher("/_05_Forum/Forum.jsp");
 					rd.forward(request, response);
 					return;
@@ -61,7 +62,7 @@ public class ForumServlet extends HttpServlet {
 				ForumBean bean = new ForumBean();
 				//bean.setForum_UID(RD);
 				bean.setAccount_UID(accountbean);
-				bean.setSeller_Name(seller);
+				bean.setSeller_UID(seller);
 				bean.setComment(comment);
 				bean.setInsdate(dateFormat.format(date).toString());
 				ForumService.insertForum(bean);
