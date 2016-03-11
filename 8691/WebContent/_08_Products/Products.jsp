@@ -48,11 +48,11 @@
 							分類搜尋 <span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="#">評價</a></li>
-							<li><a href="#">最低消費</a></li>
-							<li><a href="#">運費</a></li>
-							<li class="divider"></li>
-							<li><a href="#">Separated link</a></li>
+							<li>
+								<c:url value="/_08_GetStore/Store.controller" var="Oderby"></c:url>
+								<a href="${Oderby}?orderby=1">評價</a></li>
+							<li><a href="${Oderby}?orderby=2">最低消費</a></li>
+							<li><a href="${Oderby}?orderby=3">運費</a></li>
 						</ul>
 					</div>
 				</div>
@@ -64,11 +64,11 @@
 							<tr>
 								<td class="col-lg-3" rowspan="2">
 								<c:choose>
-										<c:when test="${bean.GroupClass3!='[]'}">
-										<img style="width: 100%" src="<%=request.getContextPath()%>/image/store/50嵐.jpg">
+										<c:when test="${bean.GroupClass3!='[]'}">										
+										<img style="width: 100%" src="<%=request.getContextPath()%>${bean.imageStatus[0].ImageURL}">
 										</c:when>
 										<c:otherwise>
-										<img style="width: 100%" src="<%=request.getContextPath()%>/image/store/building.png">
+										<img style="width: 100%" src="<%=request.getContextPath()%>/image/store/1.png">
 										</c:otherwise>
 									</c:choose> 
 									</td>
@@ -156,12 +156,6 @@
 	<script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 	$('.dropdown-toggle').dropdown();
-	var data = $('#hidShopStaus').val();
-	//假資料位置
-	//var data = '';
-	var jsonVal = JSON.parse(data);
-	
-	//function 
 	</script>
 </body>
 </html>
