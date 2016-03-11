@@ -49,7 +49,7 @@ public class TestMail {
    message.setSentDate(new java.util.Date()); 
 	  MimeBodyPart textPart = new MimeBodyPart();
 	   StringBuffer html = new StringBuffer();
-	   html.append("Dear Levin,<br><br><br>"); 
+	   html.append("Dear Levin:<br><br>"); 
 	   html.append("此為 系統通知~<br>"); 
 	   html.append("恭喜   先生/小姐  成為  店家會員 ，已完成系統註冊!<br>"); 
 	   html.append("欲要登入系統~ 請點選連結"); 
