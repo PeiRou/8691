@@ -23,60 +23,47 @@
 
 	<link type="text/css" rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css" />
 
-<style>
-	.label1{
-		font-size:450%;
-	}
 
-	form{
-		text-align:center;
-	}
-
-	textarea {
-    width: 35%;
-    height: 150px;
-    padding: 12px 20px;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    font-size: 16px;
-    resize: none;
-}
-
-	form.p{
-		margin-left:20px;
-	
-	}
-		
-
-</style>
 </head>
 <body>
 <jsp:include page="/fragment/top.jsp" />
 	<div class="container">
 		<div class="row">
-            <div class="box">
-            <form name="Forum" action="<c:url value='/forum.controller' />" method="post">
-            	<div class="col-lg-12">
-                	<label class="label1" for="comment">8691巴豆揪么討論區:</label><br>
-                	<h3 id="msgsp" style="color:red">${error.comment}</h3>  
-                </div>
-                
-                <div id="con">
-				<div class="bottomcover" style="z-index:2;"></div>
-				<ul id="ul1"></ul>
+			<div class="box">
+				<div class="col-lg-7 text-left">
+					<!-- datatable的資料位置 -->
 				</div>
-				
-                <div>
-                	<p><select id="select2" name="seller"><option value="" selected>請選擇您要討論的店家:</option></select>
-					<p><textarea id="comment" name="comment" placeholder="請輸入留言"></textarea>
-                	<p><input type="submit" id="btn" value="送出" /></p>
-                	<br><br>
-                </div>
-           	</form>	
-            </div>
-        </div>
+				<div class="col-lg-5 text-center">
+					<form name="Forum" action="<c:url value='/forum.controller' />"
+						method="post">
+
+						<div class="form-group">
+							<h3 id="msgsp" style="color: red">${error.comment}</h3>
+							<div id="con">
+								<div class="bottomcover" style="z-index: 2;"></div>
+								<ul id="ul1"></ul>
+							</div>
+						</div>
+						<div class="col-lg-1 text-right">
+						</div>
+						<div class="col-lg-10 text-right">
+							<div class="form-group">
+								<select id="select2" name="seller" class="form-control">
+									<option value="" selected>請選擇您要討論的店家:</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<textarea id="comment" name="comment" placeholder="請輸入留言" class="form-control"></textarea>
+	
+								<input type="submit" id="btn" value="送出" class="btn btn-primary"/>
+							</div>
+						</div>
+						<div class="col-lg-1 text-right">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 	</div>
 	
 	
@@ -127,7 +114,7 @@
   	 			
   	 			
   	 			var index = index+1;
- 	   			var celltotal = $('<h2 id="h'+index+'" style="text-align:left;"></h2>').append("#"+(index)).append("&nbsp;&nbsp;").append(cellcomment)
+ 	   			var celltotal = $('<h5 id="h'+index+'" style="text-align:left;"></h5>').append("#"+(index)).append("&nbsp;&nbsp;").append(cellcomment)
 								.before(cellmsg1).after(cellmsg2);
 				var celltotal2 =  $('<li></li>').append(celltotal);
  				$('#ul1').append(celltotal2);
@@ -202,7 +189,9 @@ $(function () {
 				  }
 			   });
 			});
-    
-    </script>
+  	
+    	//datatable位置    		
+		
+	</script>
 </body>
 </html>
