@@ -30,15 +30,16 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
+import org.json.JSONObject;
 import org.json.simple.JSONValue;
 
 
-@WebServlet("/GetSeller")
-public class GetSeller extends HttpServlet {
+@WebServlet("/GetDataTable")
+public class GetDataTable extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DataSource ds = null;
 	
-	public GetSeller() {
+	public GetDataTable() {
 		try {
 			Context context = new InitialContext();
 			ds = (DataSource) context.lookup("java:comp/env/8691");
@@ -58,7 +59,7 @@ public class GetSeller extends HttpServlet {
 				
 				//String url = "jdbc:sqlserver://localhost:1433;DatabaseName=DB02";
 				
-				String query = "select Account_UID, name from Seller_visitor";
+				String query = "select Seller_visitor.name, comment, rating from Forum join Seller_visitor on Forum.seller_UID = Seller_visitor.Account_UID ";
 				
 				try{
 					conn = ds.getConnection();
@@ -69,12 +70,18 @@ public class GetSeller extends HttpServlet {
 					List  l1 = new LinkedList();
 					 while (rs.next()) {
 						 Map m1 = new HashMap();       
-				 		 m1.put("Account_UID",rs.getString(1));
-				 		 m1.put("name", rs.getString(2));
+				 		 m1.put("name",rs.getString(1));
+				 		 m1.put("comment", rs.getString(2));
+				 		 m1.put("rating", rs.getString(3));
 						 l1.add(m1);
 					 }
-					 String jsonString = JSONValue.toJSONString(l1);                    
-					 out.println(jsonString);
+					 JSONObject jsonObj = new JSONObject();
+					 jsonObj.put("data", l1);
+					 String jsonString = JSONValue.toJSONString(jsonObj);                    
+					 response.setHeader("Cache-control", "no-cache, no-store");
+					 response.setCharacterEncoding("UTF-8");
+					 response.setContentType("text/html");
+					 response.getWriter().write(jsonString);
 					
 				}
 				catch(SQLException e){

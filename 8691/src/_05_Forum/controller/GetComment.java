@@ -49,8 +49,9 @@ public class GetComment extends HttpServlet {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;		
 
-		String query = "select comment, name, seller_Name, Forum.insdate from Forum join Member "
-				+ "on Forum.account_UID=Member.account_UID order by Forum.commentNum DESC";
+		String query = "select comment, Member.name, Seller_visitor.name, Forum.insdate from Forum "
+				+ "join Member on Forum.account_UID = Member.account_UID "
+				+ "join Seller_visitor on Forum.seller_UID = Seller_visitor.Account_UID order by Forum.commentNum DESC";
 //		String comment = request.getParameter("comment");
 		
 		try{
