@@ -23,60 +23,72 @@
 
 	<link type="text/css" rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css" />
 
-<style>
-	.label1{
-		font-size:450%;
-	}
+	<!-- Jquery UI CSS -->
+    <link href="<%= request.getContextPath() %>/css/jquery.dataTable.min.css" rel="stylesheet">
+	<link href="<%= request.getContextPath() %>/css/jquery-ui/jquery-ui.min.css" rel="stylesheet">
 
-	form{
-		text-align:center;
-	}
-
-	textarea {
-    width: 35%;
-    height: 150px;
-    padding: 12px 20px;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    font-size: 16px;
-    resize: none;
-}
-
-	form.p{
-		margin-left:20px;
-	
-	}
-		
-
-</style>
 </head>
 <body>
 <jsp:include page="/fragment/top.jsp" />
 	<div class="container">
 		<div class="row">
-            <div class="box">
-            <form name="Forum" action="<c:url value='/forum.controller' />" method="post">
-            	<div class="col-lg-12">
-                	<label class="label1" for="comment">8691巴豆揪么討論區:</label><br>
-                	<h3 id="msgsp" style="color:red">${error.comment}</h3>  
-                </div>
-                
-                <div id="con">
-				<div class="bottomcover" style="z-index:2;"></div>
-				<ul id="ul1"></ul>
+			<div class="box">
+				<div class="col-lg-7 text-left">
+					<!-- datatable的資料位置 -->
+					<table id="table1">
+						<thead>
+							<tr>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
-				
-                <div>
-                	<p><select id="select2" name="seller"><option value="" selected>請選擇您要討論的店家:</option></select>
-					<p><textarea id="comment" name="comment" placeholder="請輸入留言"></textarea>
-                	<p><input type="submit" id="btn" value="送出" /></p>
-                	<br><br>
-                </div>
-           	</form>	
-            </div>
-        </div>
+				<div class="col-lg-5 text-center">
+					<form name="Forum" action="<c:url value='/forum.controller' />"
+						method="post">
+
+						<div class="form-group">
+							<h3 id="msgsp" style="color: red">${error.comment}</h3>
+							<div id="con">
+								<div class="bottomcover" style="z-index: 2;"></div>
+								<ul id="ul1"></ul>
+							</div>
+						</div>
+						<div class="col-lg-1 text-right">
+						</div>
+						<div class="col-lg-10 text-right">
+							<div class="form-group">
+								<select id="select2" name="seller" class="form-control">
+									<option value="" selected>請選擇您要討論的店家:</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<textarea id="comment" name="comment" placeholder="請輸入留言" class="form-control"></textarea>
+	
+								<input type="submit" id="btn" value="送出" class="btn btn-primary"/>
+							</div>
+						</div>
+						<div class="col-lg-1 text-right">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 	</div>
 	
 	
@@ -96,6 +108,8 @@
     <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
     <!--jQuery-->
 	<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery2.js"></script>
+<%--     <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-1.12.1.min.js"></script> --%>
+    <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery.dataTable.min.js"></script>
 	<!--jQuery动画暂停插件-->
 	<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery.pause.min.js"></script>
 	<!--滚动效果js-->
@@ -104,6 +118,8 @@
 	
 	//進入留言板後立刻從資料庫讀取已存在的留言
 	var comment = $("#comment").val();
+	var seller = null;
+	
     $(function(){
   	   $.ajax({
   		  'type':'post',
@@ -115,16 +131,17 @@
   			 $.each(data,function(index){
   	 			var cellcomment = JSON.parse(JSON.stringify(data[index].comment));
   	 			var cellname1 = JSON.parse(JSON.stringify(data[index].name));
+  	 			var cellseller1 = JSON.parse(JSON.stringify(data[index].seller_Name));
   	 			var cellinsdate = JSON.parse(JSON.stringify(data[index].insdate));
-  	 			//var cellseller = ;
-   	 			var cellname2 = $('<strong></strong>').append(cellname1);
   	 			
-  	 			var cellmsg1 = $('<p style="text-align:left;"></p>').prepend(cellname2).append("&nbsp;&nbsp;&nbsp;&nbsp;想對").append().append("&nbsp;&nbsp;&nbsp;&nbsp;說:");
+   	 			var cellname2 = $('<strong></strong>').append(cellname1);
+   	 			var cellseller2 = $('<strong></strong>').append(cellseller1);
+  	 			var cellmsg1 = $('<p style="text-align:left;"></p>').prepend(cellname2).append("&nbsp;&nbsp;&nbsp;&nbsp;想對&nbsp;&nbsp;&nbsp;&nbsp;").append(cellseller2).append("&nbsp;&nbsp;&nbsp;&nbsp;說:");
   	 			var cellmsg2 = $('<h6 style="text-align:right;"></h6>').append("發表於").append(cellinsdate);
   	 			
   	 			
   	 			var index = index+1;
- 	   			var celltotal = $('<h2 id="h'+index+'" style="text-align:left;"></h2>').append("#"+(index)).append("&nbsp;&nbsp;").append(cellcomment)
+ 	   			var celltotal = $('<h5 id="h'+index+'" style="text-align:left;"></h5>').append("#"+(index)).append("&nbsp;&nbsp;").append(cellcomment)
 								.before(cellmsg1).after(cellmsg2);
 				var celltotal2 =  $('<li></li>').append(celltotal);
  				$('#ul1').append(celltotal2);
@@ -133,40 +150,54 @@
   		 }});
      });
 	
-//留言滾動效果	
-$(function () {
-    var scrtime;
 
-    var $ul = $("#con ul");
-    var liFirstHeight = $ul.find("li:first").height();//第一个li的高度
-    $ul.css({ top: "-" + liFirstHeight - 20 + "px" });//利用css的top属性将第一个li隐藏在列表上方	 因li的上下padding:10px所以要-20
+		//留言滾動效果	
+		$(function() {
+			var scrtime;
 
-    $("#con").hover(function () {
-        $ul.pause();//暂停动画
-        clearInterval(scrtime);
-    }, function () {
-        $ul.resume();//恢复播放动画	
-        scrtime = setInterval(function scrolllist() {
-            //动画形式展现第一个li
-            $ul.animate({ top: 0 + "px" }, 1500, function () { //留言移動速度
-                //动画完成时
-                $ul.find("li:last").prependTo($ul);//将ul的最后一个剪切li插入为ul的第一个li
-                liFirstHeight = $ul.find("li:first").height();//刚插入的li的高度
-                $ul.css({ top: "-" + liFirstHeight - 20 + "px" });//利用css的top属性将刚插入的li隐藏在列表上方  因li的上下padding:10px所以要-20					
-            });
-        }, 2500); //留言置頂速度
+			var $ul = $("#con ul");
+			var liFirstHeight = $ul.find("li:first").height();//第一个li的高度
+			$ul.css({
+				top : "-" + liFirstHeight - 20 + "px"
+			});//利用css的top属性将第一个li隐藏在列表上方	 因li的上下padding:10px所以要-20
 
-    }).trigger("mouseleave");//通过trigger("mouseleave")函数来触发hover事件的第2个函数
+			$("#con").hover(function() {
+				$ul.pause();//暂停动画
+				clearInterval(scrtime);
+			}, function() {
+				$ul.resume();//恢复播放动画	
+				scrtime = setInterval(function scrolllist() {
+					//动画形式展现第一个li
+					$ul.animate({
+						top : 0 + "px"
+					}, 1500, function() { //留言移動速度
+						//动画完成时
+						$ul.find("li:last").prependTo($ul);//将ul的最后一个剪切li插入为ul的第一个li
+						liFirstHeight = $ul.find("li:first").height();//刚插入的li的高度
+						$ul.css({
+							top : "-" + liFirstHeight - 20 + "px"
+						});//利用css的top属性将刚插入的li隐藏在列表上方  因li的上下padding:10px所以要-20					
+					});
+				}, 2500); //留言置頂速度
 
-});
+			}).trigger("mouseleave");//通过trigger("mouseleave")函数来触发hover事件的第2个函数
 
-    //將留言輸入資料庫
-    $("#btn").click(function(){
-        	$.ajax({
-       		  'type':'post',
-       		  'url':'<%= request.getContextPath() %>/ForumServlet',
-       		  'data':{'comment':comment,
-       			  	  'seller':	$("#select2").text()},
+		});
+
+		//更換店家選單
+		$('#select2').change(function() {
+			seller = $("#select2 option:selected").val();
+			console.log(seller);
+		});
+
+		//將留言輸入資料庫
+		$("#btn").click(function() {
+			$.ajax({
+				'type' : 'post',
+				'url' : '<%=request.getContextPath()%>/ForumServlet',
+       		  	'data':{'comment':comment,
+       			  	 	 'seller' :seller
+       			  	 },
        		  'dataType':'json',
        		  'success': function(data){
        		 		}
@@ -190,12 +221,23 @@ $(function () {
 				  }
 			   });
 			});
-    
-    
   	
-    
-    </script>
-  
-		        
+ 
+  		//datatable位置
+		$(document).ready(function() {
+			$('#table1').DataTable({
+				"ajax" : "<%= request.getContextPath() %>/_05_Forum/objects.txt",
+				"columns" : [ 
+				   {"data" : "name"}, 
+				   {"data" : "position"}, 
+				   {"data" : "office"}, 
+				   {"data" : "extn"}, 
+				   {"data" : "start_date"}, 
+				   {"data" : "salary"} ]
+			});
+		});
+    	
+    	
+	</script>
 </body>
 </html>

@@ -23,6 +23,9 @@
 
 	<link type="text/css" rel="stylesheet" href="<%= request.getContextPath() %>/css/style.css" />
 
+	<!-- Jquery UI CSS -->
+    <link href="<%= request.getContextPath() %>/css/jquery.dataTable.min.css" rel="stylesheet">
+	<link href="<%= request.getContextPath() %>/css/jquery-ui/jquery-ui.min.css" rel="stylesheet">
 
 </head>
 <body>
@@ -32,6 +35,15 @@
 			<div class="box">
 				<div class="col-lg-7 text-left">
 					<!-- datatable的資料位置 -->
+					<table id="table1">
+						<thead>
+							<tr>
+								<th>店家</th>
+								<th>評分</th>
+								<th>最新留言</th>
+							</tr>
+						</thead>
+					</table>
 				</div>
 				<div class="col-lg-5 text-center">
 					<form name="Forum" action="<c:url value='/forum.controller' />"
@@ -79,20 +91,23 @@
         </div>
     </footer>
 
-    <!-- Bootstrap Core JavaScript -->
+   <!-- Bootstrap Core JavaScript -->
     <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
     <!--jQuery-->
 	<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery2.js"></script>
+<%--     <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-1.12.1.min.js"></script> --%>
+    <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery.dataTable.min.js"></script>
 	<!--jQuery动画暂停插件-->
 	<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery.pause.min.js"></script>
 	<!--滚动效果js-->
 	<script type="text/javascript">
 	
-	
-	//進入留言板後立刻從資料庫讀取已存在的留言
 	var comment = $("#comment").val();
 	var seller = null;
+	var prodInfo = null;
 	
+	
+	//進入留言板後立刻從資料庫讀取已存在的留言
     $(function(){
   	   $.ajax({
   		  'type':'post',
@@ -123,48 +138,54 @@
   		 }});
      });
 	
-//留言滾動效果	
-$(function () {
-    var scrtime;
 
-    var $ul = $("#con ul");
-    var liFirstHeight = $ul.find("li:first").height();//第一个li的高度
-    $ul.css({ top: "-" + liFirstHeight - 20 + "px" });//利用css的top属性将第一个li隐藏在列表上方	 因li的上下padding:10px所以要-20
+		//留言滾動效果	
+		$(function() {
+			var scrtime;
 
-    $("#con").hover(function () {
-        $ul.pause();//暂停动画
-        clearInterval(scrtime);
-    }, function () {
-        $ul.resume();//恢复播放动画	
-        scrtime = setInterval(function scrolllist() {
-            //动画形式展现第一个li
-            $ul.animate({ top: 0 + "px" }, 1500, function () { //留言移動速度
-                //动画完成时
-                $ul.find("li:last").prependTo($ul);//将ul的最后一个剪切li插入为ul的第一个li
-                liFirstHeight = $ul.find("li:first").height();//刚插入的li的高度
-                $ul.css({ top: "-" + liFirstHeight - 20 + "px" });//利用css的top属性将刚插入的li隐藏在列表上方  因li的上下padding:10px所以要-20					
-            });
-        }, 2500); //留言置頂速度
+			var $ul = $("#con ul");
+			var liFirstHeight = $ul.find("li:first").height();//第一个li的高度
+			$ul.css({
+				top : "-" + liFirstHeight - 20 + "px"
+			});//利用css的top属性将第一个li隐藏在列表上方	 因li的上下padding:10px所以要-20
 
-    }).trigger("mouseleave");//通过trigger("mouseleave")函数来触发hover事件的第2个函数
+			$("#con").hover(function() {
+				$ul.pause();//暂停动画
+				clearInterval(scrtime);
+			}, function() {
+				$ul.resume();//恢复播放动画	
+				scrtime = setInterval(function scrolllist() {
+					//动画形式展现第一个li
+					$ul.animate({
+						top : 0 + "px"
+					}, 1500, function() { //留言移動速度
+						//动画完成时
+						$ul.find("li:last").prependTo($ul);//将ul的最后一个剪切li插入为ul的第一个li
+						liFirstHeight = $ul.find("li:first").height();//刚插入的li的高度
+						$ul.css({
+							top : "-" + liFirstHeight - 20 + "px"
+						});//利用css的top属性将刚插入的li隐藏在列表上方  因li的上下padding:10px所以要-20					
+					});
+				}, 2500); //留言置頂速度
 
-});
+			}).trigger("mouseleave");//通过trigger("mouseleave")函数来触发hover事件的第2个函数
 
+		});
 
+		
 		//更換店家選單
-		$('#select2').change(function(){
+		$('#select2').change(function() {
 			seller = $("#select2 option:selected").val();
 			console.log(seller);
 		});
 
-	
-    //將留言輸入資料庫
-    $("#btn").click(function(){
-        	$.ajax({
-       		  'type':'post',
-       		  'url':'<%= request.getContextPath() %>/ForumServlet',
-       		  'data':{'comment':comment,
-       			  	  'seller' :seller
+		//將留言輸入資料庫
+		$("#btn").click(function() {
+			$.ajax({
+				'type' : 'post',
+				'url' : '<%=request.getContextPath()%>/ForumServlet',
+       		  	'data':{'comment':comment,
+       			  	 	 'seller' :seller
        			  	 },
        		  'dataType':'json',
        		  'success': function(data){
@@ -190,8 +211,20 @@ $(function () {
 			   });
 			});
   	
-    	//datatable位置    		
-		
+  	
+ 	//顯示datatable
+  	
+		$(document).ready(function() {
+			$('#table1').DataTable({
+				ajax:'<%= request.getContextPath() %>/GetDataTable',
+			column:[{"data" : "name"}, 
+					{"data" : "rating"}, 
+					{"data" : "comment"}
+				   ]
+			});
+		});
+    	
+    	
 	</script>
 </body>
 </html>

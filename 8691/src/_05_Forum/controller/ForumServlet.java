@@ -64,6 +64,7 @@ public class ForumServlet extends HttpServlet {
 				bean.setAccount_UID(accountbean);
 				bean.setSeller_UID(seller);
 				bean.setComment(comment);
+				bean.setRating(3);
 				bean.setInsdate(dateFormat.format(date).toString());
 				ForumService.insertForum(bean);
 				System.out.println(dateFormat.format(date).toString());
