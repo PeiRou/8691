@@ -39,21 +39,10 @@ public class MemberServlet extends HttpServlet {
 	System.out.println("From member servlet: "+result);			
 	
 	request.setAttribute("select", result);
-//	request.getRequestDispatcher(
-//			"/_04_Members/Members.jsp").forward(request, response);
+	request.getRequestDispatcher(
+			"/_04_Members/Members.jsp").forward(request, response);
+}
 
-	if(RoleID.equals("201")){
-		request.getRequestDispatcher(
-				"/_04_Members/Members.jsp").forward(request, response);
-		}else if(RoleID.equals("102")){
-			request.getRequestDispatcher(
-				"/_04_Members/SellerMembers.jsp").forward(request, response);	
-		}	
-	}
-
-	
-	
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.doGet(request, response);
 	}

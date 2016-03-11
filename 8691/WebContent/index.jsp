@@ -142,7 +142,7 @@
                         <strong>由來介紹</strong>
                     </h2>
                     <hr>
-                    <img class="img-responsive img-border img-left" src="img/8691.jpg" alt="">
+                    <img class="img-responsive img-border img-left" width="450px" height="450px" src="img/ilovefood.jpg" alt="">
                     <hr class="visible-xs">
                     <p>近年來由於行動上網逐漸成為現代人們上網的主流方式，便利的電子商務O2O(Online To Offline)及APP系統(ex:團購活動)逐漸成為很多人都熱衷於的活動之一，這個趨勢在全球各國都相當明顯。</p>
                     <p>繁忙的生活中，用餐時間往往都不知道食用什麼? 以至於沒有足夠的時間一次性的滿足味蕾，而導致寶貴的時間流逝。為了給予現代人可以一次享用到各種不同類型的美食，所以集思廣益製作出了『巴豆揪么(8961) 』美食飲料訂購網站系統，在大家聚集的教室、辦公室...等開放式空間，以提供節省運費及不必要的時間浪費之功效，希望藉由這個網站可以讓大家的食欲得到滿足。</p>

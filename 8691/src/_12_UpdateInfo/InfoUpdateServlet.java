@@ -31,6 +31,7 @@ public class InfoUpdateServlet extends HttpServlet {
     			
     			String name = request.getParameter("name");
     			String gender = request.getParameter("gender");
+    			String member_photo = request.getParameter("member_photo");
     			String tel = request.getParameter("tel");
     			String GUAR_CT = request.getParameter("GUAR_CT");
     			String GUAR_AR = request.getParameter("GUAR_AR");
@@ -97,6 +98,7 @@ public class InfoUpdateServlet extends HttpServlet {
     			
     				//bean1.setAccount_UID(bean.getAccount_UID());
     				bean2.setName(name);
+    				bean2.setMember_photo("");
     				bean2.setGender(gender);
     				bean2.setTel(tel);
     				bean2.setGUAR_CT(GUAR_CT);
@@ -110,12 +112,11 @@ public class InfoUpdateServlet extends HttpServlet {
     				updateInfoService.update(bean2);
     				
     				if (aaa!= null) {
-        				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+        				RequestDispatcher rd = request.getRequestDispatcher("/_04_Members/UpdateSuccess.jsp");
         				rd.forward(request, response);}else{
         					RequestDispatcher rd = request.getRequestDispatcher("/_02_Login/Login.jsp");
         				rd.forward(request, response);
-        					
-        					
+        			
         				}	
 //    				} else if("Update".equals(orderaction)) {
 //    				OrdersTotalBean result = ordersTotalService.update(bean);
@@ -129,7 +130,7 @@ public class InfoUpdateServlet extends HttpServlet {
 		
 	}
 
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		this.doGet(request, response);

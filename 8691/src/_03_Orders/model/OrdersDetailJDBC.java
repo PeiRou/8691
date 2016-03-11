@@ -112,53 +112,53 @@ private static final String SELECT = "select * from Orders_detail where ordersID
 	}
 
 
-//	private static final String INSERT = "insert into Orders_detail (Orders_detail_UID, Orders_ID, Food_ID, Drink_name, quantity, Food_original_price, Note) values (?, ?, ?, ?, ?, ?, ?)";
-//
-//	
-//	public OrdersDetailBean insert(OrdersDetailBean bean) {
-//		OrdersDetailBean result = null;
-//		Connection conn = null;
-//		PreparedStatement stmt = null;
-//
-//		try {
-//			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-//			conn = dataSource.getConnection();
-//			stmt = conn.prepareStatement(INSERT);
-//			stmt.setString(1, bean.getOrders_detail_UID());
-//			stmt.setString(2, bean.getOrdersID());			
-//			stmt.setInt(3, bean.getFood_ID());
-//			stmt.setString(4, bean.getDrink_name());
-//			stmt.setInt(5, bean.getQuantity());
-//			stmt.setInt(6, bean.getOriginalPrice());
-//			stmt.setString(7, bean.getNote());			
-//
-//			int i = stmt.executeUpdate();
-//
-//			if (i == 1) {
-//				System.out.println("INSERT Success!");				
-//				result = bean;
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			if (stmt != null) {
-//				try {
-//					stmt.close();
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//			if (conn != null) {
-//				try {
-//					conn.close();
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		}
-//		return result;
-//	}
-//
+	private static final String INSERT = "insert into Orders_detail (Orders_detail_UID, Food_ID, Drink_name, quantity, Food_original_price, Note) values (NEWID(), ?, ?, ?, ?, ?)";
+
+	
+	public OrdersDetailBean insert(OrdersDetailBean bean) {
+		OrdersDetailBean result = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+
+		try {
+			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement(INSERT);
+			//stmt.setString(1, bean.getOrders_detail_UID());
+			//stmt.setInt(2, bean.getOrdersID());			
+			stmt.setInt(1, bean.getFood_ID());
+			stmt.setString(2, bean.getDrink_name());
+			stmt.setInt(3, bean.getQuantity());
+			stmt.setInt(4, bean.getOriginalPrice());
+			stmt.setString(5, bean.getNote());			
+
+			int i = stmt.executeUpdate();
+
+			if (i == 1) {
+				System.out.println("INSERT Success!");				
+				result = bean;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return result;
+	}
+
 //	private static final String UPDATE = "update Orders_detail set Orders_ID=?, Food_ID=?, Drink_name=?, quantity=?, Food_original_price=?, Note=? where orders_detail_UID=?";
 //
 //	

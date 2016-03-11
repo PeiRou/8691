@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>About - Business Casual - Start Bootstrap Theme</title>
+    <title>8691會員中心</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<%= request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
@@ -20,16 +20,7 @@
     <!-- Fonts -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
-    <style>
-		table, th, td {
-		    border: 0px solid black;
-		    border-collapse: collapse;
-		}
-		th, td {
-		    padding: 25px;
-		    text-align: center;
-		}
-	</style>
+    
 </head>
 <body>
 <jsp:include page="/fragment/top.jsp" />
@@ -53,20 +44,38 @@
 								<th>備用email</th>
 							</tr>
 						</thead>
-<!-- 						<tbody style="text-align: left;" class="customer-font"> -->
-<!-- 						</tbody> -->
+						<tbody style="text-align: left;" class="customer-font">
+						</tbody>
 					</table>
 					<c:set value="${select}" var="MemberStaus"></c:set>
 					<input id="hidMemberStaus" type="hidden" value='${MemberStaus}' />
 				</div>
-				<!-- 2個按鈕 -->
-				<form action="<c:url value="/MemberServlet" />" method="post" >
-				<input class="btn btn-primary" type="button" value="點我改資料" onclick="location.href='<%= request.getContextPath() %>/_04_Members/InfoUpdate.jsp'">
-				</form>
-				<form action="<c:url value='/_03_Orders/OrdersTotalServlet' />" method="post">
-				<input class="btn btn-primary" type="submit" name="orderaction" value="查看我的訂單">
-				</form>
-				<!-- 2個按鈕 -->
+				
+				<table class="table">
+				  <tr>
+				    <td width="12"><form action="<c:url value="/MemberServlet" />" method="post" >
+						<input class="btn btn-info" type="button" value="點我改資料" onclick="location.href='<%= request.getContextPath() %>/_04_Members/InfoUpdate.jsp'">
+						</form>
+					</td>
+<!-- 				    <td rowspan="3"><img width="200px" height="200px" src="img/吉野家ad1.jpg" ></td>		 -->
+				    <td rowspan="3"><img width="200px" height="200px" src="img/吉野家ad2.jpg" ></td>
+				    <td rowspan="3"><img width="200px" height="200px" src="img/茶湯會ad.jpg" ></td>
+				    <td rowspan="3"><img width="200px" height="200px" src="img/蛋糕ad.jpg" ></td>
+				    <td rowspan="3"><img width="200px" height="200px" src="img/50嵐ad.gif" ></td>
+				  </tr>
+				  <tr>
+				    <td><form action="<c:url value="/MemberServlet" />" method="post" >
+						<input class="btn btn-info" type="button" value="點我改資料" onclick="location.href='<%= request.getContextPath() %>/_04_Members/InfoUpdate.jsp'">
+						</form>
+					</td>
+				  </tr>
+				  <tr>
+				    <td><form action="<c:url value='/_03_Orders/OrdersTotalServlet' />" method="post">
+						<input class="btn btn-info" type="submit" name="orderaction" value="查看我的訂單">
+						</form>
+					</td>
+				  </tr>
+				</table>
 			</div>			
 		</div>
 	</div>
@@ -77,7 +86,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <p>Copyright &copy; Your Website 2016</p>
+                    <p>Copyright &copy; EEIT83第五小組 2016 | <a href="<%= request.getContextPath() %>/contact.jsp">聯絡我們</a></p>
                 </div>
             </div>
         </div>
@@ -86,7 +95,7 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
     
-    Json
+    <!-- Json -->
     <script src="<%= request.getContextPath() %>/js/json.js"></script>
     
     <!-- jQuery -->

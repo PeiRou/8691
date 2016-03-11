@@ -33,13 +33,13 @@ public class ChangePsdService {
 //			return null;
 //		}
 		
-		public static void main(String[] args) {
-			ChangePsdService service = new ChangePsdService();
-			//AccountBean bean = service.login("Marcuslo@Foodmail.com", "111111");
-			//System.out.println(bean);
-			//service.changePassword("Marcuslo@Foodmail.com", "888888", "111111");
-			service.changePassword("Marcuslo@Foodmail.com", "8888", "6666");
-		}
+//		public static void main(String[] args) {
+//			ChangePsdService service = new ChangePsdService();
+//			AccountBean bean = service.login("Marcuslo@Foodmail.com", "111111");
+//			System.out.println(bean);
+//			service.changePassword("Marcuslo@Foodmail.com", "888888", "111111");
+//			service.changePassword("Marcuslo@Foodmail.com", "8888", "6666");
+//		}
 	}
-	
+//	
 

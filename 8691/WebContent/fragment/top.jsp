@@ -47,13 +47,13 @@
 						</li>
 					</c:when>
 				</c:choose>
-				<c:choose>
-					<c:when test="${RoleID == 102}">
-						<li><c:url value="/_13_Maintenance/GetSeller.controller" var="GetSellerpath"></c:url>
-						<a href="${GetSellerpath}">店家中心</a>
-						</li>
-					</c:when>
-				</c:choose>				
+<%-- 				<c:choose> --%>
+<%-- 					<c:when test="${RoleID == 102}"> --%>
+<%-- 						<li><c:url value="/_13_Maintenance/GetSeller.controller" var="GetSellerpath"></c:url> --%>
+<%-- 						<a href="${GetSellerpath}">店家中心</a> --%>
+<!-- 						</li> -->
+<%-- 					</c:when> --%>
+<%-- 				</c:choose>				 --%>
 				<c:choose>
 					<c:when test="${RoleID == 201}">
 						<li><c:url value="/MemberServlet" var="GetMemberPath"></c:url>
