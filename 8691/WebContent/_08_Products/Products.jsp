@@ -48,20 +48,30 @@
 							分類搜尋 <span class="caret"></span>
 						</button>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="#">評價</a></li>
-							<li><a href="#">最低消費</a></li>
-							<li><a href="#">運費</a></li>
-							<li class="divider"></li>
-							<li><a href="#">Separated link</a></li>
+							<li>
+								<c:url value="/_08_GetStore/Store.controller" var="Oderby"></c:url>
+								<a href="${Oderby}?orderby=1">評價</a></li>
+							<li><a href="${Oderby}?orderby=2">最低消費</a></li>
+							<li><a href="${Oderby}?orderby=3">運費</a></li>
 						</ul>
 					</div>
 				</div>
-				<div class="col-lg-9">
+				<div class="col-lg-9">				
+					<c:set value="${select}" var="ShopStaus"></c:set>
+					<input id="hidShopStaus" type="hidden" value='${ShopStaus}' />
 					<table class="table">
-						<c:forEach var="bean" items="${select}">
+						<c:forEach var="bean" items="${ShopStaus}">
 							<tr>
-								<td class="col-lg-3" rowspan="2"><img style="width: 100%"
-									src="<%=request.getContextPath()%>/image/store/50嵐.jpg"></td>
+								<td class="col-lg-3" rowspan="2">
+								<c:choose>
+										<c:when test="${bean.GroupClass3!='[]'}">										
+										<img style="width: 100%" src="<%=request.getContextPath()%>${bean.imageStatus[0].ImageURL}">
+										</c:when>
+										<c:otherwise>
+										<img style="width: 100%" src="<%=request.getContextPath()%>/image/store/1.png">
+										</c:otherwise>
+									</c:choose> 
+									</td>
 								<td class="text-left">		
 									<h4>${bean.Name}</h4>
 								</td>
@@ -70,8 +80,21 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="text-left">
-									<p>咖啡專賣飲料</p> 
+								<td class="text-left">								
+								<c:choose>
+										<c:when test="${bean.GroupClass3!='[]'}">
+										<h6>
+											<c:forEach var="GroupClass3" items="${bean.GroupClass3}"
+												varStatus="loop">								
+												${GroupClass3.ProdStatusClass1Name}
+												<c:if test="${!loop.last}">,</c:if>
+											</c:forEach>
+											</h6>
+										</c:when>
+										<c:otherwise>
+										資料建置中
+										</c:otherwise>
+									</c:choose><br>
 									<c:forEach var="j" begin="0" end="4"
 										varStatus="status">
 										<%--<c:when test="${j<=countstar}"> --%>
