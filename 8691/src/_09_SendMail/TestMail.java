@@ -45,7 +45,7 @@ public class TestMail {
    Message message = new MimeMessage(session);
    message.setFrom(new InternetAddress("eeit83team05@gmail.com"));
    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-   message.setSubject("系統註冊審核回覆.");
+   message.setSubject("巴豆揪么(8691)系統註冊審核回覆");
    message.setSentDate(new java.util.Date()); 
 	  MimeBodyPart textPart = new MimeBodyPart();
 	   StringBuffer html = new StringBuffer();
@@ -55,7 +55,7 @@ public class TestMail {
 //	   html.append("<a href='http://localhost:8080/8691/index.jsp'>按我回首頁</a>");
 	   html.append("此為 系統通知~"); 
 	   html.append("恭喜   先生/小姐  成為  店家會員 ，已完成系統註冊!");
-	   html.append("若有需更新店家圖片Logo及介紹資料，請回傳訊息於8691管理團隊!!"); 
+	   html.append("若有需更新店家圖片Logo及介紹資料，請回傳訊息於8691管理團隊(EEIT83第五小組)!!"); 
 	   html.append("我們將盡快更新  您的店家Logo及介紹資料正式上線後，將可更新您的菜單與商品!!!"); 
 	   html.append("EEIT83第五小組  敬上");
 	
