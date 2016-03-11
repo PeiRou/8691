@@ -43,28 +43,23 @@
 				
 					<c:when test="${RoleID == 102}">
 						<li><c:url value="/_10_Menu/GetMenu.controller" var="GetMenupath"></c:url>
-						<a href="${GetMenupath}">測試菜單維護</a>
+						<a href="${GetMenupath}">菜單維護</a>
 						</li>
 					</c:when>
 				</c:choose>
-<%-- 				<c:choose> --%>
-<%-- 					<c:when test="${RoleID == 102}"> --%>
-<%-- 						<li><c:url value="/_13_Maintenance/GetSeller.controller" var="GetMenupath"></c:url> --%>
-<%-- 						<a href="${GetMenupath}">店家資訊</a> --%>
-<!-- 						</li> -->
-<%-- 					</c:when> --%>
-<%-- 				</c:choose>				 --%>
+				<c:choose>
+					<c:when test="${RoleID == 102}">
+						<li><c:url value="/_13_Maintenance/GetSeller.controller" var="GetSellerpath"></c:url>
+						<a href="${GetSellerpath}">店家中心</a>
+						</li>
+					</c:when>
+				</c:choose>				
 				<c:choose>
 					<c:when test="${RoleID == 201}">
 						<li><c:url value="/MemberServlet" var="GetMemberPath"></c:url>
 						<a href="${GetMemberPath}">會員中心</a>
 						</li>
-					</c:when>
-						<c:when test="${RoleID == 102}">
-						<li><c:url value="/MemberServlet" var="GetMemberPath"></c:url>
-						<a href="${GetMemberPath}">會員中心</a>
-						</li>
-					</c:when>
+					</c:when>						
 				</c:choose>
 				
 				<c:choose>
@@ -74,10 +69,6 @@
 						</li>
 					</c:when>
 				</c:choose>
-				
-<!-- 				<li><a -->
-<%-- 					href="<%=request.getContextPath()%>/_04_Members/Members.jsp">會員中心</a> --%>
-<!-- 				</li> -->
 				<li><a
 					href="<%= request.getContextPath() %>/_05_Forum/Forum.jsp">留言板</a>
 				</li>

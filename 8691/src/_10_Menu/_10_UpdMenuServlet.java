@@ -28,7 +28,6 @@ public class _10_UpdMenuServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String accountUID = (String) session.getAttribute("LoginOK");
 		String prodaction = null;
-		String temp[] = {"","",""};
 		JSONObject jsonObj = null;
 		String strTable = "";
 		String strJsonData = "";
@@ -47,7 +46,13 @@ public class _10_UpdMenuServlet extends HttpServlet {
 		System.out.println("strJsonData: "+strJsonData);	
 		
 		if(strTable!="" && strJsonData!=""){
-			if ("Insert".equals(prodaction)) {
+			if("".equals(accountUID)){
+				String err ="";
+				response.setHeader("Cache-control", "no-cache, no-store");
+				response.setCharacterEncoding("UTF-8");
+				response.setContentType("text/html");
+				response.getWriter().write(err);
+			}else if ("Insert".equals(prodaction)) {
 				JSONObject json = new JSONObject();
 				try {
 					JSONArray jsonArry = jsonObj.getJSONArray("status");
@@ -57,7 +62,7 @@ public class _10_UpdMenuServlet extends HttpServlet {
 						if (i == 0) {
 							json.put("AccountUID", accountUID);
 							json.put("FoodName", jsonArry.getJSONObject(i).getString("FoodName"));
-							// json.put("FoodPhoto",jsonArry.getJSONObject(i).getString("FoodPhoto"));
+							json.put("FoodPhoto","");
 							json.put("GroupClass3ID", jsonArry.getJSONObject(i).getString("GroupClass3ID"));
 							rstFoodID = foodjdbc.insert(json);
 							if (rstFoodID == 0) {
@@ -65,7 +70,7 @@ public class _10_UpdMenuServlet extends HttpServlet {
 							} else {
 								json.put("FoodID", rstFoodID);
 							}
-						} else {
+						} else if(rstFoodID!=0) {
 							JSONObject jsonFoodPrice = new JSONObject();
 							
 							jsonFoodPrice.put("FoodID", rstFoodID);

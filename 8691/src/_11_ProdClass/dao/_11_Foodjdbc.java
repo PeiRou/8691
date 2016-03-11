@@ -92,17 +92,19 @@ public class _11_Foodjdbc {
 		return 0;
 	}
 	
-	private final String INSERT = "insert into Food values (?,?,null,?)";
+	private final String INSERT = "insert into Food values (?,?,?,?)";
 	public int insert(JSONObject JsonData) throws JSONException {
+		ResultSet rs = null;
 		try(Connection conn = dataSource.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(INSERT,Statement.RETURN_GENERATED_KEYS);) {				
 				if(JsonData.getString("AccountUID") != ""&&JsonData.getString("GroupClass3ID") != "") {
+					System.out.println("InsJsonData: "+JsonData);
 					stmt.setString(1,JsonData.getString("AccountUID"));
 					stmt.setString(2,JsonData.getString("FoodName"));
-					//stmt.setString(3,JsonData.getString("FoodPhoto"));
-					stmt.setString(3,JsonData.getString("GroupClass3ID"));
+					stmt.setString(3,JsonData.getString("FoodPhoto"));
+					stmt.setString(4,JsonData.getString("GroupClass3ID"));
 					stmt.executeUpdate();
-					ResultSet rs = stmt.getGeneratedKeys();
+					rs = stmt.getGeneratedKeys();
 				    if(rs.next()){
 				    	System.out.println(rs.getInt(1));
 				    	return rs.getInt(1);
@@ -110,6 +112,14 @@ public class _11_Foodjdbc {
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
+			}finally{
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		return 0;
 	}

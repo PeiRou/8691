@@ -58,4 +58,36 @@ public class _11_ProdClass3jdbc {
 		}
 		return JSONObjectList;
 	}
+	
+	private final String SELECT_BY_C2_ID = "select * from Prod_status_class3 where Prod_status_class2_ID=?";
+	public List selectC2(String ProdStatusClass2ID) {
+		List JSONObjectList = null;
+		ResultSet rset = null;
+		try(Connection conn = dataSource.getConnection();
+			PreparedStatement stmt = conn.prepareStatement(SELECT_BY_C2_ID);
+			) {
+			stmt.setString(1, ProdStatusClass2ID);
+			rset = stmt.executeQuery();
+		
+			JSONObjectList = new LinkedList();
+			while(rset.next()) {
+				JSONObject obj = new JSONObject();
+				obj.put("ProdStatusClass3ID", rset.getString("Prod_status_class3_ID"));
+				obj.put("ProdStatusClass3Name", rset.getString("Prod_status_class3_name"));
+				obj.put("ProdStatusClass3Price", rset.getString("Prod_status_class3_price"));
+				JSONObjectList.add(obj);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			if (rset != null) {
+				try {
+					rset.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return JSONObjectList;
+	}
 }

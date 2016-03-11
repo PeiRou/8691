@@ -16,6 +16,7 @@ import _11_ProdClass.dao._11_Foodjdbc;
 import _11_ProdClass.dao._11_GroupClass3jdbc;
 import _11_ProdClass.dao._11_ProdClass1jdbc;
 import _11_ProdClass.dao._11_ProdClass2jdbc;
+import _11_ProdClass.dao._11_ProdClass3jdbc;
 import _11_ProdClass.dao._11_SizeStatusjdbc;
 @WebServlet(
 		urlPatterns={"/_10_Menu/GetMenu.controller"}
@@ -37,17 +38,20 @@ public class _10_GetMenuServlet extends HttpServlet {
 		List resultSzSts = null;
 		List resultPrCl1 = null;
 		List resultPrCl2 = null;
+		List resultPrSts = null;
 		try {
-			result = foodjdbc.select(accountUID);
-			resultGroup = groupClass3jdbc.select(accountUID);
-			resultSzSts = sizeStatusjdbc.select();
-		    resultPrCl1 = prodClass1jdbc.select();
-			resultPrCl2 = prodClass2jdbc.select();
+			//result = foodjdbc.select(accountUID);
+//			resultGroup = groupClass3jdbc.selectGpFoodStatus(accountUID);
+//			resultSzSts = sizeStatusjdbc.select();
+//		    resultPrCl1 = prodClass1jdbc.select();
+//			resultPrCl2 = prodClass2jdbc.select();
+			//resultPrSts = prodClass1jdbc.selectC1C2C3();
 			System.out.println("result:"+result);
 			System.out.println("resultGroup:"+resultGroup);
 			System.out.println("resultSzSts:"+resultSzSts);
 			System.out.println("resultPrClas1:"+resultPrCl1);
 			System.out.println("resultPrClas2:"+resultPrCl2);
+			System.out.println("resultPrSts:"+resultPrSts);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}		
@@ -66,6 +70,4 @@ public class _10_GetMenuServlet extends HttpServlet {
 	
 		this.doGet(req, resp);
 	}
-	
-
 }
