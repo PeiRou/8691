@@ -99,11 +99,15 @@ public class UploadAction extends ActionSupport implements RequestAware, Servlet
 				return Action.SUCCESS;
 			}
 		} else if ("Insert".equals(production) && photo != null) {
+			System.out.println("photo:"+photo);
 			String Servletpath = Request.getServletContext().getRealPath("/");
+			System.out.println("Servletpath:"+Servletpath);
 			
 			String photopath = "/image/store/"+ id +".png";
-		
+			File fin2 = new File(Servletpath+photopath);
+			System.out.println("fin2:"+fin2);
 			//toGIF(photo, fin2);
+//			FileInputStream fin = new FileInputStream(photo);
 			byte[] inputBytes = photopath.getBytes();
 			bean.setPhoto(inputBytes);
 			UploadVO result = null;
@@ -147,6 +151,14 @@ public class UploadAction extends ActionSupport implements RequestAware, Servlet
 		BufferedImage Bi = ImageIO.read(F);
 		int BiWidth = Bi.getWidth();
 		int BiHeight = Bi.getHeight();
+
+		//2015/03/02修改成不壓縮
+		/*double size = 146840.0; //超過此標準的圖將被壓縮
+		if (BiWidth*BiHeight>size){
+			double proportion = Math.sqrt(size / BiWidth / BiHeight);
+			BiWidth = (int) (BiWidth * proportion);
+			BiHeight = (int) (BiHeight * proportion);
+		}*/
 		
 		BufferedImage resizedImage = new BufferedImage(BiWidth, BiHeight, Bi.getType());
 		Graphics2D g = resizedImage.createGraphics();
