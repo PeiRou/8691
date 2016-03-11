@@ -67,6 +67,7 @@
 				<input class="btn btn-primary" type="submit" name="orderaction" value="查看我的訂單">
 				</form>
 				<!-- 2個按鈕 -->
+				<!--<img class="img-responsive img-border " width="450px" height="450px" src="img/ilovefood.jpg" alt="">-->
 			</div>			
 		</div>
 	</div>
