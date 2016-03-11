@@ -49,16 +49,16 @@ public class TestMail {
    message.setSentDate(new java.util.Date()); 
 	  MimeBodyPart textPart = new MimeBodyPart();
 	   StringBuffer html = new StringBuffer();
-	   html.append("Dear Levin,<br><br>"); 
+	   html.append("Dear Levin,<br><br><br>"); 
 	   html.append("此為 系統通知~<br>"); 
 	   html.append("恭喜   先生/小姐  成為  店家會員 ，已完成系統註冊!<br>"); 
 	   html.append("欲要登入系統~ 請點選連結"); 
 	   String pathurl = "http://localhost:8080"+request.getContextPath()+"/_02_Login/Login.jsp";
-	   String url = "<a href='"+pathurl+"'>按我回登入</a><br>";
+	   String url = "<a href='"+pathurl+"'>按我回登入</a><br><br><br>";
 	   html.append(url);
 	   
-	   html.append("若有需更新店家圖片Logo及介紹資料，請回傳訊息於8691管理團隊(EEIT83第五小組)!!"); 
-	   html.append("我們將盡快更新  您的店家Logo及介紹資料正式上線後，將可更新您的菜單與商品!!!<br>"); 
+	   html.append("若有需更新店家圖片Logo及介紹資料，請回傳訊息於8691管理團隊(EEIT83第五小組)!!<br>"); 
+	   html.append("我們將盡快更新  您的店家Logo及介紹資料正式上線後，將可更新您的菜單與商品!!!<br><br>"); 
 	   html.append("EEIT83第五小組  敬上");
 	
 	   textPart.setContent(html.toString(), "text/html; charset=UTF-8");
