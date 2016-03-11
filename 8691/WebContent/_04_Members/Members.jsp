@@ -20,16 +20,7 @@
     <!-- Fonts -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
-    <style>
-		table, th, td {
-		    border: 0px solid black;
-		    border-collapse: collapse;
-		}
-		th, td {
-		    padding: 25px;
-		    text-align: center;
-		}
-	</style>
+    
 </head>
 <body>
 <jsp:include page="/fragment/top.jsp" />
@@ -53,8 +44,8 @@
 								<th>備用email</th>
 							</tr>
 						</thead>
-<!-- 						<tbody style="text-align: left;" class="customer-font"> -->
-<!-- 						</tbody> -->
+						<tbody style="text-align: left;" class="customer-font">
+						</tbody>
 					</table>
 					<c:set value="${select}" var="MemberStaus"></c:set>
 					<input id="hidMemberStaus" type="hidden" value='${MemberStaus}' />
@@ -63,9 +54,13 @@
 				<form action="<c:url value="/MemberServlet" />" method="post" >
 				<input class="btn btn-primary" type="button" value="點我改資料" onclick="location.href='<%= request.getContextPath() %>/_04_Members/InfoUpdate.jsp'">
 				</form>
+				<form action="<c:url value="/PsdUpdate" />" method="post" >
+				<input class="btn btn-primary" type="button" value="點我改密碼" onclick="location.href='<%= request.getContextPath() %>/_04_Members/updatePsd.jsp'">
+				</form>
 				<form action="<c:url value='/_03_Orders/OrdersTotalServlet' />" method="post">
 				<input class="btn btn-primary" type="submit" name="orderaction" value="查看我的訂單">
 				</form>
+				
 				<!-- 2個按鈕 -->
 				<!--<img class="img-responsive img-border " width="450px" height="450px" src="img/ilovefood.jpg" alt="">-->
 			</div>			
@@ -87,7 +82,7 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
     
-    Json
+    <!-- Json -->
     <script src="<%= request.getContextPath() %>/js/json.js"></script>
     
     <!-- jQuery -->

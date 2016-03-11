@@ -24,34 +24,53 @@
     <!-- jquery.css -->
     
     <link href="<%= request.getContextPath() %>/css/jquery.dataTable.min.css" rel="stylesheet">
-    <link href="<%= request.getContextPath() %>/css/jquery-ui/jquery-ui.min.css" rel="stylesheet">    
+	    <link href="<%= request.getContextPath() %>/css/jquery-ui/jquery-ui.min.css" rel="stylesheet">
+	<style type="text/css" class="init">
+	td.details-control {
+		background: url('<%= request.getContextPath() %>/images/details_open.png') no-repeat center center;
+		cursor: pointer;
+	}
+	
+	tr.shown td.details-control {
+		background: url('<%= request.getContextPath() %>/images/details_close.png') no-repeat center
+			center;
+	}
+	</style>
 </head>
 <body>
 <jsp:include page="/fragment/top.jsp" />
 	<div class="container">
 		<div class="row">
 			<div class="box">
-				<div class="col-lg-12 text-center">
-					<table id="vistorTable"
-						class="table table-striped table-hover dataTable" cellspacing="0">
+				<div class="col-lg-12">
+					<table id="example" class="display" cellspacing="0" width="100%">
 						<thead>
-							<tr class="customer-font">
+							<tr>
+								<th></th>
 								<th>店家名稱</th>
-								<th>是否審核</th>
-								<th>店家狀態</th>
+<!-- 								<th>負責人名稱</th> -->
+<!-- 								<th>負責人電話</th> -->
+<!-- 								<th>備用email</th> -->
+								<th>是否啟用</th>
 								<th>申請日期</th>
-								<th>店家資訊</th>
+								<th>開通店家</th>
 							</tr>
 						</thead>
-						<tbody style="text-align: left;" class="customer-font">
-						</tbody>
+<!-- 						<tfoot> -->
+<!-- 							<tr> -->
+<!-- 								<th></th> -->
+<!-- 								<th>店家名稱</th> -->
+<!-- 								<th>負責人名稱</th> -->
+<!-- 								<th>負責人電話</th> -->
+<!-- 								<th>備用email</th> -->
+<!-- 								<th>是否審核</th> -->
+<!-- 								<th>申請日期</th> -->
+<!-- 								<th>店家資訊</th> -->
+<!-- 							</tr> -->
+<!-- 						</tfoot> -->
 					</table>
 					<c:set value="${select}" var="VistorStaus"></c:set>
-					<input id="hidVistorStaus" type="hidden" value='${VistorStaus}' />
-					
-					<c:url value="/_13_Maintenance/GetSellerDetail.controller" var="sellerpath"></c:url>
-					<c:set value="${sellerpath}" var="sellerdetail"></c:set>
-					<input id="hidsellerdetail" type="hidden" value='${sellerdetail}' />
+					<input id="hidVistorStaus" type="hidden" value='${VistorStaus}' />			
 				</div>
 			</div>			
 		</div>
@@ -62,7 +81,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <p>Copyright &copy; EEIT83第五小組 2016 | <a href="<%= request.getContextPath() %>/contact.jsp">聯絡我們</a></p>
+                    <p>Copyright &copy; Your Website 2016</p>
                 </div>
             </div>
         </div>
@@ -80,51 +99,166 @@
 	<script src="<%= request.getContextPath() %>/js/jquery-ui.min.js"></script>
 </body>
 <script type="text/javascript">
+var count = 0;
+function format ( d ) {
+    // `d` is the original data object for the row
+    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+        '<tr>'+
+            '<td>統一編號:</td>'+
+            '<td>'+d.fein+'</td>'+
+        '</tr>'+
+        '<tr>'+
+            '<td>地址(縣/市):</td>'+
+            '<td>'+d.guarCT+'</td>'+
+        '</tr>'+
+        '<tr>'+
+            '<td>地址(區:</td>'+
+            '<td>'+d.guarAR+'</td>'+
+        '</tr>'+
+        '<tr>'+
+            '<td>地址(路):</td>'+
+            '<td>'+d.guarROAD+'</td>'+
+        '</tr>'+
+        '<tr>'+
+            '<td>地址(號:</td>'+
+            '<td>'+d.guarNO+'</td>'+
+        '</tr>'+
+        
+        '<tr>'+
+             '<td>負責人名稱:</td>'+
+             '<td>'+d.conName+'</td>'+
+        '</tr>'+
+        '<tr>'+
+             '<td>負責人電話:</td>'+
+             '<td>'+d.conCel+'</td>'+
+        '</tr>'+
+
+        '<tr>'+
+             '<td>備用email:</td>'+
+             '<td>'+d.email2+'</td>'+
+        '</tr>'+
+ 
+    '</table>';
+}
+var data = $('#hidVistorStaus').val();
+var prodInfo = JSON.parse(data);
 $(document).ready(function() {
-
-	var data = $('#hidVistorStaus').val();	
-	//var data = '[{"isCheck":"0","sellerSstatus":"1","name":"玖壹壹","insdate":"2016-03-07","accountUID":"4DDF4A66-2618-4A89-BB32-01BB25E36E2B"},{"isCheck":"1","sellerSstatus":"0","name":"willy wang","insdate":"2016-03-07","accountUID":"A04712B3-A15A-4448-AF9E-27E40BB6733A"},{"isCheck":"0","sellerSstatus":"0","name":"大隻老","insdate":"2016-03-07","accountUID":"A6105F1F-80A1-459C-B5D3-420BCDBED06A"},{"isCheck":"1","sellerSstatus":"0","name":"1111","insdate":"2016-03-07","accountUID":"399115CA-CF2F-48D7-AE37-4288E8E55F6A"},{"isCheck":"0","sellerSstatus":"0","name":"玖壹壹","insdate":"2016-03-07","accountUID":"61C16B60-CB5A-4548-A4B7-584E8E6F2807"},{"isCheck":"0","sellerSstatus":"0","name":"測試","insdate":"2016-03-07","accountUID":"0E23A738-497E-4DBC-83B8-7109260A52FA"},{"isCheck":"0","sellerSstatus":"0","name":"000","insdate":"2016-03-07","accountUID":"1A91A662-869A-4EFA-9DC2-BD519AD8C710"},{"isCheck":"0","sellerSstatus":"0","name":"1111","insdate":"2016-03-07","accountUID":"00B12767-B318-499B-9A14-CD5E9D5A9F13"},{"isCheck":"0","sellerSstatus":"0","name":"1111","insdate":"2016-03-07","accountUID":"359FD003-1052-481F-9BD2-DE90E1F60329"},{"isCheck":"0","sellerSstatus":"0","name":"willy wang","insdate":"2016-03-07","accountUID":"8B1459F0-4C4E-481F-87A5-F3855C6BE256"}]';
-
-	var prodInfo = JSON.parse(data);
-
-	$('#vistorTable').DataTable({
-		data:prodInfo,
-		columns: 
-			[
-	            { data: "name" },
-	            //{ data: "isCheck" },
+    var table = $('#example').DataTable( {
+    	data:prodInfo,
+        "columns": [
+				{
+				    "className":      'details-control',
+				    "orderable":      false,
+				    "data":           null,
+				    "defaultContent": ''
+				},
+            	{ data: "name" },
+// 	            { data: "Con_name"},
+// 	            { data: "Con_cel"},
+// 	            { data: "email2"},
+// 	            { data: "isCheck" },
 	            { data: function(prodInfo){	  
-	            	var temp = '<form>';
+	            	var temp = '<form class="rad">';
 	            	var check0,check1;
-	            	if(prodInfo.isCheck =='0'){
+	            	if(prodInfo.sellerStatus =='1'){
 	            		check0 = 'checked';
 		            	check1 = '';
-	            	}else{
+	            	}else if(prodInfo.sellerStatus =='2'){
 	            		check0 = '';
 		            	check1 = 'checked';
-	            	}	            	
-	            	temp = temp.concat('<input type="radio" name="rdoisCheck" value="0" '+check0+'>未審核');
-	            	temp = temp.concat('<input type="radio" name="rdoisCheck" value="1" '+check1+'>已審核');
+	            	}else{
+	            		check0 = '';
+		            	check1 = '';
+	            	}	
+	            	temp = temp.concat('<input class="rddisabled rdo1" type="radio" name="rdoisCheck" value="1" '+check0+'>不啟用');
+	            	temp = temp.concat('<input class="rdVal" type="hidden" value="'+prodInfo.sellerStatus+'">');
+	            	temp = temp.concat('<input class="rddisabled rdo2" type="radio" name="rdoisCheck" value="2" '+check1+'>啟用');
 	            	temp = temp.concat('</form>');	  
-	            	$(":input").attr('disabled', true);
+	            	$(".rddisabled").attr('disabled', true);
 	            	return temp;
 	            } },
-	            { data: "sellerSstatus" },
+	            //{ data: "sellerSstatus" },
 	            { data: "insdate" },	            
 	            //{ data: "accountUID" }
-	            { data: function(prodInfo){
-	            	var url = $('#hidsellerdetail').val();
-	            	var acc = prodInfo.accountUID;
-	            	console.log(acc);
-	            	var temp = '<a class="btn btn-primary" href="'+url+'?sellerUID='+ acc +'">按我看店家資訊</a>';	            	
+// 	            { data: function(prodInfo){
+// 	            	var temp = '<a class="btn btn-primary Upd">修改</a>';
+// 	            	temp = temp+'<a class="btn btn-info Ok" style="display:none">確定</a>'
+// 	            	return temp;
+ 
+// 	            } }
+				{ data: function(prodInfo){
+	            	var url = $('#hidUpdseller').val();
+	            	var temp = '<input type=hidden value="'+ prodInfo.accountUID +'">';           	
+ 	            	var temp = temp +'<a class="btn btn-primary Upd">修改</a>';
+	            	var temp = temp +'<a class="btn btn-info Ok" style="display:none">確定</a>';	            	
 	            	return temp;
-	            }
-	            }
-	        ],
-	});
-		
-});	
-
-
+	            } }
+        ],
+        "order": [[1, 'asc']]
+    } );
+     
+    // Add event listener for opening and closing details
+    $('#example tbody').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+ 
+        if ( row.child.isShown() ) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            row.child( format(row.data()) ).show();
+            tr.addClass('shown');
+        }
+    } );
+    $('.Upd').click(function(){    	
+    	if(count ==0){	    	
+	    	$(this).parent().parent().find('.rddisabled').attr('disabled', false);
+	    	$(this).parent().parent().find('.rad').addClass('bg-success');
+	    	$(this).next().show();
+	    	$(this).hide();
+    	}
+    	count = 1;
+    });
+    $('.rdo1').change(function(){
+    	var temp = $(this).val();
+    	$(this).next().val(temp);
+    });
+    $('.rdo2').change(function(){
+    	var temp = $(this).val();    	
+    	$(this).prev().val(temp);
+    });
+    $('.Ok').click(function(){
+    	count = 0;    	
+    	$(this).parent().parent().find('.rddisabled').attr('disabled', true);
+    	var temp = $(this).parent().parent().find('.rdVal').val();
+    	var serUID = $(this).prev().prev().val();
+    	console.log('serUID:'+serUID);
+    	setJson(temp,serUID);
+    	$(this).prev().show();
+    	$(this).hide();    	
+    });
+} );
+//呼叫ajax
+function setJson(jsonData,serUID) {
+	var action = action;
+	$.ajax({
+		url : '<%= request.getContextPath() %>/_13_Maintenance/GetSeller.controller',
+        type: 'get',
+        dataType: 'json',
+        async:true,
+        data: {
+        	"sellerUID": serUID,
+        	"sellerStatus": jsonData},
+        contentType: 'application/json',
+        mimeType: 'application/json',
+        success: function (data) {   
+        	if(data==1){
+        		$('.rad').attr("class","rad");
+        	}
+        }});
+}
 </script>
 </html>

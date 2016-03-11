@@ -39,18 +39,16 @@
 								<th>統一編號</th>
 								<th>店家名稱</th>
 								<th>電話</th>
-								<th>住址(縣/市)</th>
-								<th>住址(區/鄉/鎮/市)</th>
-								<th>住址(路)</th>
-								<th>住址(號)</th>
+								<th>地址(縣/市)</th>
+								<th>地址(區)</th>
+								<th>地址(路)</th>
+								<th>地址(號)</th>
 								<th>聯絡人</th>
 								<th>聯絡人手機</th>
-								<th>收款方式(0:貨到付款,1:信用卡,3:都有)</th>
-								<th>是否審核(0:未審核,1:已審核</th>
-								<th>是否為合作店家(0:否,1:是)</th>
+								<th>收款方式</th>
+								<th>是否為合作店家</th>
 								<th>運費</th>
 								<th>最低金額</th>
-								<th>新增日期</th>
 							</tr>
 						</thead>
 						<tbody style="text-align: left;" class="customer-font">
@@ -59,16 +57,19 @@
 					<c:set value="${select}" var="VistorStaus"></c:set>
 					<input id="hidVistorStaus" type="hidden" value='${VistorStaus}' />
 				</div>
+				<input class="btn btn-primary text-center" type="button" value="看更多店家" onclick="location.href='<%= request.getContextPath() %>/_13_Maintenance/GetSeller.controller'">
 			</div>			
 		</div>
 	</div>
+	
+	
 	<!-- /.container -->
 
     <footer>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <p>Copyright &copy; EEIT83第五小組 2016 | <a href="<%= request.getContextPath() %>/contact.jsp">聯絡我們</a></p>
+                    <p>Copyright &copy; Your Website 2016</p>
                 </div>
             </div>
         </div>
@@ -84,11 +85,12 @@
     <script src="<%= request.getContextPath() %>/js/jquery.js"></script>
     <script src="<%= request.getContextPath() %>/js/jquery.dataTable.min.js"></script>
 	<script src="<%= request.getContextPath() %>/js/jquery-ui.min.js"></script>
+	
 </body>
 <script type="text/javascript">
 $(document).ready(function() {	
 	var data = $('#hidVistorStaus').val();	
-	//var data = '';
+	//var data = '[{"guarNO":"6號2樓","lowestPrice":"10","receiptsMetho":"3","sellerStatus":"2","conName":"50blue","fein":"88888888","shipPrice":"100","guarCT":"臺北市","guarAR":"100","email2":"50@50.com","conCel":"0912345678","name":"50嵐","sellerPhoto":null,"tel":"098777","guarROAD":"1000","insdate":"2016-03-02"}]';
 	var prodInfo = JSON.parse(data);
 	
 	$('#vistorTable').DataTable({
@@ -122,18 +124,65 @@ $(document).ready(function() {
 				    	temp = "啊!錯了";
 				    	break;
 				    }
-					var temphtml = '<a class="btn btn-primary">'+temp+'</a>';
+					var temphtml = ' '+temp+'</a>';
 					return temphtml;
 				}},
-				{ data: "sellerStatus"},
+				
+// 				{ data: function(prodInfo){
+// 					var sellerStatus = parseInt(prodInfo.sellerStatus);
+// 					var temp1;
+// 					console.log("sellerStatus:"+sellerStatus);
+// 					switch(sellerStatus) {
+// 				    case 0:				        
+// 				    	temp1 = "未審核";
+// 				    	break;
+// 				    case 1:				        
+// 				    	temp1 = "未啟用";
+// 				    	break;
+// 				    case 2:				        
+// 				    	temp1 = "啟用";
+// 				    	break;
+// 				    default:
+// 				    	temp1 = "啊!錯了";
+// 				    	break;
+// 				    }
+// 					var temphtml = ''+temp1+'</a>';
+// 					return temphtml;
+// 				}},
+				
+				{ data: function(prodInfo){	  
+	            	var temp = '<form>';
+	            	var check1,check2;
+	            	if(prodInfo.sellerStatus == '0'){
+		            	check1 = '';
+		            	check2 = '';
+	            	}else if(prodInfo.sellerStatus == '1'){
+		            	check1 = 'checked';
+		            	check2 = '';
+	            	}else if(prodInfo.sellerStatus == '2'){
+	            		check0 = '';
+		            	check1 = '';
+		            	check2 = 'checked';
+	            		
+	            	}	
+	            	temp = temp.concat('<input type="radio" name="rdoisCheck" value="1" '+check1+'>未啟用');
+	            	temp = temp.concat('<input type="radio" name="rdoisCheck" value="2" '+check2+'>啟用');
+	            	temp = temp.concat('</form>');
+	            	//$(":input").attr('disabled', true);
+	            	return temp;
+	            } },
+
 				{ data: "shipPrice"},
-				{ data: "lowestPrice"},
-				{ data: "insdate"}	            
+				{ data: "lowestPrice"},            
 	        ],
 	});
 		
 });	
 
 
+
 </script>
+
+
+
 </html>

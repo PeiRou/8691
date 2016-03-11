@@ -17,13 +17,13 @@ public class OrdersDetailService {
 		} 
 		return result;
 	}
-//	public OrdersDetailBean insert(OrdersDetailBean bean) {
-//		OrdersDetailBean result = null;
-//		if(bean!=null) {
-//			result = ordersDetaiDao.insert(bean);
-//		}
-//		return result;
-//	}
+	public OrdersDetailBean insert(OrdersDetailBean bean) {
+		OrdersDetailBean result = null;
+		if(bean!=null) {
+			result = ordersDetaiDao.insert(bean);
+		}
+		return result;
+	}
 //	public OrdersDetailBean update(OrdersDetailBean bean) {
 //		OrdersDetailBean result = null;
 //		if(bean!=null) {

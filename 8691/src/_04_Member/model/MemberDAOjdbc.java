@@ -192,21 +192,21 @@ public MemberBean update(
 			psStrUpd = conn.prepareStatement(UPDATE);
 			psStrUpd.setString(1, name);
 			psStrUpd.setString(2, member_photo);
-			psStrUpd.setString(2, gender);
-			psStrUpd.setString(3, tel);
-			psStrUpd.setString(4, GUAR_CT);
-			psStrUpd.setString(5, GUAR_AR);
-			psStrUpd.setString(6, GUAR_ROAD);
-			psStrUpd.setString(7, GUAR_NO);
-			psStrUpd.setString(8, email2);
-			psStrUpd.setString(9, cel);
+			psStrUpd.setString(3, gender);
+			psStrUpd.setString(4, tel);
+			psStrUpd.setString(5, GUAR_CT);
+			psStrUpd.setString(6, GUAR_AR);
+			psStrUpd.setString(7, GUAR_ROAD);
+			psStrUpd.setString(8, GUAR_NO);
+			psStrUpd.setString(9, email2);
+			psStrUpd.setString(10, cel);
 //			if (insdate != null) {
 //				long time = insdate.getTime();
 //				psStrUpd.setDate(11, new java.sql.Date(time));
 //			} else {
 //				psStrUpd.setDate(11, null);
 //			}
-			psStrUpd.setString(10, account_UID);
+			psStrUpd.setString(11, account_UID);
 			int i = psStrUpd.executeUpdate();
 			if(i==1){
 				System.out.println(result);
@@ -319,63 +319,4 @@ public MemberBean update(
 		}
 		return 0;
 	}
-	
-	
-//private static final String SELECT_name_from_member = "select * from member where account_UID=?";
-//	
-//	@Override
-//	public MemberBean selectName(String account_UID) {
-//		Connection conn = null;
-//		MemberBean result = null;
-//		ResultSet rset = null;
-//		PreparedStatement pstmt = null;
-//		try {//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-//            conn = ds.getConnection();	
-//			pstmt = conn.prepareStatement(SELECT_name_from_member); {
-//			pstmt.setString(1, account_UID);
-//			rset = pstmt.executeQuery();
-//			if (rset.next()) {
-//				result = new MemberBean();
-//				result.setAccount_UID(rset.getString("account_UID"));
-//				result.setName(rset.getString("name"));
-//				//result.setMember_photo(rset.getBlob("member_photo"));
-//				result.setGender(rset.getString("gender"));
-//				result.setTel(rset.getString("tel"));
-//				result.setGUAR_CT(rset.getString("GUAR_CT"));
-//				result.setGUAR_AR(rset.getString("GUAR_AR"));
-//				result.setGUAR_ROAD(rset.getString("GUAR_ROAD"));
-//				result.setGUAR_NO(rset.getString("GUAR_NO"));
-//				result.setEmail2(rset.getString("email2"));
-//				result.setCel(rset.getString("Cel"));
-//				result.setInsdate(rset.getString("insdate"));}
-//			}
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			if (rset != null) {
-//				try {
-//					rset.close();
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//			if (pstmt != null) {
-//				try {
-//					pstmt.close();
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//			if (conn != null) {
-//				try {
-//					conn.close();
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		}
-//		return result;
-//	}
-	
 }

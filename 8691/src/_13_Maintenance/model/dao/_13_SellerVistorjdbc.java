@@ -26,7 +26,7 @@ public class _13_SellerVistorjdbc {
 		}
 	}
 	
-	private final String SELECT_BY_UID = "select * from Seller_visitor where account_UID =?";
+	private final String SELECT_BY_UID = "select a.Account_UID,a.FEIN,a.name,a.Seller_photo,a.tel,CT.GUAR_CT_name,AR.GUAR_AR_name,ROAD.GUAR_ROAD_name,a.GUAR_NO,a.email2,a.Con_name,a.Con_cel,a.receipts_metho,a.Seller_status,a.ship_price,a.lowest_price,a.insdate from Seller_visitor a join Address_CT CT on a.GUAR_CT = CT.GUAR_CT join Address_AR AR on a.GUAR_AR = AR.GUAR_AR join Address_ROAD ROAD on a.GUAR_ROAD = ROAD.GUAR_ROAD where account_UID = ?";
 	public List select(String accountUID) {
 		List JSONObjectList = null;
 		ResultSet rset = null;
@@ -43,9 +43,9 @@ public class _13_SellerVistorjdbc {
 				obj.put("name", rset.getString("name"));
 				obj.put("sellerPhoto", rset.getString("Seller_photo"));
 				obj.put("tel", rset.getString("tel"));
-				obj.put("guarCT", rset.getString("GUAR_CT"));
-				obj.put("guarAR", rset.getString("GUAR_AR"));
-				obj.put("guarROAD", rset.getString("GUAR_ROAD"));
+				obj.put("guarCT", rset.getString("GUAR_CT_name"));
+				obj.put("guarAR", rset.getString("GUAR_AR_name"));
+				obj.put("guarROAD", rset.getString("GUAR_ROAD_name"));
 				obj.put("guarNO", rset.getString("GUAR_NO"));
 				obj.put("email2", rset.getString("email2"));
 				obj.put("conName", rset.getString("Con_name"));
