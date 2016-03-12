@@ -24,21 +24,12 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class UploadAction extends ActionSupport implements RequestAware, ServletRequestAware {
-	// ServletRequestAware
-	private int id;
+	
 	private File photo;
 	private String production;
 	private HttpServletRequest Request;
 	private String userImageFileName;
 	byte[] imageInByte = null;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public File getPhoto() {
 		return photo;
@@ -68,12 +59,7 @@ public class UploadAction extends ActionSupport implements RequestAware, Servlet
 	@Override
 	public void validate() {
 		if ("Insert".equals(production) || "Update".equals(production)) {
-			if (id == 0) {
-				this.addFieldError("id", "id不可以輸入空白");
-			}
-			if (photo == null) {
-				this.addFieldError("photo", "請選擇一個圖片");
-			}
+			
 		}
 	}
 
@@ -89,7 +75,7 @@ public class UploadAction extends ActionSupport implements RequestAware, Servlet
 
 	@Override
 	public String execute() throws Exception {
-		bean.setId(id);
+		System.out.println(1);
 		if ("Select".equals(production)) {
 			List<UploadVO> result = uploadService.select(bean);
 			if (result == null) {
@@ -100,18 +86,17 @@ public class UploadAction extends ActionSupport implements RequestAware, Servlet
 			}
 		} else if ("Insert".equals(production) && photo != null) {
 			System.out.println("photo:"+photo);
+			String id ="";
 			String Servletpath = Request.getServletContext().getRealPath("/");
-			System.out.println("Servletpath:"+Servletpath);
+			//System.out.println("Servletpath:"+Servletpath);
 			
 			String photopath = "/image/store/"+ id +".png";
 			File fin2 = new File(Servletpath+photopath);
-			System.out.println("fin2:"+fin2);
-			//toGIF(photo, fin2);
-//			FileInputStream fin = new FileInputStream(photo);
-			byte[] inputBytes = photopath.getBytes();
-			bean.setPhoto(inputBytes);
+			toSaveRoot(photo, photo);
+			//System.out.println("fin2:"+fin2);
+			//toSaveRoot(photo, fin2);
 			UploadVO result = null;
-			//UploadVO result = uploadService.insert(bean);			
+			//UploadVO result = uploadService.insert(photopath);			
 			if (result == null) {
 				this.addFieldError("product.action", this.getText("prodact.failed"));
 			} else {
@@ -120,9 +105,9 @@ public class UploadAction extends ActionSupport implements RequestAware, Servlet
 			return Action.INPUT;
 		} else if ("Update".equals(production) && photo != null) {
 			toSaveRoot(photo, photo);
-			FileInputStream fin = new FileInputStream(photo);
-			byte[] inputBytes = IOUtils.toByteArray(fin);
-			bean.setPhoto(inputBytes);
+//			FileInputStream fin = new FileInputStream(photo);
+//			byte[] inputBytes = IOUtils.toByteArray(fin);
+//			bean.setPhoto(inputBytes);
 
 			UploadVO result = uploadService.update(bean);
 			if (result == null) {
