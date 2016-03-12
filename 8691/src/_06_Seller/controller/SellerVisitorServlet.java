@@ -106,9 +106,9 @@ public class SellerVisitorServlet extends HttpServlet {
 		if (psd == null || psd.trim().length() == 0) {
 			error.put("psd", "請輸入您的密碼!");
 		}System.out.println(psd);
-//		if (SellerPhoto == null || SellerPhoto.trim().length() == 0) {
-//			error.put("Seller_photo", "請輸入您的圖片!");
-//		}System.out.println(SellerPhoto);
+		if (photoPar == null) {
+			error.put("photoPar", "請輸入您的圖片!");
+		}System.out.println("photoPar:"+photoPar);
 		if (tel == null || tel.trim().length() == 0) {
 			error.put("tel", "請輸入您的連絡市話 !");
 		}System.out.println(tel);
@@ -149,19 +149,21 @@ public class SellerVisitorServlet extends HttpServlet {
 
 
 		String result = registerServiceToAccount.insertAccount(bean);
-		
+		String sucesID = "";
 		//------上傳圖片---------
 		try {
-			String id = imagejdbc.selectNowID();
-			String sFilename = getFilename(photoPar); // 檔名由Header取出
+			String id = imagejdbc.selectNowID();        //搜尋出目前要接下去的流水號ID
+			String sFilename = getFilename(photoPar);   // 檔名由Header取出
 			// 在不同的code page啟動API時有時需要轉碼，因為設計上編碼不同
 			sFilename = new String(sFilename.getBytes("ISO8859_1"), "UTF-8");
 			System.out.println("Uploaded filename=" + sFilename); // debug
 			String photopath = "/image/store/"+id+".png";
 			File oFile = new File("c:/www/xxx/data/"+photopath);
 			if (oFile.exists())
-				oFile.delete(); // 檔案已存在時先刪除
-			photoPar.write(id+".png"); // saving the uploaded file.
+				oFile.delete();                         // 檔案已存在時先刪除
+			photoPar.write(id+".png");                  // saving the uploaded file.
+			sucesID = Integer.toString(imagejdbc.insert(sFilename,photopath));
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -176,7 +178,7 @@ public class SellerVisitorServlet extends HttpServlet {
 		bean1.setAccount_UID(result);
 		bean1.setFEIN(FEIN);
 		bean1.setName(name);
-		//bean1.setSeller_photo(SellerPhoto);
+		bean1.setSeller_photo(sucesID);
 		bean1.setTel(tel);
 		bean1.setGUAR_CT(GUAR_CT);
 		bean1.setGUAR_AR(GUAR_AR);
