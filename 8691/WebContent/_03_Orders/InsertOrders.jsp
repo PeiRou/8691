@@ -21,17 +21,6 @@
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
 	<title>訂單資訊</title>
-	<script type="text/javascript">
-	function clearForm() {
-		var inputs = document.getElementsByTagName("input");
-		for(var i=0; i<inputs.length; i++) {
-			if(inputs[i].type=="text") {
-				inputs[i].value="";
-			}
-		}
-	}
-</script>
-    
 </head>
 <body>
 <jsp:include page="/fragment/top.jsp" />
@@ -39,130 +28,165 @@
 		<div class="row">
 			<div class="box">		
 				<div class="col-md-12">
-					<h2 class="text-center">訂單資訊</h2>
-					<form action="<c:url value='/_03_Orders/SellerOrdersTotalServlet' />" method="post">
-					<table class="table">
-						<tr>
-							<td class="text-right">訂單編號 : </td>
-							<td><input type="text" name="ordersID" value="${param.ordersID}"></td>
+					<h2 class="text-center">結帳</h2>
+					<form action="<c:url value='/_03_Orders/InsertOrdersServlet' />" method="post">
+					<table id="t01" class="table">
+						<tr style="display:none">
+							<td class="col-xs-8 col-sm-6 text-right">Account_UID : </td>
+							<td><input type="text" name="account_UID" value="${param.account_UID}"></td>
+							<td>${error.account_UID}</td>
+						</tr>
+						<tr style="display:none">
+							<td class="col-xs-8 col-sm-6 text-right">seller_UID : </td>
+							<td><input type="text" name="seller_UID" value="6D4B16EF-F830-4374-AF0B-8E19EA997D5F"></td>
+							<td>${error.seller_UID}</td>
+						</tr>
+						<tr style="display:none">
+							<td class="col-xs-8 col-sm-6 text-right">ordersID : </td>
+							<td><input type="text" name="ordersID" value="7010"></td>
 							<td>${error.ordersID}</td>
 						</tr>
 						<tr>
-							<td class="text-right">訂購人姓名 : </td>
-							<td><input type="text" name="name" value="${param.name}"></td>
+							<td class="col-xs-8 col-sm-6 text-right">訂購人姓名 : </td>
+							<td><input type="text" name="name" value="大安陳奕迅"></td>
 							<td>${error.name}</td>
 						</tr>
-					
 						<tr>
 							<td class="text-right">訂購人手機 : </td>
-							<td><input type="text" name="cel" value="${param.cel}"></td>
+							<td><input type="text" name="cel" value="0989123456"></td>
 							<td>${error.cel}</td>
 						</tr>
 						<tr>
-							<td class="text-right">住址(縣/市) : </td>
-							<td><input type="text" name="GUAR_CT" value="${param.GUAR_CT}"></td>
-							<td>${error.GUAR_CT}</td>
+							<td class="text-right">請選擇住址(縣/市) :</td>
+							<td><select name="GUAR_CT" size="1" value="${param.GUAR_CT}">
+															<option value="" selected>請選擇</option>
+									                        <option value="A">臺北市</option>
+														    <option value="B">臺中市 </option>
+															<option value="C">基隆市</option>
+														    <option value="D">臺南市</option>
+															<option value="E">高雄市</option>
+															<option value="F">新北市</option>
+															<option value="G">宜蘭縣</option>
+															<option value="H">桃園市</option>
+															<option value="I">嘉義市</option>
+															<option value="J">新竹縣</option>
+															<option value="K">苗栗縣</option>
+															<option value="L">南投縣</option>
+															<option value="M">彰化縣</option>
+															<option value="N">新竹市</option>
+															<option value="O">雲林縣</option>
+															<option value="P">嘉義縣</option>
+															<option value="Q">屏東縣</option>
+															<option value="R">花蓮縣</option>
+															<option value="S">臺東縣</option>
+															<option value="T">金門縣</option>
+															<option value="U">澎湖縣</option>
+															<option value="V">連江縣</option>
+							</select></td>
+							<td></td>
 						</tr>
+						
 						<tr>
-							<td class="text-right">住址(區/鄉/鎮/市) : </td>
-							<td><input type="text" name="GUAR_AR" value="${param.GUAR_AR}"></td>
-							<td>${error.GUAR_AR}</td>
+							<td class="text-right">住址(區/鄉/鎮/市) :</td>
+								<td><select id="select1" name="GUAR_AR">
+								<option value="" selected>請選擇</option>
+								</select></td>
+							<td></td>
 						</tr>
-							<tr>
-							<td class="text-right">住址(路/街/巷) : </td>
-							<td><input type="text" name="GUAR_ROAD" value="${param.GUAR_ROAD}"></td>
-							<td>${error.GUAR_ROAD}</td>
+						
+						<tr>
+							<td class="text-right">請輸入住址(路/街/巷) :</td>
+							<td><input id="keyword" type="text" value=""> <input id="textval" name="GUAR_ROAD" type="text" style="display:none"><span id="roadsp" style="color:red"></span></td>
+							<td></td>
 						</tr>
-							<tr>
-							<td class="text-right">住址(號) : </td>
-							<td><input type="text" name="GUAR_NO" value="${param.GUAR_NO}"></td>
+				
+						<tr>
+							<td></td>
+							<td id="tb"></td>
+							<td></td>
+						</tr>
+						
+						<tr>
+							<td class="text-right">請輸入住址(號) :</td>
+							<td><input type="text" name="GUAR_NO" value="${param.GUAR_NO}" id="addrinput"><span id="addrsp" style="color:red"></span></td>
 							<td>${error.GUAR_NO}</td>
 						</tr>
-							<tr>
+						<tr>
 							<td class="text-right">付款方式 : </td>
 							<td>	
 							<select name="pay_metho" value="${param.pay_metho}">
-							<option value="">請選擇</option>
-					        <option value="0">貨到付款</option>
-					        <option value="1">信用卡</option></select>
+					        <option value="貨到付款" selected>貨到付款</option>
+					        <option value="信用卡">信用卡</option></select>
 					        </td>
 							<td>${error.pay_metho}</td>
 						</tr>
-							<tr>
-							<td class="text-right">測試用自己輸入(運費): </td>
-							<td><input type="text" name="ship_price" value="${param.ship_price}"></td>
+						<tr style="display:none">
+							<td class="text-right">食物ID: </td>
+							<td><input type="text" name="Food_ID" value="309"></td>
+							<td>${error.Food_ID}</td>
+						</tr>
+						<tr style="display:none">
+							<td class="text-right">品名: </td>
+							<td><input type="text" name="drink_name" value="波霸紅茶拿鐵"></td>
+							<td>${error.drink_name}</td>
+						</tr>
+						<tr>
+							<td class="col-xs-8 col-sm-6 text-right">品名: </td>
+							<td>波霸紅茶拿鐵</td>
+							<td></td>
+						</tr>
+						<tr style="display:none">
+							<td>單價: </td>
+							<td><input type="text" name="originalPrice" value="60"></td>
+							<td>${error.originalPrice}</td>
+						</tr>
+						<tr>
+							<td class="text-right">單價: </td>
+							<td>60元</td>
+							<td></td>
+						</tr>
+						<tr style="display:none">
+							<td>運費: </td>
+							<td><input type="text" name="ship_price" value="150"></td>
 							<td>${error.ship_price}</td>
 						</tr>
-							<tr>
-							<td class="text-right">測試用自己輸入(食物金額): </td>
-							<td><input type="text" name="food_price" value="${param.food_price}"></td>
+						<tr>
+							<td class="text-right">運費: </td>
+							<td>150元</td>
+							<td>${error.ship_price}</td>
+						</tr>
+						<tr>
+							<td class="text-right">數量(杯): </td>
+							<td><input type="text" name="quantity" value="20"></td>
+							<td>${error.quantity}</td>
+						</tr>
+							<tr style="display:none">
+							<td class="text-right">food_price: </td>
+							<td><input type="text" name="food_price" value="1200"></td>
 							<td>${error.food_price}</td>
 						</tr>
 							<tr>
-							<td class="text-right">測試用自己輸入(總金額): </td>
-							<td><input type="text" name="total_amount" value="${param.total_amount}"></td>
+							<td class="text-right">總金額: </td>
+							<td><input type="text" name="total_amount" value="1350"></td>
 							<td>${error.total_amount}</td>
 						</tr>
-						
-					
-						
+						<tr style="display:none">
+							<td class="text-right">備註: </td>
+							<td><input type="text" name="note" value="半糖去冰"></td>
+							<td>${error.note}</td>
+						</tr>
 						<tr>
-							<td class="text-right">
-								<input type="submit" name="orderaction" value="Insert">
-								<input type="submit" name="orderaction" value="Update">
-								<input type="submit" name="orderaction" value="Delete">
-								<input type="submit" name="orderaction" value="Select">
-								<input type="button" value="Clear" onclick="clearForm()">
-							</td>
+							<td class="text-right">備註: </td>
+							<td>半糖去冰</td>
+							<td></td>
+						</tr>												
+						<tr>
+							<td></td>
+							<td><input type="submit" value="確認結帳" class="btn btn-primary"></td>
+							<td></td>
 						</tr>
 					</table>
-					
 					</form>
-					
-					<h3><span class="error">${error.action}</span></h3>
-					
-					<c:if test="${not empty delete and delete}">
-					<h3>Delete Product Table Success</h3>
-					<script type="text/javascript">clearForm();</script>
-					</c:if>
-					
-					<c:if test="${not empty insert}">
-					<h3>Insert Product Table Success</h3>
-					<table border="1">
-						<tr><td>訂單編號 :</td><td>${insert.ordersID}</td></tr>
-						<tr><td>訂購人姓名 :</td><td>${insert.name}</td></tr>
-						<tr><td>訂購人手機 :</td><td>${insert.cel}</td></tr>
-						<tr><td>住址(縣/市) :</td><td>${insert.GUAR_CT}</td></tr>
-						<tr><td>住址(區/鄉/鎮/市) :</td><td>${insert.GUAR_AR}</td></tr>
-						<tr><td>住址(路/街/巷) :</td><td>${insert.GUAR_ROAD}</td></tr>
-						<tr><td>住址(號) :</td><td>${insert.GUAR_NO}</td></tr>
-						<tr><td>付款方式 :</td><td>${insert.pay_metho}</td></tr>
-						<tr><td>運費 :</td><td>${insert.ship_price}</td></tr>
-						<tr><td>食物金額 :</td><td>${insert.food_price}</td></tr>
-						<tr><td>總金額 :</td><td>${insert.total_amount}</td></tr>
-					</table>
-					<script type="text/javascript">clearForm();</script>
-					</c:if>
-					
-					<c:if test="${not empty update}">
-					<h3>Update Product Table Success</h3>
-					<table border="1">
-						<tr><td>訂單編號 :</td><td>${update.ordersID}</td></tr>
-						<tr><td>訂購人姓名 :</td><td>${update.name}</td></tr>
-						<tr><td>訂購人手機 :</td><td>${update.cel}</td></tr>
-						<tr><td>住址(縣/市) :</td><td>${update.GUAR_CT}</td></tr>
-						<tr><td>住址(區/鄉/鎮/市) :</td><td>${update.GUAR_AR}</td></tr>
-						<tr><td>住址(路/街/巷) :</td><td>${update.GUAR_ROAD}</td></tr>
-						<tr><td>住址(號) :</td><td>${update.GUAR_NO}</td></tr>
-						<tr><td>付款方式 :</td><td>${update.pay_metho}</td></tr>
-						<tr><td>運費 :</td><td>${update.ship_price}</td></tr>
-						<tr><td>食物金額 :</td><td>${update.food_price}</td></tr>
-						<tr><td>總金額 :</td><td>${update.total_amount}</td></tr>
-					</table>
-					<script type="text/javascript">clearForm();</script>
-					</c:if>
-	
-
 				</div>
 			</div>			
 		</div>
@@ -181,7 +205,72 @@
 
     <!-- jQuery -->
     <script src="<%= request.getContextPath() %>/js/jquery.js"></script>
-
+    <script>
+		//進入首頁後立刻從資料庫讀取區域的下拉式選單內容
+	    $(function(){
+				   $.ajax({
+					  'type':'get',
+					  'url':'<%= request.getContextPath() %>/GetAddress',
+					  'data':{},
+					  'dataType':'xml',
+					  'success':function(data){
+						$(data).find("Category").each(function(){
+							var categoryId = $(this).children("GUAR_AR").text();
+							var categoryName = $(this).children("GUAR_AR_name").text();
+							var opt = $("<option></option>").val(categoryId).text(categoryName);
+							$('#select1').append(opt);
+						})
+					  }
+				   });
+				   $('#tb').empty();
+			});
+	    
+	    //當更換選單內容時，清空路名&關鍵字查詢
+	    $('#select1').change(function(){
+	    		$('#tb').empty();
+	    		$("#keyword").val('');
+		   });
+	    
+	    //關鍵字輸入事件
+	        var timer;
+	        $("#keyword").on('keyup',function() {
+	        	$('#tb').empty();
+	            timer && clearTimeout(timer);
+	            timer = setTimeout(LoadRoad, 500);
+	        });
+	    
+	    //路名查詢autocomplete
+	    function LoadRoad(){
+	    	   if($('#keyword').val() =='' || $('#keyword').val().trim() ==''){
+				   $('#tb').empty();
+			   }else{
+				   $.getJSON('<%= request.getContextPath() %>/GetRoad',
+						   	{'GUAR_AR':$('#select1').val(), 
+					   		 'keyword':$('#keyword').val()},
+					function(datas){
+					   			$.each(datas,function(index,road){
+					   				var celltext = $('<input type=text class="txt" style="display:none">').val(road.GUAR_ROAD);
+					   				var cellGUAR_ROAD_name = $('<label class="txt1"></label>').text(road.GUAR_ROAD_name);
+					   				var cell1 = $("<td></td>").append(celltext).append(cellGUAR_ROAD_name);
+					   				//var cell1 = $("<td></td>").text(road.GUAR_ROAD_name);
+									var row = $("<tr></tr>").append([cell1])
+									                        .mouseover(function(){
+									                        	$(this).css('color', 'red');
+									                        })
+									                        .mouseout(function(){
+									                        	$(this).css('color', 'black');
+									                        })
+									                        .click(function(){
+									                        	$('#textval').val($(this).children().children(".txt").val());
+									                        	$('#keyword').val($(this).children().children(".txt1").text());
+									                        	$('#tb').empty();
+									                        });
+									$('#tb').append(row);
+								});
+							});
+			  		 }
+		  	 };
+		  	</script>
     <!-- Bootstrap Core JavaScript -->
     <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
 </body>

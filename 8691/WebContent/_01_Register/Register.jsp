@@ -95,7 +95,7 @@
 			</tr>
 		
 			<tr>
-				<td class="text-right">請輸入您住的縣市 :</td>
+				<td class="text-right">請選擇住址(縣/市) :</td>
 				<td><select name="GUAR_CT" size="1" value="${param.GUAR_CT}">
 												<option value="" selected>請選擇</option>
 						                        <option value="A">臺北市</option>
@@ -126,7 +126,7 @@
 			</tr>
 			
 			<tr>
-				<td class="text-right">請輸入您住的區域 :</td>
+				<td class="text-right">住址(區/鄉/鎮/市) :</td>
 					<td><select id="select1" name="GUAR_AR">
 					<option value="" selected>請選擇</option>
 					</select></td>
@@ -134,19 +134,19 @@
 			</tr>
 			
 			<tr>
-				<td class="text-right">請輸入您住的路名 :</td>
+				<td class="text-right">請輸入住址(路/街/巷) :</td>
 				<td><input id="keyword" type="text" value=""> <input id="textval" name="GUAR_ROAD" type="text" style="display:none"><span id="roadsp" style="color:red"></span></td>
 				<td></td>
 			</tr>
 	
 			<tr>
 				<td></td>
-				<td></td>
 				<td id="tb"></td>
+				<td></td>
 			</tr>
 			
 			<tr>
-				<td class="text-right">請完成輸入您的地址 :</td>
+				<td class="text-right">請輸入住址(號) :</td>
 				<td><input type="text" name="GUAR_NO" value="${param.GUAR_NO}" id="addrinput"><span id="addrsp" style="color:red"></span></td>
 				<td>${error.GUAR_NO}</td>
 			</tr>

@@ -61,7 +61,7 @@ public class OrdersTotalJDBC {
 		// System.out.println(beanDel);
 	}
 
-	private static final String SELECT = "select * from Orders_total where account_UID=?";  //此處因登入後可抓到account_UID，故可以select自己的單(一般會員&店家皆是)
+	private static final String SELECT = "select * from Orders_total where account_UID=? order by ordersID";  //此處因登入後可抓到account_UID，故可以select自己的單(一般會員&店家皆是)
 	//private static final String SELECT = "select * from Orders_total join Address_AR on Orders_total.GUAR_AR=Address_AR.GUAR_AR join Address_CT on Orders_total.GUAR_CT=Address_CT.GUAR_CT join Address_ROAD on Orders_total.GUAR_ROAD=Address_ROAD.GUAR_ROAD where account_UID=?";  //此處因登入後可抓到account_UID，故可以select自己的單(一般會員&店家皆是)
 
 	public List<OrdersTotalBean> select(String account_UID) {
@@ -127,8 +127,8 @@ public class OrdersTotalJDBC {
 	}
 
 
-	private static final String INSERT = "insert into Orders_total (Orders_total_UID, account_UID, seller_UID, ordersID(), status, name, cel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, pay_metho, insdate, ship_price, food_price, total_amount) OUTPUT INSERTED.ordersID values (NEWID(), ?, ?, ?, '處理中', ?, ?, ?, ?, ?, ?, ?, getdate(), ?, ?, ?)";
-
+	private static final String INSERT = "insert into Orders_total (Orders_total_UID, account_UID, seller_UID, ordersID, status, name, cel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, pay_metho, insdate, ship_price, food_price, total_amount) OUTPUT INSERTED.ordersID values (NEWID(), ?, ?, ?, '處理中', ?, ?, ?, ?, ?, ?, ?, getdate(), ?, ?, ?)";
+																		  // (NEWID(), ?, ?, ?, '處理中', ?, ?, ?, ?, ?, ?, ?, getdate(), ?, ?, ?)
 	public OrdersTotalBean insert(OrdersTotalBean bean) {
 		OrdersTotalBean result = null;
 		Connection conn = null;
@@ -141,7 +141,7 @@ public class OrdersTotalJDBC {
 			stmt.setString(1, bean.getAccount_UID());
 			stmt.setString(2, bean.getSeller_UID());   //要抓店家的Seller_UID(Account_UID)才能insert訂單
 			stmt.setInt(3, bean.getOrdersID());
-			stmt.setString(5, bean.getName());
+			stmt.setString(4, bean.getName());
 			stmt.setString(5, bean.getCel());
 			stmt.setString(6, bean.getGUAR_CT());
 			stmt.setString(7, bean.getGUAR_AR());
@@ -154,7 +154,7 @@ public class OrdersTotalJDBC {
 			stmt.execute();
 			ResultSet rs = stmt.getGeneratedKeys();
 			if (rs.next()) {
-				System.out.println("INSERT Success!");				
+				System.out.println("Orders_total INSERT Success!");				
 				bean.setOrdersID(rs.getInt(1));
 				result = bean;
 			}

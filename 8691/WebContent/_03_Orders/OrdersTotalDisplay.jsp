@@ -92,9 +92,8 @@
 					</table>
 					</c:if>
 					</form>
-					<input class="btn btn-primary" type="button" value="上一頁" onclick="location.href='<%= request.getContextPath() %>/_04_Members/Members.jsp'">
-<%-- 					<h3><a href="<c:url value="/_03_Orders/OrdersTotal.jsp" />">OrdersTotal Table</a></h3> --%>
-
+					<c:url value="/MemberServlet" var="GetMemberPath"></c:url>
+					<a class="btn btn-primary" href="${GetMemberPath}">上一頁</a>
 
 				</div>
 			</div>			

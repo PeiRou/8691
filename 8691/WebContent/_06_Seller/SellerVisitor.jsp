@@ -137,8 +137,8 @@
 						</tr>                                                        
 						<tr>
 						<td></td>
-						<td></td>
 						<td id="tb"></td>
+						<td></td>
 						</tr>
 						<tr>
 							<td class="col-xs-8 col-sm-6 text-right">住址(號) : </td>

@@ -115,7 +115,6 @@
 					</table>
 					</c:if>
 					</form>
-					<input class="btn btn-primary" type="button" value="上一頁" onclick="location.href='<%= request.getContextPath() %>/_04_Members/SellerMembers.jsp'">
 				</div>
 			</div>			
 		</div>
