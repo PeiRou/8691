@@ -20,6 +20,10 @@
     <!-- Fonts -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
+    
+    <!-- Jquery UI CSS -->
+    <link href="<%= request.getContextPath() %>/css/jquery.dataTable.min.css" rel="stylesheet">
+	<link href="<%= request.getContextPath() %>/css/jquery-ui/jquery-ui.min.css" rel="stylesheet">
 	    <style>
 	    	td{
 	    		font-size:1.1em;
@@ -39,7 +43,7 @@
 		<div class="row">
 			<div class="box">		
 				<div class="col-md-12">
-				<form name="Visitor"
+				<form name="Visitor" enctype="multipart/form-data"
 					action="<c:url value='/page/visitor.controller' />" method="post">
 					<h2 class="text-center"><strong>註冊為店家</strong></h2>
 					<table id="t01" class="table">
@@ -70,10 +74,12 @@
 							<td>${error.Con_name}</td>
 						</tr>
 					      <tr height='36'>
-					    		<td class="col-xs-8 col-sm-6 text-right">輸入您的店家圖片:</td>					      
+					    		<td class="col-xs-8 col-sm-6 text-right">輸入您的店家圖片:</td>
+					       <!-- <td width="45" align="center" class="title_font">圖片</td>--> 
 					        	<td colspan="3">
-					            <input style="background:#FFFFFF" class='InputClass'  type="file" 
-					            name="photoPar" size="40" />    
+					        	 <input id="btnUpload" type="file" name="upl" />
+								</td>
+					             
 					    </tr>
 						<tr>
 							<td class="col-xs-8 col-sm-6 text-right">請輸入您的店家電話號碼 :</td>
@@ -422,11 +428,23 @@ $(function(){
             </div>
         </div>
     </footer>
-
-    <!-- jQuery -->
-    <script src="<%= request.getContextPath() %>/js/jquery.js"></script>
+    
 
     <!-- Bootstrap Core JavaScript -->
     <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="<%= request.getContextPath() %>/js/jquery.dataTable.min.js"></script>
+	<script src="<%= request.getContextPath() %>/js/jquery-ui.min.js"></script>
+	<script src="assets/js/jquery.knob.js"></script>
+
+		<!-- jQuery File Upload Dependencies -->
+		<script src="assets/js/jquery.ui.widget.js"></script>
+		<script src="assets/js/jquery.iframe-transport.js"></script>
+		<script src="assets/js/jquery.fileupload.js"></script>
+		
+		<!-- Our main JS file -->
+		<script src="assets/js/script.js"></script>
 </body>
 </html>
