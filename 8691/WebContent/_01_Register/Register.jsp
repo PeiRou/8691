@@ -157,14 +157,9 @@
 				<td>${error.email2}</td>
 			</tr>
 			<tr>
-<<<<<<< HEAD
-
-				<td align="right"><input type="submit" value="註冊" class="btn btn-primary"></td>
-=======
 				<td></td>
 				<td><input type="submit" value="註冊" class="btn btn-primary"></td>
 				<td></td>
->>>>>>> branch 'master' of https://github.com/eeit83team05/8691.git
 			</tr>
 		</table>
 	</form>

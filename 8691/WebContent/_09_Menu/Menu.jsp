@@ -42,11 +42,8 @@
 		<div class="row">
 			<div class="box">
 				<div class="col-lg-12">
-				<form action="<c:url value='/_03_Orders/SellerOrdersTotalServlet' />" method="post" >
 					<a class="btn btn-warning insGroup">新增食物群組</a>
 					<a class="btn btn-primary tdinsC2">修改尺寸</a>
-					<input class="btn btn-info" type="submit" name="orderaction" value="查看所有訂單">
-					</form>
 					<table id="tbl" class="table table-bordered">
 						<tr>
 							<td></td>

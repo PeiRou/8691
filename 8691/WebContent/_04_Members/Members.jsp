@@ -64,8 +64,8 @@
 				    <td rowspan="3"><img width="200px" height="200px" src="img/50嵐ad.gif" ></td>
 				  </tr>
 				  <tr>
-				    <td><form action="<c:url value="/MemberServlet" />" method="post" >
-						<input class="btn btn-info" type="button" value="點我改資料" onclick="location.href='<%= request.getContextPath() %>/_04_Members/InfoUpdate.jsp'">
+				    <td><form action="<c:url value="/PsdUpdate" />" method="post" >
+						<input class="btn btn-info" type="button" value="更改密碼" onclick="location.href='<%= request.getContextPath() %>/_04_Members/updatePsd.jsp'">
 						</form>
 					</td>
 				  </tr>

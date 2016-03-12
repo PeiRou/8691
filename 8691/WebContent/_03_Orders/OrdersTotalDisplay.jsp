@@ -65,6 +65,7 @@
 						<jsp:useBean id="hugeStick" scope="page" class="_07_Address.model.AddressJDBC"/>
 						<jsp:useBean id="hugeStick2" scope="page" class="_03_Orders.model.OrdersTotalJDBC"/>
 						<c:forEach var="bean" items="${select}">
+						<tr>
 							<td>${bean.ordersID}</td>
 							<td>${bean.name}</td>
 							<td>${hugeStick2.findNameBySellerPartner(bean.seller_UID).getName()}</td>

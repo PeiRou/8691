@@ -35,23 +35,23 @@
 			<table class="table">
 
 			<tr>
-				<td class="text-right">請輸入舊密碼 :</td>
+				<td class="col-xs-8 col-sm-6 text-right">請輸入舊密碼 :</td>
 				<td><input type="password" name="OldPsd" value="${param.OldPsd}" id="OldPsdinput"><span id="OldPsdsp" style="color:red"></span></td>
 				<td>${error.OldPsd}</td> 				
 			</tr>
 
 			<tr>
-				<td class="text-right">請輸入新密碼 :</td>
+				<td class="col-xs-8 col-sm-6 text-right">請輸入新密碼 :</td>
 				<td><input type="password" name="NewPsd" value="${param.NewPsd}" id="NewPsdinput"><span id="NewPsdsp" style="color:red"></span></td>
 				<td>${error.NewPsd}</td>
 			</tr>
 			<tr>
-				<td class="text-right">請再次輸入新密碼 :</td>
+				<td class="col-xs-8 col-sm-6 text-right">請再次輸入新密碼 :</td>
 				<td><input type="password" name="NewPsd1" value="${param.NewPsd1}" id="NewPsd1input"><span id="NewPsd1sp" style="color:red"></span></td>
 				<td>${error.NewPsd1}</td>
 			</tr>
-		    
-				<td align="right"><input type="submit" value="確定修改" class="btn btn-primary"></td>
+		    	<td></td>
+				<td><input type="submit" value="確定修改" class="btn btn-primary"></td>
 			    <td>${error.action}</td>
 		</table>
 	</form>

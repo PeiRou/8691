@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <meta http-equiv="refresh" content="3;url=<%= request.getContextPath() %>/index.jsp" />
+    <meta http-equiv="refresh" content="2.5;url=<%= request.getContextPath() %>/index.jsp" />
 
     <title>8691</title>
 
@@ -38,20 +38,9 @@
 		<div class="row">
 			<div class="box">
 				<div class="col-lg-12 text-center">
-					<form action="<c:url value="/_02_Login/login.controller" />" method="post" >
-					<h2 class="intro-text text-center">					
-					帳號 :<input type="text" name="acc_email"	value="${param.acc_email}"></h2>
-					<h5 class="intro-text text-center">${error.acc_email}</h5>
-					<h2 class="intro-text text-center">
-					密碼 :<input type="password" name="psd" value="${param.psd}"></h2>
-					<h5 class="intro-text text-center" class="red">${error.psd}${error.loginfail}</h5>
-<%-- 					<h5 class="intro-text text-center">${error.loginfail}</h5> --%>
-                    <div class="checkbox">
-			          	<label><input type="checkbox"> Remember me</label>
-			        </div>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="btn btn-primary" type="submit" value="登入">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input class="btn btn-primary" type="button" value="註冊" onclick="location.href='<%= request.getContextPath() %>/_01_Register/SelectRegister.jsp'">                     
-                </form>
+					<div style="text-align:center;">
+						<img src="<%= request.getContextPath() %>/img/logoutBG.jpg">
+					</div>
 				</div>
 			</div>
 		</div>
