@@ -30,7 +30,7 @@ import _09_SendMail.TestMail;
 import _11_ProdClass.dao._11_Imagejdbc;
 
 @WebServlet("/page/visitor.controller")
-@MultipartConfig(location = "c:/www/xxx/data/image/store/")
+@MultipartConfig(location = "D:/workspace_proj/8691/WebContent/image/store/")
 public class SellerVisitorServlet extends HttpServlet {
 	private _11_Imagejdbc imagejdbc = new _11_Imagejdbc();
 	private static final long serialVersionUID = 1L;
@@ -64,7 +64,7 @@ public class SellerVisitorServlet extends HttpServlet {
 		String temp6 = request.getParameter("insdate");
 		String action = request.getParameter("action");
 		System.out.println("1");
-
+		
 		// 轉換資料
 		Map<String, String> error = new HashMap<String, String>();
 		request.setAttribute("error", error);
@@ -169,7 +169,7 @@ public class SellerVisitorServlet extends HttpServlet {
 			sFilename = new String(sFilename.getBytes("ISO8859_1"), "UTF-8");
 			System.out.println("Uploaded filename=" + sFilename); // debug
 			String photopath = "/image/store/" + id + ".png";
-			File oFile = new File("c:/www/xxx/data/" + photopath);
+			File oFile = new File("D:/workspace_proj/8691/WebContent/" + photopath);
 			if (oFile.exists())
 				oFile.delete(); // 檔案已存在時先刪除
 			photoPar.write(id + ".png"); // saving the uploaded file.
