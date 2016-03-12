@@ -1,5 +1,8 @@
 package _06_Seller.controller;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -7,21 +10,32 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
 import _00_Account.model.AccountBean;
 import _01_Register.model.RegisterServiceToAccount;
 import _03_Orders.model.OrdersTotalBean;
 import _06_Seller.model.SellerVisitorBean;
 import _06_Seller.model.SellerVisitorService;
 import _09_SendMail.TestMail;
+import _11_ProdClass.dao._11_Imagejdbc;
 
 @WebServlet("/page/visitor.controller")
+@MultipartConfig(
+		
+		location = "c:/www/xxx/data/image/store/"
+		)
 public class SellerVisitorServlet extends HttpServlet {
+	private _11_Imagejdbc imagejdbc = new _11_Imagejdbc();
 	private static final long serialVersionUID = 1L;
 
 	private SellerVisitorService sellerVisitorService = new SellerVisitorService();
@@ -32,15 +46,12 @@ public class SellerVisitorServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		
-
-		// 接收資料
-		
+		// 接收資料		
 		String FEIN = request.getParameter("FEIN");
 		String name = request.getParameter("name");
 		String acc_email = request.getParameter("acc_email");
 		String psd = request.getParameter("psd");
-		String Seller_photo = request.getParameter("Seller_photo");
+		Part photoPar = request.getPart("upl");
 		String tel = request.getParameter("tel");
 		String GUAR_CT = request.getParameter("GUAR_CT");
 		String GUAR_AR = request.getParameter("GUAR_AR");
@@ -55,27 +66,11 @@ public class SellerVisitorServlet extends HttpServlet {
 		String temp5 = request.getParameter("Lowest_price");
 		String temp6 = request.getParameter("insdate");
 		String action = request.getParameter("action");
-		 System.out.println("1");
-		//寫在Servlet的寄驗證信觸發
-		TestMail mail= new TestMail();      //寄email
-		mail.sendmail(acc_email, request);  //觸發的欄位
+		System.out.println("1");
 
 		// 轉換資料
 		Map<String, String> error = new HashMap<String, String>();
 		request.setAttribute("error", error);
-
-
-		
-//		Boolean Seller_status = null;
-//		if (temp3 != null && temp3.length() != 0) {
-//			try {
-//				Seller_status = Boolean.parseBoolean(temp3);
-//			} catch (NumberFormatException e) {
-//				e.printStackTrace();
-//				error.put("Seller_status", "Seller_status must true or flase");
-//			}
-//			System.out.println(temp3);
-//		}
 
 		int Ship_price = 0;
 		if (temp4 != null && temp4.length() != 0) {
@@ -99,18 +94,6 @@ public class SellerVisitorServlet extends HttpServlet {
 			System.out.println(temp5);
 		}
 		
-//		java.util.Date insdate = null;
-//		if (temp6 != null && temp6.length() != 0) {
-//			try {
-//				insdate = mma.parse(temp6);
-//			} catch (Exception e) {
-//
-//				e.printStackTrace();
-//				error.put("insdate", "insdate must be a Date with yyyy-MM-dd");
-//			}
-//
-//		}
-		
 		if (FEIN == null || FEIN.trim().length() == 0) {
 			error.put("FEIN", "請輸入您的統一編號!");
 		}System.out.println(FEIN);
@@ -123,9 +106,9 @@ public class SellerVisitorServlet extends HttpServlet {
 		if (psd == null || psd.trim().length() == 0) {
 			error.put("psd", "請輸入您的密碼!");
 		}System.out.println(psd);
-//		if (Seller_photo == null || Seller_photo.trim().length() == 0) {
+//		if (SellerPhoto == null || SellerPhoto.trim().length() == 0) {
 //			error.put("Seller_photo", "請輸入您的圖片!");
-//		}System.out.println(Seller_photo);
+//		}System.out.println(SellerPhoto);
 		if (tel == null || tel.trim().length() == 0) {
 			error.put("tel", "請輸入您的連絡市話 !");
 		}System.out.println(tel);
@@ -167,20 +150,25 @@ public class SellerVisitorServlet extends HttpServlet {
 
 		String result = registerServiceToAccount.insertAccount(bean);
 		
-		
-		// 有錯誤
-//		if (!error.isEmpty()) {
-//			RequestDispatcher rd = request
-//					.getRequestDispatcher("/_06_Seller/SellerVisitor.jsp");
-//			rd.forward(request, response);
-//			return;
-//		}
-	
+		//------上傳圖片---------
+		try {
+			String id = imagejdbc.selectNowID();
+			String sFilename = getFilename(photoPar); // 檔名由Header取出
+			// 在不同的code page啟動API時有時需要轉碼，因為設計上編碼不同
+			sFilename = new String(sFilename.getBytes("ISO8859_1"), "UTF-8");
+			System.out.println("Uploaded filename=" + sFilename); // debug
+			String photopath = "/image/store/"+id+".png";
+			File oFile = new File("c:/www/xxx/data/"+photopath);
+			if (oFile.exists())
+				oFile.delete(); // 檔案已存在時先刪除
+			photoPar.write(id+".png"); // saving the uploaded file.
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 
-		
-		
-		
-		
+		} finally {
+		}
+		//------上傳圖片---------	
 
 		// 呼叫model
 		SellerVisitorBean bean1 = new SellerVisitorBean();
@@ -188,7 +176,7 @@ public class SellerVisitorServlet extends HttpServlet {
 		bean1.setAccount_UID(result);
 		bean1.setFEIN(FEIN);
 		bean1.setName(name);
-		bean1.setSeller_photo(Seller_photo);
+		//bean1.setSeller_photo(SellerPhoto);
 		bean1.setTel(tel);
 		bean1.setGUAR_CT(GUAR_CT);
 		bean1.setGUAR_AR(GUAR_AR);
@@ -220,17 +208,17 @@ public class SellerVisitorServlet extends HttpServlet {
 			rd.forward(request, response);
 			return;
 		}
-
-		
-//		if("Select".equals(action)) {
-//			List<SellerVisitorBean> sellerVisitorResult = sellerVisitorService.select(bean1);
-//			request.setAttribute("select", sellerVisitorResult);
-//			request.getRequestDispatcher(
-//					"/_06_Seller/SellerVisitor.jsp").forward(request, response);
-//		}
-
-
 	}
+	
+	private static String getFilename(Part part) {
+	    for (String cd : part.getHeader("content-disposition").split(";")) {
+	      if (cd.trim().startsWith("filename")) {
+	        String filename = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+	        return filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1); // MSIE fix.
+	      }
+	    }
+	    return null;
+	  }
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
