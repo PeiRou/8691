@@ -437,14 +437,5 @@ $(function(){
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="<%= request.getContextPath() %>/js/jquery.dataTable.min.js"></script>
 	<script src="<%= request.getContextPath() %>/js/jquery-ui.min.js"></script>
-	<script src="assets/js/jquery.knob.js"></script>
-
-		<!-- jQuery File Upload Dependencies -->
-		<script src="assets/js/jquery.ui.widget.js"></script>
-		<script src="assets/js/jquery.iframe-transport.js"></script>
-		<script src="assets/js/jquery.fileupload.js"></script>
-		
-		<!-- Our main JS file -->
-		<script src="assets/js/script.js"></script>
 </body>
 </html>
