@@ -70,11 +70,10 @@
 							<td>${error.Con_name}</td>
 						</tr>
 					      <tr height='36'>
-					    		<td class="col-xs-8 col-sm-6 text-right">輸入您的店家圖片:</td>
-					       <!-- <td width="45" align="center" class="title_font">圖片</td>--> 
+					    		<td class="col-xs-8 col-sm-6 text-right">輸入您的店家圖片:</td>					      
 					        	<td colspan="3">
 					            <input style="background:#FFFFFF" class='InputClass'  type="file" 
-					            name="uploadFile" size="40" />    
+					            name="photoPar" size="40" />    
 					    </tr>
 						<tr>
 							<td class="col-xs-8 col-sm-6 text-right">請輸入您的店家電話號碼 :</td>
