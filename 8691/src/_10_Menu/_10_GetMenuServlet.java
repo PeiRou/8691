@@ -40,12 +40,12 @@ public class _10_GetMenuServlet extends HttpServlet {
 		List resultPrCl2 = null;
 		List resultPrSts = null;
 		try {
-			//result = foodjdbc.select(accountUID);
-//			resultGroup = groupClass3jdbc.selectGpFoodStatus(accountUID);
-//			resultSzSts = sizeStatusjdbc.select();
-//		    resultPrCl1 = prodClass1jdbc.select();
-//			resultPrCl2 = prodClass2jdbc.select();
-			//resultPrSts = prodClass1jdbc.selectC1C2C3();
+			result = foodjdbc.select(accountUID);
+			resultGroup = groupClass3jdbc.selectGpFoodStatus(accountUID);
+			resultSzSts = sizeStatusjdbc.select();
+		    resultPrCl1 = prodClass1jdbc.select();
+			resultPrCl2 = prodClass2jdbc.select();
+			resultPrSts = prodClass1jdbc.selectC1C2C3();
 			System.out.println("result:"+result);
 			System.out.println("resultGroup:"+resultGroup);
 			System.out.println("resultSzSts:"+resultSzSts);
