@@ -58,7 +58,7 @@ public class _11_ProdClass2jdbc {
 		}
 		return null;
 	}
-	private final String SELECT_BY_C1_ID = "select * from Group_class3 G join Prod_status_class2 C2 on G.Prod_status_class1_ID = C2.Prod_status_class1_ID where G.Group_class3_ID = ?";
+	private final String SELECT_BY_C1_ID = "select * from Prod_status_class2 where Prod_status_class1_ID = ?";
 	public List selectC1(String ProdStatusClass1ID) {
 		List JSONObjectList = null;
 		ResultSet rset = null;
