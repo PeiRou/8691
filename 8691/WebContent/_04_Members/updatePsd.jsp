@@ -31,26 +31,27 @@
 				<div class="col-lg-12">
 				
 <form name="updatePsd" action="<c:url value='/PsdUpdate' />" method="post">
-		<h2 class="text-center">修改密碼</h2>
-		<table class="table">
+			<h2 class="text-center">修改密碼</h2>
+			<table class="table">
+
 			<tr>
-				<td class="col-xs-8 col-sm-6 text-right">請輸入舊密碼 :</td>
+				<td class="text-right">請輸入舊密碼 :</td>
 				<td><input type="password" name="OldPsd" value="${param.OldPsd}" id="OldPsdinput"><span id="OldPsdsp" style="color:red"></span></td>
 				<td>${error.OldPsd}</td> 				
 			</tr>
 
 			<tr>
-				<td class="col-xs-8 col-sm-6 text-right">請輸入新密碼 :</td>
+				<td class="text-right">請輸入新密碼 :</td>
 				<td><input type="password" name="NewPsd" value="${param.NewPsd}" id="NewPsdinput"><span id="NewPsdsp" style="color:red"></span></td>
 				<td>${error.NewPsd}</td>
 			</tr>
 			<tr>
-				<td class="col-xs-8 col-sm-6 text-right">請再次輸入新密碼 :</td>
+				<td class="text-right">請再次輸入新密碼 :</td>
 				<td><input type="password" name="NewPsd1" value="${param.NewPsd1}" id="NewPsd1input"><span id="NewPsd1sp" style="color:red"></span></td>
-				<td>${error.NewPsd1} ${error.NewPsdError}</td>
+				<td>${error.NewPsd1}</td>
 			</tr>
-		    	<td></td>
-				<td><input type="submit" value="確定修改" class="btn btn-primary"></td>
+		    
+				<td align="right"><input type="submit" value="確定修改" class="btn btn-primary"></td>
 			    <td>${error.action}</td>
 		</table>
 	</form>

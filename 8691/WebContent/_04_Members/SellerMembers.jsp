@@ -66,7 +66,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <p>Copyright &copy; EEIT83第五小組 2016 | <a href="<%= request.getContextPath() %>/contact.jsp">聯絡我們</a></p>
+                    <p>Copyright &copy; Your Website 2016</p>
                 </div>
             </div>
         </div>
