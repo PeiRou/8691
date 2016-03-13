@@ -96,6 +96,43 @@ public class _11_ProdClass2jdbc {
 		return JSONObjectList;
 	}
 	
+	private final String SELECT_BY_GP_ID = "select * from Group_class3 G join Prod_status_class2 C2 on G.Prod_status_class1_ID = C2.Prod_status_class1_ID where G.Group_class3_ID = ?";
+	public List selectGp(String ProdStatusClass1ID) {
+		List JSONObjectList = null;
+		ResultSet rset = null;
+		try(Connection conn = dataSource.getConnection();
+			PreparedStatement stmt = conn.prepareStatement(SELECT_BY_GP_ID);
+			) {
+			stmt.setString(1, ProdStatusClass1ID);
+			rset = stmt.executeQuery();
+		
+			JSONObjectList = new LinkedList();
+			while (rset.next()) {
+					JSONObject obj = new JSONObject();
+					obj.put("ProdStatusClass2ID", rset.getString("Prod_status_class2_ID"));
+					obj.put("ProdStatusClass2Name", rset.getString("Prod_status_class2_name"));
+					List Class3List = prodClass3jdbc.selectC2(rset.getString("Prod_status_class2_ID"));
+					if (Class3List != null) {
+						obj.put("Class3Status", Class3List);
+					} else {
+						obj.put("Class3Status", "");
+					}
+					JSONObjectList.add(obj);
+				}		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			if (rset != null) {
+				try {
+					rset.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return JSONObjectList;
+	}
+	
 	private final String INSERT = "insert into Prod_status_class2 values(?,?)";
 	public int insert(String prodStatusClass1ID,String prodStatusClass2Name) {
 		List JSONObjectList = null;
