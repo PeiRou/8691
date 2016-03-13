@@ -45,21 +45,31 @@ input[type=checkbox] {
 }
 
 input[type=checkbox]+label {
-	background:  url(../image/icon/blank-check-box.png) no-repeat;
+	background:  url(../image/icon/square_blank.png) no-repeat;
 	height: 32px;
-	width: 75px;
+	width: 120px;
 	display: inline-block;
-	padding: 0 0 0 40px;
-	margin-left: 25px;
+	padding: 0 0 0 28px;
+	margin-left: 0px;
 }
 
 input[type=checkbox]:checked+label {
-	background: url(../image/icon/check-box.png) no-repeat;
+	background: url(../image/icon/sign.png) no-repeat;
 	height: 32px;
-	width: 75px;
+	width: 120px;
 	display: inline-block;
-	padding: 0 0 0 40px;
-	margin-left: 25px;
+	padding: 0 0 0 28px;
+	margin-left: 0px;
+}
+
+td.details-control {
+	background: url('<%= request.getContextPath() %>/images/details_open.png') no-repeat center center;
+	cursor: pointer;
+}
+	
+tr.shown td.details-control {
+	background: url('<%= request.getContextPath() %>/images/details_close.png') no-repeat center
+		center;
 }
 </style>
 <body>
@@ -72,22 +82,38 @@ input[type=checkbox]:checked+label {
 		</ul>
 		<div class="menu">
 			<div class="box">
-				<div class="col-lg-10 text-center">
-				<h4>${StoreUID}</h4>
-				<table id="prodTable" class="table table-striped table-hover dataTable" cellspacing="0" >
-					<thead>
-						<tr class="customer-font">
-							<th>商品名稱</th>
-							<th>價格</th>
-							<th>商品副選項</th>
-							<th>商品明細</th>
-						</tr>
-					</thead>
-					<tbody style="text-align: left;" class="customer-font">
-					</tbody>
-				</table>
+			
+				<!-- 商品 -->
+				<div class="col-lg-9 text-center">
+					<h4>${SellerName}</h4>
+					<table id="prodTable" class="table table-striped table-hover dataTable" cellspacing="0" >
+						<thead>
+							<tr class="customer-font">
+								<th>商品名稱</th>
+								<th>價格</th>
+								<th>副選項</th>
+								<th>商品明細</th>
+							</tr>
+						</thead>
+						<tbody style="text-align: left;" class="customer-font">
+						</tbody>
+					</table>
 				</div>
-				<div class="col-lg-2 text-center">
+				
+				<!-- 訂單 -->
+				<div class="col-lg-3 text-center">
+					<div class="">
+						<label class="customer-font">
+							<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+							您的訂單
+						</label>
+						<table id="prodCar" class="table table-striped table-hover dataTable" cellspacing="0">
+							<thead>
+								<th>商品</th>
+								<th>細項</th>
+							</thead>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -111,27 +137,9 @@ input[type=checkbox]:checked+label {
 					<input id="spinner"name="value">
 				</p>
 			</div>
-			<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-				<div>
-					<label class="customer-font">冷熱調整 </label>
-				</div>
-				<div>
-					<div>
-						<input type='checkbox' name='thing' value='valuable' id="ice0"/>
-						<label for="ice0" class="">去冰</label>
-						<input type='checkbox' name='thing' value='valuable' id="ice1"/>
-						<label for="ice1" class="">微冰</label>
-						<input type='checkbox' name='thing' value='valuable' id="ice2"/>
-						<label for="ice2" class="">少冰</label>
-						<input type='checkbox' name='thing' value='valuable' id="ice3"/>
-						<label for="ice3" class="">正常</label>
-					</div>
-					<div>
-						
-					</div>
-				</div>
-			</div>
 		</form>
+		<table id="editDialogTable" style="width: 100%" class="table table-striped table-hover dataTable " cellspacing="0">
+		</table>
 	</div>
 
     <!-- Bootstrap Core JavaScript -->
@@ -147,21 +155,19 @@ input[type=checkbox]:checked+label {
 </body>
 <script type="text/javascript">
 $(document).ready(function() {
-	//var prodInfo = JSON.parse(JSON.stringify(${prodInfo}));
-	
-	var data = [{"FoodPrice":[{"FoodSizePriceID":"1","SizeStatusID":"2","FoodID":"1","SizeStatus":[{"SizeStatusID":"2","SizeName":"小"}],"FoodStatusPrice":"40"},{"FoodSizePriceID":"2","SizeStatusID":"3","FoodID":"1","SizeStatus":[{"SizeStatusID":"3","SizeName":"中"}],"FoodStatusPrice":"45"}],"GroupClass3ID":"1","FoodID":"1","ProdStatusClass1ID":"1","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"珍珠奶茶"}, {"FoodPrice":[{"FoodSizePriceID":"7","SizeStatusID":"1","FoodID":"4","SizeStatus":[{"SizeStatusID":"1","SizeName":"預設"}],"FoodStatusPrice":"50"}],"GroupClass3ID":"1","FoodID":"4","ProdStatusClass1ID":"1","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"奶茶"}, {"FoodPrice":[{"FoodSizePriceID":"8","SizeStatusID":"1","FoodID":"5","SizeStatus":[{"SizeStatusID":"1","SizeName":"預設"}],"FoodStatusPrice":"45"}],"GroupClass3ID":"1","FoodID":"5","ProdStatusClass1ID":"1","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"豆漿紅茶"}, {"FoodPrice":[{"FoodSizePriceID":"9","SizeStatusID":"1","FoodID":"6","SizeStatus":[{"SizeStatusID":"1","SizeName":"預設"}],"FoodStatusPrice":"60"}],"GroupClass3ID":"1","FoodID":"6","ProdStatusClass1ID":"1","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"綠茶"}, {"FoodPrice":[],"GroupClass3ID":"2","FoodID":"7","ProdStatusClass1ID":"1","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"沙士"}, {"FoodPrice":[],"GroupClass3ID":"2","FoodID":"8","ProdStatusClass1ID":"1","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"青茶"}, {"FoodPrice":[],"GroupClass3ID":"2","FoodID":"9","ProdStatusClass1ID":"1","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"烏龍綠茶"}];
-	var prodInfo = JSON.parse(JSON.stringify(data));
+	var prodInfo = JSON.parse(JSON.stringify(${prodInfo}));
 	
 	$('#prodTable').DataTable({
 		data:prodInfo,
 		columns: 
 			[
 	            { data: "FoodName" },
-	            { data: "FoodPrice[ / ].FoodStatusPrice",},
+	            { data: "FoodPrice[ / ].FoodStatusPrice" },
 	            { data: function(prodInfo) { 
-	            	var temp = '<input type="button" value="+" class="btn btn-primary "';
+	            	var temp = '<input type="button" value="+" class="btn btn-primary customer-font "';
 	            	temp = temp.concat('onclick="doModify(\'');
 	            	temp = temp.concat(prodInfo.FoodName);
+	            	temp = temp.concat("','foodID" + prodInfo.FoodID);
 	            	temp = temp.concat('\')"');
 	            	temp = temp.concat(' id="');
 	            	temp = temp.concat(prodInfo.FoodID);
@@ -171,24 +177,85 @@ $(document).ready(function() {
 	            	return temp;
 	            	}
 	            },
-	            { data: function() {
-	            	var temp = '';
+	            { data: function(prodInfo) {
+	            	var temp = '<span style="font-size: 16px" id="foodID';
+	            	
+	            	temp = temp.concat(prodInfo.FoodID);
+	            	temp = temp.concat('"></span>');
 	            	
 	            	return temp;
 	            	}
 	            }
 	        ],
 	});
-		
+	
+	//dialog裡的datatable
+	var editDialogTable = $('#editDialogTable').DataTable({
+		"bPaginate": false,
+        "bFilter": false,
+        "bInfo": false,
+    	"ajax": {
+            'type': 'POST',
+            'url': '/8691/_10_Menu/GetC1C2.controller',
+            'data': {GroupID: '1'}
+            },
+        columns: [
+            { "data": "ProdStatusClass2Name" },
+            { "data": function(data) {
+            	var temp = '<div>';
+            	
+            	$.each(data.Class3Status, function(index, Class3Status) {
+            		var celClass3ID = Class3Status.ProdStatusClass3ID;
+            		var	celName = Class3Status.ProdStatusClass3Name;
+            		var prodJsonValue = JSON.stringify(Class3Status); 
+            		
+            		var celchk = '<input type="checkbox"';
+            		celchk = celchk.concat('value=\'' + prodJsonValue + '\'');
+            		celchk = celchk.concat('id="celClass3ID' + celClass3ID + '"/>');
+            		
+            		var cellabel = '<label for="';
+            		cellabel = cellabel.concat('celClass3ID' + celClass3ID + '">');
+            		cellabel = cellabel.concat(celName + '</label>');
+            		
+            		celchk = celchk.concat(cellabel);
+            		
+            		temp = temp.concat(celchk);
+            	});
+            	
+            	temp = temp.concat('</div>');
+            	
+            	return temp;
+            	}
+            },
+        ]
+    });
+	
+	var sellerInfo = JSON.parse(JSON.stringify(${SellerInfo}));
+	
 });
 
 //商品副選項資料送出
-function customerProdInfoSubmit() {
-	alert("");
+function customerProdInfoSubmit(FoodName, foodId) {
+	var customerProdArray = new Array();
+	var prodName = FoodName;
+	var jsonObj;
+	
+	$("#" + foodId).text("");
+	
+	$('#editDialogTable :checked').each(function() {
+		console.log($(this).val());
+		jsonObj = JSON.parse($(this).val());
+		$("#" + foodId).append(jsonObj.ProdStatusClass3Name + "/");
+		customerProdArray.push(jsonObj);
+		
+	});
+	
+	
 }
 
 //開啟Dialog 
-function doModify(FoodName) {
+function doModify(FoodName, foodId) {
+	var prodName = FoodName;
 	$('div[id="editDialog"]').dialog({
 		modal : true,
 		minHeight : 700,
@@ -200,28 +267,30 @@ function doModify(FoodName) {
 		buttons: [{
 			text: function() {
 				$(this).hover(function() {
-					$( this ).addClass("ui-state-hover");
+					$(this).addClass("ui-state-hover");
 				},
 				function() {
-					$( this ).removeClass("ui-state-hover");
+					$(this).removeClass("ui-state-hover");
 				});
 				$(this).append('<span class="ui-button-text">送出</span>');
 			},
 			class: "ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only",
 		    click: function() {
-		    	customerProdInfoSubmit();
+		    	customerProdInfoSubmit(FoodName, foodId);
+		    	
 		    	$(this).dialog("close");
+		    	$('#editDialogTable :checked').prop('checked',false);
 		    }
 		}],
 		
 	});
-	console.log(FoodName);
+	
 	$('.ui-dialog-title').addClass('customer-font');
 	var spinner = $("#spinner").spinner().css('width','50px');;
 	$('.ui-spinner').css('width','80px');
 	
-	
 }
+
 
 </script>
 </html>
