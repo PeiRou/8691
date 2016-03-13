@@ -27,21 +27,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <style>
-    	th{
-    		font-size:1em;
-    		text-align:center;
-    	}
-    	td{
-    		font-size:1em;
-    	}
-    	table#t01 tr:nth-child(even) {
-		    background-color: #fff;
-		}
-		table#t01 tr:nth-child(odd) {
-		   background-color:#eee;
-		}
-    </style>
 </head>
 <body>
 	<jsp:include page="/fragment/top.jsp" />
@@ -51,7 +36,7 @@
 				<div class="col-md-12">
 				<form name="Register" action="<c:url value='/register.controller' />" method="post">
 			<h2 class="text-center">註冊為一般會員</h2>
-			<table id="t01" class="table">
+			<table class="table">
 			<tr>
 				<td class="text-right">請輸入您的E-mail:</td>
 				<td><input type="text" name="acc_email" id="emailinput"
@@ -61,11 +46,7 @@
 			</tr>
 			<tr>
 				<td class="text-right">請設定您的密碼 :</td>
-
 				<td><input type="password" name="psd" value="${param.psd}" id="pwdinput"><span id="pwdsp" style="color:red"></span></td>
-
-				
-
 				<td>${error.psd}</td>
 			</tr>
 			<tr>
@@ -82,22 +63,21 @@
 				</select></td>
 				<td></td>
 			</tr>
-
 			<tr>
 				<td class="text-right">請輸入您的家用電話號碼 :</td>
 				<td><input type="text" name="tel" value="${param.phone}" placeholder="Ex:02-23456789" id="telinput"><span id="teldsp" style="color:red"></span></td>
 				<td>${error.tel}</td>
 			</tr>
+			
 			<tr>
 				<td class="text-right">請輸入您的手機號碼 :</td>
 				<td><input type="text" name="cel" value="${param.cel}" placeholder="Ex:0912345678" id="celinput"><span id="celdsp" style="color:red"></span></td>
 				<td>${error.cel}</td>
 			</tr>
-		
 			<tr>
-				<td class="text-right">請選擇住址(縣/市) :</td>
+				<td class="text-right">請選擇您所在的縣市 :</td>
 				<td><select name="GUAR_CT" size="1" value="${param.GUAR_CT}">
-												<option value="" selected>請選擇</option>
+																<option value="" selected>請選擇</option>
 						                        <option value="A">臺北市</option>
 											    <option value="B">臺中市 </option>
 												<option value="C">基隆市</option>
@@ -109,22 +89,21 @@
 												<option value="I">嘉義市</option>
 												<option value="J">新竹縣</option>
 												<option value="K">苗栗縣</option>
-												<option value="L">南投縣</option>
-												<option value="M">彰化縣</option>
-												<option value="N">新竹市</option>
-												<option value="O">雲林縣</option>
-												<option value="P">嘉義縣</option>
-												<option value="Q">屏東縣</option>
-												<option value="R">花蓮縣</option>
-												<option value="S">臺東縣</option>
-												<option value="T">金門縣</option>
-												<option value="U">澎湖縣</option>
-												<option value="V">連江縣</option>
+												<option value="M">南投縣</option>
+												<option value="N">彰化縣</option>
+												<option value="O">新竹市</option>
+												<option value="P">雲林縣</option>
+												<option value="Q">嘉義縣</option>
+												<option value="T">屏東縣</option>
+												<option value="U">花蓮縣</option>
+												<option value="V">臺東縣</option>
+												<option value="W">金門縣</option>
+												<option value="X">澎湖縣</option>
+												<option value="Z">連江縣</option>
 						
 				</select></td>
 				<td></td>
 			</tr>
-			
 			<tr>
 				<td class="text-right">住址(區/鄉/鎮/市) :</td>
 					<td><select id="select1" name="GUAR_AR">
@@ -132,34 +111,26 @@
 					</select></td>
 				<td></td>
 			</tr>
-			
 			<tr>
-				<td class="text-right">請輸入住址(路/街/巷) :</td>
+				<td class="text-right">住址(路/街/巷) :</td>
 				<td><input id="keyword" type="text" value=""> <input id="textval" name="GUAR_ROAD" type="text" style="display:none"><span id="roadsp" style="color:red"></span></td>
-				<td></td>
 			</tr>
-	
 			<tr>
 				<td></td>
 				<td id="tb"></td>
-				<td></td>
 			</tr>
-			
 			<tr>
-				<td class="text-right">請輸入住址(號) :</td>
+				<td class="text-right">住址(號) :</td>
 				<td><input type="text" name="GUAR_NO" value="${param.GUAR_NO}" id="addrinput"><span id="addrsp" style="color:red"></span></td>
 				<td>${error.GUAR_NO}</td>
 			</tr>
-						
 			<tr>
 				<td class="text-right">請輸入您的備用E-mail :</td>
 				<td><input type="text" name="email2" value="${param.email2}" id="emailinput2"><span id="emailsp2" style="color:red"></span></td>
 				<td>${error.email2}</td>
 			</tr>
 			<tr>
-				<td></td>
-				<td><input type="submit" value="註冊" class="btn btn-primary"></td>
-				<td></td>
+				<td align="right"><input type="submit" value="註冊" class="btn btn-primary"></td>
 			</tr>
 		</table>
 	</form>
@@ -171,44 +142,44 @@
 
 		<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
 		<script>
-		//進入首頁後立刻從資料庫讀取區域的下拉式選單內容
-	    $(function(){
-				   $.ajax({
-					  'type':'get',
-					  'url':'<%= request.getContextPath() %>/GetAddress',
-					  'data':{},
-					  'dataType':'xml',
-					  'success':function(data){
-						$(data).find("Category").each(function(){
-							var categoryId = $(this).children("GUAR_AR").text();
-							var categoryName = $(this).children("GUAR_AR_name").text();
-							var opt = $("<option></option>").val(categoryId).text(categoryName);
-							$('#select1').append(opt);
-						})
-					  }
-				   });
+		$(function(){
+			   $.ajax({
+				  'type':'get',
+				  'url':'<%= request.getContextPath() %>/GetAddress',
+				  'data':{},
+				  'dataType':'xml',
+				  'success':function(data){
+					$(data).find("Category").each(function(){
+						var categoryId = $(this).children("GUAR_AR").text();
+						var categoryName = $(this).children("GUAR_AR_name").text();
+						var opt = $("<option></option>").val(categoryId).text(categoryName);
+						$('#select1').append(opt);
+					})
+				  }
+			   });
+			   $('#tb').empty();
+		});
+		
+			 $('#select1').change(function(){
+				 if($('#keyword').val() ==''){
+					 $('#tb').empty();
+				 }
+				 else{
+					 LoadRoads();
+				 }
+			   });
+		
+			 $('#keyword').keyup(function(){
+				 if($('#keyword').val() ==''){
+					 $('#tb').empty();
+				 }
+				 else{
+					 LoadRoads();
+				 }
+			   });
+			   
+			   function LoadRoads(){
 				   $('#tb').empty();
-			});
-	    
-	    //當更換選單內容時，清空路名&關鍵字查詢
-	    $('#select1').change(function(){
-	    		$('#tb').empty();
-	    		$("#keyword").val('');
-		   });
-	    
-	    //關鍵字輸入事件
-	        var timer;
-	        $("#keyword").on('keyup',function() {
-	        	$('#tb').empty();
-	            timer && clearTimeout(timer);
-	            timer = setTimeout(LoadRoad, 500);
-	        });
-	    
-	    //路名查詢autocomplete
-	    function LoadRoad(){
-	    	   if($('#keyword').val() =='' || $('#keyword').val().trim() ==''){
-				   $('#tb').empty();
-			   }else{
 				   $.getJSON('<%= request.getContextPath() %>/GetRoad',
 						   	{'GUAR_AR':$('#select1').val(), 
 					   		 'keyword':$('#keyword').val()},
@@ -232,39 +203,8 @@
 									                        });
 									$('#tb').append(row);
 								});
-							});
-			  		 }
-		  	 };
-		  	 
-		  	 
-		  	var $input = $('#emailinput') // 抓輸入框
-		  	$input.on('change', checkUser) // 在輸入時執行 "checkUser" 也就是下面這個 function
-		  	
-		  	function checkUser() {
-		  	// POST 一個 Ajax request 到 /GetEmail，資料為 input 輸入框的值
-			  	  $.ajax({
-			  		'url': '<%= request.getContextPath() %>/GetEmail',
-			  	    'type': 'POST',
-			  	    'data': {'acc_email':$input.val()},
-			  	  	'dataType':'json',
-			  	  	'success': function(response){
-			  	  		if($input.val() != null || $input.val().trim()!=0){
-			  	  			if(response == "1" ){
-			  	  				alert('帳號申請重複，請輸入其他帳號');
-			  	  			}else{
-			  	  				chkEmail();  //執行驗證email格式
-				          	}
-			  	  		}
-			  	  	}
-			  	});
-		  	}
-		  	  
-		  //當重新輸入email時，清空驗證狀態
-		    $('#emailinput').change(function(){
-		    		$('#emailsp').empty();
-			   });
-		  		
-		  
+					});
+			   };
 		</script>
 
  		<script>
@@ -283,8 +223,24 @@
 		            if (document.getElementById("emailinput").value == "") {
 		                document.getElementById("emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />不可空白";
 		            }
+		            else if (document.getElementById("emailinput").value != "") {
+		            	chkEmail();          
+		            }
 		        }
 		
+		        function chkEmail() {
+		            var chkEmail = document.getElementById("emailinput").value;
+		
+		            var namere = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+		
+		            if (namere.test(chkEmail)) {
+		                document.getElementById("emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/right.png' />";
+		                
+		            }   
+		             else {
+		                document.getElementById("emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />格式錯誤";
+		               }
+		        } 
 		        
 		        function blur2() {
 		            if (document.getElementById("pwdinput").value == "") {
@@ -365,20 +321,6 @@
 		            }
 		        }
 		        
-		        function chkEmail() {
-		            var chkEmail = document.getElementById("emailinput").value;
-		
-		            var namere = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-		
-		            if (namere.test(chkEmail)) {
-		                document.getElementById("emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/right.png' />";
-		                
-		            }   
-		             else {
-		                document.getElementById("emailsp").innerHTML = "<img src='<%= request.getContextPath() %>/img/error.jpg' />格式錯誤";
-		               }
-		        } 
-		        
 		        function chkEmail2() {
 		            var chkEmail2 = document.getElementById("emailinput2").value;
 		
@@ -400,7 +342,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <p>Copyright &copy; EEIT83第五小組 2016 | <a href="<%= request.getContextPath() %>/contact.jsp">聯絡我們</a></p>
+                    <p>Copyright &copy; Your Website 2014</p>
                 </div>
             </div>
         </div>

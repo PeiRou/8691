@@ -131,6 +131,11 @@
 							<td>${error.drink_name}</td>
 						</tr>
 						<tr>
+							<td class="col-xs-8 col-sm-6 text-right">訂購店家: </td>
+							<td>50嵐</td>
+							<td></td>
+						</tr>
+						<tr>
 							<td class="col-xs-8 col-sm-6 text-right">品名: </td>
 							<td>波霸紅茶拿鐵</td>
 							<td></td>

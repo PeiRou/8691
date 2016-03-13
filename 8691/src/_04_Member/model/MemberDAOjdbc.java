@@ -166,18 +166,13 @@ public class MemberDAOjdbc implements MemberDAO {
 	}
 				
 	private static final String UPDATE =
-			"update Member set name=?, member_photo=?,gender=?, tel=?, GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?, email2=?, cel=? where account_UID=?";
-// 
+			"update Member set name=?, member_photo=?, tel=?, email2=?, cel=? where account_UID=?";
+//  GUAR_CT=?, GUAR_AR=?, GUAR_ROAD=?, GUAR_NO=?,
 @Override
 public MemberBean update(
 		String name,
 		String member_photo,
-		String gender,
 		String tel,
-		String GUAR_CT,
-		String GUAR_AR,
-		String GUAR_ROAD,
-		String GUAR_NO,
 		String email2,
 		String cel,
 		//java.util.Date insdate,
@@ -192,21 +187,17 @@ public MemberBean update(
 			psStrUpd = conn.prepareStatement(UPDATE);
 			psStrUpd.setString(1, name);
 			psStrUpd.setString(2, member_photo);
-			psStrUpd.setString(3, gender);
-			psStrUpd.setString(4, tel);
-			psStrUpd.setString(5, GUAR_CT);
-			psStrUpd.setString(6, GUAR_AR);
-			psStrUpd.setString(7, GUAR_ROAD);
-			psStrUpd.setString(8, GUAR_NO);
-			psStrUpd.setString(9, email2);
-			psStrUpd.setString(10, cel);
+			//psStrUpd.setString(3, gender);
+			psStrUpd.setString(3, tel);
+			psStrUpd.setString(4, email2);
+			psStrUpd.setString(5, cel);
 //			if (insdate != null) {
 //				long time = insdate.getTime();
 //				psStrUpd.setDate(11, new java.sql.Date(time));
 //			} else {
 //				psStrUpd.setDate(11, null);
 //			}
-			psStrUpd.setString(11, account_UID);
+			psStrUpd.setString(6, account_UID);
 			int i = psStrUpd.executeUpdate();
 			if(i==1){
 				System.out.println(result);

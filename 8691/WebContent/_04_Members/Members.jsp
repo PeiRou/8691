@@ -75,6 +75,12 @@
 						</form>
 					</td>
 				  </tr>
+				  <tr>
+				    <td><form action="<c:url value="/MemberServlet" />" method="post" >
+						<input class="btn btn-warning" type="button" value="點我改地址" onclick="location.href='<%= request.getContextPath() %>/_04_Members/UpdateAddr.jsp'">
+						</form>
+					</td>
+				  </tr>
 				</table>
 			</div>			
 		</div>
