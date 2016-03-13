@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -55,5 +56,61 @@ public class _11_Imagejdbc {
 			}
 		}
 		return JSONObjectList;
+	}
+	
+	private final String SELECT_NOW_ID = "select max(Image_ID)+1 from Image";
+	public String selectNowID() {
+		String result = null;
+		ResultSet rs = null;
+		try(Connection conn = dataSource.getConnection();
+			PreparedStatement stmt = conn.prepareStatement(SELECT_NOW_ID);
+			) {			
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getString(1);
+				return result;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return null;
+	}
+	
+	private final String INSERT = "insert into Image values(?,?)";
+	public int insert(String Image_Name,String Image_URL) {
+		List JSONObjectList = null;
+		ResultSet rs = null;
+		try(Connection conn = dataSource.getConnection();
+			PreparedStatement stmt = conn.prepareStatement(INSERT,Statement.RETURN_GENERATED_KEYS);
+			) {
+			stmt.setString(1, Image_Name);
+			stmt.setString(2, Image_URL);
+			stmt.executeUpdate();
+			rs = stmt.getGeneratedKeys();
+		    if(rs.next()){
+		    	System.out.println(rs.getInt(1));
+		    	return rs.getInt(1);
+		    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return 0;
 	}
 }

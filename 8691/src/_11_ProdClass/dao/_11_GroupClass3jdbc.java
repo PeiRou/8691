@@ -16,7 +16,8 @@ import javax.sql.DataSource;
 import org.json.simple.JSONObject;
 
 public class _11_GroupClass3jdbc {	
-	private _11_FoodClassjdbc foodClassjdbc = new _11_FoodClassjdbc();
+	private _11_FoodStatusClassjdbc foodStatusClassjdbc = new _11_FoodStatusClassjdbc();
+	private _11_ProdClass2jdbc prodClass2jdbc = new _11_ProdClass2jdbc();
 	private DataSource dataSource;
 	
 	public _11_GroupClass3jdbc() {
@@ -44,7 +45,7 @@ public class _11_GroupClass3jdbc {
 				obj.put("GroupClass3ID", rset.getString("Group_class3_ID"));
 				obj.put("ProdStatusClass1ID", rset.getString("Prod_status_class1_ID"));
 				obj.put("GroupClass3Name", rset.getString("Group_class3_name"));
-				List FoodStatusList = foodClassjdbc.select(rset.getString("Group_class3_ID"));
+				List FoodStatusList = foodStatusClassjdbc.select(rset.getString("Group_class3_ID"));
 				if (FoodStatusList != null) {
 					obj.put("FoodStatus", FoodStatusList);
 				}else{
@@ -80,6 +81,42 @@ public class _11_GroupClass3jdbc {
 			while(rset.next()) {
 				JSONObject obj = new JSONObject();				
 				obj.put("ProdStatusClass1Name", rset.getString("Prod_status_class1_name"));				
+				JSONObjectList.add(obj);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			if (rset != null) {
+				try {
+					rset.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return JSONObjectList;
+	}
+	
+	private final String SELECT_ALL_ClASS1 = "select distinct Prod_status_class1_ID from Group_class3 where Account_UID =?";
+	public List selectGpC1(String accountUID) {
+		List JSONObjectList = null;
+		ResultSet rset = null;
+		try(Connection conn = dataSource.getConnection();
+			PreparedStatement stmt = conn.prepareStatement(SELECT_ALL_ClASS1);
+			) {
+			stmt.setString(1, accountUID);
+			rset = stmt.executeQuery();
+		
+			JSONObjectList = new LinkedList();
+			while(rset.next()) {
+				JSONObject obj = new JSONObject();				
+				obj.put("ProdStatusClass1ID", rset.getString("Prod_status_class1_ID"));	
+				List Class2statusList = prodClass2jdbc.selectC1(rset.getString("Prod_status_class1_ID"));
+				if (Class2statusList != null) {
+					obj.put("Class2Status", Class2statusList);
+				}else{
+					obj.put("Class2Status", "");
+				}
 				JSONObjectList.add(obj);
 			}
 		} catch (SQLException e) {

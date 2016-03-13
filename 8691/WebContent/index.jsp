@@ -110,6 +110,12 @@
                             <div class="item">
                                 <img class="img-responsive img-full" src="img/slide-3.jpg" alt="">
                             </div>
+                             <div class="item">
+                                <img class="img-responsive img-full" src="img/slide-4.jpg" alt="">
+                            </div>
+                             <div class="item">
+                                <img class="img-responsive img-full" src="img/slide-5.jpg" alt="">
+                            </div>
                         </div>
 
                         <!-- Controls -->
@@ -126,8 +132,8 @@
                     <h1 class="brand-name">巴豆揪么(8691)美食飲料訂購網站</h1>
                     <hr class="tagline-divider">
                     <h2>
-                        <small>By
-                            <strong>就是要吃喝之美食飲料!!</strong>
+                        <small>NEWS!!
+                            <strong>全館滿額免運費!!</strong>
                         </small>
                     </h2>
                 </div>

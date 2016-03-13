@@ -23,7 +23,7 @@ public class InsertOrdersServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		super.doGet(request, response);
+		//super.doGet(request, response);
 		OrdersDetailService ordersDetailService = new OrdersDetailService();
 		OrdersTotalService ordersTotalService = new OrdersTotalService();
 		
@@ -31,6 +31,7 @@ public class InsertOrdersServlet extends HttpServlet {
 				String account_UID = (String)request.getSession().getAttribute("LoginOK");
 				String seller_UID = request.getParameter("seller_UID");
 				String name = request.getParameter("name");
+				String temp0 = request.getParameter("ordersID");
 				String cel = request.getParameter("cel");
 				String GUAR_CT = request.getParameter("GUAR_CT");
 				String GUAR_AR = request.getParameter("GUAR_AR");
@@ -45,7 +46,6 @@ public class InsertOrdersServlet extends HttpServlet {
 				String temp5 = request.getParameter("quantity");
 				String temp6 = request.getParameter("originalPrice");
 				String note = request.getParameter("note");
-				String insertaction = request.getParameter("insertaction");
 				
 		//轉換資料
 				Map<String, String> error = new HashMap<String, String>();
@@ -73,6 +73,16 @@ public class InsertOrdersServlet extends HttpServlet {
 				}
 				if(Drink_name==null || Drink_name.trim().length()==0) {
 					error.put("Drink_name", "請輸入品名");
+				}
+				
+				int ordersID = 0;
+				if(temp0!=null && temp0.length()!=0) {
+					try {
+						ordersID = Integer.parseInt(temp0);
+					} catch (NumberFormatException e) {
+						e.printStackTrace();
+						error.put("ordersID", "ordersID必須為整數!");
+					}
 				}
 				
 				int ship_price = 0;
@@ -139,18 +149,18 @@ public class InsertOrdersServlet extends HttpServlet {
 				
 		//呼叫model 1
 				OrdersDetailBean ordersDetailBean = new OrdersDetailBean();
+				ordersDetailBean.setOrdersID(ordersID);
 				ordersDetailBean.setFood_ID(Food_ID);
 				ordersDetailBean.setDrink_name(Drink_name);
 				ordersDetailBean.setQuantity(quantity);
 				ordersDetailBean.setOriginalPrice(originalPrice);
 				ordersDetailBean.setNote(note);
 				OrdersDetailBean resultDetail = ordersDetailService.insert(ordersDetailBean);
-				System.out.println(resultDetail);
 				
 		//呼叫model 2
 				OrdersTotalBean ordersTotalBean = new OrdersTotalBean();
-				if (resultDetail.getOrdersID() != 0) {
-					ordersTotalBean.setOrdersID(resultDetail.getOrdersID());	
+				//if (resultDetail.getOrdersID() != 0) {
+					ordersTotalBean.setOrdersID(ordersID);	
 					ordersTotalBean.setAccount_UID(account_UID);
 					ordersTotalBean.setSeller_UID(seller_UID);
 					ordersTotalBean.setName(name);
@@ -163,27 +173,20 @@ public class InsertOrdersServlet extends HttpServlet {
 					ordersTotalBean.setShip_price(ship_price);
 					ordersTotalBean.setFood_price(food_price);
 					ordersTotalBean.setTotal_amount(total_amount);
-				}else{
-					System.out.println("ordersTotalBean Error..");
-				}
-				
 				OrdersTotalBean resultTotal = ordersTotalService.insert(ordersTotalBean);
-				System.out.println(resultTotal);
 				
 				
 		//根據model執行結果顯示view
 				if (error!= null&&!error.isEmpty()) {
 					error.put("action", "購買失敗");
-					RequestDispatcher rd = request.getRequestDispatcher("/_01_Register/Register.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("/_03_Orders/InsertOrders.jsp");
 					rd.forward(request, response);	
 					return;
 				}else{
-					RequestDispatcher rd = request.getRequestDispatcher("/_01_Register/RegisterOK_toLogin.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("/_03_Orders/PurchaseOK.jsp");
 					rd.forward(request, response);
 				}
 	}
-				
-				
 	
 
 	@Override

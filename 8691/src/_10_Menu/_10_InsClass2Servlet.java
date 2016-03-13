@@ -1,7 +1,6 @@
 package _10_Menu;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,16 +12,11 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import _11_ProdClass.dao._11_Foodjdbc;
-import _11_ProdClass.dao._11_GroupClass3jdbc;
-import _11_ProdClass.dao._11_ProdClass1jdbc;
 import _11_ProdClass.dao._11_ProdClass2jdbc;
-import _11_ProdClass.dao._11_ProdClass3jdbc;
-import _11_ProdClass.dao._11_SizeStatusjdbc;
 @WebServlet(
-		urlPatterns={"/_10_Menu/GetC1C2.controller"}
+		urlPatterns={"/_10_Menu/InsClass2.controller"}
 		)
-public class _10_GetC1C2Servlet extends HttpServlet {
+public class _10_InsClass2Servlet extends HttpServlet {	
 	private _11_ProdClass2jdbc prodClass2jdbc = new _11_ProdClass2jdbc();
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,32 +24,30 @@ public class _10_GetC1C2Servlet extends HttpServlet {
 		String accountUID = (String) session.getAttribute("LoginOK");
 		session.setAttribute("LoginOK", accountUID);
 		
-		String Class1ID = request.getParameter("Class1ID");
-		System.out.println("Class1ID:"+Class1ID);
-		//String GroupID = "1";
-		List resultPrC1C2 = null;
+		String prodStatusClass2Name = request.getParameter("ProdStatusClass2Name");
+		String prodStatusClass1ID = request.getParameter("ProdStatusClass1ID");
+		
 		JSONObject json = new JSONObject();
-		
-		try {
-			
-			resultPrC1C2 = prodClass2jdbc.selectC1(Class1ID);
-			if(resultPrC1C2!=null){
-				json.put("data",resultPrC1C2);
-			}
-			System.out.println("resultPrC1C2:"+resultPrC1C2);
-
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}		
-		
-		request.setAttribute("resultPrC1C2", resultPrC1C2);
-		
-		System.out.println(json.toString());
+		int result = 0;
+		if(accountUID!=null){			
+			try {
+				System.out.println("LoginOK:"+accountUID);
+				System.out.println("ProdStatusClass1ID:"+prodStatusClass1ID);
+				System.out.println("ProdStatusClass2Name:"+prodStatusClass2Name);
+				result = prodClass2jdbc.insert(prodStatusClass1ID,prodStatusClass2Name);
+				json.put("ProdStatusClass2ID", result);
+								
+				System.out.println("resultInsC2:"+result);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}		
+		}
 		response.setHeader("Cache-control", "no-cache, no-store");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
 		response.getWriter().write(json.toString());
 	}
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	

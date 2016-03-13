@@ -65,6 +65,7 @@
 						<jsp:useBean id="hugeStick" scope="page" class="_07_Address.model.AddressJDBC"/>
 						<jsp:useBean id="hugeStick2" scope="page" class="_03_Orders.model.OrdersTotalJDBC"/>
 						<c:forEach var="bean" items="${select}">
+						<tr>
 							<td>${bean.ordersID}</td>
 							<td>${bean.name}</td>
 							<td>${hugeStick2.findNameBySellerPartner(bean.seller_UID).getName()}</td>
@@ -91,9 +92,8 @@
 					</table>
 					</c:if>
 					</form>
-					<input class="btn btn-primary" type="button" value="上一頁" onclick="location.href='<%= request.getContextPath() %>/_04_Members/Members.jsp'">
-<%-- 					<h3><a href="<c:url value="/_03_Orders/OrdersTotal.jsp" />">OrdersTotal Table</a></h3> --%>
-
+					<c:url value="/MemberServlet" var="GetMemberPath"></c:url>
+					<a class="btn btn-primary" href="${GetMemberPath}">上一頁</a>
 
 				</div>
 			</div>			
