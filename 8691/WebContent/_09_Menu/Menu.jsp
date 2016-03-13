@@ -25,15 +25,36 @@
     <link href="<%= request.getContextPath() %>/css/jquery.dataTable.min.css" rel="stylesheet">
 	<link href="<%= request.getContextPath() %>/css/jquery-ui/jquery-ui.min.css" rel="stylesheet">
 <style type="text/css" class="init">
-	td.details-control {
-		background: url('<%= request.getContextPath() %>/images/details_open.png') no-repeat center center;
-		cursor: pointer;
-	}
-	
-	tr.shown td.details-control {
-		background: url('<%= request.getContextPath() %>/images/details_close.png') no-repeat center
-			center;
-	}
+td.details-control {
+	background:
+		url('<%=request.getContextPath()%>/images/details_open.png')
+		no-repeat center center;
+	cursor: pointer;
+}
+
+tr.shown td.details-control {
+	background:
+		url('<%=request.getContextPath()%>/images/details_close.png')
+		no-repeat center center;
+}
+
+input[type=checkbox] {
+	display: none;
+}
+
+input[type=checkbox] {
+	background: url('../image/icon/blank-check-box.png') no-repeat;
+	height: 16px;
+	width: 37px;
+	display: inline-block;
+}
+
+input[type=checkbox]:checked {
+	background: url('../image/icon/check-box.png') no-repeat;
+	height: 16px;
+	width: 37px;
+	display: inline-block;
+}
 </style>
 </head>
 <body>
@@ -41,40 +62,33 @@
 	<div class="container">
 		<div class="row">
 			<div class="box">
-				<div class="col-lg-12">
+				<div class="col-lg-12">	
 					<a class="btn btn-warning insGroup">新增食物群組</a>
-					<a class="btn btn-primary tdinsC2">修改尺寸</a>
+					<a class="btn btn-primary tdinsSz">修改尺寸</a>			
 					<table id="tbl" class="table table-bordered">
 						<tr>
 							<td></td>
 							<td>品名</td>
-							<td>屬性</td>
+							<td width="30%">屬性</td>
 						</tr>
 					</table>					
-					<div id="trunkMenu"></div>
-					<c:url value="/_10_Menu/GetMenu.controller" var="GetMenupath"></c:url>
-					
-					<c:set value="${select}" var="FoodStaus"></c:set>
-					<input id="hidFoodStaus" type="hidden" value='${FoodStaus}' />
-					<c:set value="${selectGroup}" var="Group"></c:set>
-					<input id="hidGroup" type="hidden" value='${Group}' />
-					<c:set value="${selectSzSts}" var="SzSts"></c:set>
-					<input id="hidSzSts" type="hidden" value='${SzSts}' />
-					<c:set value="${selectPrCl1}" var="PrCl1"></c:set>
-					<input id="hidPrCl1" type="hidden" value='${PrCl1}' />
-					<c:set value="${selectPrCl2}" var="PrCl2"></c:set>
-					<input id="hidPrCl2" type="hidden" value='${PrCl2}' />
-					<c:set value="${selectPrSts}" var="PrSts"></c:set>
-					<input id="hidPrSts" type="hidden" value='${PrSts}' />
+					<div id="trunkMenu"></div>				
 					
 					<c:url value="/_10_Menu/InsMenu.controller" var="insMenupath"></c:url>
 					<c:set value="${insMenupath}" var="insMenupathset"></c:set>
 					<input id="hidInsMenu" type="hidden" value='${insMenupathset}' />
-					<input id="hidInsC3Val" type="hidden" value='' />
+					<input id="hidInsC3Val" type="hidden" value='' />					
 				</div>
 			</div>
 		</div>
 		<!-- dialog-form -->
+		<div id="dialogSz" title="修改你想要尺寸名稱">		
+			<table id="tblSz" class="display table table-bordered" cellspacing="0" width="100%">
+				<tr>
+				</tr>
+			</table>
+		</div>
+		<div id="dialogClass2" title="修改屬性">
 		<div id="dialogClass1" title="請先選擇一個群組">		
 			<table id="dtableGP" class="display" cellspacing="0" width="100%">
 				<thead>
@@ -94,17 +108,16 @@
 			</table>
 		</div>
 		<div id="dialogClass2" title="修改屬性">
+		<input id="hidGP" type="hidden" value="">
 			<table id="example" class="display" cellspacing="0" width="100%">
 				<thead>
 					<tr>
 						<th></th>
-						<th>第二層屬性</th>
-						<th>第三層屬性</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tfoot>
 					<tr>
-						<th></th>
 						<th></th>
 						<th></th>
 					</tr>
@@ -133,29 +146,34 @@
     <script src="<%= request.getContextPath() %>/js/jquery.dataTable.min.js"></script>
 	<script src="<%= request.getContextPath() %>/js/jquery-ui.min.js"></script>
     <script>
-    var data = $('#hidFoodStaus').val();
-    var Group = $('#hidGroup').val();
-    var SzSts = $('#hidSzSts').val();
-    var PrCl1 = $('#hidPrCl1').val();
-    var PrCl2 = $('#hidPrCl2').val();
-    var PrSts = $('#hidPrSts').val();
-	//假資料位置
-//     var data = '[{"FoodPrice":[{"FoodSizePriceID":"1","SizeStatusID":"2","FoodID":"1","FoodStatusPrice":"40"},{"FoodSizePriceID":"2","SizeStatusID":"3","FoodID":"1","FoodStatusPrice":"45"}],"GroupClass3ID":"1","FoodID":"1","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"珍珠奶茶"}, {"FoodPrice":[{"FoodSizePriceID":"7","SizeStatusID":"1","FoodID":"4","FoodStatusPrice":"50"}],"GroupClass3ID":"1","FoodID":"4","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"奶茶"}, {"FoodPrice":[{"FoodSizePriceID":"8","SizeStatusID":"1","FoodID":"5","FoodStatusPrice":"45"}],"GroupClass3ID":"1","FoodID":"5","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"豆漿紅茶"}, {"FoodPrice":[{"FoodSizePriceID":"9","SizeStatusID":"1","FoodID":"6","FoodStatusPrice":"60"}],"GroupClass3ID":"1","FoodID":"6","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"綠茶"}, {"FoodPrice":[],"GroupClass3ID":"2","FoodID":"7","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"沙士"}, {"FoodPrice":[],"GroupClass3ID":"2","FoodID":"8","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"青茶"}, {"FoodPrice":[],"GroupClass3ID":"2","FoodID":"9","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"烏龍綠茶"}]';
-//     var Group = '[{"FoodStatus":[{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"1","ProdStatusClass3Name":"珍珠"}],"GroupClass3ID":"1","ProdStatusClass3ID":"1"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"2","ProdStatusClass3Name":"椰果"}],"GroupClass3ID":"1","ProdStatusClass3ID":"2"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"3","ProdStatusClass3Name":"粉條"}],"GroupClass3ID":"1","ProdStatusClass3ID":"3"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"4","ProdStatusClass3Name":"綠豆"}],"GroupClass3ID":"1","ProdStatusClass3ID":"4"},{"ProdStatus":[{"ProdStatusClass3Price":"0","ProdStatusClass2ID":"2","ProdStatusClass3ID":"6","ProdStatusClass3Name":"少糖(7分)"}],"GroupClass3ID":"1","ProdStatusClass3ID":"6"},{"ProdStatus":[{"ProdStatusClass3Price":"0","ProdStatusClass2ID":"2","ProdStatusClass3ID":"7","ProdStatusClass3Name":"半糖(5分)"}],"GroupClass3ID":"1","ProdStatusClass3ID":"7"}],"GroupClass3Name":"這是測試","GroupClass3ID":"1","ProdStatusClass1ID":"11"}, {"FoodStatus":[{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"2","ProdStatusClass3Name":"椰果"}],"GroupClass3ID":"2","ProdStatusClass3ID":"2"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"3","ProdStatusClass3Name":"粉條"}],"GroupClass3ID":"2","ProdStatusClass3ID":"3"},{"ProdStatus":[{"ProdStatusClass3Price":"0","ProdStatusClass2ID":"2","ProdStatusClass3ID":"6","ProdStatusClass3Name":"少糖(7分)"}],"GroupClass3ID":"2","ProdStatusClass3ID":"6"},{"ProdStatus":[{"ProdStatusClass3Price":"0","ProdStatusClass2ID":"2","ProdStatusClass3ID":"7","ProdStatusClass3Name":"半糖(5分)"}],"GroupClass3ID":"2","ProdStatusClass3ID":"7"}],"GroupClass3Name":"我的最愛","GroupClass3ID":"2","ProdStatusClass1ID":"11"}]';
-//     var SzSts = '[{"SizeStatusID":"1","SizeName":"預設"}, {"SizeStatusID":"2","SizeName":"小"}, {"SizeStatusID":"3","SizeName":"中"}, {"SizeStatusID":"4","SizeName":"大"}]';
-//     var PrCl1 = '[{"ProdStatusClass1Name":"下午茶","ProdStatusClass1ID":"1"}, {"ProdStatusClass1Name":"中式料理","ProdStatusClass1ID":"2"}, {"ProdStatusClass1Name":"中西麵食料理","ProdStatusClass1ID":"3"}, {"ProdStatusClass1Name":"便當-小吃","ProdStatusClass1ID":"4"}, {"ProdStatusClass1Name":"其他歐系料理","ProdStatusClass1ID":"5"}, {"ProdStatusClass1Name":"其他異國料理","ProdStatusClass1ID":"6"}, {"ProdStatusClass1Name":"冰品(冰淇淋、刨冰、甜品)","ProdStatusClass1ID":"7"}, {"ProdStatusClass1Name":"南洋料理(越、馬、新)","ProdStatusClass1ID":"8"}, {"ProdStatusClass1Name":"印度料理","ProdStatusClass1ID":"9"}, {"ProdStatusClass1Name":"台菜-熱炒","ProdStatusClass1ID":"10"}, {"ProdStatusClass1Name":"咖啡專賣","ProdStatusClass1ID":"11"}, {"ProdStatusClass1Name":"壽司-生魚片","ProdStatusClass1ID":"12"}, {"ProdStatusClass1Name":"披薩","ProdStatusClass1ID":"13"}, {"ProdStatusClass1Name":"日本料理","ProdStatusClass1ID":"14"}, {"ProdStatusClass1Name":"早午餐","ProdStatusClass1ID":"15"}, {"ProdStatusClass1Name":"泰式料理","ProdStatusClass1ID":"16"}, {"ProdStatusClass1Name":"炸雞速食","ProdStatusClass1ID":"17"}, {"ProdStatusClass1Name":"無國界料理與創意料理","ProdStatusClass1ID":"18"}, {"ProdStatusClass1Name":"粵菜(港式、飲茶、點心)","ProdStatusClass1ID":"19"}, {"ProdStatusClass1Name":"精緻套餐","ProdStatusClass1ID":"20"}, {"ProdStatusClass1Name":"素食","ProdStatusClass1ID":"21"}, {"ProdStatusClass1Name":"美墨料理","ProdStatusClass1ID":"22"}, {"ProdStatusClass1Name":"義式料理","ProdStatusClass1ID":"23"}, {"ProdStatusClass1Name":"蛋糕-西式點心","ProdStatusClass1ID":"24"}, {"ProdStatusClass1Name":"輕食(沙拉、三明治)","ProdStatusClass1ID":"25"}, {"ProdStatusClass1Name":"鍋物(火鍋、豆腐鍋)","ProdStatusClass1ID":"26"}, {"ProdStatusClass1Name":"韓式料理","ProdStatusClass1ID":"27"}, {"ProdStatusClass1Name":"飯類料理(丼飯、飯盒、粥)","ProdStatusClass1ID":"28"}]';
-//     var PrCl2 = '[{"ProdStatusClass2ID":"1","ProdStatusClass1ID":"11","ProdStatusClass2Name":"冷熱"}, {"ProdStatusClass2ID":"2","ProdStatusClass1ID":"11","ProdStatusClass2Name":"甜度"}, {"ProdStatusClass2ID":"3","ProdStatusClass1ID":"11","ProdStatusClass2Name":"加料"}, {"ProdStatusClass2ID":"4","ProdStatusClass1ID":"3","ProdStatusClass2Name":"升級成套餐"}]';
-//     var PrSts = '[{"Class2Status":[],"ProdStatusClass1Name":"下午茶","ProdStatusClass1ID":"1"}, {"Class2Status":[],"ProdStatusClass1Name":"中式料理","ProdStatusClass1ID":"2"}, {"Class2Status":[{"ProdStatusClass2ID":"4","ProdStatusClass2Name":"升級成套餐","Class3Status":[{"ProdStatusClass3Price":"30","ProdStatusClass3ID":"8","ProdStatusClass3Name":"可樂"},{"ProdStatusClass3Price":"30","ProdStatusClass3ID":"9","ProdStatusClass3Name":"雪碧"},{"ProdStatusClass3Price":"30","ProdStatusClass3ID":"10","ProdStatusClass3Name":"檸檬紅茶"}]}],"ProdStatusClass1Name":"中西麵食料理","ProdStatusClass1ID":"3"}, {"Class2Status":[],"ProdStatusClass1Name":"便當-小吃","ProdStatusClass1ID":"4"}, {"Class2Status":[],"ProdStatusClass1Name":"其他歐系料理","ProdStatusClass1ID":"5"}, {"Class2Status":[],"ProdStatusClass1Name":"其他異國料理","ProdStatusClass1ID":"6"}, {"Class2Status":[],"ProdStatusClass1Name":"冰品(冰淇淋、刨冰、甜品)","ProdStatusClass1ID":"7"}, {"Class2Status":[],"ProdStatusClass1Name":"南洋料理(越、馬、新)","ProdStatusClass1ID":"8"}, {"Class2Status":[],"ProdStatusClass1Name":"印度料理","ProdStatusClass1ID":"9"}, {"Class2Status":[],"ProdStatusClass1Name":"台菜-熱炒","ProdStatusClass1ID":"10"}, {"Class2Status":[{"ProdStatusClass2ID":"1","ProdStatusClass2Name":"冷熱","Class3Status":[]},{"ProdStatusClass2ID":"2","ProdStatusClass2Name":"甜度","Class3Status":[{"ProdStatusClass3Price":"0","ProdStatusClass3ID":"5","ProdStatusClass3Name":"正常"},{"ProdStatusClass3Price":"0","ProdStatusClass3ID":"6","ProdStatusClass3Name":"少糖(7分)"},{"ProdStatusClass3Price":"0","ProdStatusClass3ID":"7","ProdStatusClass3Name":"半糖(5分)"}]},{"ProdStatusClass2ID":"3","ProdStatusClass2Name":"加料","Class3Status":[{"ProdStatusClass3Price":"5","ProdStatusClass3ID":"1","ProdStatusClass3Name":"珍珠"},{"ProdStatusClass3Price":"5","ProdStatusClass3ID":"2","ProdStatusClass3Name":"椰果"},{"ProdStatusClass3Price":"5","ProdStatusClass3ID":"3","ProdStatusClass3Name":"粉條"},{"ProdStatusClass3Price":"5","ProdStatusClass3ID":"4","ProdStatusClass3Name":"綠豆"}]}],"ProdStatusClass1Name":"咖啡專賣","ProdStatusClass1ID":"11"}, {"Class2Status":[],"ProdStatusClass1Name":"壽司-生魚片","ProdStatusClass1ID":"12"}, {"Class2Status":[],"ProdStatusClass1Name":"披薩","ProdStatusClass1ID":"13"}, {"Class2Status":[],"ProdStatusClass1Name":"日本料理","ProdStatusClass1ID":"14"}, {"Class2Status":[],"ProdStatusClass1Name":"早午餐","ProdStatusClass1ID":"15"}, {"Class2Status":[],"ProdStatusClass1Name":"泰式料理","ProdStatusClass1ID":"16"}, {"Class2Status":[],"ProdStatusClass1Name":"炸雞速食","ProdStatusClass1ID":"17"}, {"Class2Status":[],"ProdStatusClass1Name":"無國界料理與創意料理","ProdStatusClass1ID":"18"}, {"Class2Status":[],"ProdStatusClass1Name":"粵菜(港式、飲茶、點心)","ProdStatusClass1ID":"19"}, {"Class2Status":[],"ProdStatusClass1Name":"精緻套餐","ProdStatusClass1ID":"20"}, {"Class2Status":[],"ProdStatusClass1Name":"素食","ProdStatusClass1ID":"21"}, {"Class2Status":[],"ProdStatusClass1Name":"美墨料理","ProdStatusClass1ID":"22"}, {"Class2Status":[],"ProdStatusClass1Name":"義式料理","ProdStatusClass1ID":"23"}, {"Class2Status":[],"ProdStatusClass1Name":"蛋糕-西式點心","ProdStatusClass1ID":"24"}, {"Class2Status":[],"ProdStatusClass1Name":"輕食(沙拉、三明治)","ProdStatusClass1ID":"25"}, {"Class2Status":[],"ProdStatusClass1Name":"鍋物(火鍋、豆腐鍋)","ProdStatusClass1ID":"26"}, {"Class2Status":[],"ProdStatusClass1Name":"韓式料理","ProdStatusClass1ID":"27"}, {"Class2Status":[],"ProdStatusClass1Name":"飯類料理(丼飯、飯盒、粥)","ProdStatusClass1ID":"28"}]';
+  //假資料位置
+  var data = '[{"FoodPrice":[{"FoodSizePriceID":"1","SizeStatusID":"3","FoodID":"1","FoodStatusPrice":"40"},{"FoodSizePriceID":"2","SizeStatusID":"3","FoodID":"1","FoodStatusPrice":"45"}],"GroupClass3ID":"1","FoodID":"1","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"珍珠奶茶"}, {"FoodPrice":[{"FoodSizePriceID":"7","SizeStatusID":"1","FoodID":"4","FoodStatusPrice":"50"}],"GroupClass3ID":"1","FoodID":"4","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"奶茶"}, {"FoodPrice":[{"FoodSizePriceID":"8","SizeStatusID":"1","FoodID":"5","FoodStatusPrice":"45"}],"GroupClass3ID":"1","FoodID":"5","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"豆漿紅茶"}, {"FoodPrice":[{"FoodSizePriceID":"9","SizeStatusID":"1","FoodID":"6","FoodStatusPrice":"25"}],"GroupClass3ID":"1","FoodID":"6","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"綠茶"}, {"FoodPrice":[{"FoodSizePriceID":"14","SizeStatusID":"1","FoodID":"7","FoodStatusPrice":"30"}],"GroupClass3ID":"2","FoodID":"7","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"沙士"}, {"FoodPrice":[{"FoodSizePriceID":"15","SizeStatusID":"1","FoodID":"8","FoodStatusPrice":"30"}],"GroupClass3ID":"2","FoodID":"8","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"青茶"}, {"FoodPrice":[{"FoodSizePriceID":"16","SizeStatusID":"1","FoodID":"9","FoodStatusPrice":"35"}],"GroupClass3ID":"2","FoodID":"9","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"烏龍綠茶"}, {"FoodPrice":[{"FoodSizePriceID":"10","SizeStatusID":"1","FoodID":"10","FoodStatusPrice":"2000"}],"GroupClass3ID":"1","FoodID":"10","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"心痛"}, {"FoodPrice":[{"FoodSizePriceID":"11","SizeStatusID":"2","FoodID":"11","FoodStatusPrice":"2000"},{"FoodSizePriceID":"12","SizeStatusID":"4","FoodID":"11","FoodStatusPrice":"4000"}],"GroupClass3ID":"1","FoodID":"11","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"心痛"}, {"FoodPrice":[{"FoodSizePriceID":"13","SizeStatusID":"1","FoodID":"12","FoodStatusPrice":"120"}],"GroupClass3ID":"3","FoodID":"12","AccountUID":"6D4B16EF-F830-4374-AF0B-8E19EA997D5F","FoodPhoto":"","FoodName":"樂意大利麵"}]';
+//  var Group = '[{"FoodStatus":[{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"1","ProdStatusClass3Name":"珍珠"}],"GroupClass3ID":"1","ProdStatusClass3ID":"1"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"2","ProdStatusClass3Name":"椰果"}],"GroupClass3ID":"1","ProdStatusClass3ID":"2"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"3","ProdStatusClass3Name":"粉條"}],"GroupClass3ID":"1","ProdStatusClass3ID":"3"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"4","ProdStatusClass3Name":"綠豆"}],"GroupClass3ID":"1","ProdStatusClass3ID":"4"},{"ProdStatus":[{"ProdStatusClass3Price":"0","ProdStatusClass2ID":"2","ProdStatusClass3ID":"6","ProdStatusClass3Name":"少糖(7分)"}],"GroupClass3ID":"1","ProdStatusClass3ID":"6"},{"ProdStatus":[{"ProdStatusClass3Price":"0","ProdStatusClass2ID":"2","ProdStatusClass3ID":"7","ProdStatusClass3Name":"半糖(5分)"}],"GroupClass3ID":"1","ProdStatusClass3ID":"7"}],"GroupClass3Name":"這是測試","GroupClass3ID":"1","ProdStatusClass1ID":"11"}, {"FoodStatus":[{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"2","ProdStatusClass3Name":"椰果"}],"GroupClass3ID":"2","ProdStatusClass3ID":"2"},{"ProdStatus":[{"ProdStatusClass3Price":"5","ProdStatusClass2ID":"3","ProdStatusClass3ID":"3","ProdStatusClass3Name":"粉條"}],"GroupClass3ID":"2","ProdStatusClass3ID":"3"},{"ProdStatus":[{"ProdStatusClass3Price":"0","ProdStatusClass2ID":"2","ProdStatusClass3ID":"6","ProdStatusClass3Name":"少糖(7分)"}],"GroupClass3ID":"2","ProdStatusClass3ID":"6"},{"ProdStatus":[{"ProdStatusClass3Price":"0","ProdStatusClass2ID":"2","ProdStatusClass3ID":"7","ProdStatusClass3Name":"半糖(5分)"}],"GroupClass3ID":"2","ProdStatusClass3ID":"7"}],"GroupClass3Name":"我的最愛","GroupClass3ID":"2","ProdStatusClass1ID":"11"}]';
+//  var SzSts = '[{"SizeStatusID":"1","SizeName":"預設"}, {"SizeStatusID":"2","SizeName":"小"}, {"SizeStatusID":"3","SizeName":"中"}, {"SizeStatusID":"4","SizeName":"大"}]';
+  var PrCl1 = '[{"ProdStatusClass1Name":"下午茶","ProdStatusClass1ID":"1"}, {"ProdStatusClass1Name":"中式料理","ProdStatusClass1ID":"2"}, {"ProdStatusClass1Name":"中西麵食料理","ProdStatusClass1ID":"3"}, {"ProdStatusClass1Name":"便當-小吃","ProdStatusClass1ID":"4"}, {"ProdStatusClass1Name":"其他歐系料理","ProdStatusClass1ID":"5"}, {"ProdStatusClass1Name":"其他異國料理","ProdStatusClass1ID":"6"}, {"ProdStatusClass1Name":"冰品(冰淇淋、刨冰、甜品)","ProdStatusClass1ID":"7"}, {"ProdStatusClass1Name":"南洋料理(越、馬、新)","ProdStatusClass1ID":"8"}, {"ProdStatusClass1Name":"印度料理","ProdStatusClass1ID":"9"}, {"ProdStatusClass1Name":"台菜-熱炒","ProdStatusClass1ID":"10"}, {"ProdStatusClass1Name":"咖啡專賣","ProdStatusClass1ID":"11"}, {"ProdStatusClass1Name":"壽司-生魚片","ProdStatusClass1ID":"12"}, {"ProdStatusClass1Name":"披薩","ProdStatusClass1ID":"13"}, {"ProdStatusClass1Name":"日本料理","ProdStatusClass1ID":"14"}, {"ProdStatusClass1Name":"早午餐","ProdStatusClass1ID":"15"}, {"ProdStatusClass1Name":"泰式料理","ProdStatusClass1ID":"16"}, {"ProdStatusClass1Name":"炸雞速食","ProdStatusClass1ID":"17"}, {"ProdStatusClass1Name":"無國界料理與創意料理","ProdStatusClass1ID":"18"}, {"ProdStatusClass1Name":"粵菜(港式、飲茶、點心)","ProdStatusClass1ID":"19"}, {"ProdStatusClass1Name":"精緻套餐","ProdStatusClass1ID":"20"}, {"ProdStatusClass1Name":"素食","ProdStatusClass1ID":"21"}, {"ProdStatusClass1Name":"美墨料理","ProdStatusClass1ID":"22"}, {"ProdStatusClass1Name":"義式料理","ProdStatusClass1ID":"23"}, {"ProdStatusClass1Name":"蛋糕-西式點心","ProdStatusClass1ID":"24"}, {"ProdStatusClass1Name":"輕食(沙拉、三明治)","ProdStatusClass1ID":"25"}, {"ProdStatusClass1Name":"鍋物(火鍋、豆腐鍋)","ProdStatusClass1ID":"26"}, {"ProdStatusClass1Name":"韓式料理","ProdStatusClass1ID":"27"}, {"ProdStatusClass1Name":"飯類料理(丼飯、飯盒、粥)","ProdStatusClass1ID":"28"}]';
+//  var PrCl2 = '[{"ProdStatusClass2ID":"1","ProdStatusClass1ID":"11","ProdStatusClass2Name":"冷熱"}, {"ProdStatusClass2ID":"2","ProdStatusClass1ID":"11","ProdStatusClass2Name":"甜度"}, {"ProdStatusClass2ID":"3","ProdStatusClass1ID":"11","ProdStatusClass2Name":"加料"}, {"ProdStatusClass2ID":"4","ProdStatusClass1ID":"3","ProdStatusClass2Name":"升級成套餐"}]';
+ 
+  var jsonVal = JSON.parse(data);    
+//  var jsonGroup = JSON.parse(Group);
+//  var jsonSzSts = JSON.parse(SzSts);
+  var jsonPrCl1 = JSON.parse(PrCl1);
+//  var jsonPrCl2 = JSON.parse(PrCl2);
+//假資料位置------------>
+//    var data = ${select};
+    var Group = ${selectGroup};
+    var SzSts = ${selectSzSts};
+//    var PrCl1 = ${selectPrCl1};
+    var PrCl2 = ${selectPrCl2};
     
-    var jsonVal = JSON.parse(data);
-    var jsonGroup = JSON.parse(Group);
-    var jsonSzSts = JSON.parse(SzSts);
-    var jsonPrCl1 = JSON.parse(PrCl1);
-    var jsonPrCl2 = JSON.parse(PrCl2);
-    var jsonPrSts = JSON.parse(PrSts);
+//    var jsonVal = JSON.parse(JSON.stringify(data));
+    var jsonGroup = JSON.parse(JSON.stringify(Group));
+    var jsonSzSts = JSON.parse(JSON.stringify(SzSts));
+//    var jsonPrCl1 = JSON.parse(JSON.stringify(PrCl1));
+    var jsonPrCl2 = JSON.parse(JSON.stringify(PrCl2));
     
     var errArray = null;    
     var newPlusInx = 0;
+    var ObjC1C2 = Object;
     
     //紀錄ajax是否回傳response
     var queue = [];
@@ -163,6 +181,8 @@
     //-----第一次載入--start---
  	LoadTable(jsonVal,jsonGroup);
     beLoad();
+    //非同步去撈剩下資料
+    SecondToLoad();
 	//dialog事件
 	$( "#dialogClass1" ).dialog({
 	  resizable: false,
@@ -176,12 +196,25 @@
 	      autoOpen: false,
 	      modal: true,
 	      height: 500,
-	      width: 500,
+	      width: 800,
 	      buttons: {	          
-	          Cancel: function() {
+	    	  "確定": saveChecked,
+	          "離開": function() {
 	            $(this).dialog( "close" );
-	          }
-	        }
+				location.reload(true);}
+				}
+	    });
+	$( "#dialogSz" ).dialog({
+		  resizable: false,
+	      autoOpen: false,
+	      modal: true,
+	      height: 400,
+	      width: 600,
+	      buttons: {
+	          "離開": function() {
+	            $(this).dialog( "close" );
+				location.reload(true);}
+				}
 	    });
 	//------第一次載入-----End-------
 	
@@ -208,13 +241,25 @@
 		$(this).hide();
 		$('.tdupd').show();
 		$(":input").attr('disabled', true);
-		var theTr = $(this).parent().parent().attr("id");
+		var theTr = $(this).parent().parent().attr("id");		
+		//修改資料
+		UpdTable(theTr);
 		//把輸入的欄位覆蓋回頁面
 		funChangeVal(theTr);
-		UpdTable(theTr);
 	});
 	//dialog的click事件
+	$(".tdinsSz").click(function() {		
+		dialogSz();
+      $("#dialogSz").dialog( "open" );
+    });
 	$(".tdinsC2").click(function() {
+		var theTr = $(this).parent().parent().parent().attr("id");
+		var leth = theTr.length;
+		var GpID = theTr.substring(7,leth);
+		console.log("GpID:"+GpID)
+		var Class1ID = $("#selGpID"+GpID).val();
+		console.log("Class1ID:"+Class1ID);
+		dialogC2(GpID,Class1ID);
       $("#dialogClass2").dialog( "open" );
     });
 	//------固定的btn事件---End----	
@@ -238,7 +283,7 @@
         	var trunkbtn = $("<td></td>").append(btnUpd).append(btnOk);
         	
         	//每一列的ProdClass1
-        	var ProdClass1 = insClass1(GroupVal.ProdStatusClass1ID,GroupVal.GroupClass3Name);
+        	var ProdClass1 = insClass1(GroupVal.GroupClass3ID,GroupVal.ProdStatusClass1ID,GroupVal.GroupClass3Name);
        		trunkFoodTd.prepend(ProdClass1).append('<br>');
        		
         	//右邊欄位屬性值
@@ -262,7 +307,7 @@
 	//跑迴圈把價錢的按鈕包起來
 	function loopceltextPrices(FoodID,PriceStus){
 		var JsonData = JSON.stringify(PriceStus);
-		console.log("PriceStus:"+JsonData);
+		//console.log("PriceStus:"+JsonData);
 		var appPrices = $("<a/>");
 		$.each(PriceStus,function(index,PriceVal){
 			var lblPrice = insPrice(PriceVal.SizeStatusID,PriceVal.FoodSizePriceID,PriceVal.FoodStatusPrice);
@@ -282,7 +327,7 @@
 				}
 			});
 		}else if(selName=="Class1"){
-			var select = $('<select class=form-control></select>');
+			var select = $('<select class=form-control id=selGpID'+selID+'></select>');
 			$.each(jsonPrCl1,function(index,PrClval){
 				if(PrClval.ProdStatusClass1ID==selectedID){
 					select.append($('<option></option>').val(PrClval.ProdStatusClass1ID).text(PrClval.ProdStatusClass1Name).attr('selected',true));
@@ -340,8 +385,8 @@
 		return cellabel;
 	}
 	//class1屬性值
-	function insClass1(Class1ID,GroupClass3Name) {		
-		var celSeld = selAttr("Class1",Class1ID,Class1ID);		
+	function insClass1(GroupID,Class1ID,GroupClass3Name) {		
+		var celSeld = selAttr("Class1",GroupID,Class1ID);		
 		var celfont = $('<font id=fontClass1'+Class1ID+'></font>').text(GroupClass3Name);
 		var cellabel = $('<label class="btn btn-default btn-lg active" id=lblClass1'+Class1ID +' style="margin: 2px"></label>').text("群組名稱: ").append(celfont).append(celSeld);
 		return cellabel;
@@ -364,7 +409,6 @@
 	}   
 	//修改資料
 	function UpdTable(theTr){
-		var dataArray = new Array;
 		var foodArray = new Array;
 		var SzPzArray = new Array;
 		var action = "Update";
@@ -418,18 +462,9 @@
 					errArray.push(objdata);
 				}
 			}
-		});
-		//前端驗證數字
-		if(errArray!=null){
-			$.each(errArray,function(index,Obj){
-				console.log(index,Obj.OgnPrice);			
-				fucErorrShow(Obj.theTr,Obj.thelabel,Obj.FoodSizePriceID,Obj.OgnPrice);
-			});
-			errArray = null;
-		}else{
-			CovJsonObjectSetAjax(action,"Food",foodArray);
-			CovJsonObjectSetAjax(action,"FoodSizePrice",SzPzArray);
-		}
+		});	
+		CovJsonObjectSetAjax(action,"Food",foodArray);
+		CovJsonObjectSetAjax(action,"FoodSizePrice",SzPzArray);
 	}
 	//轉成json物件,再送出ajax
 	function CovJsonObjectSetAjax(action,table,status){
@@ -513,6 +548,14 @@
 				$('font[id="fontSizePrice'+SzPzId+'"]').append($(this).val());
 			}
 		});
+		//前端驗證數字
+		if(errArray!=null){
+			$.each(errArray,function(index,Obj){
+				//console.log(index,Obj.OgnPrice);			
+				fucErorrShow(Obj.theTr,Obj.thelabel,Obj.FoodSizePriceID,Obj.OgnPrice);
+			});
+			errArray = null;
+		}
 	}
 	//有錯誤的時候則不讓格子隱藏回去
 	function fucErorrShow(theTr,thelabel,FoodSizePriceID,OgnPrice){
@@ -605,8 +648,7 @@
 			InsFood(theTr);			
 		});
 		$('.NewN').click(function() {
-			$(this).parent().parent().remove();
-			$("#error").hide();
+			$(this).parent().parent().remove();			
 		});
 	}
 	//增加價錢的按鈕事件
@@ -637,8 +679,7 @@
 		});
 	}
 	//新增食物
-	function InsFood(theTr){			
-		var dataArray = new Array;
+	function InsFood(theTr){
 		var requestArray = new Array;
 		var action = "Insert";
 		var tmpSize;
@@ -851,97 +892,625 @@ $(document).ready(function() {
 		    } );
 	}
 } );
-
-//修改屬性的dialog
-$(document).ready(function() {
-	 var table = $('#example').DataTable( {        
-    	"ajax": {
-            'type': 'POST',
-            'url': '/8691/_10_Menu/GetC1C2.controller',
-            'data': {
-            	GroupID: '1'}
-            },
-        columns: [
-			{
-			    "className":      'details-control',
-			    "orderable":      false,
-			    "data":           null,
-			    "defaultContent": ''
-			},
-            { "data": "ProdStatusClass2Name" },
-            { "data": "Class3Status[,].ProdStatusClass3Name" }
-        ]
-    } );
-	//Add event listener for opening and closing details
-	$('#example tbody').on('click', 'td.details-control', function () {
-		var tr = $(this).closest('tr');
-		var row = table.row( tr );
+//修改尺寸的dialog
+function dialogSz(){
+	var trunkStusTd = $("<td></td>");
+	var btnIns = $('<a class="btn btn-warning Szins"></a>').text('新增尺寸');
+	var btnUpd = $('<a class="btn btn-success Szupd"></a>').text('修改');
+	var btnOk = $('<a class="btn btn-success Szok"></a>').text('確定');
+	var trunkbtn = $("<td width=30px></td>").append(btnUpd).append(btnOk);
 	
-		if ( row.child.isShown() ) {
-			// This row is already open - close it
-			row.child.hide();
-			tr.removeClass('shown');
-		}
-		else {
-			// Open this row
-			row.child( format(row.data()) ).show();
-			tr.addClass('shown');
-		}
-		dgbeload();
-	} ); 
-} );
-var tempdataVal;
-function format ( dataVal ) {
-	// `d` is the original data object for the row	
-	var temp = $('<table></table>')
-	var tempTr = null;	
-	var temptitle = $('<td>'+ dataVal.ProdStatusClass2Name +'<td>');
-	var tempC3Val = $('<a/>');
-	var btnUpd = $('<a class="btn btn-success dgupd"></a>').text('修改');
-	var btnOk = $('<a class="btn btn-success dgok" style="display:none"></a>').text('確定');
-	$.each(dataVal.Class3Status,function(index,Class3Status){
-		var celClass3ID = Class3Status.ProdStatusClass3ID,
-			celName = Class3Status.ProdStatusClass3Name,
-			celPrice = Class3Status.ProdStatusClass3Price;
-		console.log(celName);
-		var celchk = $('<input type=checkbox id=dgClass3ID'+celClass3ID+'>').val(celClass3ID);
-		var celtextName = $('<input class="dgtxtName" type=text id=dgClass3Name'+celClass3ID+' maxlength="6" size="6" style="display:none">').val(celName);
-		var celfontName = $('<font class="dgtdfontName" id=dgfont'+celClass3ID+'></font>').text(celName);
-		var celtextPrice = $('<input class="dgtxtPrice" type=text id=dgPrice'+celClass3ID+' maxlength="6" size="6" style="display:none">').val(celPrice);
-		var celfontPrice = $('<font class="dgtdfontPrice" id=dgfont'+celClass3ID+'></font>').text(celPrice);
-		var cellabel = $('<label class="btn btn-default" id=dglbl'+celClass3ID +' style="margin: 2px"></label>').prepend(celchk).append(celtextName).append(celfontName).append(celtextPrice).append(celfontPrice).append("元");
-		tempC3Val.append(cellabel);
-	});		
-	
-	var tempbody = $('<td>'+ tempC3Val.html() +'</td>').append(btnUpd).append(btnOk);
-
-	tempTr = $('<tr id=dgtr'+ dataVal.ProdStatusClass2ID +'></tr>').append(temptitle).append(tempbody);
-	temp.append(tempTr);
-	
-	return temp;
-}	
-function dgbeload(){	
-	$('.dgupd').click(function(){
-		var theTr = $(this).parent().parent().attr('id');
+	$.each(jsonSzSts, function(index,SzStsVal){   
+		console.log(index,SzStsVal);
+    	//尺寸單一欄位屬性值
+    	var GroupStus = insSzSts(SzStsVal.SizeStatusID,SzStsVal.SizeName);    		
+    	trunkStusTd.append(GroupStus);   	
+	});
+	trunkStusTd.append(btnIns); 
+	var trunkTr = $("<tr id=SzTr></tr>").prepend(trunkStusTd).append(trunkbtn);
+	$('#tblSz tr:last').after(trunkTr);
+	SzbeLoad();
+	SznewBeLoad();
+}
+//必須載入
+function SzbeLoad(){
+	$(":text").hide();
+	$(":text").attr("maxlength",10);
+	$(":text").attr("size",10);
+	$(".Szok").hide();	
+}
+//必須在事件發生後再insert相關事件載入
+function SznewBeLoad(){
+	$('.Szins').click(function(){
+		var newCount = 0; 			
+		$('#lblSzNewCel').each(function(){newCount = 1;});
 		
-		$('tr[id='+theTr+'] :input').show();
-		//$('tr[id='+theTr+'] .dgtxtPrice').show();
-		$('tr[id='+theTr+'] .dgtdfontName').hide();
-		$('tr[id='+theTr+'] .dgtdfontPrice').hide();
-		$(this).next().show();
+		if(newCount==0){	
+			var PriceStatus = JSON.parse('[{"SizeStatusID":"New0","SizeName":""}]');
+			var cellabel = insSzSts("NewCel","");
+			var btnNew = SzBtnOkCancel();
+			var btnPlusPrice = fucBtnNewPrice();
+			cellabel.append(btnNew);
+			$(this).before(cellabel);
+			//綁定新增欄位的確定跟取消的按鈕事件
+			SzNewBtnAttr();
+		}
+	});
+	$('.Szupd').click(function(){
+		var theTr = $(this).parent().parent().attr("id");
+		console.log(theTr);
+		$("tr[id="+theTr+"] :text").show();
+		$("tr[id="+theTr+"] .szfont").hide();		
 		$(this).hide();
+		$("tr[id="+theTr+"] .Szok").show();
+	});
+	$('.Szok').click(function(){
+		$(":text").hide();
+		$(".szfont").show();			
+		$(this).hide();
+		$('.Szupd').show();
+		var theTr = $(this).parent().parent().attr("id");		
+		//修改資料
+		UpdSize(theTr);
+		//把輸入的欄位覆蓋回頁面
+		SzChangeVal(theTr);
+	});
+}
+function SzChangeVal(theTr){
+	$("tr[id="+theTr+"] :input").each(function(index,value){
+		//console.log("SzChangeVal:"+index,value);
+		
+		var tmpData = String($(this).attr('id'));
+		
+		var leth = tmpData.length;
+		//SizeID
+		var culmC3Id = tmpData.substring(0,5);
+		var Class3ID = tmpData.substring(5,leth);
+
+		if(culmC3Id=='txtSz'){
+			$('font[id="fontSz'+Class3ID+'"]').html('');
+			$('font[id="fontSz'+Class3ID+'"]').append($(this).val());
+		}
+	});
+}
+//增加after確定跟取消的按鈕
+function SzBtnOkCancel(){
+	var btn = $('<div/>').html(
+			'<button type="button" class="btn btn-default SzNewY" aria-label="Left Align"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button><button type="button" class="btn btn-default SzNewN" aria-label="Left Align"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>');
+	return btn;
+}
+//新增欄位的確定跟取消的按鈕事件
+function SzNewBtnAttr() {		
+	$('.SzNewY').click(function() {
+		var theTr = $(this).parent().parent().parent().parent().attr("id");
+		console.log(theTr);
+		//新增尺寸
+		InsSize(theTr);			
+	});
+	$('.SzNewN').click(function() {
+		$(this).parent().parent().remove();			
+	});
+}
+//修改尺吋
+function UpdSize(){
+	var SizeArray = new Array;
+	var action = "Update";
+	var tmpSize;
+	
+	$("tr[id=SzTr] :input").each(function(index,value){			
+		//console.log(index,value);
+		var tmpData = String($(this).attr('id'));
+		//console.log(tmpData,$(this).val());
+		var leth = tmpData.length;
+		//SizeID
+		var culmSzId = tmpData.substring(0,5);
+		
+		if(culmSzId=='txtSz'){					
+			var tmpFood = $(this).val();
+			var SizeID = tmpData.substring(5,leth);			
+			var Obj = new Object;
+			if(tmpFood==""){
+				alert("不能空白");
+			}else{
+				Obj.SizeStatusID = SizeID;
+				Obj.SizeName = tmpFood;
+				SizeArray.push(Obj);
+				}
+			}
+		});	
+	
+	//轉換成JSON物件
+	SzCovJsonObjectSetAjax(action,"SizeStatus",SizeArray);
+	}
+//新增尺吋
+function InsSize(){
+	var SizeArray = new Array;
+	var action = "Insert";
+	var tmpSize;
+	
+	$("[id=lblSzNewCel] :input").each(function(index,value){			
+		//console.log(index,value);
+		var tmpData = String($(this).attr('id'));
+		//console.log(tmpData,$(this).val());
+		var leth = tmpData.length;
+		//SizeID
+		var culmSzId = tmpData.substring(0,5);
+		
+		if(culmSzId=='txtSz'){					
+			var tmpFood = $(this).val();
+			var SizeID = tmpData.substring(5,leth);			
+			var Obj = new Object;
+			
+			Obj.SizeStatusID = SizeID;
+			Obj.SizeName = tmpFood;
+			SizeArray.push(Obj);
+			}
+		});		
+	//轉換成JSON物件
+	SzCovJsonObjectSetAjax(action,"SizeStatus",SizeArray);
+	}
+	//轉成json物件,再送出ajax===>Szdialog
+	function SzCovJsonObjectSetAjax(action,table,status){
+		var jsonObj = new Object;
+		jsonObj.action = action;
+		jsonObj.table = table;
+		jsonObj.status = status;
+		var JsonData = JSON.stringify(jsonObj);
+		console.log("JsonData:"+JsonData);
+		szsetJson(action,JsonData);					
+	}
+	//呼叫ajax===>Szdialog
+	function szsetJson(action,jsonData) {
+		var action = action;
+		$.ajax({
+			url : '<%= request.getContextPath() %>/_10_Menu/UpdSizeStatus.controller',
+	        type: 'get',
+	        dataType: 'json',
+	        data: "jsonData=" + jsonData,
+	        contentType: 'application/json',
+	        mimeType: 'application/json',
+	        success: function (data) {
+	        	if(action == "Insert"){	        		
+	        		var Obj = JSON.parse(JSON.stringify(data));
+	        		console.log("Obj:"+Obj);    
+	        		console.log("SizeStatusID:"+Obj.SizeStatusID);
+	        		if(typeof Obj.SizeStatusID =="undefined")
+	        		{
+	        			$("#lblSzNewCel").attr("class","btn btn-danger")
+	        							 .css("color","black");        			
+	        		}else{	               		
+	               		//console.log(celName);
+	               		var cellabel = insSzSts(Obj.SizeStatusID,Obj.SizeName)
+	               		
+	        			$('.Szins').before(cellabel);	               		
+	        			$('.SzNewN').click();
+	        		}
+				}else if(action == "Update"){
+					console.log("Errordata:"+data); 				
+				}			
+	        }});
+	}
+//尺寸的欄位
+function insSzSts(SizeStatusID,SizeName){
+	var celtextName = $('<input type=text id=txtSz'+SizeStatusID+' systle="disaplay:none">').val(SizeName)
+																	.attr("size",6);
+	var celfont = $('<font class="szfont" id=fontSz'+SizeStatusID+'></font>').text(SizeName);
+	var cellabel = $('<label class="btn btn-default" id=lblSz'+SizeStatusID +' style="margin: 2px"></label>').append(celtextName).append(celfont);		
+	return cellabel;
+}
+
+//針對按鈕在哪一個群組，去顯示相對的Class1的資料
+function findC1(C1ID){
+	var json;
+	
+	$.each(ObjC1C2.data, function(index,Objval){
+		if(Objval.ProdStatusClass1ID==C1ID){			
+			json = Objval.Class2Status;		
+		}
+	});
+	
+	return json;
+}
+//修改屬性的dialog
+function dialogC2(GP,C1ID) {	
+	var printifo = findC1(C1ID);
+	
+	//console.log(JSON.stringify(printifo));
+	var table = $('#example').DataTable();
+	table.destroy();
+	table = $('#example').DataTable( {        
+    	    'data': printifo,
+            "fnCreatedRow": function( nRow, aData, iDataIndex ) {
+                $(nRow).attr('id', "dgtrC2"+aData.ProdStatusClass2ID);
+            },
+            "columns": [   
+            { "data": "ProdStatusClass2Name" },
+            //{ "data": "Class3Status[,].ProdStatusClass3Name" }
+            { "data": function(dataVal){
+            	//console.log("dataVal:"+dataVal);
+            	var tempC3Val = '<div>';
+            	var btnUpd = '<a class="btn btn-success dgupd">修改</a>';
+            	var btnOk = '<a class="btn btn-success dgok" style="display:none">確定</a>';
+            	var btnIns = '<a class="btn btn-warning dgins">新增屬性</a>';
+            	$.each(dataVal.Class3Status,function(index,Class3Status){
+            		var celClass3ID = Class3Status.ProdStatusClass3ID,
+            			celName = Class3Status.ProdStatusClass3Name,
+            			celPrice = Class3Status.ProdStatusClass3Price;
+            		//console.log(celName);
+            		var celchk = '<input type=checkbox id=dgClass3ID'+celClass3ID+' value='+celClass3ID+'>';
+            		var celtextName = '<input class="dgtxtName" type=text id=dgClass3Name'+celClass3ID+' maxlength="10" size="10" value='+celName+' style="display:none">';
+            		var celtextPrice = '<input class="dgtxtPrice" type=text id=dgPrice'+celClass3ID+' maxlength="6" size="6" value='+celPrice+' style="display:none">';            		
+            		var celfontName = '<font class="dgtdfont" id=dgfontName'+celClass3ID+'>'+celName+'</font>';
+            		var celfontPrice = '<font class="dgtdfont" id=dgfontPrice'+celClass3ID+'>'+celPrice+'</font>';
+            		var cellabel = '<label class="btn btn-default" id=dglbl'+celClass3ID +' style="margin: 2px">'+celchk+celtextName+celtextPrice+celfontName+celfontPrice+'元</label>';
+            		tempC3Val = tempC3Val.concat(cellabel);
+            	});	
+            	tempC3Val = tempC3Val.concat(btnUpd);
+            	tempC3Val = tempC3Val.concat(btnOk);
+            	tempC3Val = tempC3Val.concat(btnIns);
+            	tempC3Val = tempC3Val.concat('</div>');
+            	//console.log("dataVal");
+            	return tempC3Val;
+            } }
+        ],
+        "drawCallback": function() {
+        	console.log('drawCallback');
+        	
+        	dgbeload(GP);
+        }
+    } );
+}
+//必須載入事件動作
+function dgbeload(GP){	
+	$('#hidGP').val(GP);
+	$.each(jsonGroup,function(index,GpVal){
+		if(GpVal.GroupClass3ID==GP){			
+			$.each(GpVal.FoodStatus,function(index,FoodStsVal){
+				console.log(FoodStsVal.ProdStatusClass3ID);
+				$('#dgClass3ID'+FoodStsVal.ProdStatusClass3ID).attr("checked",true);
+			});	
+		}				
+	});
+	$('.dgupd').click(function(){
+		var theTr = $(this).parent().parent().parent().attr('id');	
+		//console.log("dgtheTr:"+theTr)
+		$('tr[id='+theTr+'] :text').show();
+		$('tr[id='+theTr+'] .dgtdfont').hide();
+		$(this).next().show();
+		$(this).hide();		
 	});
 	$('.dgok').click(function(){
-		var theTr = $(this).parent().parent().attr('id');
+		var theTr = $(this).parent().parent().parent().attr('id');
 		
-		$('tr[id='+theTr+'] :input').hide();
-		//$('tr[id='+theTr+'] .dgtxtName').hide();
-		//$('tr[id='+theTr+'] .dgtxtPrice').hide();
-		$('tr[id='+theTr+'] .dgtdfontName').show();
-		$('tr[id='+theTr+'] .dgtdfontPrice').show();
+		$('tr[id='+theTr+'] :text').hide();
+		$('tr[id='+theTr+'] .dgtdfont').show();
 		$(this).prev().show();
-		$(this).hide();
+		$(this).hide();		
+		//修改資料傳送到server端
+		UpdStatus(theTr);
+		//把輸入的欄位覆蓋回頁面
+		dgChangeVal(theTr);
 	});
+	$('.dgins').click(function(){		
+		var newCount = 0; 			
+		$('#dglblNewCel').each(function(){newCount = 1;});
+		
+		if(newCount==0){	
+			var Class3 = JSON.parse('[{"ProdStatusClass3ID":"New0","ProdStatusClass3Name":"","ProdStatusClass3Price":""}]');
+			var cellabel = insCelStatus("NewCel",Class3);
+			var btnNew = dgBtnOkCancel();			
+			//cellabel.append(btnNew);
+			$(this).before(cellabel);
+			//綁定新增欄位的確定跟取消的按鈕事件
+			dgNewBtnAttr();
+		}		
+	});
+}
+//增加after確定跟取消的按鈕
+function dgBtnOkCancel(){
+	var btn = $('<div/>').html(
+			'<div><button type="button" class="btn btn-default dgNewY" aria-label="Left Align"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button><button type="button" class="btn btn-default dgNewN" aria-label="Left Align"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>');
+	return btn;
+}
+//新增欄位的確定跟取消的按鈕事件
+function dgNewBtnAttr() {		
+	$('.dgNewY').click(function() {
+		var theTr = $(this).parent().parent().parent().parent().parent().attr("id");
+		InsStatus(theTr);			
+	});
+	$('.dgNewN').click(function() {
+		$(this).parent().parent().remove();		
+	});
+}
+//新增屬性傳送到Server端
+function InsStatus(theTr){
+	var Class3Array = new Array;
+	var action = "Insert";
+	var tmpClass3;
+	
+	$("[id=dglblNewCel] :input").each(function(index,value){	
+		//Class2ID
+		var theTrleth = theTr.length;
+		var culmC2Id = theTr.substring(6,theTrleth);
+		//console.log(index,value);
+		var tmpData = String($(this).attr('id'));
+		//console.log(tmpData,$(this).val());
+		var leth = tmpData.length;
+		//Class3ID
+		var culmC3Id = tmpData.substring(0,12);
+		//PriceID
+		var culmPz = tmpData.substring(0,7);
+		
+		if(culmC3Id=='dgClass3Name'){					
+			tmpClass3 = $(this).val();			
+		}else if(culmPz=='dgPrice'){
+			var tmpPrice= $(this).val();
+			//console.log("tmpSizePrice:"+tmpSizePrice);
+			var objdata = new Object;			
+			var PzId = tmpData.substring(7,leth);
+			
+			objdata.ProdStatusClass3ID = PzId;
+			objdata.ProdStatusClass2ID = culmC2Id;
+			objdata.ProdStatusClass3Price = tmpPrice;
+			objdata.ProdStatusClass3Name = tmpClass3;
+			//用完清空
+			tmpClass3 = "";
+			//驗證金額不是輸入數字
+			if(!isNaN(tmpPrice)){
+				Class3Array.push(objdata);
+			}else{					
+				var thelabel = $("#"+tmpData).parent().attr("id");
+				var OgnName = $("#dgfontName"+PzId).html();
+				var OgnPrice = $("#dgfontPrice"+PzId).html();
+				console.log("OgnPricehtml:"+OgnPrice);
+				console.log("thelabel:"+thelabel);
+				objdata.theTr = theTr;
+				objdata.thelabel = thelabel;
+				objdata.Class3ID = PzId;
+				objdata.OgnName = OgnName;
+				objdata.OgnPrice = OgnPrice;	
+				if(errArray==null){
+					errArray = new Array;
+				}
+				errArray.push(objdata);
+			}
+		}
+	});	
+	//將勾選儲存
+	saveChecked();
+	//前端驗證數字
+	if(errArray!=null){
+		$("#dglblNewCel").attr("class","btn btn-danger")
+						   .css("color","black");
+		errArray = null;
+	}else{			
+		dgCovJsonObjectSetAjax(action,"ProdStatusClass3",Class3Array);		
+	}
+}
+//將勾選儲存
+function saveChecked(){
+	var FdStsC3Ararry = new Array;
+	$("table[id=example] :checked").each(function(){
+		console.log(":checked"+$(this).val());
+		var Obj = new Object;
+		Obj.GroupClass3ID = $('#hidGP').val();
+		Obj.ProdStatusClass3ID = $(this).val();
+		FdStsC3Ararry.push(Obj);
+	});
+	dgCovJsonObjectSetAjax("Update","FoodStatusClass3",FdStsC3Ararry);
+}
+//新增屬性欄位
+function insCelStatus(LabelID,Class3){
+	var cellabel;
+	$.each(Class3,function(index,Class3Status){
+		var celClass3ID = Class3Status.ProdStatusClass3ID,
+			celName = Class3Status.ProdStatusClass3Name,
+			celPrice = Class3Status.ProdStatusClass3Price;		
+		var celchk = '<input type=checkbox id=dgClass3ID'+celClass3ID+' value='+celClass3ID+'>';
+		var celtextName = '<input class="dgtxtName" type=text id=dgClass3Name'+celClass3ID+' maxlength="10" size="10" value="'+celName+'">';
+		var celtextPrice = '<input class="dgtxtPrice" type=text id=dgPrice'+celClass3ID+' maxlength="6" size="6" value="'+celPrice+'">';
+		var celYesNo = '<div><button type="button" class="btn btn-default dgNewY" aria-label="Left Align"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button><button type="button" class="btn btn-default dgNewN" aria-label="Left Align"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></div>';
+		cellabel = '<label class="btn btn-default" id=dglbl'+LabelID +' style="margin: 2px">'+celchk+celtextName+celtextPrice+'元'+celYesNo+'</label>';		
+	});	
+	return cellabel;
+}
+//非同步撈資料
+function SecondToLoad(){
+	$.ajax({
+		url : '<%= request.getContextPath() %>/_10_Menu/GetGpC1.controller',
+        type: 'get',
+        dataType: 'json',
+        'data': '',
+        contentType: 'application/json',
+        mimeType: 'application/json',
+        success: function (data) {
+        	var Obj = JSON.parse(JSON.stringify(data));
+        	ObjC1C2 = Obj;        		
+        }});
+}
+//把輸入的欄位覆蓋回頁面
+function dgChangeVal(theTr){
+	$("tr[id="+theTr+"] :input").each(function(index,value){
+		//console.log("funChangeVal:"+index,value);
+		
+		var tmpData = String($(this).attr('id'));
+		//console.log(tmpData,$(this).val());
+		var leth = tmpData.length;
+		//Class3ID
+		var culmC3Id = tmpData.substring(0,12);
+		var Class3ID = tmpData.substring(12,leth);
+//		console.log("culmFId:"+culmFId);
+		//PriceID
+		var culmPz = tmpData.substring(0,7);			
+		var PzId = tmpData.substring(7,leth);
+		//console.log("culmPz:"+culmPz);
+		
+		if(culmC3Id=='dgClass3Name'){
+			$('font[id="dgfontName'+Class3ID+'"]').html('');
+			$('font[id="dgfontName'+Class3ID+'"]').append($(this).val());
+		}else if(culmPz=='dgPrice'){
+			$('font[id="dgfontPrice'+PzId+'"]').html('');
+			$('font[id="dgfontPrice'+PzId+'"]').append($(this).val());
+ 		}
+	});
+	//前端驗證數字
+	if(errArray!=null){
+		$.each(errArray,function(index,Obj){
+			//console.log(index,Obj.OgnPrice);			
+			dgErorrShow(Obj.theTr,Obj.thelabel,Obj.Class3ID,Obj.OgnName,Obj.OgnPrice);
+		});
+		errArray = null;
+	}
+}
+//修改右邊屬性欄位
+function UpdStatus(theTr){
+	var Class3Array = new Array;
+	var action = "Update";	
+	var tmpClass3;
+	
+	$("tr[id="+theTr+"] :input").each(function(index,value){			
+		//console.log(index,value);
+		var tmpData = String($(this).attr('id'));
+		//console.log(tmpData,$(this).val());
+		var leth = tmpData.length;
+		//Class3ID
+		var culmC3Id = tmpData.substring(0,12);
+		//PriceID
+		var culmPz = tmpData.substring(0,7);
+		
+		if(culmC3Id=='dgClass3Name'){					
+			tmpClass3 = $(this).val();			
+		}else if(culmPz=='dgPrice'){
+			var tmpPrice= $(this).val();
+			//console.log("tmpSizePrice:"+tmpSizePrice);
+			var objdata = new Object;			
+			var PzId = tmpData.substring(7,leth);
+			
+			objdata.ProdStatusClass3ID = PzId;
+			objdata.ProdStatusClass3Price = tmpPrice;
+			objdata.ProdStatusClass3Name = tmpClass3;
+			//用完清空
+			tmpClass3 = "";
+			//驗證金額不是輸入數字
+			if(!isNaN(tmpPrice)){
+				Class3Array.push(objdata);
+			}else{					
+				var thelabel = $("#"+tmpData).parent().attr("id");
+				var OgnName = $("#dgfontName"+PzId).html();
+				var OgnPrice = $("#dgfontPrice"+PzId).html();
+				//console.log("OgnPricehtml:"+OgnPrice);
+				//console.log("thelabel:"+thelabel);
+				objdata.theTr = theTr;
+				objdata.thelabel = thelabel;
+				objdata.Class3ID = PzId;
+				objdata.OgnName = OgnName;
+				objdata.OgnPrice = OgnPrice;	
+				if(errArray==null){
+					errArray = new Array;
+				}
+				errArray.push(objdata);
+			}
+		}
+	});	
+	dgCovJsonObjectSetAjax(action,"ProdStatusClass3",Class3Array);
+	//將勾選的儲存
+	saveChecked();
+}
+//有錯誤的時候則不讓格子隱藏回去
+function dgErorrShow(theTr,thelabel,Class3ID,OgnName,OgnPrice){
+	var thelabelid = 'label[id="'+ thelabel +'"]';
+	if($(thelabelid).attr("class")=="btn btn-default"){
+		$(thelabelid).attr("class","btn btn-danger")
+					 .css("color","black")
+					 .append(addBtnNO("dgerrNo"));
+	}	
+	$(thelabelid+' :hidden').show();
+	$(thelabelid+' .dgtdfont').hide();
+	//把原先的輸入的還原回去
+	$('font[id="dgfontName'+Class3ID+'"]').html('');
+	$('font[id="dgfontName'+Class3ID+'"]').append(OgnName);
+	$('font[id="dgfontPrice'+Class3ID+'"]').html('');	
+	$('font[id="dgfontPrice'+Class3ID+'"]').append(OgnPrice);
+	//把確定的按鈕重新秀回來
+	$("tr[id="+theTr+"] .dgupd").hide();
+	$("tr[id="+theTr+"] .dgok").show();
+	//必須在事件發生後再載入
+	dgerrBeLoad(Class3ID,OgnName,OgnPrice);
+}
+//必須在事件發生後再error相關事件載入
+function dgerrBeLoad(Class3ID,OgnName,OgnPrice){
+	$('.dgerrNo').click(function() {
+		var thelabel = $(this).parent().parent().attr("id");
+		var thelabelid = 'label[id="'+ thelabel +'"]';
+		console.log("thelabel:  "+thelabel);
+		$(thelabelid).attr("class","btn btn-default");
+		$(thelabelid +' :hidden').show();
+		$(thelabelid +' :text').hide();
+		$('#dgClass3Name'+Class3ID).val(OgnName);
+		$('#dgPrice'+Class3ID).val(OgnPrice);
+		
+		$(this).remove();			
+		
+		var errCount = 0; 
+		
+		$('.dgerrNo').each(function(){
+			errCount = 1;
+		});
+			
+		if(errCount==0){
+			$('.dgupd').show();
+			$('.dgok').hide();				
+		}				
+	});
+}
+//轉成json物件,再送出ajax===>dialog
+function dgCovJsonObjectSetAjax(action,table,status){
+	var jsonObj = new Object;
+	jsonObj.action = action;
+	jsonObj.table = table;
+	jsonObj.status = status;
+	var JsonData = JSON.stringify(jsonObj);
+	console.log("JsonData:"+JsonData);
+	dgsetJson(action,JsonData);					
+}
+//呼叫ajax===>dialog
+function dgsetJson(action,jsonData) {
+	var action = action;
+	$.ajax({
+		url : '<%= request.getContextPath() %>/_10_Menu/UpdStatus.controller',
+        type: 'get',
+        dataType: 'json',
+        data: "jsonData=" + jsonData,
+        contentType: 'application/json',
+        mimeType: 'application/json',
+        success: function (data) {
+        	if(action == "Insert"){	        		
+        		var Obj = JSON.parse(JSON.stringify(data));
+        		console.log("Obj:"+Obj);    
+        		console.log("ProdStatusClass3ID:"+Obj.ProdStatusClass3ID);
+        		if(typeof Obj.ProdStatusClass3ID =="undefined")
+        		{
+        			$("#dglblNewCel").attr("class","btn btn-danger")
+        							 .css("color","black");        			
+        		}else{
+               		var celClass3ID = Obj.ProdStatusClass3ID,
+               			celName = Obj.ProdStatusClass3Name,
+               			celPrice = Obj.ProdStatusClass3Price;
+               		//console.log(celName);
+               		var celchk = '<input type=checkbox id=dgClass3ID'+celClass3ID+' value='+celClass3ID+'>';
+               		var celtextName = '<input class="dgtxtName" type=text id=dgClass3Name'+celClass3ID+' maxlength="10" size="10" value='+celName+' style="display:none">';
+               		var celtextPrice = '<input class="dgtxtPrice" type=text id=dgPrice'+celClass3ID+' maxlength="6" size="6" value='+celPrice+' style="display:none">';            		
+               		var celfontName = '<font class="dgtdfont" id=dgfontName'+celClass3ID+'>'+celName+'</font>';
+               		var celfontPrice = '<font class="dgtdfont" id=dgfontPrice'+celClass3ID+'>'+celPrice+'</font>';
+               		var cellabel = '<label class="btn btn-default" id=dglbl'+celClass3ID +' style="margin: 2px">'+celchk+celtextName+celtextPrice+celfontName+celfontPrice+'元</label>';
+               		
+        			$('.dgupd').before(cellabel);
+        			$('.dgNewN').click();
+        		}
+			}else if(action == "Update"){
+				console.log("Errordata:"+data); 				
+			}			
+        }});
 }
 </script>
 </body>
