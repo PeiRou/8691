@@ -2,16 +2,11 @@ package _05_Forum.model;
 
 
 public class ForumUpdateService {
-	private ForumDAOJdbc dao = new ForumDAOJdbc();
-	
-	public ForumBean update(ForumBean bean2) {
-		ForumBean result = null;
+	private ForumDAOJdbc forumDao = new ForumDAOJdbc();
+	public void updateForum(ForumBean bean2) {
 		if(bean2!=null) {
-			result = dao.update(
-					bean2.getStatus(), bean2.getForum_UID()	
-				);
+			forumDao.update(bean2.getStatus(), bean2.getForum_UID());
 		}
-		return result;
 	}
 	
 }

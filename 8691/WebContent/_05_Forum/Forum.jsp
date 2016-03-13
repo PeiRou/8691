@@ -27,6 +27,9 @@
     <link href="<%= request.getContextPath() %>/css/jquery.dataTable.min.css" rel="stylesheet">
 	<link href="<%= request.getContextPath() %>/css/jquery-ui/jquery-ui.min.css" rel="stylesheet">
 
+<style>
+
+</style>
 </head>
 <body>
 <jsp:include page="/fragment/top.jsp" />
@@ -46,11 +49,11 @@
     				</table>
 				</div>
 				<div class="col-lg-5 text-center">
-					<form name="Forum" action="<c:url value='/forumIns.controller' />"
-						method="post">
-
+					<form name="Forum" action="<c:url value='/forumIns.controller'/>" >
+<!-- 					<form name="Forum"> -->
 						<div class="form-group">
-							<h3 id="msgsp" style="color: red">${error.comment}</h3>
+							<h3 id="msgsp1" style="color: red">${error.pleaseLog}</h3>
+							<h3 id="msgsp2" style="color: red">${error.comment}</h3>
 							<div id="con">
 								<div class="bottomcover" style="z-index: 2;"></div>
 								<ul id="ul1"></ul>
@@ -102,9 +105,9 @@
 	<!--滚动效果js-->
 	<script type="text/javascript">
 	
+	
 	var comment = $("#comment").val();
 	var seller = null;
-	
 	
 	//進入留言板後立刻從資料庫讀取已存在的留言
     $(function(){
@@ -114,7 +117,8 @@
   		  'data':{},
   		  'dataType':'json',
   		  'success': function(data){
-  			 $("#msgsp").empty();
+  			 $("#msgsp1").empty();
+  			 $("#msgsp2").empty();
   			 $.each(data,function(index){
   	 			var cellcomment = JSON.parse(JSON.stringify(data[index].comment));
   	 			var cellname1 = JSON.parse(JSON.stringify(data[index].name));
@@ -129,7 +133,7 @@
   	 			var cellmsg1 = $('<p style="text-align:left;"></p>').prepend(cellname2).append("&nbsp;&nbsp;&nbsp;&nbsp;想對&nbsp;&nbsp;&nbsp;&nbsp;").append(cellseller2).append("&nbsp;&nbsp;&nbsp;&nbsp;說:");
   	 			var cellmsg2 = $('<h6 style="text-align:right;"></h6>').append("發表於").append(cellinsdate);
   	 			
-  	 			var cellreport = $('<input type="button" id="'+ForumUID+'" onclick="report(this)" value="檢舉" class="btn btn-primary" style="text-align:right"/>');
+  	 			var cellreport = $('<input type="button" id="'+ForumUID+'" class="btn btn-danger" onclick="report(this)" value="檢舉" style="text-align:right;" />');
  	   			var celltotal = $('<h5 id="h'+index+'" class="total" style="text-align:left;"></h5>').append("#"+(index)).append("&nbsp;&nbsp;").append(cellcomment)
 								.before(cellmsg1).after(cellmsg2);
 				var celltotal2 =  $('<li></li>').append(celltotal).append(cellreport);
@@ -180,7 +184,7 @@
 			console.log(seller);
 		});
 
-		//將留言輸入資料庫
+		//將留言輸入資料庫 (跟form的差異尚未完全搞懂)
 		$("#btn").click(function() {
 			$.ajax({
 				'type' : 'post',
@@ -221,7 +225,8 @@
 	   	  data: {},
 	  dataType: 'json',
 	   success: function(resultData) {
-	   	   var opt={ "bProcessing":true,
+	   	   var opt={ "oLanguage":{"sUrl":"dataTables.zh-tw.txt"},
+	   			     "bProcessing":true,
 	                 "bJQueryUI":true,
 	                 "aoColumns":[{"sTitle":"店家","mData":"name"},
 	                             {"sTitle":"最新留言","mData":"comment"},
@@ -236,17 +241,21 @@
 	//檢舉功能
 	function report(myBtn) {
 		var Forum_UID = myBtn.id;
-		alert(Forum_UID);
-		$.ajax({
-			'type' : 'get',
-			'url' : '<%= request.getContextPath() %>/ForumUpdateServlet',
-   		  	'data':{'Forum_UID': Forum_UID },
-   		    'success': function(data){
-   				console.log(myBtn.id);
-   		 		}
-   		    });
-		}
-	
+		document.forms[0].action="/8691/forumUpdate.controller?aa=" + Forum_UID ;
+		document.forms[0].method="post";
+		document.forms[0].submit();
+		
+	}
+		
+// 		$.ajax({
+// 			'type' : 'post',
+<%-- 			'url' : '<%= request.getContextPath() %>/ForumUpdateServlet', --%>
+//    		  	'data':{'aa': Forum_UID },
+//    		    'success': function(data){
+//    		 		}
+//    		    });
+  		
+		
 		
 	</script>
 </body>

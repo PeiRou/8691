@@ -216,10 +216,10 @@ private static final String INSERT = "insert into Forum (Forum_UID, account_UID,
 	}
 	
 private static final String UPDATE = "update Forum set status=? where Forum_UID=?";
-	public ForumBean update(int status, String Forum_UID) {
+	public String update(int status, String Forum_UID) {
 		Connection conn = null;
 		PreparedStatement psStrUpd = null;
-		ForumBean result = null;
+		String result = null;
 		try {
 			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			conn = dataSource.getConnection();
@@ -237,7 +237,7 @@ private static final String UPDATE = "update Forum set status=? where Forum_UID=
 			int i = psStrUpd.executeUpdate();
 			if (i == 1) {
 				System.out.println("UPDATE Success!");
-				result = this.select(Forum_UID);
+				//result = this.select(Forum_UID);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

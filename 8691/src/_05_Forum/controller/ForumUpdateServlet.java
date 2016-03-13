@@ -21,8 +21,6 @@ import _04_Member.model.MemberBean;
 import _05_Forum.model.ForumBean;
 import _05_Forum.model.ForumDAOJdbc;
 import _05_Forum.model.ForumInsService;
-import _05_Forum.model.ForumUpdateService;
-import _12_UpdateInfo.UpdateInfoService;
 
 @WebServlet(urlPatterns={"/forumUpdate.controller"})
 public class ForumUpdateServlet extends HttpServlet {
@@ -34,19 +32,30 @@ public class ForumUpdateServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			
 		//接收資料		
-				String Forum_UID = request.getParameter("Forum_UID");
-				System.out.println(Forum_UID);
+				String aa = request.getParameter("aa");
+				System.out.println(aa);
+				
+				//String Forum_UID = request.getParameter("Forum_UID");
+				//System.out.println(Forum_UID);
 				
 		//驗證資料// 轉型態
 				
 		//處理前面的資料驗證，有錯就先return
 				
 		//呼叫model	
-				ForumUpdateService forumUpdateService = new ForumUpdateService();
-				ForumBean bean2 = new ForumBean();
-				bean2.setStatus(1);
-				bean2.setForum_UID(Forum_UID);
-				forumUpdateService.update(bean2);
+//				ForumUpdateService forumUpdateService = new ForumUpdateService();
+//				ForumBean bean2 = new ForumBean();
+//				bean2.setStatus(1);
+//				bean2.setForum_UID(Forum_UID);
+//				forumUpdateService.update(bean2);
+				
+				ForumDAOJdbc forumDAOJdbc = new ForumDAOJdbc();
+				forumDAOJdbc.update(1, aa);
+				response.sendRedirect("/8691/_05_Forum/reportSuccess.jsp");  //localhost下的絕對路徑 (會改寫URL)
+				
+				//相對於servlet的路徑
+//				RequestDispatcher rd = request.getRequestDispatcher("/_05_Forum/Forum.jsp");
+//				rd.forward(request, response);
 
 				
 	}

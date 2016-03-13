@@ -27,6 +27,9 @@
     <link href="<%= request.getContextPath() %>/css/jquery.dataTable.min.css" rel="stylesheet">
 	<link href="<%= request.getContextPath() %>/css/jquery-ui/jquery-ui.min.css" rel="stylesheet">
 
+<style>
+
+</style>
 </head>
 <body>
 <jsp:include page="/fragment/top.jsp" />
@@ -35,33 +38,19 @@
 			<div class="box">
 				<div class="col-lg-7 text-left">
 					<!-- datatable的資料位置 -->
-					<table id="table1">
-						<thead>
-							<tr>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-						</tbody>
-					</table>
+					<table id="example" class="display" cellspacing="0" width="100%">
+<!--        					 <thead> -->
+<!--            				 	 <tr> -->
+<!--            				 	     <th></th> -->
+<!--          					     <th></th> -->
+<!--        					         <th></th> -->
+<!--      					     </tr> -->
+<!--         				 </thead> -->
+    				</table>
 				</div>
 				<div class="col-lg-5 text-center">
-					<form name="Forum" action="<c:url value='/forum.controller' />"
-						method="post">
-
+					<form name="Forum" action="<c:url value='/forumIns.controller'/>" >
+<!-- 					<form name="Forum"> -->
 						<div class="form-group">
 							<h3 id="msgsp" style="color: red">${error.comment}</h3>
 							<div id="con">
@@ -74,7 +63,7 @@
 						<div class="col-lg-10 text-right">
 							<div class="form-group">
 								<select id="select2" name="seller" class="form-control">
-									<option value="" selected>請選擇您要討論的店家:</option>
+									<option value="" selected>請選擇討論店家:</option>
 								</select>
 							</div>
 							<div class="form-group">
@@ -104,7 +93,7 @@
         </div>
     </footer>
 
-    <!-- Bootstrap Core JavaScript -->
+   <!-- Bootstrap Core JavaScript -->
     <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
     <!--jQuery-->
 	<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery2.js"></script>
@@ -115,11 +104,11 @@
 	<!--滚动效果js-->
 	<script type="text/javascript">
 	
-	
-	//進入留言板後立刻從資料庫讀取已存在的留言
 	var comment = $("#comment").val();
 	var seller = null;
 	
+	
+	//進入留言板後立刻從資料庫讀取已存在的留言
     $(function(){
   	   $.ajax({
   		  'type':'post',
@@ -133,17 +122,19 @@
   	 			var cellname1 = JSON.parse(JSON.stringify(data[index].name));
   	 			var cellseller1 = JSON.parse(JSON.stringify(data[index].seller_Name));
   	 			var cellinsdate = JSON.parse(JSON.stringify(data[index].insdate));
+  	 			var ForumUID = JSON.parse(JSON.stringify(data[index].Forum_UID));
+  	 			var index = index+1;
   	 			
    	 			var cellname2 = $('<strong></strong>').append(cellname1);
    	 			var cellseller2 = $('<strong></strong>').append(cellseller1);
+   	 			
   	 			var cellmsg1 = $('<p style="text-align:left;"></p>').prepend(cellname2).append("&nbsp;&nbsp;&nbsp;&nbsp;想對&nbsp;&nbsp;&nbsp;&nbsp;").append(cellseller2).append("&nbsp;&nbsp;&nbsp;&nbsp;說:");
   	 			var cellmsg2 = $('<h6 style="text-align:right;"></h6>').append("發表於").append(cellinsdate);
   	 			
-  	 			
-  	 			var index = index+1;
- 	   			var celltotal = $('<h5 id="h'+index+'" style="text-align:left;"></h5>').append("#"+(index)).append("&nbsp;&nbsp;").append(cellcomment)
+  	 			var cellreport = $('<input type="button" id="'+ForumUID+'" class="btn btn-danger" onclick="report(this)" value="檢舉" style="text-align:right;" />');
+ 	   			var celltotal = $('<h5 id="h'+index+'" class="total" style="text-align:left;"></h5>').append("#"+(index)).append("&nbsp;&nbsp;").append(cellcomment)
 								.before(cellmsg1).after(cellmsg2);
-				var celltotal2 =  $('<li></li>').append(celltotal);
+				var celltotal2 =  $('<li></li>').append(celltotal).append(cellreport);
  				$('#ul1').append(celltotal2);
  	   			
   			 });
@@ -184,19 +175,20 @@
 
 		});
 
+		
 		//更換店家選單
 		$('#select2').change(function() {
 			seller = $("#select2 option:selected").val();
 			console.log(seller);
 		});
 
-		//將留言輸入資料庫
+		//將留言輸入資料庫 (跟form的差異尚未完全搞懂)
 		$("#btn").click(function() {
 			$.ajax({
 				'type' : 'post',
-				'url' : '<%=request.getContextPath()%>/ForumServlet',
+				'url' : '<%= request.getContextPath() %>/ForumInsServlet',
        		  	'data':{'comment':comment,
-       			  	 	 'seller' :seller
+       			  	 	'seller' :seller
        			  	 },
        		  'dataType':'json',
        		  'success': function(data){
@@ -222,22 +214,47 @@
 			   });
 			});
   	
- 
-  		//datatable位置
-		$(document).ready(function() {
-			$('#table1').DataTable({
-				"ajax" : "<%= request.getContextPath() %>/_05_Forum/objects.txt",
-				"columns" : [ 
-				   {"data" : "name"}, 
-				   {"data" : "position"}, 
-				   {"data" : "office"}, 
-				   {"data" : "extn"}, 
-				   {"data" : "start_date"}, 
-				   {"data" : "salary"} ]
+  	
+ 	//顯示datatable
+	$(function(){
+		$.ajax({
+		  type: 'POST',
+	  	   url: '<%= request.getContextPath() %>/GetDataTable',
+	   	  data: {},
+	  dataType: 'json',
+	   success: function(resultData) {
+	   	   var opt={ "oLanguage":{"sUrl":"dataTables.zh-tw.txt"},
+	   			     "bProcessing":true,
+	                 "bJQueryUI":true,
+	                 "aoColumns":[{"sTitle":"店家","mData":"name"},
+	                             {"sTitle":"最新留言","mData":"comment"},
+	                             {"sTitle":"評分","mData":"rating"}],
+	                 "aaData": resultData
+	               };         
+	        	   $("#example").dataTable(opt);
+	    	    }
 			});
 		});
-    	
-    	
+ 	
+	//檢舉功能
+	function report(myBtn) {
+		var Forum_UID = myBtn.id;
+		document.forms[0].action="/8691/forumUpdate.controller?aa=" + Forum_UID ;
+		document.forms[0].method="post";
+		document.forms[0].submit();
+		
+	}
+		
+// 		$.ajax({
+// 			'type' : 'post',
+<%-- 			'url' : '<%= request.getContextPath() %>/ForumUpdateServlet', --%>
+//    		  	'data':{'aa': Forum_UID },
+//    		    'success': function(data){
+//    		 		}
+//    		    });
+  		
+		
+		
 	</script>
 </body>
 </html>

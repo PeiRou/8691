@@ -40,19 +40,18 @@ public class ForumInsServlet extends HttpServlet {
 				Map<String, String> error = new HashMap<String, String>();
 				request.setAttribute("error", error);
 
-				if(comment !=null && accountbean==null) {
-					error.put("comment", "對不起，請先登入");
-				}else if(comment==null || comment.trim().length()==0){
-					error.put("comment", "請輸入留言");
-				}else if(seller==null){
-					error.put("seller", "請選擇店家");
+				if(accountbean==null && comment !=null) {
+					error.put("pleaseLog", "對不起，請先登入");
+				}else if(comment==null || comment.trim().length()==0 || seller==null){
+					error.put("comment", "請輸入留言or選擇店家");
 				}
+				
 				
 				//處理前面的資料驗證，有錯就先return
 				if (error!= null&&!error.isEmpty()) {
 //					RequestDispatcher rd = request.getRequestDispatcher("/_05_Forum/Forum.jsp");
 //					rd.forward(request, response);
-					response.sendRedirect("/_05_Forum/Forum.jsp");
+					response.sendRedirect("/8691/_05_Forum/Forum.jsp");
 					return;
 				
 				}
@@ -72,13 +71,13 @@ public class ForumInsServlet extends HttpServlet {
 				ForumService.insertForum(bean);
 				System.out.println(dateFormat.format(date).toString());
 				if (error!= null&&!error.isEmpty()) {
-//					RequestDispatcher rd = request.getRequestDispatcher("/_05_Forum/Forum.jsp");
+//					RequestDispatcher rd = request.getRequestDispatcher("/_05_Forum/Forum.jsp"); 
 //					rd.forward(request, response);
-					response.sendRedirect("/_05_Forum/Forum.jsp");
+					response.sendRedirect("/8691/_05_Forum/Forum.jsp");
 				}else{
 //					RequestDispatcher rd = request.getRequestDispatcher("/_05_Forum/Forum.jsp");
 //					rd.forward(request, response);
-					response.sendRedirect("/_05_Forum/Forum.jsp");
+					response.sendRedirect("/8691/_05_Forum/Forum.jsp");
 				}
 				
 	}
