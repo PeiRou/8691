@@ -1,7 +1,7 @@
 package _05_Forum.model;
 
 
-public class ForumService {
+public class ForumInsService {
 	private ForumDAOJdbc forumDao = new ForumDAOJdbc();
 	public void insertForum(ForumBean bean) {
 		if(bean!=null) {

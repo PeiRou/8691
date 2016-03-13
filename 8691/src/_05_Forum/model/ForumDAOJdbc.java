@@ -166,7 +166,7 @@ private static final String SELECT_ALL = "select * from Forum";
 		return items;
 	}
 	
-private static final String INSERT = "insert into Forum (Forum_UID, account_UID, seller_UID, comment, rating, insdate) values (NEWID(), ?, ?, ?, ?, ?)";
+private static final String INSERT = "insert into Forum (Forum_UID, account_UID, seller_UID, comment, rating, status, insdate) values (NEWID(), ?, ?, ?, ?, ?, ?)";
 	public void insert(ForumBean bean) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -180,7 +180,8 @@ private static final String INSERT = "insert into Forum (Forum_UID, account_UID,
 			stmt.setString(2, bean.getSeller_UID());
 			stmt.setString(3, bean.getComment());
 			stmt.setInt(4, bean.getRating());
-			stmt.setString(5, bean.getInsdate());
+			stmt.setInt(5, bean.getStatus());
+			stmt.setString(6, bean.getInsdate());
 			
 //			java.util.Date insdate = bean.getInsdate();
 //			if (insdate != null) {
@@ -214,9 +215,8 @@ private static final String INSERT = "insert into Forum (Forum_UID, account_UID,
 		}
 	}
 	
-private static final String UPDATE = "update Forum set account_UID=?, seller_UID=?, comment=?, rating=?, insdate=? where Forum_UID=?";
-	public ForumBean update(String account_UID, String seller_UID,
-			String comment, int rating, String insdate, String Forum_UID) {
+private static final String UPDATE = "update Forum set status=? where Forum_UID=?";
+	public ForumBean update(int status, String Forum_UID) {
 		Connection conn = null;
 		PreparedStatement psStrUpd = null;
 		ForumBean result = null;
@@ -224,18 +224,15 @@ private static final String UPDATE = "update Forum set account_UID=?, seller_UID
 			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			conn = dataSource.getConnection();
 			psStrUpd = conn.prepareStatement(UPDATE);
-			psStrUpd.setString(1, account_UID);
-			psStrUpd.setString(2, seller_UID);
-			psStrUpd.setString(3, comment);
-			psStrUpd.setInt(4, rating);
-			psStrUpd.setString(5, insdate);
+			psStrUpd.setInt(1, status);
+			psStrUpd.setString(2, Forum_UID);
 //			if (insdate != null) {
 //				long time = insdate.getTime();
 //				psStrUpd.setDate(4, new java.sql.Date(time));
 //			} else {
 //				psStrUpd.setDate(4, null);
 //			}
-			psStrUpd.setString(5, Forum_UID);
+//			psStrUpd.setString(5, Forum_UID);
 
 			int i = psStrUpd.executeUpdate();
 			if (i == 1) {

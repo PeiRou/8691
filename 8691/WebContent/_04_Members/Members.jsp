@@ -109,22 +109,43 @@ $(document).ready(function() {
 	var data = $('#hidMemberStaus').val();	
 	//var data = '[{"guarNO":"6號2樓","lowestPrice":"10","receiptsMetho":"3","sellerStatus":"2","conName":"50blue","fein":"88888888","shipPrice":"100","guarCT":"臺北市","guarAR":"100","email2":"50@50.com","conCel":"0912345678","name":"50嵐","sellerPhoto":null,"tel":"098777","guarROAD":"1000","insdate":"2016-03-02"}]';
 	var prodInfo = JSON.parse(data);
-	console.log(data)
-	$('#memberTable').DataTable({
-		data:prodInfo,
-		columns: 
-			[
-				{ data: "name"},
-				{ data: "tel"},
-				{ data: "cel"},
-				{ data: "guarCT"},
-				{ data: "guarAR"},
-				{ data: "guarROAD"},
-				{ data: "guarNO"},
-				{ data: "email2"}
-	        ],
-	});
+	var opt = {
+			"bProcessing":true,
+            "bJQueryUI":true,
+            "aaData":prodInfo,
+			"aoColumns": 
+				[
+					{ data: "name"},
+					{ data: "tel"},
+					{ data: "cel"},
+					{ data: "guarCT"},
+					{ data: "guarAR"},
+					{ data: "guarROAD"},
+					{ data: "guarNO"},
+					{ data: "email2"}
+		        ],
+			}
+	$('#memberTable').DataTable(opt);
 });
+
+$(function(){
+	$.ajax({
+	  type: 'POST',
+  	   url: '<%= request.getContextPath() %>/MemberServlet',
+   	  data: {},
+  dataType: 'json',
+   success: function(resultData) {
+   	   var opt={ "bProcessing":true,
+                 "bJQueryUI":true,
+                 "aoColumns":[{"sTitle":"訪客","mData":"name"},
+                             {"sTitle":"最新留言","mData":"comment"},
+                             {"sTitle":"店家","mData":"rating"}],
+                 "aaData": resultData
+               };         
+        	   $("#example").dataTable(opt);
+    	    }
+		});
+	});
  </script>
 
 </html>

@@ -35,18 +35,18 @@
 			<div class="box">
 				<div class="col-lg-7 text-left">
 					<!-- datatable的資料位置 -->
-					<table id="table1">
-						<thead>
-							<tr>
-								<th>店家</th>
-								<th>評分</th>
-								<th>最新留言</th>
-							</tr>
-						</thead>
-					</table>
+					<table id="example" class="display" cellspacing="0" width="100%">
+<!--        					 <thead> -->
+<!--            				 	 <tr> -->
+<!--            				 	     <th></th> -->
+<!--          					     <th></th> -->
+<!--        					         <th></th> -->
+<!--      					     </tr> -->
+<!--         				 </thead> -->
+    				</table>
 				</div>
 				<div class="col-lg-5 text-center">
-					<form name="Forum" action="<c:url value='/forum.controller' />"
+					<form name="Forum" action="<c:url value='/forumIns.controller' />"
 						method="post">
 
 						<div class="form-group">
@@ -61,7 +61,7 @@
 						<div class="col-lg-10 text-right">
 							<div class="form-group">
 								<select id="select2" name="seller" class="form-control">
-									<option value="" selected>請選擇您要討論的店家:</option>
+									<option value="" selected>請選擇討論店家:</option>
 								</select>
 							</div>
 							<div class="form-group">
@@ -104,7 +104,6 @@
 	
 	var comment = $("#comment").val();
 	var seller = null;
-	var prodInfo = null;
 	
 	
 	//進入留言板後立刻從資料庫讀取已存在的留言
@@ -121,17 +120,19 @@
   	 			var cellname1 = JSON.parse(JSON.stringify(data[index].name));
   	 			var cellseller1 = JSON.parse(JSON.stringify(data[index].seller_Name));
   	 			var cellinsdate = JSON.parse(JSON.stringify(data[index].insdate));
+  	 			var ForumUID = JSON.parse(JSON.stringify(data[index].Forum_UID));
+  	 			var index = index+1;
   	 			
    	 			var cellname2 = $('<strong></strong>').append(cellname1);
    	 			var cellseller2 = $('<strong></strong>').append(cellseller1);
+   	 			
   	 			var cellmsg1 = $('<p style="text-align:left;"></p>').prepend(cellname2).append("&nbsp;&nbsp;&nbsp;&nbsp;想對&nbsp;&nbsp;&nbsp;&nbsp;").append(cellseller2).append("&nbsp;&nbsp;&nbsp;&nbsp;說:");
   	 			var cellmsg2 = $('<h6 style="text-align:right;"></h6>').append("發表於").append(cellinsdate);
   	 			
-  	 			
-  	 			var index = index+1;
- 	   			var celltotal = $('<h5 id="h'+index+'" style="text-align:left;"></h5>').append("#"+(index)).append("&nbsp;&nbsp;").append(cellcomment)
+  	 			var cellreport = $('<input type="button" id="'+ForumUID+'" onclick="report(this)" value="檢舉" class="btn btn-primary" style="text-align:right"/>');
+ 	   			var celltotal = $('<h5 id="h'+index+'" class="total" style="text-align:left;"></h5>').append("#"+(index)).append("&nbsp;&nbsp;").append(cellcomment)
 								.before(cellmsg1).after(cellmsg2);
-				var celltotal2 =  $('<li></li>').append(celltotal);
+				var celltotal2 =  $('<li></li>').append(celltotal).append(cellreport);
  				$('#ul1').append(celltotal2);
  	   			
   			 });
@@ -183,9 +184,9 @@
 		$("#btn").click(function() {
 			$.ajax({
 				'type' : 'post',
-				'url' : '<%=request.getContextPath()%>/ForumServlet',
+				'url' : '<%= request.getContextPath() %>/ForumInsServlet',
        		  	'data':{'comment':comment,
-       			  	 	 'seller' :seller
+       			  	 	'seller' :seller
        			  	 },
        		  'dataType':'json',
        		  'success': function(data){
@@ -213,18 +214,40 @@
   	
   	
  	//顯示datatable
-  	
-		$(document).ready(function() {
-			$('#table1').DataTable({
-				ajax:'<%= request.getContextPath() %>/GetDataTable',
-			column:[{"data" : "name"}, 
-					{"data" : "rating"}, 
-					{"data" : "comment"}
-				   ]
+	$(function(){
+		$.ajax({
+		  type: 'POST',
+	  	   url: '<%= request.getContextPath() %>/GetDataTable',
+	   	  data: {},
+	  dataType: 'json',
+	   success: function(resultData) {
+	   	   var opt={ "bProcessing":true,
+	                 "bJQueryUI":true,
+	                 "aoColumns":[{"sTitle":"店家","mData":"name"},
+	                             {"sTitle":"最新留言","mData":"comment"},
+	                             {"sTitle":"評分","mData":"rating"}],
+	                 "aaData": resultData
+	               };         
+	        	   $("#example").dataTable(opt);
+	    	    }
 			});
 		});
-    	
-    	
+ 	
+	//檢舉功能
+	function report(myBtn) {
+		var Forum_UID = myBtn.id;
+		alert(Forum_UID);
+		$.ajax({
+			'type' : 'get',
+			'url' : '<%= request.getContextPath() %>/ForumUpdateServlet',
+   		  	'data':{'Forum_UID': Forum_UID },
+   		    'success': function(data){
+   				console.log(myBtn.id);
+   		 		}
+   		    });
+		}
+	
+		
 	</script>
 </body>
 </html>

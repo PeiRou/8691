@@ -18,11 +18,12 @@ import javax.servlet.http.HttpSession;
 
 import _00_Account.model.AccountBean;
 import _05_Forum.model.ForumBean;
-import _05_Forum.model.ForumService;
+import _05_Forum.model.ForumDAOJdbc;
+import _05_Forum.model.ForumInsService;
 
-@WebServlet(urlPatterns={"/forum.controller"})
-public class ForumServlet extends HttpServlet {
-	private ForumService ForumService = new ForumService();
+@WebServlet(urlPatterns={"/forumIns.controller"})
+public class ForumInsServlet extends HttpServlet {
+	private ForumInsService ForumService = new ForumInsService();
 	//String RD = UUID.randomUUID().toString();
 	
 	@Override
@@ -49,8 +50,9 @@ public class ForumServlet extends HttpServlet {
 				
 				//處理前面的資料驗證，有錯就先return
 				if (error!= null&&!error.isEmpty()) {
-					RequestDispatcher rd = request.getRequestDispatcher("/_05_Forum/Forum.jsp");
-					rd.forward(request, response);
+//					RequestDispatcher rd = request.getRequestDispatcher("/_05_Forum/Forum.jsp");
+//					rd.forward(request, response);
+					response.sendRedirect("/_05_Forum/Forum.jsp");
 					return;
 				
 				}
@@ -65,15 +67,20 @@ public class ForumServlet extends HttpServlet {
 				bean.setSeller_UID(seller);
 				bean.setComment(comment);
 				bean.setRating(3);
+				bean.setStatus(0);
 				bean.setInsdate(dateFormat.format(date).toString());
 				ForumService.insertForum(bean);
 				System.out.println(dateFormat.format(date).toString());
 				if (error!= null&&!error.isEmpty()) {
-					RequestDispatcher rd = request.getRequestDispatcher("/_05_Forum/Forum.jsp");
-					rd.forward(request, response);	
+//					RequestDispatcher rd = request.getRequestDispatcher("/_05_Forum/Forum.jsp");
+//					rd.forward(request, response);
+					response.sendRedirect("/_05_Forum/Forum.jsp");
 				}else{
-					RequestDispatcher rd = request.getRequestDispatcher("/_05_Forum/Forum.jsp");
-					rd.forward(request, response);}
+//					RequestDispatcher rd = request.getRequestDispatcher("/_05_Forum/Forum.jsp");
+//					rd.forward(request, response);
+					response.sendRedirect("/_05_Forum/Forum.jsp");
+				}
+				
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
