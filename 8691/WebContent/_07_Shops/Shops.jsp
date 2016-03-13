@@ -28,6 +28,11 @@
     
 </head>
 <style>
+
+.prod-car {
+	background-color: #FFFFFF;
+}
+
 .customer-font {
 	font-weight: bold;
 	font-size: 20px;
@@ -38,6 +43,13 @@
 	height: 32px;
 	display: inline-block;
 	padding: 0 0 0 0px;
+}
+
+.errText {
+	font-weight: bold;
+	font-size: 16px;
+	color: red;
+	letter-spacing: 3px;
 }
 
 input[type=checkbox] {
@@ -102,16 +114,13 @@ tr.shown td.details-control {
 				
 				<!-- 訂單 -->
 				<div class="col-lg-3 text-center">
-					<div class="">
+					<div class="prod-car" id="carDiv">
 						<label class="customer-font">
 							<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
 							您的訂單
 						</label>
-						<table id="prodCar" class="table table-striped table-hover dataTable" cellspacing="0">
-							<thead>
-								<th>商品</th>
-								<th>細項</th>
-							</thead>
+						<table id="prodCar" style="font-size: 15px; font-weight: bold; text-align: left;">
+							<thead style="font-size: 18px; font-weight: bold; text-align: left;">
 						</table>
 					</div>
 				</div>
@@ -134,7 +143,8 @@ tr.shown td.details-control {
 			<div>
 				<p>
 					<label for="spinner"> 數量 : </label> 
-					<input id="spinner"name="value">
+					<input id="spinner" name="prodAmount" value="0">
+					<span id="errorText" class="errText"></span>
 				</p>
 			</div>
 		</form>
@@ -156,18 +166,35 @@ tr.shown td.details-control {
 <script type="text/javascript">
 $(document).ready(function() {
 	var prodInfo = JSON.parse(JSON.stringify(${prodInfo}));
-	
+	console.log(prodInfo);
 	$('#prodTable').DataTable({
 		data:prodInfo,
+		"columnDefs": [
+		               { "width": "20%", "targets": 0 },
+		               { "width": "20%", "targets": 1 },
+		               { "width": "20%", "targets": 2 },
+		               { "width": "40%", "targets": 3 },
+		   		],    
 		columns: 
 			[
 	            { data: "FoodName" },
 	            { data: "FoodPrice[ / ].FoodStatusPrice" },
 	            { data: function(prodInfo) { 
 	            	var temp = '<input type="button" value="+" class="btn btn-primary customer-font "';
+	            	
+	            	var foodPrice = prodInfo.FoodPrice[0].FoodStatusPrice;
+	            	var foodPriceArray = prodInfo.FoodPrice;
+	            	
+	            	if(foodPriceArray.length >= 2) {
+	            		var foodPrice2 = prodInfo.FoodPrice[1].FoodStatusPrice;
+	            	}
+	            		
 	            	temp = temp.concat('onclick="doModify(\'');
 	            	temp = temp.concat(prodInfo.FoodName);
 	            	temp = temp.concat("','foodID" + prodInfo.FoodID);
+	            	temp = temp.concat("','" + prodInfo.GroupClass3ID);
+	            	temp = temp.concat("','" + foodPrice);
+	            	temp = temp.concat("','" + foodPrice2);
 	            	temp = temp.concat('\')"');
 	            	temp = temp.concat(' id="');
 	            	temp = temp.concat(prodInfo.FoodID);
@@ -189,16 +216,145 @@ $(document).ready(function() {
 	        ],
 	});
 	
-	//dialog裡的datatable
+	var sellerInfo = JSON.parse(JSON.stringify(${SellerInfo}));
+	
+});
+
+//商品副選項資料送出 → 加入購物車
+function customerProdInfoSubmit(FoodName, foodId, prodPrice, prodPrice2) {
+	var customerProdArray = new Array();
+	var prodName = FoodName;
+	var jsonObj;
+	
+	$("#" + foodId).text("");
+	
+	$('#editDialogTable :checked').each(function() {
+		jsonObj = JSON.parse($(this).val());
+		
+		$("#" + foodId).append(jsonObj.ProdStatusClass3Name + "  /  ");
+		
+		customerProdArray.push(jsonObj);
+	});
+	
+	jsonObj = customerProdArray;
+	
+	var prodAmount = $('input[name=prodAmount]').val();
+	var total = prodAmount*prodPrice;
+	console.log(total);
+	
+	var prodCarTable = $('#prodCar').DataTable({
+		"bPaginate": false,
+        "bFilter": false,
+        "bInfo": false,
+        "data": jsonObj,
+        "language": {
+            "emptyTable": "無調整"
+         },
+        "columnDefs": [
+            { "width": "40%", "targets": 0 },
+			{ "title": FoodName + "  X  " + prodAmount + "  =  $ " + total, "targets": 0 },
+         ],
+        columns: [
+			{data: 'ProdStatusClass3Name', "targets": 0},
+	         ],
+	});
+	
+	$('#carDiv').append("<span>test</span>");
+}
+
+//確認清單
+function checkCumsterInfo() {
+	var prodAmount =  $('input[name=prodAmount]').val();
+	var reg = /^[0-9]*$/;
+	
+	if(prodAmount <= 0 || !reg.test(prodAmount)) {
+		$('#errorText').text("商品數量錯誤");
+		
+		return false;
+	}
+	
+	var iceChecked = $('#editDialogTable tbody tr:first :checked').length;
+	
+	if(iceChecked > 1) {
+		$('#errorText').text("冷熱調整請擇一");
+		
+		return false;
+	}
+	
+	var sugarChecked = $('#editDialogTable tbody tr:last :checked').length;
+	
+	if(iceChecked > 1) {
+		$('#errorText').text("甜度調整請擇一");
+		
+		return false;
+	}
+	
+	return true;
+}
+
+//開啟Dialog 
+function doModify(FoodName, foodId, groudId, prodPrice, prodPrice2) {
+	var prodName = FoodName;
+	
+	$('div[id="editDialog"]').dialog({
+		modal : true,
+		minHeight : 700,
+		minWidth : 730,
+		maxWidth : 730,
+		show: { effect: "slideDown", duration: 300 },
+		hide: { effect: "slideUp", duration: 200 },
+		title : FoodName,
+		close: function(event, ui) {
+            $(this).dialog("close");
+            $('#errorText').text("");
+        },
+		buttons: [{
+			text: function() {
+				$(this).hover(function() {
+					$(this).addClass("ui-state-hover");
+				},
+				function() {
+					$(this).removeClass("ui-state-hover");
+				});
+				$(this).append('<span class="ui-button-text">送出</span>');
+			},
+			class: "ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only",
+		    click: function() {
+		    	if(!checkCumsterInfo()) {
+		    		return;
+		    	}
+		    		
+		    	customerProdInfoSubmit(FoodName, foodId, prodPrice, prodPrice2);
+		    	
+		    	$(this).dialog("close");
+		    	$('#editDialogTable :checked').prop('checked',false);
+		    	$('#errorText').text("");
+		    }
+		}],
+	});
+	
+	$('.ui-dialog-title').addClass('customer-font');
+	var spinner = $("#spinner").spinner().css('width','50px');;
+	$('.ui-spinner').css('width','80px');
+	
+	genEditTable(groudId);
+}
+
+//dialog裡的datatable
+function genEditTable(groupId) {
 	var editDialogTable = $('#editDialogTable').DataTable({
+		"bDestroy": true,
 		"bPaginate": false,
         "bFilter": false,
         "bInfo": false,
     	"ajax": {
             'type': 'POST',
             'url': '/8691/_10_Menu/GetC1C2.controller',
-            'data': {GroupID: '1'}
+            'data': {GroupID: groupId}
             },
+        "columnDefs": [
+            { "width": "30%", "targets": 0 }
+		],    
         columns: [
             { "data": "ProdStatusClass2Name" },
             { "data": function(data) {
@@ -229,68 +385,7 @@ $(document).ready(function() {
             },
         ]
     });
-	
-	var sellerInfo = JSON.parse(JSON.stringify(${SellerInfo}));
-	
-});
-
-//商品副選項資料送出
-function customerProdInfoSubmit(FoodName, foodId) {
-	var customerProdArray = new Array();
-	var prodName = FoodName;
-	var jsonObj;
-	
-	$("#" + foodId).text("");
-	
-	$('#editDialogTable :checked').each(function() {
-		console.log($(this).val());
-		jsonObj = JSON.parse($(this).val());
-		$("#" + foodId).append(jsonObj.ProdStatusClass3Name + "/");
-		customerProdArray.push(jsonObj);
-		
-	});
-	
-	
 }
-
-//開啟Dialog 
-function doModify(FoodName, foodId) {
-	var prodName = FoodName;
-	$('div[id="editDialog"]').dialog({
-		modal : true,
-		minHeight : 700,
-		minWidth : 730,
-		maxWidth : 730,
-		show: { effect: "slideDown", duration: 300 },
-		hide: { effect: "slideUp", duration: 200 },
-		title : FoodName,
-		buttons: [{
-			text: function() {
-				$(this).hover(function() {
-					$(this).addClass("ui-state-hover");
-				},
-				function() {
-					$(this).removeClass("ui-state-hover");
-				});
-				$(this).append('<span class="ui-button-text">送出</span>');
-			},
-			class: "ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only",
-		    click: function() {
-		    	customerProdInfoSubmit(FoodName, foodId);
-		    	
-		    	$(this).dialog("close");
-		    	$('#editDialogTable :checked').prop('checked',false);
-		    }
-		}],
-		
-	});
-	
-	$('.ui-dialog-title').addClass('customer-font');
-	var spinner = $("#spinner").spinner().css('width','50px');;
-	$('.ui-spinner').css('width','80px');
-	
-}
-
 
 </script>
 </html>
