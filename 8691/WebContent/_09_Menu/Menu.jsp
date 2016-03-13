@@ -87,8 +87,7 @@ input[type=checkbox]:checked {
 				<tr>
 				</tr>
 			</table>
-		</div>
-		<div id="dialogClass2" title="修改屬性">
+		</div>		
 		<div id="dialogClass1" title="請先選擇一個群組">		
 			<table id="dtableGP" class="display" cellspacing="0" width="100%">
 				<thead>
@@ -108,6 +107,21 @@ input[type=checkbox]:checked {
 			</table>
 		</div>
 		<div id="dialogClass2" title="修改屬性">
+			<label id=lblC2 class="btn btn-default" style="display: none">
+				<input type=text id=txtC2>
+				<div>
+					<button type="button" class="btn btn-default C2NewY"
+						aria-label="Left Align">
+						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+					</button>
+					<button type="button" class="btn btn-default C2NewN"
+						aria-label="Left Align">
+						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+					</button>
+				</div>
+			</label> <a class="btn btn-primary insdgC2">新增</a>
+		<br>
+		<input id="hidC1" type="hidden" value="">
 		<input id="hidGP" type="hidden" value="">
 			<table id="example" class="display" cellspacing="0" width="100%">
 				<thead>
@@ -198,11 +212,15 @@ input[type=checkbox]:checked {
 	      height: 500,
 	      width: 800,
 	      buttons: {	          
-	    	  "確定": saveChecked,
+	    	  "確定": function() {
+	    		  	saveChecked();
+		            $(this).dialog( "close" );
+					location.reload(true);
+					},
 	          "離開": function() {
 	            $(this).dialog( "close" );
-				location.reload(true);}
-				}
+				location.reload(true);
+				}}
 	    });
 	$( "#dialogSz" ).dialog({
 		  resizable: false,
@@ -224,6 +242,25 @@ input[type=checkbox]:checked {
 		//$("#dialogselect").html(celSeld);
 		$("#dialogClass1").dialog( "open" );
 		//beLoadDataTable();
+	});
+	//新增Class2
+	$('.insdgC2').click(function(){
+		$('#lblC2').show();
+		$('#lblC2 :input').attr("maxlength",100)
+						  .attr("size",100)
+						  .show()
+						  .attr('disabled', false);		
+	});
+	//新增Class2的確定跟取消
+	$('.C2NewY').click(function() {	
+		var Class2Name = $('#txtC2').val();
+		var C1ID =$('#hidC1').val();
+		var action = "Insert"
+		console.log("C1ID:"+C1ID);
+		C2setJson(action,C1ID,Class2Name);		
+	});
+	$('.C2NewN').click(function() {
+		$(this).parent().parent().hide();			
 	});
 	//修改按鈕click的時候
 	$('.tdupd').click(function() {	
@@ -255,11 +292,13 @@ input[type=checkbox]:checked {
 	$(".tdinsC2").click(function() {
 		var theTr = $(this).parent().parent().parent().attr("id");
 		var leth = theTr.length;
-		var GpID = theTr.substring(7,leth);
+		var GpID = theTr.substring(7,leth);		
+		$('#hidGP').val(GpID);
 		console.log("GpID:"+GpID)
 		var Class1ID = $("#selGpID"+GpID).val();
+		$('#hidC1').val(Class1ID);
 		console.log("Class1ID:"+Class1ID);
-		dialogC2(GpID,Class1ID);
+		dialogC2();
       $("#dialogClass2").dialog( "open" );
     });
 	//------固定的btn事件---End----	
@@ -1112,7 +1151,9 @@ function findC1(C1ID){
 	return json;
 }
 //修改屬性的dialog
-function dialogC2(GP,C1ID) {	
+function dialogC2() {
+	var GP =$('#hidGP').val();
+	var C1ID =$('#hidC1').val();
 	var printifo = findC1(C1ID);
 	
 	//console.log(JSON.stringify(printifo));
@@ -1138,7 +1179,7 @@ function dialogC2(GP,C1ID) {
             			celPrice = Class3Status.ProdStatusClass3Price;
             		//console.log(celName);
             		var celchk = '<input type=checkbox id=dgClass3ID'+celClass3ID+' value='+celClass3ID+'>';
-            		var celtextName = '<input class="dgtxtName" type=text id=dgClass3Name'+celClass3ID+' maxlength="10" size="10" value='+celName+' style="display:none">';
+            		var celtextName = '<input class="dgtxtName" type=text id=dgClass3Name'+celClass3ID+' maxlength="100" size="100" value='+celName+' style="display:none">';
             		var celtextPrice = '<input class="dgtxtPrice" type=text id=dgPrice'+celClass3ID+' maxlength="6" size="6" value='+celPrice+' style="display:none">';            		
             		var celfontName = '<font class="dgtdfont" id=dgfontName'+celClass3ID+'>'+celName+'</font>';
             		var celfontPrice = '<font class="dgtdfont" id=dgfontPrice'+celClass3ID+'>'+celPrice+'</font>';
@@ -1156,13 +1197,14 @@ function dialogC2(GP,C1ID) {
         "drawCallback": function() {
         	console.log('drawCallback');
         	
-        	dgbeload(GP);
+        	dgbeload();
         }
     } );
 }
 //必須載入事件動作
-function dgbeload(GP){	
-	$('#hidGP').val(GP);
+function dgbeload(){
+	var GP =$('#hidGP').val();	
+	
 	$.each(jsonGroup,function(index,GpVal){
 		if(GpVal.GroupClass3ID==GP){			
 			$.each(GpVal.FoodStatus,function(index,FoodStsVal){
@@ -1511,6 +1553,35 @@ function dgsetJson(action,jsonData) {
 				console.log("Errordata:"+data); 				
 			}			
         }});
+}
+//呼叫ajax===>新增的C2的按鈕事件
+function C2setJson(action,C1ID,Class2Name) {
+	var action = action;
+	$.ajax({
+		url : '<%= request.getContextPath() %>/_10_Menu/InsClass2.controller',
+        type: 'get',
+        dataType: 'json',
+        data: {
+        	ProdStatusClass1ID:C1ID,
+        	ProdStatusClass2Name:Class2Name
+        	},
+        contentType: 'application/json',
+        mimeType: 'application/json',
+        success: function (data) {
+        	if(action == "Insert"){	        		
+        		var Obj = JSON.parse(JSON.stringify(data));
+        		console.log("Obj:"+Obj);    
+        		console.log("ProdStatusClass2ID:"+Obj.ProdStatusClass2ID);
+        		if(typeof Obj.ProdStatusClass2ID =="undefined")
+        		{
+        			$("#lblSzNewCel").attr("class","btn btn-danger")
+        							 .css("color","black");        			
+        		}else{
+        			
+        		}
+        	}
+        }
+    });
 }
 </script>
 </body>
