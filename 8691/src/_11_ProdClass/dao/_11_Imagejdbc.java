@@ -113,4 +113,32 @@ public class _11_Imagejdbc {
 		}
 		return 0;
 	}
+	
+	private final String UPDATE = "update Image set Image_Name =?,Image_URL =? where Image_ID = ?";
+	public int update(String ImageID,String ImageName,String ImageURL) {
+		int rset = 0;
+		ResultSet rs = null;
+		try(Connection conn = dataSource.getConnection();
+			PreparedStatement stmt = conn.prepareStatement(UPDATE);
+			) {
+			stmt.setString(1, ImageName);
+			stmt.setString(2, ImageURL);
+			stmt.setString(3, ImageID);
+			rset = stmt.executeUpdate();
+		    if(rset!=0){
+		    	return rset;
+		    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return 0;
+	}
 }
