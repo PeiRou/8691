@@ -79,9 +79,10 @@ public class _06_UpdSellerPhotoServlet extends HttpServlet {
 			result = sellerjdbc.select(accountUID);		
 			System.out.println("resultVistor:"+result);
 			
+			request.setAttribute("error", "");
 			request.setAttribute("select", result);
 			request.getRequestDispatcher(
-					"/_06_Seller/SellerCenter.jsp").forward(request, response);
+					"/_06_Seller/Seller.controller").forward(request, response);
 		}
 	}
 	
