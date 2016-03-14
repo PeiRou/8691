@@ -37,15 +37,13 @@ public class _10_InsMenuServlet extends HttpServlet {
 			try {
 				System.out.println("LoginOK:"+accountUID);
 				System.out.println("prodStatusClass1ID:"+prodStatusClass1ID);
+				System.out.println("groupClass3Name:"+groupClass3Name);
 				result = groupClass3jdbc.insert(accountUID,prodStatusClass1ID, groupClass3Name);
 				System.out.println("resultInsMenu:"+result);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}		
 		}
-		request.setAttribute("select", result);
-		request.getRequestDispatcher(
-				"/_09_Menu/Menu.jsp").forward(request, response);
 	}
 
 	@Override
