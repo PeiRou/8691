@@ -38,7 +38,7 @@ public class _08_GetStoreServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	private final String SELECT_ALL = "select DISTINCT a.Account_UID,a.name,a.Seller_photo,a.ship_price,a.lowest_price,a.Seller_photo,(CASE WHEN b.Group_class3_ID IS NULL THEN '' ELSE '1' END) as 'Group_class3_ID' from Seller_visitor a left join Group_class3 b on a.Account_UID = b.Account_UID order by Group_class3_ID desc";
+	private final String SELECT_ALL = "select DISTINCT a.Account_UID,a.name,a.Seller_photo,a.ship_price,a.lowest_price,a.Seller_photo,(CASE WHEN b.Group_class3_ID IS NULL THEN '' ELSE '1' END) as 'Group_class3_ID' from Seller_visitor a left join Group_class3 b on a.Account_UID = b.Account_UID join account c on a.Account_UID = c.Account_UID where c.role_ID <> '1111' order by Group_class3_ID desc";
 	public List select() {
 		List JSONObjectList = null;
 		try(Connection conn = dataSource.getConnection();
