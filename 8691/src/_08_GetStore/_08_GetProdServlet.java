@@ -11,14 +11,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONException;
 import org.json.simple.JSONObject;
 
 import _06_Seller.model.SellerVisitorBean;
 import _06_Seller.model.SellerVisitorJDBC;
 import _11_ProdClass.dao._11_Foodjdbc;
+import _11_ProdClass.dao._11_SizeStatusjdbc;
 @WebServlet(urlPatterns={"/_07_Shops/Shops.controller"})
 public class _08_GetProdServlet extends HttpServlet {
-
+	private _11_SizeStatusjdbc sizeStatusjdbc = new _11_SizeStatusjdbc();
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String StoreUID = request.getParameter("AccountUID");
@@ -47,11 +49,20 @@ public class _08_GetProdServlet extends HttpServlet {
 				request.setAttribute("SellerInfo", "");
 				request.setAttribute("SellerName", "");
 			}
+			List resultSzSts = null;
+			
+			try {				
+				resultSzSts = sizeStatusjdbc.select();			    
+				System.out.println("resultSzSts:"+resultSzSts);				
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 			
 			List prodInfo = foodJdbc.select(StoreUID);
-			
+			System.out.println("prodInfo:"+prodInfo);
 			request.setAttribute("StoreUID", StoreUID);
 			request.setAttribute("prodInfo", prodInfo);
+			request.setAttribute("selectSzSts",resultSzSts);
 		}
 		
 		request.getRequestDispatcher("/_07_Shops/Shops.jsp").forward(request, response);

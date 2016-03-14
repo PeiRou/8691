@@ -75,6 +75,35 @@ public class _06_Sellerjdbc {
 		return JSONObjectList;
 	}	
 	
+	private final String SELECT_CATCH_STORE_NAME = "select name from seller_visitor where account_UID = ?";
+	public String selectCatchName(String accountUID) {
+		String rult = null;
+		ResultSet rset = null;
+		try(Connection conn = dataSource.getConnection();
+			PreparedStatement stmt = conn.prepareStatement(SELECT_CATCH_STORE_NAME);
+			) {
+			stmt.setString(1, accountUID);
+			rset = stmt.executeQuery();
+					
+			if(rset.next()) {
+				rult = rset.getString("name");
+				System.out.println("name:"+rset.getString("name"));
+				return rult;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			if (rset != null) {
+				try {
+					rset.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return null;
+	}	
+	
 	private final String UPDATE = "update Prod_status_class3 set Prod_status_class3_name=?,Prod_status_class3_price=? where Prod_status_class3_ID=?";
 	public int update(JSONObject JsonData){
 		try(Connection conn = dataSource.getConnection();

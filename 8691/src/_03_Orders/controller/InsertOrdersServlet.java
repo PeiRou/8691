@@ -46,7 +46,7 @@ public class InsertOrdersServlet extends HttpServlet {
 				String temp5 = request.getParameter("quantity");
 				String temp6 = request.getParameter("originalPrice");
 				String note = request.getParameter("note");
-				
+				System.out.println("temp3:"+temp3);
 		//轉換資料
 				Map<String, String> error = new HashMap<String, String>();
 				request.setAttribute("error", error);

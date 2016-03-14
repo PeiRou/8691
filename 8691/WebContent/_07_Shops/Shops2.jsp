@@ -117,18 +117,8 @@ tr.shown td.details-control {
 							<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
 							您的訂單
 						</label>
-						<table id="prodCar" style="font-size: 15px; font-weight: bold; text-align: left;" width=100%>
-<!-- 							<thead style="font-size: 18px; font-weight: bold; text-align: left;"></thead> -->
-							<tr>
-								<td  colspan="2"><hr></td>
-							</tr>
-							<tr>
-								<td>總金額:</td>
-								<td><label id=lblsum></label><input type="hidden" id=hidsum></td>
-							</tr>
-							<tr>
-								<td  colspan="2" class="text-center"><a class="btn btn-primary btnpay">結帳</a></td>
-							</tr>
+						<table id="prodCar" style="font-size: 15px; font-weight: bold; text-align: left;">
+							<thead style="font-size: 18px; font-weight: bold; text-align: left;">
 						</table>
 					</div>
 				</div>
@@ -303,6 +293,21 @@ function checkCumsterInfo() {
 	
 	return true;
 }
+//尺寸下拉式選單，給定值後順便綁定
+function selAttr(selName,selID,selectedID){
+	if(selName=="SizePrice"){			
+		var select = $('<select id=sel'+ selName + selID +'></select>');
+		$.each(jsonSzSts,function(index,Sizeval){
+			if(Sizeval.SizeStatusID==selectedID){
+				console.log(111);
+				select.append($('<option></option>').val(Sizeval.SizeStatusID).text(Sizeval.SizeName).attr('selected',true));
+			}else{
+				select.append($('<option></option>').val(Sizeval.SizeStatusID).text(Sizeval.SizeName));
+			}
+		});
+	}
+	return select;
+}
 
 //開啟Dialog 
 function doModify(FoodName, foodId, groudId, prodPrice, prodPrice2) {
@@ -318,7 +323,7 @@ function doModify(FoodName, foodId, groudId, prodPrice, prodPrice2) {
 			$.each(prodInfoVal.FoodPrice,function(inx,FoodPriceVal){	
 				tmpRdo = tmpRdo.concat('<label class="btn btn-default">');
 				console.log(FoodPriceVal.FoodSizePriceID,FoodPriceVal.SizeStatusID);
-				var sel = '<select id=sel'+ FoodPriceVal.FoodSizePriceID +' disabled="true">';
+				var sel = '<select id=sel'+ FoodPriceVal.FoodSizePriceID +'>';
 				$.each(jsonSzSts,function(index,Sizeval){
 					if(Sizeval.SizeStatusID==FoodPriceVal.SizeStatusID){
 						console.log(111);
@@ -326,12 +331,12 @@ function doModify(FoodName, foodId, groudId, prodPrice, prodPrice2) {
 					}
 				});
 				sel = sel.concat('</select>');
-				tmpRdo = tmpRdo.concat('<input type="radio" name="location" value="'+FoodPriceVal.FoodStatusPrice+'" checked>'+sel+FoodPriceVal.FoodStatusPrice+'<br>');
+				tmpRdo = tmpRdo.concat('<input type="radio" name="location" value="'+FoodPriceVal.FoodSizePriceID+'">'+sel+FoodPriceVal.FoodStatusPrice+'<br>');
 				tmpRdo = tmpRdo.concat('</label>');
 			});
 			tmpRdo = tmpRdo.concat('</form>');
 			console.log(tmpRdo);
-			$('#divimg').html(tmpRdo);			
+			$('#divimg').html(tmpRdo);
 		}
 	});
 	
@@ -363,7 +368,7 @@ function doModify(FoodName, foodId, groudId, prodPrice, prodPrice2) {
 		    		return;
 		    	}
 		    		
-		    	shopSubmit(tmpfoodId,FoodName);
+		    	customerProdInfoSubmit(FoodName, foodId, prodPrice, prodPrice2);
 		    	
 		    	$(this).dialog("close");
 		    	$('#editDialogTable :checked').prop('checked',false);
@@ -377,34 +382,6 @@ function doModify(FoodName, foodId, groudId, prodPrice, prodPrice2) {
 	$('.ui-spinner').css('width','80px');
 	
 	genEditTable(groudId);
-}
-var totalSum = 0;
-function shopSubmit(tmpfoodId,FoodName){
-	var tmpcel ='<tr>';
-	tmpcel = tmpcel.concat('<td>'+FoodName+':</td>');
-	tmpcel = tmpcel.concat('<td>'+$('input[name=location]:checked').val()+'</td>');
-	var prodAmount = $('input[name=prodAmount]').val();
-	var prodPrice =$('input[name=location]:checked').val();
-	var total = prodAmount*prodPrice;
-	console.log(prodAmount,total);
-	tmpcel = tmpcel.concat('</tr>');
-	$("input:checkbox:checked").each(function(index,value){
-		var tmp = JSON.parse($(this).val());
-		console.log("ProdStatusClass3Price:"+tmp.ProdStatusClass3Price);
-		console.log(index,value);
-
-		tmpcel = tmpcel.concat('<tr>');
-		tmpcel = tmpcel.concat('<td><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>'+tmp.ProdStatusClass3Name+':</td>');
-		tmpcel = tmpcel.concat('<td>'+tmp.ProdStatusClass3Price+'</td>');
-		tmpcel = tmpcel.concat('</tr>');
-		
-		totalSum = totalSum+parseInt(tmp.ProdStatusClass3Price);
-	});
-	totalSum = totalSum+total;
-	console.log("totalSum:"+totalSum);
-	$('#prodCar').prepend(tmpcel).prepend;
-	$('#lblsum').text(totalSum);
-	$('#hidsum').val(totalSum);
 }
 
 //dialog裡的datatable
@@ -420,7 +397,7 @@ function genEditTable(groupId) {
             'data': {GroupID: groupId}
             },
         "columnDefs": [
-            { "width": "32%", "targets": 0 }
+            { "width": "30%", "targets": 0 }
 		],    
         columns: [
             { "data": "ProdStatusClass2Name" },
@@ -429,7 +406,6 @@ function genEditTable(groupId) {
             	
             	$.each(data.Class3Status, function(index, Class3Status) {
             		var celClass3ID = Class3Status.ProdStatusClass3ID;
-            		var	celPrice = Class3Status.ProdStatusClass3Price;
             		var	celName = Class3Status.ProdStatusClass3Name;
             		var prodJsonValue = JSON.stringify(Class3Status); 
             		
@@ -439,7 +415,7 @@ function genEditTable(groupId) {
             		
             		var cellabel = '<label for="';
             		cellabel = cellabel.concat('celClass3ID' + celClass3ID + '">');
-            		cellabel = cellabel.concat(celName+celPrice + '元</label>');
+            		cellabel = cellabel.concat(celName + '</label>');
             		
             		celchk = celchk.concat(cellabel);
             		
@@ -454,11 +430,6 @@ function genEditTable(groupId) {
         ]
     });
 }
-$('.btnpay').click(function(){
-	var money = $('#hidsum').val();
-	var storeUID = '${StoreUID}';
-	var url = '<%= request.getContextPath() %>'
-	location.href = url+'/_08_GetStore/Payment.controller?storeUID='+storeUID+'&total='+money;
-});
+
 </script>
 </html>

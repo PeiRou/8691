@@ -30,15 +30,15 @@ public class _10_GetC1C2Servlet extends HttpServlet {
 		String accountUID = (String) session.getAttribute("LoginOK");
 		session.setAttribute("LoginOK", accountUID);
 		
-		String Class1ID = request.getParameter("Class1ID");
-		System.out.println("Class1ID:"+Class1ID);
+		String GroupID = request.getParameter("GroupID");
+		System.out.println("GroupID:"+GroupID);
 		//String GroupID = "1";
 		List resultPrC1C2 = null;
 		JSONObject json = new JSONObject();
 		
 		try {
 			
-			resultPrC1C2 = prodClass2jdbc.selectC1(Class1ID);
+			resultPrC1C2 = prodClass2jdbc.selectGp(GroupID);
 			if(resultPrC1C2!=null){
 				json.put("data",resultPrC1C2);
 			}

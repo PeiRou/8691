@@ -29,7 +29,7 @@
 			<div class="box">		
 				<div class="col-md-12">
 					<h2 class="text-center">結帳</h2>
-					<form action="<c:url value='/_03_Orders/InsertOrdersServlet' />" method="post">
+					<form id=myform action="<c:url value='/_03_Orders/InsertOrdersServlet' />" method="post">
 					<table id="t01" class="table">
 						<tr style="display:none">
 							<td class="col-xs-8 col-sm-6 text-right">Account_UID : </td>
@@ -132,27 +132,22 @@
 						</tr>
 						<tr>
 							<td class="col-xs-8 col-sm-6 text-right">訂購店家: </td>
-							<td>尼格爾PARADISE</td>
+							<td>${storeName}</td>
 							<td></td>
-						</tr>
-						<tr>
-							<td class="col-xs-8 col-sm-6 text-right">品名: </td>
-							<td>波霸紅茶拿鐵</td>
-							<td></td>
-						</tr>
+						</tr>	
 						<tr style="display:none">
-							<td>單價: </td>
-							<td><input type="text" name="originalPrice" value="60"></td>
-							<td>${error.originalPrice}</td>
-						</tr>
+							<td>食物總金額: </td>
+							<td><input type="text" id=hidfoodPrice name="food_price" value="${total}"></td>
+							<td>${error.ship_price}</td>
+						</tr>					
 						<tr>
-							<td class="text-right">單價: </td>
-							<td>60元</td>
+							<td class="text-right">食物總金額: </td>
+							<td>${total}元</td>
 							<td></td>
 						</tr>
 						<tr style="display:none">
 							<td>運費: </td>
-							<td><input type="text" name="ship_price" value="150"></td>
+							<td><input type="text" id=hidSipPrice name="ship_price" value="150"></td>
 							<td>${error.ship_price}</td>
 						</tr>
 						<tr>
@@ -160,19 +155,14 @@
 							<td>150元</td>
 							<td>${error.ship_price}</td>
 						</tr>
-						<tr>
-							<td class="text-right">數量(杯): </td>
-							<td><input type="text" name="quantity" value="20"></td>
-							<td>${error.quantity}</td>
-						</tr>
-							<tr style="display:none">
-							<td class="text-right">food_price: </td>
-							<td><input type="text" name="food_price" value="1200"></td>
-							<td>${error.food_price}</td>
-						</tr>
+						<tr style="display:none">
+							<td>總金額: </td>
+							<td><input type="text" id=hidTT name="total_amount" value="123"></td>
+							<td>${error.ship_price}</td>
+						</tr>							
 							<tr>
 							<td class="text-right">總金額: </td>
-							<td><input type="text" name="total_amount" value="1350"></td>
+							<td><input type="text" name="total_amount" value="123" disabled="disabled"></td>
 							<td>${error.total_amount}</td>
 						</tr>
 						<tr style="display:none">
@@ -187,7 +177,7 @@
 						</tr>												
 						<tr>
 							<td></td>
-							<td><input type="submit" value="確認結帳" class="btn btn-primary"></td>
+							<td><input id=btnsub type="button" value="確認結帳" class="btn btn-primary"></td>
 							<td></td>
 						</tr>
 					</table>
@@ -211,6 +201,16 @@
     <!-- jQuery -->
     <script src="<%= request.getContextPath() %>/js/jquery.js"></script>
     <script>
+    
+    	var tmpF = $('#hidfoodPrice').val();
+    	var tmpP = $('#hidSipPrice').val();
+    	var tmpTT = parseInt(tmpF)+parseInt(tmpP);
+    	$('input[name=total_amount]').val(tmpTT);
+    	$('#hidTT').val(tmpTT);
+    
+    $('#btnsub').click(function(){
+    	$('#myform').submit();
+    });
 		//進入首頁後立刻從資料庫讀取區域的下拉式選單內容
 	    $(function(){
 				   $.ajax({
