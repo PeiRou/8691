@@ -585,8 +585,8 @@ function dialogSubmit(){
 			        } 
 }
 var error = $('#hidError').val();
-
-if(error!=""){
+//console.log("error:"+error);
+if(error!="{}"&&error!=""){
 	$("#btndialog").click();
 	$('#hidError').val('');
 }

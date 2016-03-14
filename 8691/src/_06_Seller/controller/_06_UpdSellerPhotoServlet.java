@@ -21,7 +21,7 @@ import _11_ProdClass.dao._11_Imagejdbc;
 @WebServlet(
 		urlPatterns={"/_06_Seller/_06_UpdSellerPhoto.controller"}
 		)
-@MultipartConfig(location = "D:/workspace_proj/8691/WebContent/image/store/")
+@MultipartConfig(location = "C:/Users/Student/projworkspace/8691/WebContent/image/store/")
 public class _06_UpdSellerPhotoServlet extends HttpServlet {
 	private _06_Sellerjdbc sellerjdbc= new _06_Sellerjdbc();
 	private _11_Imagejdbc imagejdbc = new _11_Imagejdbc();
@@ -52,7 +52,7 @@ public class _06_UpdSellerPhotoServlet extends HttpServlet {
 			sFilename = new String(sFilename.getBytes("ISO8859_1"), "UTF-8");
 			System.out.println("Uploaded filename=" + sFilename); // debug
 			String photopath = "/image/store/" + id + ".png";
-			File oFile = new File("D:/workspace_proj/8691/WebContent/" + photopath);
+			File oFile = new File("C:/Users/Student/projworkspace/8691/WebContent/" + photopath);
 			if (oFile.exists())
 				oFile.delete(); // 檔案已存在時先刪除
 			photoPar.write(id + ".png"); // saving the uploaded file.
@@ -67,6 +67,7 @@ public class _06_UpdSellerPhotoServlet extends HttpServlet {
 		
 		// 處理前面的資料驗證，有錯就先return
 		if (error != null && !error.isEmpty()) {
+			System.out.println("error:"+error);
 			RequestDispatcher rd = request
 					.getRequestDispatcher("/_06_Seller/SellerCenter.jsp");
 			rd.forward(request, response);
@@ -75,14 +76,12 @@ public class _06_UpdSellerPhotoServlet extends HttpServlet {
 
 		List result = null;
 		
-		if(accountUID!=null){			
-			result = sellerjdbc.select(accountUID);		
-			System.out.println("resultVistor:"+result);
-			
-			request.setAttribute("error", "");
-			request.setAttribute("select", result);
-			request.getRequestDispatcher(
-					"/_06_Seller/Seller.controller").forward(request, response);
+		if (error == null || error.isEmpty()) {
+			System.out.println("error:"+error);
+			RequestDispatcher rd = request
+					.getRequestDispatcher("/_06_Seller/Seller.controller");
+			rd.forward(request, response);
+			return;
 		}
 	}
 	
