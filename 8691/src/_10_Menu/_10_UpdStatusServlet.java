@@ -59,6 +59,7 @@ public class _10_UpdStatusServlet extends HttpServlet {
 					int prodStatusClass3ID = 0;					
 					for (int i = 0; i < jsonArry.length(); i++) {
 						if (i == 0) {
+							json.put("theTr",jsonArry.getJSONObject(i).getString("theTr"));
 							json.put("ProdStatusClass2ID",jsonArry.getJSONObject(i).getString("ProdStatusClass2ID"));
 							json.put("ProdStatusClass3Name",jsonArry.getJSONObject(i).getString("ProdStatusClass3Name"));
 							json.put("ProdStatusClass3Price",jsonArry.getJSONObject(i).getString("ProdStatusClass3Price"));
