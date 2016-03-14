@@ -48,9 +48,9 @@ public class PasswordServlet extends HttpServlet {
     				error.put("NewPsd1", "請再次輸入新密碼");
     			}System.out.println(NewPsd1);
     			
-    			if(NewPsd!=NewPsd1){
-    				error.put("NewPsdError", "密碼不一致，請從新輸入");
-    			}
+//    			if(NewPsd!=NewPsd1){
+//    				error.put("NewPsdError", "密碼不一致，請從新輸入");
+//    			}
 
     			System.out.println("newpsd: "+NewPsd+ "   newpsd1: "+NewPsd1);
     			
