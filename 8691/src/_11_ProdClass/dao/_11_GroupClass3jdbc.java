@@ -133,7 +133,7 @@ public class _11_GroupClass3jdbc {
 		return JSONObjectList;
 	}
 	
-	private final String INSERT = "insert into Group_class3 values(?,?,?)";
+	private final String INSERT = "insert into Group_class3 (Account_UID,Prod_status_class1_ID,Group_class3_name) values(?,?,?)";
 	public int insert(String accountUID,String prodStatusClass1ID,String groupClass3Name) {
 		List JSONObjectList = null;
 		ResultSet rs = null;
