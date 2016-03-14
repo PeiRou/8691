@@ -55,7 +55,7 @@
 						
 						<tr>
 							<td class="col-xs-8 col-sm-6 text-right">請輸入您的密碼 :</td>
-							<td><input type="text" name="psd" value="${param.psd}" id="psdinput"><span id="psdsp" style="color:red"></span></td>
+							<td><input type="password" name="psd" value="${param.psd}" id="psdinput"><span id="psdsp" style="color:red"></span></td>
 							<td>${error.psd}</td>
 						</tr>
 						<tr>
