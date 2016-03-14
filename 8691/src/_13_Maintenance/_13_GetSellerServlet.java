@@ -45,7 +45,7 @@ public class _13_GetSellerServlet extends HttpServlet {
 			
 			if("1".equals(sellerStatus))
 			{
-				json = updateRole.roleUpdate("101",  sellerUID);
+				json = updateRole.roleUpdate("1111",  sellerUID);
 				updateStatus.statusUpdate(sellerStatus, sellerUID);
 			}else if("2".equals(sellerStatus)){
 				json = updateRole.roleUpdate("102",  sellerUID);
