@@ -31,6 +31,7 @@ public class LoginServlet extends HttpServlet {
 		String psd = request.getParameter("psd");
 		
 //驗證資料
+		
 		Map<String, String> error = new HashMap<String, String>();
 		request.setAttribute("error", error);
 
