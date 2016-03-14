@@ -32,7 +32,8 @@
     	}
     
     </style>
-    
+    <link rel="apple-touch-icon" href="<%= request.getContextPath() %>/images/logo.png">
+	<link rel="icon" href="<%= request.getContextPath() %>/images/logo.png">
 </head>
 <body>
 <jsp:include page="/fragment/top.jsp" />

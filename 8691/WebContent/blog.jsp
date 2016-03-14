@@ -26,6 +26,9 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    <link rel="apple-touch-icon" href="<%= request.getContextPath() %>/images/logo.png">
+	<link rel="icon" href="<%= request.getContextPath() %>/images/logo.png">
 </head>
 <body>
 <div class="brand">Business Casual</div>

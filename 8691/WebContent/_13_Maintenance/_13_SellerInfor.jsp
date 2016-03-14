@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>About - Business Casual - Start Bootstrap Theme</title>
+    <title>8691管理中心</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<%= request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
@@ -24,7 +24,10 @@
     <!-- jquery.css -->
     
     <link href="<%= request.getContextPath() %>/css/jquery.dataTable.min.css" rel="stylesheet">
-    <link href="<%= request.getContextPath() %>/css/jquery-ui/jquery-ui.min.css" rel="stylesheet">    
+    <link href="<%= request.getContextPath() %>/css/jquery-ui/jquery-ui.min.css" rel="stylesheet">
+    
+    <link rel="apple-touch-icon" href="<%= request.getContextPath() %>/images/logo.png">
+	<link rel="icon" href="<%= request.getContextPath() %>/images/logo.png">    
 </head>
 <body>
 <jsp:include page="/fragment/top.jsp" />

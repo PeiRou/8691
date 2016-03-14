@@ -4,7 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=BIG5">
-<title>Insert title here</title>
+<title>8691</title>
+	<link rel="apple-touch-icon" href="<%= request.getContextPath() %>/images/logo.png">
+	<link rel="icon" href="<%= request.getContextPath() %>/images/logo.png">
 </head>
 <body>
 

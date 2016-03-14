@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>About - Business Casual - Start Bootstrap Theme</title>
+    <title>8691菜單維護</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<%= request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
@@ -24,6 +24,8 @@
     <!-- Jquery UI CSS -->
     <link href="<%= request.getContextPath() %>/css/jquery.dataTable.min.css" rel="stylesheet">
 	<link href="<%= request.getContextPath() %>/css/jquery-ui/jquery-ui.min.css" rel="stylesheet">
+	<link rel="apple-touch-icon" href="<%= request.getContextPath() %>/images/logo.png">
+	<link rel="icon" href="<%= request.getContextPath() %>/images/logo.png">		
 <style type="text/css" class="init">
 td.details-control {
 	background:
@@ -384,7 +386,7 @@ input[type=checkbox]:checked {
 																			   .attr("size",6);
 		var celfont = $('<font class="tdfont" id=fontSizePrice'+SizePriceID+'></font>').text(SizePrice);
 		var celSeld = selAttr("SizePrice",SizePriceID,ID);
-		var cellabel = $('<label class="btn btn-default active" id=lblSizePrice'+SizePriceID +' style="margin: 2px"></label>').append(celSeld).append(celfont).append(celtextName);
+		var cellabel = $('<label class="btn btn-default active" id=lblSizePrice'+SizePriceID +' style="margin: 2px"></label>').append(celSeld).append(celfont).append(celtextName).append('元');
 		return cellabel;
 	}
 	//將class3分門別類到class2
@@ -418,7 +420,8 @@ input[type=checkbox]:checked {
 																		.attr("size",6);
 		var celfont = $('<font class="tdfont" id=fontFood'+celFoodID+'></font>').text(celFoodName);
 		var celPrices = loopceltextPrices(celFoodID,celFoodPrice);
-		var cellabel = $('<label class="btn btn-default" id=lblFood'+celFoodID +' style="margin: 2px"></label>').append(celtextName).append(celfont).append(celPrices);		
+		//var cellabel = $('<label class="btn btn-default" id=lblFood'+celFoodID +' style="margin: 2px"></label>').append(celtextName).append(celfont).append(celPrices).append(delObj());		
+		var cellabel = $('<label class="btn btn-default" id=lblFood'+celFoodID +' style="margin: 2px"></label>').append(celtextName).append(celfont).append(celPrices);
 		return cellabel;
 	}
 	//class1屬性值
@@ -915,7 +918,7 @@ $(document).ready(function() {
             $('#labelInsGroup').text('您選擇是※ ' + hidC1.val() +' ※的類別  請輸入要新增的群組名字').append(mstext).after(msok);
         	
     	}else{
-    		alert('請至少選一個');
+    		$('#labelInsGroup').hide();
     	}
     	msbeload();
     } );  
@@ -1603,6 +1606,18 @@ function C2setJson(action,C1ID,Class2Name) {
         	}
         }
     });
+}
+//刪除物件
+function delObj(){
+	var deldiv = $('<a/>');
+	deldiv.html('<button type="button" class="btn btn-default btnDel" aria-label="Left Align"><span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span></button>');
+	return deldiv;
+}
+//刪除物件必須載入的事件
+function beLoadDelAttr(){
+	$('.btnDel').click(function(){
+		alert();
+	});
 }
 </script>
 </body>

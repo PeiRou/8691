@@ -40,6 +40,8 @@ $(function () {
 
 });
 </script>
+	<link rel="apple-touch-icon" href="<%= request.getContextPath() %>/images/logo.png">
+	<link rel="icon" href="<%= request.getContextPath() %>/images/logo.png">
 </head>
 <body>
 <div id="box_title">8691巴豆揪么討論區</div>

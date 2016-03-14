@@ -24,6 +24,8 @@
     <!-- Jquery UI CSS -->
     <link href="<%= request.getContextPath() %>/css/jquery.dataTable.min.css" rel="stylesheet">
 	<link href="<%= request.getContextPath() %>/css/jquery-ui/jquery-ui.min.css" rel="stylesheet">
+	<link rel="apple-touch-icon" href="<%= request.getContextPath() %>/images/logo.png">
+	<link rel="icon" href="<%= request.getContextPath() %>/images/logo.png">	
 </head>
 <body>
 <jsp:include page="/fragment/top.jsp" />
