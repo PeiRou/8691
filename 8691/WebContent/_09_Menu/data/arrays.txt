@@ -1,273 +1,372 @@
 ﻿{
   "data": [
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "下午茶",
-    "ProdStatusClass1ID": "1"
-  },
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "中式料理",
-    "ProdStatusClass1ID": "2"
-  },
-  {
-    "Class2Status": [
-      {
-        "ProdStatusClass2ID": "4",
-        "ProdStatusClass2Name": "升級成套餐",
-        "Class3Status": [
-          {
-            "ProdStatusClass3Price": "30",
-            "ProdStatusClass3ID": "8",
-            "ProdStatusClass3Name": "可樂"
-          },
-          {
-            "ProdStatusClass3Price": "30",
-            "ProdStatusClass3ID": "9",
-            "ProdStatusClass3Name": "雪碧"
-          },
-          {
-            "ProdStatusClass3Price": "30",
-            "ProdStatusClass3ID": "10",
-            "ProdStatusClass3Name": "檸檬紅茶"
-          }
-        ]
-      }
-    ],
-    "ProdStatusClass1Name": "中西麵食料理",
-    "ProdStatusClass1ID": "3"
-  },
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "便當-小吃",
-    "ProdStatusClass1ID": "4"
-  },
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "其他歐系料理",
-    "ProdStatusClass1ID": "5"
-  },
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "其他異國料理",
-    "ProdStatusClass1ID": "6"
-  },
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "冰品(冰淇淋、刨冰、甜品)",
-    "ProdStatusClass1ID": "7"
-  },
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "南洋料理(越、馬、新)",
-    "ProdStatusClass1ID": "8"
-  },
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "印度料理",
-    "ProdStatusClass1ID": "9"
-  },
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "台菜-熱炒",
-    "ProdStatusClass1ID": "10"
-  },
-  {
-    "Class2Status": [
-      {
-        "ProdStatusClass2ID": "1",
-        "ProdStatusClass2Name": "冷熱",
-        "Class3Status": [
-          
-        ]
-      },
-      {
-        "ProdStatusClass2ID": "2",
-        "ProdStatusClass2Name": "甜度",
-        "Class3Status": [
-          {
-            "ProdStatusClass3Price": "0",
-            "ProdStatusClass3ID": "5",
-            "ProdStatusClass3Name": "正常"
-          },
-          {
-            "ProdStatusClass3Price": "0",
-            "ProdStatusClass3ID": "6",
-            "ProdStatusClass3Name": "少糖(7分)"
-          },
-          {
-            "ProdStatusClass3Price": "0",
-            "ProdStatusClass3ID": "7",
-            "ProdStatusClass3Name": "半糖(5分)"
-          }
-        ]
-      },
-      {
-        "ProdStatusClass2ID": "3",
-        "ProdStatusClass2Name": "加料",
-        "Class3Status": [
-          {
-            "ProdStatusClass3Price": "5",
-            "ProdStatusClass3ID": "1",
-            "ProdStatusClass3Name": "珍珠"
-          },
-          {
-            "ProdStatusClass3Price": "5",
-            "ProdStatusClass3ID": "2",
-            "ProdStatusClass3Name": "椰果"
-          },
-          {
-            "ProdStatusClass3Price": "5",
-            "ProdStatusClass3ID": "3",
-            "ProdStatusClass3Name": "粉條"
-          },
-          {
-            "ProdStatusClass3Price": "5",
-            "ProdStatusClass3ID": "4",
-            "ProdStatusClass3Name": "綠豆"
-          }
-        ]
-      }
-    ],
-    "ProdStatusClass1Name": "咖啡專賣",
-    "ProdStatusClass1ID": "11"
-  },
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "壽司-生魚片",
-    "ProdStatusClass1ID": "12"
-  },
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "披薩",
-    "ProdStatusClass1ID": "13"
-  },
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "日本料理",
-    "ProdStatusClass1ID": "14"
-  },
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "早午餐",
-    "ProdStatusClass1ID": "15"
-  },
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "泰式料理",
-    "ProdStatusClass1ID": "16"
-  },
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "炸雞速食",
-    "ProdStatusClass1ID": "17"
-  },
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "無國界料理與創意料理",
-    "ProdStatusClass1ID": "18"
-  },
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "粵菜(港式、飲茶、點心)",
-    "ProdStatusClass1ID": "19"
-  },
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "精緻套餐",
-    "ProdStatusClass1ID": "20"
-  },
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "素食",
-    "ProdStatusClass1ID": "21"
-  },
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "美墨料理",
-    "ProdStatusClass1ID": "22"
-  },
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "義式料理",
-    "ProdStatusClass1ID": "23"
-  },
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "蛋糕-西式點心",
-    "ProdStatusClass1ID": "24"
-  },
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "輕食(沙拉、三明治)",
-    "ProdStatusClass1ID": "25"
-  },
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "鍋物(火鍋、豆腐鍋)",
-    "ProdStatusClass1ID": "26"
-  },
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "韓式料理",
-    "ProdStatusClass1ID": "27"
-  },
-  {
-    "Class2Status": [
-      
-    ],
-    "ProdStatusClass1Name": "飯類料理(丼飯、飯盒、粥)",
-    "ProdStatusClass1ID": "28"
-  }
-]
+    {
+      "Class2Status": [
+        
+      ],
+      "ProdStatusClass1Name": "下午茶",
+      "ProdStatusClass1ID": "1"
+    },
+    {
+      "Class2Status": [
+        
+      ],
+      "ProdStatusClass1Name": "中式料理",
+      "ProdStatusClass1ID": "2"
+    },
+    {
+      "Class2Status": [
+        {
+          "ProdStatusClass2ID": "4",
+          "ProdStatusClass2Name": "升級套餐優惠特區",
+          "Class3Status": [
+            {
+              "ProdStatusClass3Price": "200",
+              "ProdStatusClass3ID": "18",
+              "ProdStatusClass3Name": "A餐:當季水果飲料 "
+            }
+          ]
+        }
+      ],
+      "ProdStatusClass1Name": "中西麵食料理",
+      "ProdStatusClass1ID": "3"
+    },
+    {
+      "Class2Status": [
+        {
+          "ProdStatusClass2ID": "7",
+          "ProdStatusClass2Name": "加價區",
+          "Class3Status": [
+            {
+              "ProdStatusClass3Price": "10",
+              "ProdStatusClass3ID": "19",
+              "ProdStatusClass3Name": "加飯"
+            }
+          ]
+        }
+      ],
+      "ProdStatusClass1Name": "便當-小吃",
+      "ProdStatusClass1ID": "4"
+    },
+    {
+      "Class2Status": [
+        
+      ],
+      "ProdStatusClass1Name": "其他歐系料理",
+      "ProdStatusClass1ID": "5"
+    },
+    {
+      "Class2Status": [
+        
+      ],
+      "ProdStatusClass1Name": "其他異國料理",
+      "ProdStatusClass1ID": "6"
+    },
+    {
+      "Class2Status": [
+        {
+          "ProdStatusClass2ID": "14",
+          "ProdStatusClass2Name": "加價區",
+          "Class3Status": [
+            {
+              "ProdStatusClass3Price": "80",
+              "ProdStatusClass3ID": "20",
+              "ProdStatusClass3Name": "加一球"
+            },
+            {
+              "ProdStatusClass3Price": "150",
+              "ProdStatusClass3ID": "21",
+              "ProdStatusClass3Name": "加兩球"
+            },
+            {
+              "ProdStatusClass3Price": "230",
+              "ProdStatusClass3ID": "22",
+              "ProdStatusClass3Name": "加三球"
+            },
+            {
+              "ProdStatusClass3Price": "450",
+              "ProdStatusClass3ID": "23",
+              "ProdStatusClass3Name": "加四球"
+            }
+          ]
+        }
+      ],
+      "ProdStatusClass1Name": "冰品(冰淇淋、刨冰、甜品)",
+      "ProdStatusClass1ID": "7"
+    },
+    {
+      "Class2Status": [
+        
+      ],
+      "ProdStatusClass1Name": "南洋料理(越、馬、新)",
+      "ProdStatusClass1ID": "8"
+    },
+    {
+      "Class2Status": [
+        
+      ],
+      "ProdStatusClass1Name": "印度料理",
+      "ProdStatusClass1ID": "9"
+    },
+    {
+      "Class2Status": [
+        
+      ],
+      "ProdStatusClass1Name": "台菜-熱炒",
+      "ProdStatusClass1ID": "10"
+    },
+    {
+      "Class2Status": [
+        {
+          "ProdStatusClass2ID": "1",
+          "ProdStatusClass2Name": "冷熱",
+          "Class3Status": [
+            {
+              "ProdStatusClass3Price": "0",
+              "ProdStatusClass3ID": "8",
+              "ProdStatusClass3Name": "常溫"
+            },
+            {
+              "ProdStatusClass3Price": "0",
+              "ProdStatusClass3ID": "9",
+              "ProdStatusClass3Name": "熱"
+            },
+            {
+              "ProdStatusClass3Price": "0",
+              "ProdStatusClass3ID": "10",
+              "ProdStatusClass3Name": "去冰"
+            },
+            {
+              "ProdStatusClass3Price": "0",
+              "ProdStatusClass3ID": "11",
+              "ProdStatusClass3Name": "微冰(3分冰)"
+            },
+            {
+              "ProdStatusClass3Price": "0",
+              "ProdStatusClass3ID": "12",
+              "ProdStatusClass3Name": "半冰(5分冰)"
+            },
+            {
+              "ProdStatusClass3Price": "0",
+              "ProdStatusClass3ID": "13",
+              "ProdStatusClass3Name": "少冰(7分冰)"
+            }
+          ]
+        },
+        {
+          "ProdStatusClass2ID": "2",
+          "ProdStatusClass2Name": "甜度",
+          "Class3Status": [
+            {
+              "ProdStatusClass3Price": "0",
+              "ProdStatusClass3ID": "5",
+              "ProdStatusClass3Name": "正常"
+            },
+            {
+              "ProdStatusClass3Price": "0",
+              "ProdStatusClass3ID": "6",
+              "ProdStatusClass3Name": "少糖(7分)"
+            },
+            {
+              "ProdStatusClass3Price": "0",
+              "ProdStatusClass3ID": "7",
+              "ProdStatusClass3Name": "半糖(5分)"
+            },
+            {
+              "ProdStatusClass3Price": "0",
+              "ProdStatusClass3ID": "15",
+              "ProdStatusClass3Name": "微糖(3分)"
+            }
+          ]
+        },
+        {
+          "ProdStatusClass2ID": "3",
+          "ProdStatusClass2Name": "加料",
+          "Class3Status": [
+            {
+              "ProdStatusClass3Price": "5",
+              "ProdStatusClass3ID": "1",
+              "ProdStatusClass3Name": "珍珠"
+            },
+            {
+              "ProdStatusClass3Price": "5",
+              "ProdStatusClass3ID": "2",
+              "ProdStatusClass3Name": "椰果"
+            },
+            {
+              "ProdStatusClass3Price": "5",
+              "ProdStatusClass3ID": "3",
+              "ProdStatusClass3Name": "粉條"
+            },
+            {
+              "ProdStatusClass3Price": "5",
+              "ProdStatusClass3ID": "4",
+              "ProdStatusClass3Name": "綠豆"
+            },
+            {
+              "ProdStatusClass3Price": "80",
+              "ProdStatusClass3ID": "14",
+              "ProdStatusClass3Name": "牛奶"
+            },
+            {
+              "ProdStatusClass3Price": "10",
+              "ProdStatusClass3ID": "16",
+              "ProdStatusClass3Name": "粉粿"
+            },
+            {
+              "ProdStatusClass3Price": "10",
+              "ProdStatusClass3ID": "17",
+              "ProdStatusClass3Name": "大紅豆"
+            }
+          ]
+        }
+      ],
+      "ProdStatusClass1Name": "咖啡專賣",
+      "ProdStatusClass1ID": "11"
+    },
+    {
+      "Class2Status": [
+        
+      ],
+      "ProdStatusClass1Name": "壽司-生魚片",
+      "ProdStatusClass1ID": "12"
+    },
+    {
+      "Class2Status": [
+        
+      ],
+      "ProdStatusClass1Name": "披薩",
+      "ProdStatusClass1ID": "13"
+    },
+    {
+      "Class2Status": [
+        {
+          "ProdStatusClass2ID": "17",
+          "ProdStatusClass2Name": "加價套餐",
+          "Class3Status": [
+            {
+              "ProdStatusClass3Price": "60",
+              "ProdStatusClass3ID": "29",
+              "ProdStatusClass3Name": "加飲料湯"
+            }
+          ]
+        }
+      ],
+      "ProdStatusClass1Name": "日本料理",
+      "ProdStatusClass1ID": "14"
+    },
+    {
+      "Class2Status": [
+        {
+          "ProdStatusClass2ID": "15",
+          "ProdStatusClass2Name": "套餐升級",
+          "Class3Status": [
+            {
+              "ProdStatusClass3Price": "60",
+              "ProdStatusClass3ID": "24",
+              "ProdStatusClass3Name": "加飲料"
+            },
+            {
+              "ProdStatusClass3Price": "30",
+              "ProdStatusClass3ID": "25",
+              "ProdStatusClass3Name": "加湯"
+            }
+          ]
+        }
+      ],
+      "ProdStatusClass1Name": "早午餐",
+      "ProdStatusClass1ID": "15"
+    },
+    {
+      "Class2Status": [
+        
+      ],
+      "ProdStatusClass1Name": "泰式料理",
+      "ProdStatusClass1ID": "16"
+    },
+    {
+      "Class2Status": [
+        
+      ],
+      "ProdStatusClass1Name": "炸雞速食",
+      "ProdStatusClass1ID": "17"
+    },
+    {
+      "Class2Status": [
+        
+      ],
+      "ProdStatusClass1Name": "無國界料理與創意料理",
+      "ProdStatusClass1ID": "18"
+    },
+    {
+      "Class2Status": [
+        
+      ],
+      "ProdStatusClass1Name": "粵菜(港式、飲茶、點心)",
+      "ProdStatusClass1ID": "19"
+    },
+    {
+      "Class2Status": [
+        
+      ],
+      "ProdStatusClass1Name": "精緻套餐",
+      "ProdStatusClass1ID": "20"
+    },
+    {
+      "Class2Status": [
+        
+      ],
+      "ProdStatusClass1Name": "素食",
+      "ProdStatusClass1ID": "21"
+    },
+    {
+      "Class2Status": [
+        
+      ],
+      "ProdStatusClass1Name": "美墨料理",
+      "ProdStatusClass1ID": "22"
+    },
+    {
+      "Class2Status": [
+        
+      ],
+      "ProdStatusClass1Name": "義式料理",
+      "ProdStatusClass1ID": "23"
+    },
+    {
+      "Class2Status": [
+        
+      ],
+      "ProdStatusClass1Name": "蛋糕-西式點心",
+      "ProdStatusClass1ID": "24"
+    },
+    {
+      "Class2Status": [
+        
+      ],
+      "ProdStatusClass1Name": "輕食(沙拉、三明治)",
+      "ProdStatusClass1ID": "25"
+    },
+    {
+      "Class2Status": [
+        
+      ],
+      "ProdStatusClass1Name": "鍋物(火鍋、豆腐鍋)",
+      "ProdStatusClass1ID": "26"
+    },
+    {
+      "Class2Status": [
+        
+      ],
+      "ProdStatusClass1Name": "韓式料理",
+      "ProdStatusClass1ID": "27"
+    },
+    {
+      "Class2Status": [
+        
+      ],
+      "ProdStatusClass1Name": "飯類料理(丼飯、飯盒、粥)",
+      "ProdStatusClass1ID": "28"
+    }
+  ]
 }
