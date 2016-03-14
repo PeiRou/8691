@@ -185,33 +185,32 @@ public class SellerVisitorJDBC {
 		return items;
 	}
 
-	private static final String INSERT = "insert into Seller_visitor (Account_UID,FEIN, name, Seller_photo, tel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, email2, Con_name, Con_cel, receipts_metho, Seller_status,ship_price,lowest_price,insdate) values (?, ?, ?, '', ?, ?, ?, ?, ?, ?, ?, ?, ? , 0, ?,?,getdate())";
+	private static final String INSERT = "insert into Seller_visitor (Account_UID,FEIN, name, Seller_photo, tel, GUAR_CT, GUAR_AR, GUAR_ROAD, GUAR_NO, email2, Con_name, Con_cel, receipts_metho, Seller_status,ship_price,lowest_price,insdate) values (?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0 , ?, ?,getdate())";
 
 	public SellerVisitorBean insert(SellerVisitorBean bean) {
 		SellerVisitorBean result = null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
 
-		try {
-//			conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-			conn = dataSource.getConnection();
+		try {conn = dataSource.getConnection();
 			stmt = conn.prepareStatement(INSERT);
+			
 			stmt.setString(1, bean.getAccount_UID());
 			stmt.setString(2, bean.getFEIN());
 			stmt.setString(3, bean.getName());
-			//stmt.setString(4, bean.getSeller_photo());
-			stmt.setString(4, bean.getTel());
-			stmt.setString(5, bean.getGUAR_CT());
-			stmt.setString(6, bean.getGUAR_AR());
-			stmt.setString(7, bean.getGUAR_ROAD());
-			stmt.setString(8, bean.getGUAR_NO());			
-			stmt.setString(9, bean.getEmail2());			
-			stmt.setString(10, bean.getCon_name());
-			stmt.setString(11, bean.getCon_cel());			
-			stmt.setString(12, bean.getReceipts_metho());			
+			stmt.setString(4, bean.getSeller_photo());
+			stmt.setString(5, bean.getTel());
+			stmt.setString(6, bean.getGUAR_CT());
+			stmt.setString(7, bean.getGUAR_AR());
+			stmt.setString(8, bean.getGUAR_ROAD());
+			stmt.setString(9, bean.getGUAR_NO());			
+			stmt.setString(10, bean.getEmail2());			
+			stmt.setString(11, bean.getCon_name());
+			stmt.setString(12, bean.getCon_cel());			
+			stmt.setString(13, bean.getReceipts_metho());			
 			//stmt.setString(14, bean.getSeller_status());
-			stmt.setInt(13, bean.getShip_price());
-			stmt.setInt(14, bean.getLowest_price());
+			stmt.setInt(14, bean.getShip_price());
+			stmt.setInt(15, bean.getLowest_price());
 			//stmt.setString(18, bean.getInsdate());
 			int i = stmt.executeUpdate();
 
