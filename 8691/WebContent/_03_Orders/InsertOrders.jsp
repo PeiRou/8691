@@ -132,7 +132,7 @@
 						</tr>
 						<tr>
 							<td class="col-xs-8 col-sm-6 text-right">訂購店家: </td>
-							<td>50嵐</td>
+							<td>尼格爾PARADISE</td>
 							<td></td>
 						</tr>
 						<tr>
