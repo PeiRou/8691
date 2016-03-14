@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>About - Business Casual - Start Bootstrap Theme</title>
+    <title>404</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<%= request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
@@ -30,8 +30,7 @@
 			<div class="box">		
 				<div class="col-lg-12 text-center">
 				
-<!--內容放這!! 	內容放這!!	內容放這!!	內容放這!! -->
-<!-- <div class="box">  box為白色區塊包住 -->
+				<h2>找不到此頁面，請返回首頁!</h2>
 
 				</div>
 			</div>			
@@ -43,7 +42,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <p>Copyright &copy; Your Website 2016</p>
+                   <p>Copyright &copy; EEIT83第五小組 2016 | <a href="<%= request.getContextPath() %>/contact.jsp">聯絡我們</a></p>
                 </div>
             </div>
         </div>
