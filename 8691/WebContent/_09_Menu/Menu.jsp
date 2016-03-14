@@ -73,11 +73,9 @@ input[type=checkbox]:checked {
 						</tr>
 					</table>					
 					<div id="trunkMenu"></div>				
-					
-					<c:url value="/_10_Menu/InsMenu.controller" var="insMenupath"></c:url>
-					<c:set value="${insMenupath}" var="insMenupathset"></c:set>
-					<input id="hidInsMenu" type="hidden" value='${insMenupathset}' />
-					<input id="hidInsC3Val" type="hidden" value='' />					
+										
+					<input id="hidInsC1ID" type="text" style="display:none" value='' />
+					<input id="hidInsC3Val" type="text" style="display:none" value='' />					
 				</div>
 			</div>
 		</div>
@@ -246,8 +244,8 @@ input[type=checkbox]:checked {
 	//新增Class2
 	$('.insdgC2').click(function(){
 		$('#lblC2').show();
-		$('#lblC2 :input').attr("maxlength",100)
-						  .attr("size",100)
+		$('#lblC2 :input').attr("maxlength",60)
+						  .attr("size",60)
 						  .show()
 						  .attr('disabled', false);		
 	});
@@ -905,32 +903,51 @@ $(document).ready(function() {
     	var hidC1 = $('.selected').children().find('input');    	
     	var hidC1ID = hidC1.attr('id');
     	
-    	if(typeof hidC1ID!="undefined"){
-        	var leth = hidC1ID.length;
+    	if(typeof hidC1ID!="undefined"){        	
+    		var leth = hidC1ID.length;
         	var C1ID = hidC1.attr('id').substring(7,leth);  
-        	
-        	var url = $('#hidInsMenu').val();
-        	var c3val = $('#hidInsC3Val').val();
-        	
-        	
-        	var msok = '<a class="btn btn-info msok" href="'+url+'?prodStatusClass1ID='+C1ID+'&groupClass3Name='+c3val+'"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a>';
+        	$('#hidInsC1ID').val(C1ID);
+        	var msok = '<a class="btn btn-info msok"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a>';
         	
         	var mstext = $('<input type="text" id="mstxt"></input>');
         	
         	$('#labelInsGroup').show();
             $('#labelInsGroup').text('您選擇是※ ' + hidC1.val() +' ※的類別  請輸入要新增的群組名字').append(mstext).after(msok);
+        	
     	}else{
     		alert('請至少選一個');
     	}
     	msbeload();
     } );  
     function msbeload(){
-		 $('.msok').click( function () {			 
-			 $('#hidInsC3Val').val($('#mstxt').val());
-			 console.log(1);
+		 $('.msok').click( function () {	
+			 console.log("msbeload");
+			 var C1ID = $('#hidInsC1ID').val();
+			 console.log("C1ID:"+C1ID);
+			 var C3Val = $('#mstxt').val();
+			 if(C3Val==""){
+				 alert('群組名稱不能留白');
+			 }else{
+				 insMenuAjax(C1ID,C3Val);
+				 SecondToLoad();
+				 $("#dialogClass1").dialog( "close" );
+					location.reload(true);
+			 }
 		    } );
 	}
+    
 } );
+function insMenuAjax(C1ID,C3Val){
+	$.ajax({
+		url : '<%= request.getContextPath() %>/_10_Menu/InsMenu.controller',
+        type: 'get',
+        dataType: 'json',
+        'data': {
+        	prodStatusClass1ID:C1ID,
+        	groupClass3Name:C3Val,
+        }});
+        
+}
 //修改尺寸的dialog
 function dialogSz(){
 	var trunkStusTd = $("<td></td>");
@@ -1179,7 +1196,7 @@ function dialogC2() {
             			celPrice = Class3Status.ProdStatusClass3Price;
             		//console.log(celName);
             		var celchk = '<input type=checkbox id=dgClass3ID'+celClass3ID+' value='+celClass3ID+'>';
-            		var celtextName = '<input class="dgtxtName" type=text id=dgClass3Name'+celClass3ID+' maxlength="100" size="100" value='+celName+' style="display:none">';
+            		var celtextName = '<input class="dgtxtName" type=text id=dgClass3Name'+celClass3ID+' maxlength="20" size="20" value='+celName+' style="display:none">';
             		var celtextPrice = '<input class="dgtxtPrice" type=text id=dgPrice'+celClass3ID+' maxlength="6" size="6" value='+celPrice+' style="display:none">';            		
             		var celfontName = '<font class="dgtdfont" id=dgfontName'+celClass3ID+'>'+celName+'</font>';
             		var celfontPrice = '<font class="dgtdfont" id=dgfontPrice'+celClass3ID+'>'+celPrice+'</font>';
@@ -1258,6 +1275,7 @@ function dgBtnOkCancel(){
 function dgNewBtnAttr() {		
 	$('.dgNewY').click(function() {
 		var theTr = $(this).parent().parent().parent().parent().parent().attr("id");
+		console.log("dgNewBtnAttr.theTr:"+theTr);
 		InsStatus(theTr);			
 	});
 	$('.dgNewN').click(function() {
@@ -1291,6 +1309,7 @@ function InsStatus(theTr){
 			var objdata = new Object;			
 			var PzId = tmpData.substring(7,leth);
 			
+			objdata.theTr = theTr;
 			objdata.ProdStatusClass3ID = PzId;
 			objdata.ProdStatusClass2ID = culmC2Id;
 			objdata.ProdStatusClass3Price = tmpPrice;
@@ -1538,15 +1557,15 @@ function dgsetJson(action,jsonData) {
                		var celClass3ID = Obj.ProdStatusClass3ID,
                			celName = Obj.ProdStatusClass3Name,
                			celPrice = Obj.ProdStatusClass3Price;
-               		//console.log(celName);
+               		console.log("Obj.theTr:"+Obj.theTr);
                		var celchk = '<input type=checkbox id=dgClass3ID'+celClass3ID+' value='+celClass3ID+'>';
-               		var celtextName = '<input class="dgtxtName" type=text id=dgClass3Name'+celClass3ID+' maxlength="10" size="10" value='+celName+' style="display:none">';
+               		var celtextName = '<input class="dgtxtName" type=text id=dgClass3Name'+celClass3ID+' maxlength="15" size="15" value='+celName+' style="display:none">';
                		var celtextPrice = '<input class="dgtxtPrice" type=text id=dgPrice'+celClass3ID+' maxlength="6" size="6" value='+celPrice+' style="display:none">';            		
                		var celfontName = '<font class="dgtdfont" id=dgfontName'+celClass3ID+'>'+celName+'</font>';
                		var celfontPrice = '<font class="dgtdfont" id=dgfontPrice'+celClass3ID+'>'+celPrice+'</font>';
                		var cellabel = '<label class="btn btn-default" id=dglbl'+celClass3ID +' style="margin: 2px">'+celchk+celtextName+celtextPrice+celfontName+celfontPrice+'元</label>';
                		
-        			$('.dgupd').before(cellabel);
+               		$('tr[id='+Obj.theTr+'] .dgupd').before(cellabel);
         			$('.dgNewN').click();
         		}
 			}else if(action == "Update"){
@@ -1577,7 +1596,9 @@ function C2setJson(action,C1ID,Class2Name) {
         			$("#lblSzNewCel").attr("class","btn btn-danger")
         							 .css("color","black");        			
         		}else{
-        			
+        			$('.C2NewN').click();
+        			$('#dialogClass2').dialog( "close" );
+					location.reload(true);
         		}
         	}
         }
