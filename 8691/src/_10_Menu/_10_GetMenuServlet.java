@@ -39,7 +39,7 @@ public class _10_GetMenuServlet extends HttpServlet {
 		List resultPrCl1 = null;
 		List resultPrCl2 = null;
 		try {
-			//result = foodjdbc.select(accountUID);
+			result = foodjdbc.select(accountUID);
 			resultGroup = groupClass3jdbc.selectGpFoodStatus(accountUID);
 			resultSzSts = sizeStatusjdbc.select();
 		    //resultPrCl1 = prodClass1jdbc.select();
