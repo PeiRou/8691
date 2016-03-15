@@ -86,6 +86,12 @@ public class GetDataTable extends HttpServlet {
 			}
 			}
 			if(conn != null){
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 		

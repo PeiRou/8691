@@ -126,7 +126,5 @@ public class Uploadjdbc implements UploadDAO {
 			e.printStackTrace();
 		}
 		return null;	
-	}
-
-	
+	}	
 }

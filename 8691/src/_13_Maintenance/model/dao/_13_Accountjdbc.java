@@ -30,9 +30,11 @@ public class _13_Accountjdbc {
 	    public List select() {
 		List JSONObjectList = null;
 		ResultSet rset = null;
-		try(Connection conn = dataSource.getConnection();
-			PreparedStatement stmt = conn.prepareStatement(SELECT_ALL);
-			) {
+		Connection conn = null;
+		PreparedStatement stmt =null;
+		try{
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement(SELECT_ALL);
 			rset = stmt.executeQuery();
 		
 			JSONObjectList = new LinkedList();
@@ -63,6 +65,20 @@ public class _13_Accountjdbc {
 			if (rset != null) {
 				try {
 					rset.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(stmt !=null){
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(conn !=null){
+				try {
+					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}

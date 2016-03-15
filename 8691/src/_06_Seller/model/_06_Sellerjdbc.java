@@ -15,9 +15,9 @@ import javax.sql.DataSource;
 
 import org.json.JSONObject;
 
-public class _06_Sellerjdbc {	
+public class _06_Sellerjdbc {
 	private DataSource dataSource;
-	
+
 	public _06_Sellerjdbc() {
 		try {
 			Context ctx = new InitialContext();
@@ -26,20 +26,20 @@ public class _06_Sellerjdbc {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private final String SELECT_BY_UID = "select * from seller_visitor a join image p on p.image_ID = a.seller_photo join Address_CT b on a.GUAR_CT = b.GUAR_CT join Address_AR c on a.GUAR_AR = C.GUAR_AR join Address_ROAD d on a.GUAR_ROAD = d.GUAR_ROAD where account_UID = ?";
+
 	public List select(String accountUID) {
 		List JSONObjectList = null;
 		ResultSet rset = null;
-		try(Connection conn = dataSource.getConnection();
-			PreparedStatement stmt = conn.prepareStatement(SELECT_BY_UID);
-			) {
+		try (Connection conn = dataSource.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(SELECT_BY_UID);) {
 			stmt.setString(1, accountUID);
 			rset = stmt.executeQuery();
-		
+
 			JSONObjectList = new LinkedList();
-			while(rset.next()) {
-				JSONObject obj = new JSONObject();				
+			while (rset.next()) {
+				JSONObject obj = new JSONObject();
 				obj.put("FEIN", rset.getString("FEIN"));
 				obj.put("name", rset.getString("name"));
 				obj.put("SellerPhoto", rset.getString("Seller_photo"));
@@ -63,7 +63,7 @@ public class _06_Sellerjdbc {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally{
+		} finally {
 			if (rset != null) {
 				try {
 					rset.close();
@@ -73,26 +73,26 @@ public class _06_Sellerjdbc {
 			}
 		}
 		return JSONObjectList;
-	}	
-	
+	}
+
 	private final String SELECT_CATCH_STORE_NAME = "select name from seller_visitor where account_UID = ?";
+
 	public String selectCatchName(String accountUID) {
 		String rult = null;
 		ResultSet rset = null;
-		try(Connection conn = dataSource.getConnection();
-			PreparedStatement stmt = conn.prepareStatement(SELECT_CATCH_STORE_NAME);
-			) {
+		try (Connection conn = dataSource.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(SELECT_CATCH_STORE_NAME);) {
 			stmt.setString(1, accountUID);
 			rset = stmt.executeQuery();
-					
-			if(rset.next()) {
+
+			if (rset.next()) {
 				rult = rset.getString("name");
-				System.out.println("name:"+rset.getString("name"));
+				System.out.println("name:" + rset.getString("name"));
 				return rult;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally{
+		} finally {
 			if (rset != null) {
 				try {
 					rset.close();
@@ -102,44 +102,55 @@ public class _06_Sellerjdbc {
 			}
 		}
 		return null;
-	}	
-	
+	}
+
 	private final String UPDATE = "update Prod_status_class3 set Prod_status_class3_name=?,Prod_status_class3_price=? where Prod_status_class3_ID=?";
-	public int update(JSONObject JsonData){
-		try(Connection conn = dataSource.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(UPDATE);) {				
-				if(JsonData.getString("ProdStatusClass3ID") != "") {
-					stmt.setString(1,JsonData.getString("ProdStatusClass3Name"));
-					stmt.setString(2,JsonData.getString("ProdStatusClass3Price"));
-					stmt.setString(3,JsonData.getString("ProdStatusClass3ID"));
-					int i = stmt.executeUpdate();
-					if(i == 1) {
-						return i;
-					}
+
+	public int update(JSONObject JsonData) {
+		try (Connection conn = dataSource.getConnection(); PreparedStatement stmt = conn.prepareStatement(UPDATE);) {
+			if (JsonData.getString("ProdStatusClass3ID") != "") {
+				stmt.setString(1, JsonData.getString("ProdStatusClass3Name"));
+				stmt.setString(2, JsonData.getString("ProdStatusClass3Price"));
+				stmt.setString(3, JsonData.getString("ProdStatusClass3ID"));
+				int i = stmt.executeUpdate();
+				if (i == 1) {
+					return i;
 				}
-			} catch (SQLException e) {
-				e.printStackTrace();
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return 0;
 	}
-	
+
 	private final String INSERT = "insert into Prod_status_class3(Prod_status_class2_ID,Prod_status_class3_name,Prod_status_class3_price) values(?,?,?)";
-	public int insert(JSONObject JsonData){
-		try(Connection conn = dataSource.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(INSERT,Statement.RETURN_GENERATED_KEYS);) {				
-				if(JsonData.getString("ProdStatusClass2ID") != "") {
-					stmt.setString(1,JsonData.getString("ProdStatusClass2ID"));
-					stmt.setString(2,JsonData.getString("ProdStatusClass3Name"));
-					stmt.setString(3,JsonData.getString("ProdStatusClass3Price"));
-					stmt.executeUpdate();
-					ResultSet rs = stmt.getGeneratedKeys();
-				    if(rs.next()){
-				    	return rs.getInt(1);
-				    }
+
+	public int insert(JSONObject JsonData) {
+		ResultSet rs = null;
+		try (Connection conn = dataSource.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);) {
+			if (JsonData.getString("ProdStatusClass2ID") != "") {
+				stmt.setString(1, JsonData.getString("ProdStatusClass2ID"));
+				stmt.setString(2, JsonData.getString("ProdStatusClass3Name"));
+				stmt.setString(3, JsonData.getString("ProdStatusClass3Price"));
+				stmt.executeUpdate();
+				rs = stmt.getGeneratedKeys();
+				if (rs.next()) {
+					return rs.getInt(1);
 				}
-			} catch (SQLException e) {
-				e.printStackTrace();
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 		return 0;
 	}
 }

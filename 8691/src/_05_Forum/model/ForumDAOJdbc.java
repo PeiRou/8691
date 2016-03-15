@@ -263,15 +263,12 @@ private static final String UPDATE = "update Forum set status=? where Forum_UID=
 private static final String DELETE = "delete from Forum where Forum_UID=?";
 	
 	public int delete(String Forum_UID) {
-		try(
-				//Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-				Connection conn = dataSource.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(DELETE);) {
-				stmt.setString(1, Forum_UID);
-				return stmt.executeUpdate();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			return 0;
+		try (Connection conn = dataSource.getConnection(); PreparedStatement stmt = conn.prepareStatement(DELETE);) {
+			stmt.setString(1, Forum_UID);
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
 		}		
 }

@@ -1,6 +1,5 @@
 package _08_RandomAD;
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -29,7 +28,7 @@ import org.json.simple.JSONValue;
 public class GetProd extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DataSource ds = null;
-	
+
 	public GetProd() {
 		try {
 			Context context = new InitialContext();
@@ -39,66 +38,70 @@ public class GetProd extends HttpServlet {
 		}
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		
+
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-//		String url = "jdbc:sqlserver://localhost:1433;DatabaseName=DB02";
+		// String url = "jdbc:sqlserver://localhost:1433;DatabaseName=DB02";
 
 		String query = "select title, mesg from randomAD where id =?";
 		String id = request.getParameter("index");
 
-		try{
-			//DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());
+		try {
+			// DriverManager.registerDriver(new
+			// com.microsoft.sqlserver.jdbc.SQLServerDriver());
 			conn = ds.getConnection();
 			stmt = conn.prepareStatement(query);
-			stmt.setString(1,id);
+			stmt.setString(1, id);
 			rs = stmt.executeQuery();
-			
-			 List  l1 = new LinkedList();
-			 while (rs.next()) {
-				 Map m1 = new HashMap();       
-		 		 m1.put("title",rs.getString(1));  
-				 m1.put("mesg",rs.getString(2)); 
-				 l1.add(m1);
-			 }
-			 String jsonString = JSONValue.toJSONString(l1);                    
-			 out.println(jsonString);
-		}
-		catch(SQLException e){
+
+			List l1 = new LinkedList();
+			while (rs.next()) {
+				Map m1 = new HashMap();
+				m1.put("title", rs.getString(1));
+				m1.put("mesg", rs.getString(2));
+				l1.add(m1);
+			}
+			String jsonString = JSONValue.toJSONString(l1);
+			out.println(jsonString);
+		} catch (SQLException e) {
 			out.println("Error:" + e.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
-		finally{
-			if(rs != null){
-			   try {
-				rs.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			}
-			if(stmt != null){
-			 try {
-				stmt.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			}
-			if(conn != null){
-			}
-		}
-		
-		
-		
-		
+
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

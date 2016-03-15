@@ -133,7 +133,7 @@ public class OrdersTotalJDBC {
 		OrdersTotalBean result = null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
-
+		ResultSet rs = null;
 		try {
 			//conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			conn = dataSource.getConnection();
@@ -152,7 +152,7 @@ public class OrdersTotalJDBC {
 			stmt.setInt(12, bean.getFood_price());
 			stmt.setInt(13, bean.getTotal_amount());
 			stmt.execute();
-			ResultSet rs = stmt.getGeneratedKeys();
+			rs = stmt.getGeneratedKeys();
 			if (rs.next()) {
 				System.out.println("Orders_total INSERT Success!");				
 				bean.setOrdersID(rs.getInt(1));
@@ -161,6 +161,13 @@ public class OrdersTotalJDBC {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 			if (stmt != null) {
 				try {
 					stmt.close();

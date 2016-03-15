@@ -205,6 +205,7 @@ public AccountBean update(
 		String result = null;
 		Connection conn = null;
 		PreparedStatement psStrUpd = null;
+		ResultSet rs = null;
 		try {
 			conn = ds.getConnection();
 			psStrUpd = conn.prepareStatement(INSERT);
@@ -212,7 +213,7 @@ public AccountBean update(
 			psStrUpd.setString(2, bean.getPsd());
 			psStrUpd.setString(3, bean.getRole_ID());
 			psStrUpd.execute();
-			ResultSet rs = psStrUpd.getResultSet();
+			rs = psStrUpd.getResultSet();
 			if (rs.next()) {
 				result = rs.getString(1);
 				//bean.setAccount_UID(result);
@@ -221,6 +222,13 @@ public AccountBean update(
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 			if (psStrUpd != null) {
 				try {
 					psStrUpd.close();
